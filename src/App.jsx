@@ -118,7 +118,7 @@ function JourneyNav() {
 }
 
 function Frame({ nav, label, children }) {
-  return <div className="app"><div className="utility">Evervie Health · React Router wireframe prototype</div>{nav}<div className="label">{label}</div>{children}<Footer /></div>;
+  return <div className="app"><div className="utility">Evervie Health · Wireframe prototype</div>{nav}<div className="label">{label}</div>{children}<Footer /></div>;
 }
 
 function Footer() {
@@ -144,27 +144,27 @@ function SectionHead({ eyebrow, title, copy }) {
 }
 
 function Metrics({ className = "" }) {
-  return <div className={`metrics ${className}`}>{metrics.map(([k,v,c]) => <article key={k}><span className="tag">{k}</span><b>{v}</b><p>{c}</p></article>)}</div>;
+  return <div className={`metrics ${className}`}>{metrics.map(([k, v, c]) => <article key={k}><span className="tag">{k}</span><b>{v}</b><p>{c}</p></article>)}</div>;
 }
 
 function GlobalPresence({ mode }) {
   if (mode === "stage") return (
     <section className="section">
       <SectionHead eyebrow="Global presence" title="A map-led story of healthcare reach." copy="The map becomes a stage, with operating footprint cards layered over it." />
-      <div className="mapStage"><Placeholder text="Global footprint map" className="stageMap" /><div className="mapOverlay">{regions.map(([t,c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div></div>
+      <div className="mapStage"><Placeholder text="Global footprint map" className="stageMap" /><div className="mapOverlay">{regions.map(([t, c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div></div>
     </section>
   );
   if (mode === "bento") return (
     <section className="section">
       <SectionHead eyebrow="Global presence" title="A footprint designed around future care demand." copy="The bento structure allows the map to dominate while region notes sit as quick proof cards." />
-      <div className="presenceBento"><Placeholder text="Global footprint map" className="bentoMap" /><div className="regionStack">{regions.slice(0,3).map(([t,c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div></div>
+      <div className="presenceBento"><Placeholder text="Global footprint map" className="bentoMap" /><div className="regionStack">{regions.slice(0, 3).map(([t, c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div></div>
     </section>
   );
   return (
     <section className="section">
       <SectionHead eyebrow="Global presence" title="Healthcare reach across markets and communities." copy="A full-width map gives this section more presence and breaks away from a standard split layout." />
       <Placeholder text="Map-led operating footprint" className="fullMap" />
-      <div className="regionRibbon">{regions.map(([t,c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div>
+      <div className="regionRibbon">{regions.map(([t, c]) => <article key={t}><h3>{t}</h3><p>{c}</p></article>)}</div>
     </section>
   );
 }
@@ -187,17 +187,17 @@ function Ethos({ mode }) {
 function Insights({ mode }) {
   if (mode === "flow") return (
     <section className="section"><SectionHead eyebrow="Featured insights" title="Updates that move the story forward." copy="A vertical feed layout feels more like a living publication than a static card grid." />
-      <div className="insightFlow">{insights.slice(0,3).map(([tag,title,copy]) => <article key={title}><Placeholder text={tag} /><div><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></div><a className="btnOutline">Read</a></article>)}</div>
+      <div className="insightFlow">{insights.slice(0, 3).map(([tag, title, copy]) => <article key={title}><Placeholder text={tag} /><div><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></div><a className="btnOutline">Read</a></article>)}</div>
     </section>
   );
   if (mode === "bento") return (
     <section className="section"><SectionHead eyebrow="Featured insights" title="Momentum, thinking, and investor communication." copy="A magazine-like insight grid gives the bottom half of the page a stronger content system." />
-      <div className="insightBento">{insights.map(([tag,title,copy], i) => <article key={title} className={i === 0 ? "feature" : ""}><Placeholder text={tag} /><div><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
+      <div className="insightBento">{insights.map(([tag, title, copy], i) => <article key={title} className={i === 0 ? "feature" : ""}><Placeholder text={tag} /><div><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></div></article>)}</div>
     </section>
   );
   return (
     <section className="section"><SectionHead eyebrow="Featured insights" title="Ideas, updates, and perspectives from across Evervie." copy="News, patient care thinking, investor updates, and healthcare perspectives can live together in an editorial content block." />
-      <div className="insightsEditorial"><article className="featureInsight"><Placeholder text="Featured story" /><div><span className="tag">{insights[0][0]}</span><h3>{insights[0][1]}</h3><p>{insights[0][2]}</p><a className="btnOutline">Read perspective</a></div></article><div className="insightStack">{insights.slice(1).map(([tag,title,copy]) => <article key={title}><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div>
+      <div className="insightsEditorial"><article className="featureInsight"><Placeholder text="Featured story" /><div><span className="tag">{insights[0][0]}</span><h3>{insights[0][1]}</h3><p>{insights[0][2]}</p><a className="btnOutline">Read perspective</a></div></article><div className="insightStack">{insights.slice(1).map(([tag, title, copy]) => <article key={title}><span className="tag">{tag}</span><h3>{title}</h3><p>{copy}</p></article>)}</div></div>
     </section>
   );
 }
@@ -211,8 +211,8 @@ function FinalCta({ route = false }) {
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage"><main>
     <section className="editorialHero"><div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places.</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div><aside><h3>Specialized care. Scaled with purpose.</h3><p>A concise promise that makes the homepage feel more editorial and less like a generic corporate wireframe.</p></aside></div><Placeholder text="Full-width healthcare ecosystem visual" className="heroWideVisual" /><Metrics /></section>
-    <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves." copy="A stepped editorial ladder gives the three ideas more hierarchy and motion." /><div className="purposeLadder">{purpose.map(([n,l,t,c], i) => <article key={l} style={{marginLeft:`${i*5}%`}}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div><ul><li>Broader care availability</li><li>Community-led reach</li><li>Long-term value creation</li></ul></article>)}</div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="Focused platforms for the needs that matter most." copy="A mosaic gateway gives the care areas a more dynamic feel while keeping homepage copy short." /><div className="careMosaic">{verticals.map(([l,t,c],i) => <article key={l} className={i===0?"feature":""}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p><a>{i===0?"Explore renal care":"Explore platform"} →</a></article>)}<article><span className="tag">Company pages</span><h3>Details live deeper in the site.</h3><p>Company overview, centres, states served, services, and impact metrics belong on individual company pages.</p></article></div></section>
+    <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves." copy="A stepped editorial ladder gives the three ideas more hierarchy and motion." /><div className="purposeLadder">{purpose.map(([n, l, t, c], i) => <article key={l} style={{ marginLeft: `${i * 5}%` }}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div><ul><li>Broader care availability</li><li>Community-led reach</li><li>Long-term value creation</li></ul></article>)}</div></section>
+    <section className="section"><SectionHead eyebrow="Care gateway" title="Focused platforms for the needs that matter most." copy="A mosaic gateway gives the care areas a more dynamic feel while keeping homepage copy short." /><div className="careMosaic">{verticals.map(([l, t, c], i) => <article key={l} className={i === 0 ? "feature" : ""}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p><a>{i === 0 ? "Explore renal care" : "Explore platform"} →</a></article>)}<article><span className="tag">Company pages</span><h3>Details live deeper in the site.</h3><p>Company overview, centres, states served, services, and impact metrics belong on individual company pages.</p></article></div></section>
     <GlobalPresence /><Ethos /><Insights /><FinalCta />
   </main></Frame>;
 }
@@ -221,17 +221,17 @@ function Bento() {
   return <Frame nav={<BentoNav />} label="Variation 02 · Modular bento homepage"><main>
     <section className="bentoHero"><div className="bentoGrid"><article className="bentoMain"><div><div className="eyebrow">Future-focused healthcare</div><h1>Specialized care, built for the next era.</h1><p className="lead">Evervie builds healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Our work is shaped by a patient-first belief in better delivery, stronger systems, and healthcare that can reach further.</p></div><div className="buttonRow"><a className="btn">Explore Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></article><Placeholder text="Hero care visual" /><article className="bentoTile"><span className="tag">Care network</span><b>250+</b><p>Care touchpoints across patient-facing services.</p></article><article className="bentoTile"><span className="tag">Locations</span><b>80+</b><p>Operating locations across priority markets.</p></article><article className="bentoTile"><h3>Specialized care. Scaled with purpose.</h3><p>A compact promise that makes the page feel more brand-led.</p><a className="btnOutline">Partner With Us</a></article></div></section>
     <section className="section"><SectionHead eyebrow="Purpose in practice" title="Three ideas, one care-building system." copy="A central brand belief block surrounded by the three proof themes." /><div className="coreWheel"><article><span className="tag">Access</span><h3>Care should be easier to reach.</h3><p>We build with communities and patients in mind, making specialized healthcare more accessible.</p></article><article className="center"><span className="tag">Evervie promise</span><h3>Access. Quality. Scale.</h3><p>Better healthcare is built when reach, trust, and operating discipline move together.</p></article><article><span className="tag">Quality</span><h3>Trust should be felt in every care experience.</h3><p>We focus on consistency, continuity, and care environments families can rely on.</p></article><article><span className="tag">Scale</span><h3>Growth should create lasting care value.</h3><p>Healthcare platforms must grow responsibly so they can serve more patients and regions.</p></article></div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="Four focused pathways into Evervie’s care world." copy="Staggered vertical cards make the section feel less boxy while still showing the complete portfolio overview." /><div className="staggeredCards">{verticals.map(([l,t,c], i) => <article key={l} style={{marginTop:i%2?60:0}}><Placeholder text={l}/><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p><a>Explore →</a></div></article>)}</div></section>
+    <section className="section"><SectionHead eyebrow="Care gateway" title="Four focused pathways into Evervie’s care world." copy="Staggered vertical cards make the section feel less boxy while still showing the complete portfolio overview." /><div className="staggeredCards">{verticals.map(([l, t, c], i) => <article key={l} style={{ marginTop: i % 2 ? 60 : 0 }}><Placeholder text={l} /><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p><a>Explore →</a></div></article>)}</div></section>
     <GlobalPresence mode="bento" /><Ethos mode="bento" /><Insights mode="bento" /><FinalCta />
   </main></Frame>;
 }
 
 function Journey() {
   return <Frame nav={<JourneyNav />} label="Variation 03 · Journey and hub homepage"><main>
-    <section className="journeyHero"><div className="journeyIntro"><div><div className="eyebrow">Future-focused healthcare</div><h1>Care that reaches further, with systems built to last.</h1></div><div><p className="lead">Evervie is building specialized healthcare platforms for access, quality, and scale.</p><p>This variation starts with a hub visual that turns the company story into a care ecosystem.</p><div className="buttonRow"><a className="btn">Explore Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div><div className="hub"><div className="hubRing">Evervie</div>{["Access","Quality","Scale","Global Focus","Patient-first"].map((t,i) => <article className={`hubNode n${i+1}`} key={t}><h4>{t}</h4><p>{i===0?"Care closer to patients.":i===1?"Trust across experiences.":i===2?"Platforms that grow responsibly.":i===3?"Reach across priority markets.":"Healthcare built around people."}</p></article>)}</div></section>
+    <section className="journeyHero"><div className="journeyIntro"><div><div className="eyebrow">Future-focused healthcare</div><h1>Care that reaches further, with systems built to last.</h1></div><div><p className="lead">Evervie is building specialized healthcare platforms for access, quality, and scale.</p><p>This variation starts with a hub visual that turns the company story into a care ecosystem.</p><div className="buttonRow"><a className="btn">Explore Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div><div className="hub"><div className="hubRing">Evervie</div>{["Access", "Quality", "Scale", "Global Focus", "Patient-first"].map((t, i) => <article className={`hubNode n${i + 1}`} key={t}><h4>{t}</h4><p>{i === 0 ? "Care closer to patients." : i === 1 ? "Trust across experiences." : i === 2 ? "Platforms that grow responsibly." : i === 3 ? "Reach across priority markets." : "Healthcare built around people."}</p></article>)}</div></section>
     <section className="section"><SectionHead eyebrow="Scale snapshot" title="Focused reach, presented as a pathway." copy="Metrics become a horizontal evidence path instead of individual static boxes." /><Metrics className="pathMetrics" /></section>
-    <section className="section"><SectionHead eyebrow="Purpose in practice" title="How Evervie moves from belief to care delivery." copy="A timeline layout gives the three ideas a progressive narrative." /><div className="timeline">{purpose.map(([n,l,t,c]) => <article key={l}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div></article>)}</div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="A care universe built around focused needs." copy="Orbit-style vertical cards create a different visual rhythm for the care gateway." /><div className="orbit"><div className="orbitCenter"><h3>Evervie Care Platforms</h3></div>{verticals.map(([l,t,c],i) => <article className={`orbitCard o${i+1}`} key={l}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
+    <section className="section"><SectionHead eyebrow="Purpose in practice" title="How Evervie moves from belief to care delivery." copy="A timeline layout gives the three ideas a progressive narrative." /><div className="timeline">{purpose.map(([n, l, t, c]) => <article key={l}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div></article>)}</div></section>
+    <section className="section"><SectionHead eyebrow="Care gateway" title="A care universe built around focused needs." copy="Orbit-style vertical cards create a different visual rhythm for the care gateway." /><div className="orbit"><div className="orbitCenter"><h3>Evervie Care Platforms</h3></div>{verticals.map(([l, t, c], i) => <article className={`orbitCard o${i + 1}`} key={l}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
     <GlobalPresence mode="stage" /><Ethos mode="center" /><Insights mode="flow" /><FinalCta route />
   </main></Frame>;
 }
