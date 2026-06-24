@@ -35,6 +35,12 @@ const regions = [
   ["Local Delivery", "Global ambition grounded in community care."]
 ];
 
+const signposts = [
+  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie"],
+  ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio"],
+  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre"]
+];
+
 const insights = [
   ["Featured insight", "Building specialized healthcare platforms for the next decade of care.", "Focused platforms can expand access, strengthen quality, and support patients across the care journey."],
   ["News", "Evervie continues focus on specialized healthcare growth.", "Company update on platform development and care network expansion."],
@@ -117,8 +123,8 @@ function JourneyNav() {
   );
 }
 
-function Frame({ nav, label, children }) {
-  return <div className="app"><div className="utility">Evervie Health · Wireframe prototype</div>{nav}<div className="label">{label}</div>{children}<Footer /></div>;
+function Frame({ nav, label, children, brand }) {
+  return <div className={`app${brand ? " editorialBrand" : ""}`}><div className="utility">Evervie Health · Wireframe prototype</div>{nav}<div className="label">{label}</div>{children}<Footer /></div>;
 }
 
 function Footer() {
@@ -208,12 +214,19 @@ function FinalCta({ route = false }) {
   </section>;
 }
 
+function Signposts() {
+  return (
+    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Three ways to go deeper." copy="A closer look at who we are, what we build, and how we're funded." />
+      <div className="ctaGrid">{signposts.map(([title, copy, cta]) => <article key={title}><div><span className="tag">{title}</span><p>{copy}</p></div><a className="btnOutline">{cta}</a></article>)}</div>
+    </section>
+  );
+}
+
 function Editorial() {
-  return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage"><main>
+  return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand><main>
     <section className="editorialHero"><div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places.</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div><aside><h3>Specialized care. Scaled with purpose.</h3><p>A concise promise that makes the homepage feel more editorial and less like a generic corporate wireframe.</p></aside></div><Placeholder text="Full-width healthcare ecosystem visual" className="heroWideVisual" /><Metrics /></section>
     <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves." copy="A stepped editorial ladder gives the three ideas more hierarchy and motion." /><div className="purposeLadder">{purpose.map(([n, l, t, c], i) => <article key={l} style={{ marginLeft: `${i * 5}%` }}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div><ul><li>Broader care availability</li><li>Community-led reach</li><li>Long-term value creation</li></ul></article>)}</div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="Focused platforms for the needs that matter most." copy="A mosaic gateway gives the care areas a more dynamic feel while keeping homepage copy short." /><div className="careMosaic">{verticals.map(([l, t, c], i) => <article key={l} className={i === 0 ? "feature" : ""}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p><a>{i === 0 ? "Explore renal care" : "Explore platform"} →</a></article>)}<article><span className="tag">Company pages</span><h3>Details live deeper in the site.</h3><p>Company overview, centres, states served, services, and impact metrics belong on individual company pages.</p></article></div></section>
-    <GlobalPresence /><Ethos /><Insights /><FinalCta />
+    <Signposts />
   </main></Frame>;
 }
 

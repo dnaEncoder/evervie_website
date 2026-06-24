@@ -27,3 +27,9 @@ out/
 .env.development.local
 .env.test.local
 .env.production.local
+
+# Design reference materials (large, not used by the build)
+*.pdf
+*.pptx
+/3D Assets for Website Team/
+/commercial-type-2605-CJNNHF-web (1)/
