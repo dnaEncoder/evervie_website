@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, NavLink, Route, Routes } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Aspiration", "Our Governance"]],
@@ -20,6 +20,8 @@ const purpose = [
   ["02", "Quality", "Every care experience should feel worthy of trust.", "Quality is built through clinical focus, consistency, and the everyday details that shape how patients and families experience care."],
   ["03", "Scale", "Healthcare platforms must grow with responsibility.", "Scale matters when it allows better care to reach more people. Evervie is focused on building platforms that can grow with discipline and create long-term value."]
 ];
+
+const pillarShapes = ["circle", "diamond", "bloom"];
 
 const verticals = [
   ["Renal Care", "Supporting patients through every stage of kidney care.", "Continuity, clinical support, and accessible specialist kidney care across communities."],
@@ -56,14 +58,13 @@ function Logo() {
   );
 }
 
-function Drop({ title, items, styleName }) {
+function Drop({ title, items, styleName, megaImage }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`drop ${styleName} ${open ? "open" : ""}`} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div className={`drop ${styleName} ${open ? "open" : ""} ${megaImage ? "hasMega" : ""}`} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
       <button onClick={() => setOpen(!open)}>{title} <span>⌄</span></button>
-      <div className="dropPanel">
-        <strong>{title}</strong>
-        {items.map((item) => <a href="#" key={item}>{item}</a>)}
+      <div className={`dropPanel ${megaImage ? "mega" : ""}`}>
+        {megaImage ? <img className="megaMenuImage" src={megaImage} alt={title} /> : <><strong>{title}</strong>{items.map((item) => <a href="#" key={item}>{item}</a>)}</>}
       </div>
     </div>
   );
@@ -75,7 +76,7 @@ function EditorialNav() {
       <Logo />
       <div className="navLinks">
         <NavLink to="/editorial">Home</NavLink>
-        {menu.map(([title, items]) => <Drop key={title} title={title} items={items} styleName="editorialDrop" />)}
+        {menu.map(([title, items], i) => <Drop key={title} title={title} items={items} styleName="editorialDrop" megaImage={i === 0 ? "/mega-menu-1.png" : undefined} />)}
         <a>News & Insights</a><a>Careers</a><a>Connect</a>
       </div>
       <div className="actions"><a className="btnOutline">Enter Investor Centre</a><span className="search">⌕</span></div>
@@ -214,9 +215,30 @@ function FinalCta({ route = false }) {
   </section>;
 }
 
+function Pillars() {
+  const [open, setOpen] = useState([false, false, false]);
+  return (
+    <div className="pillars">
+      {purpose.map(([n, l, t, c], i) => (
+        <div className={`pillar ${open[i] ? "open" : ""}`} key={l}>
+          <button className="pillarTrigger" aria-expanded={open[i]} aria-controls={`pillar-detail-${i}`} onClick={() => setOpen(open.map((v, idx) => (idx === i ? !v : v)))}>
+            <span className={`pillarShape ${pillarShapes[i]}`} />
+            <span className="num">{n}</span>
+            <span className="pillarLabel">{l}</span>
+          </button>
+          <div className="pillarDetail" id={`pillar-detail-${i}`}><div>
+            <h3>{t}</h3><p>{c}</p>
+            <ul><li>Broader care availability</li><li>Community-led reach</li><li>Long-term value creation</li></ul>
+          </div></div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Signposts() {
   return (
-    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Three ways to go deeper." copy="A closer look at who we are, what we build, and how we're funded." />
+    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build, and how we're funded." />
       <div className="ctaGrid">{signposts.map(([title, copy, cta]) => <article key={title}><div><span className="tag">{title}</span><p>{copy}</p></div><a className="btnOutline">{cta}</a></article>)}</div>
     </section>
   );
@@ -224,8 +246,16 @@ function Signposts() {
 
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand><main>
-    <section className="editorialHero"><div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places.</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div><aside><h3>Specialized care. Scaled with purpose.</h3><p>A concise promise that makes the homepage feel more editorial and less like a generic corporate wireframe.</p></aside></div><Placeholder text="Full-width healthcare ecosystem visual" className="heroWideVisual" /><Metrics /></section>
-    <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves." copy="A stepped editorial ladder gives the three ideas more hierarchy and motion." /><div className="purposeLadder">{purpose.map(([n, l, t, c], i) => <article key={l} style={{ marginLeft: `${i * 5}%` }}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div><ul><li>Broader care availability</li><li>Community-led reach</li><li>Long-term value creation</li></ul></article>)}</div></section>
+    <section className="editorialHero">
+      <div className="heroStage">
+        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places.</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div><img className="heroPillarsVisual" src="/media/hero-pillars-visual.png" alt="Access, Quality, and Scale shown as Evervie's brand pillars around a caregiver and patient" /></div>
+      </div>
+      <img className="heroWideVisual" src="/media/hero-wide-visual.png" alt="Full-width healthcare ecosystem visual" />
+      <img className="snapshotSection" src="/snapshot-section.png" alt="Evervie scale snapshot: countries, care network, operating locations, years of commitment, portfolio breadth" />
+    </section>
+    <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves." copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section>
+    <section className="section"><img className="ethosVariant" src="/ethos-2.png" alt="Access, quality, and scale presented as a card grid with brand-mark visuals" /></section>
+    <section className="section"><img className="ethosVariant" src="/ethos-3.jpg" alt="Access, quality, and scale presented as an orbital diagram around the Evervie mark" /></section>
     <Signposts />
   </main></Frame>;
 }
@@ -253,6 +283,20 @@ function Home() {
   return <Frame nav={<EditorialNav />} label="Homepage wireframe options"><main><section className="comparisonHero"><div className="eyebrow">React Router prototype</div><h1>Three live homepage wireframe directions for Evervie.</h1><p>Each route uses the same approved content sections, but explores a different layout aesthetic and a different live navbar treatment with working dropdowns.</p></section><section className="comparisonGrid"><Link to="/editorial"><span className="tag">Variation 01</span><h2>Editorial layered scroll</h2><p>Large editorial hero, full-width visual, metric rail, stepped purpose section, and mosaic care gateway.</p><b>Open variation →</b></Link><Link to="/bento"><span className="tag">Variation 02</span><h2>Modular bento layout</h2><p>Grid-based hero and sections with compact proof points, care cards, and insight modules.</p><b>Open variation →</b></Link><Link to="/journey"><span className="tag">Variation 03</span><h2>Journey and hub layout</h2><p>Hub-style hero, timeline purpose section, orbit care gateway, and stacked CTA routes.</p><b>Open variation →</b></Link></section></main></Frame>;
 }
 
+function RouteLoader() {
+  const { pathname } = useLocation();
+  const [visible, setVisible] = useState(false);
+  const first = useRef(true);
+  useEffect(() => {
+    if (first.current) { first.current = false; return; }
+    setVisible(true);
+    const t = setTimeout(() => setVisible(false), 4000);
+    return () => clearTimeout(t);
+  }, [pathname]);
+  if (!visible) return null;
+  return <div className="routeLoader"><video autoPlay muted playsInline onEnded={() => setVisible(false)} src="/media/loader.mp4" /></div>;
+}
+
 export default function App() {
-  return <Routes><Route path="/" element={<Home />} /><Route path="/editorial" element={<Editorial />} /><Route path="/bento" element={<Bento />} /><Route path="/journey" element={<Journey />} /></Routes>;
+  return <><RouteLoader /><Routes><Route path="/" element={<Home />} /><Route path="/editorial" element={<Editorial />} /><Route path="/bento" element={<Bento />} /><Route path="/journey" element={<Journey />} /></Routes></>;
 }
