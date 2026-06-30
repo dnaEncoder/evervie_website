@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart } from "lucide-react";
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Aspiration", "Our Governance"]],
@@ -60,6 +60,14 @@ const metrics = [
   ["Operating Locations", "80+", "Locations supporting specialized healthcare delivery."],
   ["Years of Commitment", "20+", "Years of healthcare learning and patient service."],
   ["Portfolio Breadth", "4", "Renal care, oncology, diagnostics, and elder care."]
+];
+
+const scaleMetrics = [
+  { label: "Countries", value: "6", description: "Markets across the healthcare and investment footprint.", icon: Globe2, tone: "pink" },
+  { label: "Care Network", value: "250+", description: "Care touchpoints across patient-facing services.", icon: UsersRound, tone: "solar" },
+  { label: "Operating Locations", value: "80+", description: "Locations supporting specialized healthcare delivery.", icon: Building2, tone: "pink" },
+  { label: "Years of Commitment", value: "20+", description: "Years of healthcare learning and patient service.", icon: Award, tone: "solar" },
+  { label: "Portfolio Breadth", value: "4", description: "Renal care, oncology, diagnostics, and elder care.", icon: Heart, tone: "pink" }
 ];
 
 const purpose = [
@@ -249,6 +257,23 @@ function Metrics({ className = "" }) {
   return <div className={`metrics ${className}`}>{metrics.map(([k, v, c]) => <article key={k}><span className="tag">{k}</span><b>{v}</b><p>{c}</p></article>)}</div>;
 }
 
+function ScaleSnapshot() {
+  return (
+    <section className="scaleSnapshot" aria-label="Evervie scale snapshot">
+      {scaleMetrics.map(({ label, value, description, icon: Icon, tone }) => (
+        <article className="metricCard" key={label}>
+          <div className="metricHeader">
+            <span className={`metricIcon metricIcon--${tone}`}><Icon /></span>
+            <span className="metricLabel">{label}</span>
+          </div>
+          <strong className="metricValue">{value}</strong>
+          <p className="metricDescription">{description}</p>
+        </article>
+      ))}
+    </section>
+  );
+}
+
 function GlobalPresence({ mode }) {
   if (mode === "stage") return (
     <section className="section">
@@ -334,7 +359,19 @@ function Pillars() {
 function Signposts() {
   return (
     <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build, and how we're funded." />
-      <div className="ctaGrid">{signposts.map(([title, copy, cta]) => <article key={title}><div><span className="tag">{title}</span><p>{copy}</p></div><a className="btnOutline">{cta}</a></article>)}</div>
+      <div className="exploreGrid">
+        {signposts.map(([title, copy, cta], i) => (
+          <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
+            <div className="exploreCardText">
+              <span className="exploreIndex">{String(i + 1).padStart(2, "0")}</span>
+              <h3>{title}</h3>
+              <p>{copy}</p>
+              <a className="btnOutline">{cta}</a>
+            </div>
+            <Placeholder text={`${title} visual`} className="exploreCardVisual" />
+          </article>
+        ))}
+      </div>
     </section>
   );
 }
@@ -343,7 +380,7 @@ function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand><main>
     <section className="editorialHero">
       <div className="heroStage">
-        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div>
+        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
     </section>
     <section className="editorialHero heroAlt">
@@ -353,9 +390,9 @@ function Editorial() {
     </section>
     <section className="section">
       <img className="heroWideVisual" src="/media/hero-wide-visual.png" alt="Full-width healthcare ecosystem visual" />
-      <img className="snapshotSection" src="/snapshot-section.png" alt="Evervie scale snapshot: countries, care network, operating locations, years of commitment, portfolio breadth" />
+      <ScaleSnapshot />
     </section>
-    <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section>
+    {/* <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section> */}
     {/* <section className="section"><img className="ethosVariant" src="/ethos-2.png" alt="Access, quality, and scale presented as a card grid with brand-mark visuals" /></section> */}
     <section className="section"><img className="ethosVariant" src="/ethos-3.jpg" alt="Access, quality, and scale presented as an orbital diagram around the Evervie mark" /></section>
     <Signposts />
