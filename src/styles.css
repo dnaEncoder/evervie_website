@@ -1894,3 +1894,323 @@ blockquote {
         min-height: 160px
     }
 }
+
+.editorialBrand .footer {
+    display: block;
+    padding: 0;
+    background: #fff;
+    position: relative;
+    overflow: hidden
+}
+
+.editorialBrand .footerBgVideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.15
+}
+
+.editorialBrand .footerTop {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 48px;
+    padding: 68px 56px 0;
+    align-items: start;
+    position: relative;
+    z-index: 1
+}
+
+.editorialBrand .footerBrand .brand img {
+    height: 40px;
+    margin-bottom: 18px
+}
+
+.editorialBrand .footerStatement {
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--ink);
+    margin: 0 0 10px
+}
+
+.editorialBrand .footerBrand p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.55;
+    max-width: 320px;
+    margin: 0 0 8px
+}
+
+.editorialBrand .newsletterPanel {
+    background: var(--canvas);
+    border-radius: 20px;
+    padding: 32px 36px
+}
+
+.editorialBrand .newsletterHead {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 22px
+}
+
+.editorialBrand .newsletterIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid var(--line-soft);
+    display: grid;
+    place-items: center;
+    color: var(--evervie-orange);
+    flex-shrink: 0
+}
+
+.editorialBrand .newsletterHead h3 {
+    margin: 0 0 6px;
+    font-size: 22px
+}
+
+.editorialBrand .newsletterHead p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 420px
+}
+
+.editorialBrand .newsletterForm {
+    display: flex;
+    gap: 12px
+}
+
+.editorialBrand .newsletterForm input {
+    flex: 1;
+    border: 1px solid var(--line-soft);
+    border-radius: 10px;
+    padding: 0 16px;
+    height: 48px;
+    font: inherit;
+    font-size: 14px;
+    background: #fff
+}
+
+.editorialBrand .newsletterForm button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 22px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--evervie-orange);
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+.editorialBrand .footerDivider {
+    height: 1px;
+    background: var(--line-soft);
+    margin: 48px 56px;
+    position: relative;
+    z-index: 1
+}
+
+.editorialBrand .footerNavGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    padding: 0 56px;
+    position: relative;
+    z-index: 1
+}
+
+.editorialBrand .footerColHead {
+    all: unset;
+    cursor: default;
+    display: block
+}
+
+.editorialBrand .footerColIndicator {
+    display: none
+}
+
+.editorialBrand .footerCol h4 {
+    margin: 0 0 16px;
+    font-size: 13px;
+    letter-spacing: .04em;
+    color: var(--ink)
+}
+
+.editorialBrand .footerColLinks a {
+    display: block;
+    margin: 0 0 10px;
+    color: var(--muted);
+    font-size: 13px;
+    text-decoration: none
+}
+
+.editorialBrand .footerColLinks a:hover {
+    color: var(--evervie-orange)
+}
+
+.editorialBrand .footerBottom {
+    position: relative;
+    overflow: hidden
+}
+
+.editorialBrand .footerLegal {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 24px 56px 36px
+}
+
+.editorialBrand .copyright {
+    font-size: 12px;
+    color: var(--muted)
+}
+
+.editorialBrand .footerLegalLinks {
+    display: flex;
+    align-items: center;
+    gap: 18px
+}
+
+.editorialBrand .footerLegalLinks a {
+    font-size: 12px;
+    color: var(--muted);
+    text-decoration: none
+}
+
+.editorialBrand .footerLegalLinks a:hover {
+    color: var(--ink)
+}
+
+.editorialBrand .backToTop {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink)
+}
+
+.editorialBrand .backToTopCircle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    display: grid;
+    place-items: center;
+    transition: background .2s, color .2s
+}
+
+.editorialBrand .backToTop:hover .backToTopCircle {
+    background: var(--evervie-orange);
+    border-color: var(--evervie-orange);
+    color: #fff
+}
+
+
+
+@media(max-width:1180px) {
+    .editorialBrand .footerTop {
+        grid-template-columns: 1fr;
+        gap: 28px
+    }
+
+    .editorialBrand .footerNavGrid {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 32px
+    }
+}
+
+@media(max-width:780px) {
+
+    .editorialBrand .footerTop,
+    .editorialBrand .footerDivider,
+    .editorialBrand .footerNavGrid,
+    .editorialBrand .footerLegal {
+        padding-left: 24px;
+        padding-right: 24px
+    }
+
+    .editorialBrand .footerDivider {
+        margin-top: 32px;
+        margin-bottom: 32px
+    }
+
+    .editorialBrand .newsletterForm {
+        flex-direction: column
+    }
+
+    .editorialBrand .newsletterForm button {
+        justify-content: center
+    }
+
+    .editorialBrand .footerNavGrid {
+        grid-template-columns: 1fr;
+        row-gap: 0
+    }
+
+    .editorialBrand .footerColHead {
+        cursor: pointer;
+        width: 100%;
+        padding: 16px 0;
+        border-top: 1px solid var(--line-soft);
+        display: flex;
+        align-items: center;
+        justify-content: space-between
+    }
+
+    .editorialBrand .footerCol h4 {
+        margin: 0
+    }
+
+    .editorialBrand .footerCol:last-child .footerColHead {
+        border-bottom: 1px solid var(--line-soft)
+    }
+
+    .editorialBrand .footerColIndicator {
+        display: block;
+        font-size: 18px;
+        color: var(--muted)
+    }
+
+    .editorialBrand .footerColLinks {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows .3s ease
+    }
+
+    .editorialBrand .footerColLinks>div {
+        overflow: hidden
+    }
+
+    .editorialBrand .footerCol.open .footerColLinks {
+        grid-template-rows: 1fr
+    }
+
+    .editorialBrand .footerCol.open .footerColLinks>div {
+        padding-bottom: 16px
+    }
+
+    .editorialBrand .footerLegal {
+        flex-direction: column;
+        align-items: flex-start
+    }
+}

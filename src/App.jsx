@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp } from "lucide-react";
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Aspiration", "Our Governance"]],
@@ -227,8 +227,8 @@ function JourneyNav() {
   );
 }
 
-function Frame({ nav, label, children, brand }) {
-  return <div className={`app${brand ? " editorialBrand" : ""}`}><div className="utility">Evervie Health · Wireframe prototype</div>{nav}<div className="label">{label}</div>{children}<Footer /></div>;
+function Frame({ nav, label, children, brand, footer }) {
+  return <div className={`app${brand ? " editorialBrand" : ""}`}><div className="utility">Evervie Health · Wireframe prototype</div>{nav}<div className="label">{label}</div>{children}{footer || <Footer />}</div>;
 }
 
 function Footer() {
@@ -241,6 +241,61 @@ function Footer() {
       <div><h4>News & Careers</h4><a>Featured Insights</a><a>Media Updates</a><a>Careers</a></div>
       <div><h4>Connect</h4><a>Contact Evervie</a><a>Partnership Enquiries</a><a>Investor Contact</a></div>
       <div className="fineprint"><span>© 2026 Evervie Health — Wireframe prototype.</span><span>Privacy Policy · Terms of Use</span></div>
+    </footer>
+  );
+}
+
+const footerNavColumns = [
+  { title: "About Evervie", links: megaMenuConfigs[0].items.map((i) => i.title) },
+  { title: "Portfolio", links: megaMenuConfigs[1].items.map((i) => i.title) },
+  { title: "Investor Relations", links: megaMenuConfigs[2].items.map((i) => i.title) },
+  { title: "News & Careers", links: ["Featured Insights", "Media Updates", "Careers"] },
+  { title: "Connect", links: ["Contact Evervie", "Partnership Enquiries", "Investor Contact"] }
+];
+
+function EditorialFooter() {
+  const [openCol, setOpenCol] = useState(null);
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  return (
+    <footer className="footer editorialFooter">
+      <video className="footerBgVideo" autoPlay loop muted playsInline src="/media/footer-terrain.mp4" />
+      <div className="footerTop">
+        <div className="footerBrand">
+          <Logo />
+          <p className="footerStatement">Specialized care. Scaled with purpose.</p>
+          <p>Evervie Health is building future-focused healthcare platforms across critical areas of care.</p>
+        </div>
+        <div className="newsletterPanel">
+          <div className="newsletterHead">
+            <span className="newsletterIcon"><Mail size={20} /></span>
+            <div><h3>Stay connected with Evervie</h3><p>Get healthcare platform updates, investor news, and company announcements.</p></div>
+          </div>
+          <form className="newsletterForm" onSubmit={(e) => e.preventDefault()}>
+            <input type="email" placeholder="Enter your email address" required />
+            <button type="submit">Subscribe <ArrowRight size={16} /></button>
+          </form>
+        </div>
+      </div>
+      <div className="footerDivider" />
+      <div className="footerNavGrid">
+        {footerNavColumns.map((col, i) => (
+          <div className={`footerCol ${openCol === i ? "open" : ""}`} key={col.title}>
+            <button className="footerColHead" aria-expanded={openCol === i} onClick={() => setOpenCol(openCol === i ? null : i)}>
+              <h4>{col.title}</h4>
+              <span className="footerColIndicator">{openCol === i ? "−" : "+"}</span>
+            </button>
+            <div className="footerColLinks"><div>{col.links.map((l) => <a href="#" key={l}>{l}</a>)}</div></div>
+          </div>
+        ))}
+      </div>
+      <div className="footerDivider" />
+      <div className="footerBottom">
+        <div className="footerLegal">
+          <span className="copyright">© 2026 Evervie Health. All rights reserved.</span>
+          <div className="footerLegalLinks"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sitemap</a></div>
+          <button className="backToTop" onClick={scrollTop}>Back to top <span className="backToTopCircle"><ArrowUp size={16} /></span></button>
+        </div>
+      </div>
     </footer>
   );
 }
@@ -377,7 +432,7 @@ function Signposts() {
 }
 
 function Editorial() {
-  return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand><main>
+  return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
     <section className="editorialHero">
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
@@ -393,7 +448,6 @@ function Editorial() {
       <ScaleSnapshot />
     </section>
     {/* <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section> */}
-    {/* <section className="section"><img className="ethosVariant" src="/ethos-2.png" alt="Access, quality, and scale presented as a card grid with brand-mark visuals" /></section> */}
     <section className="section"><img className="ethosVariant" src="/ethos-3.jpg" alt="Access, quality, and scale presented as an orbital diagram around the Evervie mark" /></section>
     <Signposts />
   </main></Frame>;
@@ -418,8 +472,22 @@ function Journey() {
   </main></Frame>;
 }
 
+function HomeNav() {
+  return (
+    <header className="nav navEditorial">
+      <Logo />
+      <div className="navLinks">
+        <NavLink to="/">Home</NavLink>
+        {menu.map(([title, items]) => <Drop key={title} title={title} items={items} styleName="editorialDrop" />)}
+        <a>News & Insights</a><a>Careers</a><a>Connect</a>
+      </div>
+      <div className="actions"><a className="btnOutline">Enter Investor Centre</a></div>
+    </header>
+  );
+}
+
 function Home() {
-  return <Frame nav={<EditorialNav />} label="Homepage wireframe options"><main><section className="comparisonHero"><div className="eyebrow">React Router prototype</div><h1>Three live homepage wireframe directions for Evervie</h1><p>Each route uses the same approved content sections, but explores a different layout aesthetic and a different live navbar treatment with working dropdowns.</p></section><section className="comparisonGrid"><Link to="/editorial"><span className="tag">Variation 01</span><h2>Editorial layered scroll</h2><p>Large editorial hero, full-width visual, metric rail, stepped purpose section, and mosaic care gateway.</p><b>Open variation →</b></Link><Link to="/bento"><span className="tag">Variation 02</span><h2>Modular bento layout</h2><p>Grid-based hero and sections with compact proof points, care cards, and insight modules.</p><b>Open variation →</b></Link><Link to="/journey"><span className="tag">Variation 03</span><h2>Journey and hub layout</h2><p>Hub-style hero, timeline purpose section, orbit care gateway, and stacked CTA routes.</p><b>Open variation →</b></Link></section></main></Frame>;
+  return <Frame nav={<HomeNav />} label="Homepage wireframe options"><main><section className="comparisonHero"><div className="eyebrow">React Router prototype</div><h1>Three live homepage wireframe directions for Evervie</h1><p>Each route uses the same approved content sections, but explores a different layout aesthetic and a different live navbar treatment with working dropdowns.</p></section><section className="comparisonGrid"><Link to="/editorial"><span className="tag">Variation 01</span><h2>Editorial layered scroll</h2><p>Large editorial hero, full-width visual, metric rail, stepped purpose section, and mosaic care gateway.</p><b>Open variation →</b></Link><Link to="/bento"><span className="tag">Variation 02</span><h2>Modular bento layout</h2><p>Grid-based hero and sections with compact proof points, care cards, and insight modules.</p><b>Open variation →</b></Link><Link to="/journey"><span className="tag">Variation 03</span><h2>Journey and hub layout</h2><p>Hub-style hero, timeline purpose section, orbit care gateway, and stacked CTA routes.</p><b>Open variation →</b></Link></section></main></Frame>;
 }
 
 function RouteLoader() {
