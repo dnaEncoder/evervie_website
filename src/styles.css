@@ -1335,11 +1335,11 @@ blockquote {
 .editorialBrand .btn,
 .editorialBrand .btnOutline {
     min-height: auto;
-    padding: 16px 24px;
-    font-size: 16px;
+    padding: 10px 18px;
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: .075em;
-    border-radius: 12px;
+    letter-spacing: .06em;
+    border-radius: 10px;
     border: 1px solid transparent
 }
 
@@ -1418,7 +1418,9 @@ blockquote {
 }
 
 .editorialBrand .editorialHeroGrid {
-    flex-grow: 1
+    flex-grow: 1;
+    position: relative;
+    z-index: 2
 }
 
 .editorialBrand .editorialHeroGrid>div {
@@ -1429,11 +1431,41 @@ blockquote {
 }
 
 .editorialBrand .editorialHero {
-    background: url(/hero-section-background.png) center/cover no-repeat
+    background: url(/grandmother_and_child_in_warm_embrace.png) center/cover no-repeat;
+    position: relative;
+    overflow: hidden
 }
 
 .editorialBrand .editorialHero.heroAlt {
     background-image: url(/hero-section-background-2.png)
+}
+
+.editorialBrand .editorialHero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 90% 85% at 100% 100%,
+        #FF3C00 0%,
+        rgba(255, 110, 46, 0.92) 22%,
+        rgba(255, 145, 180, 0.7) 46%,
+        rgba(255, 145, 180, 0.2) 65%,
+        transparent 78%
+    );
+    pointer-events: none;
+    z-index: 1;
+    transform-origin: bottom right;
+    animation: heroPulse 3.5s ease-in-out infinite
+}
+
+@keyframes heroPulse {
+    0%, 100% {
+        transform: scale(0.93);
+        opacity: 0.72
+    }
+    50% {
+        transform: scale(1.07);
+        opacity: 1
+    }
 }
 
 .editorialBrand .scaleSnapshot {
@@ -1522,6 +1554,12 @@ blockquote {
 
 .editorialBrand .navLinks {
     justify-content: center
+}
+
+.editorialBrand .search {
+    width: 34px;
+    height: 34px;
+    font-size: 15px
 }
 
 .editorialBrand header .brand img {
@@ -1912,7 +1950,7 @@ blockquote {
     object-fit: cover;
     z-index: 0;
     pointer-events: none;
-    opacity: 0.15
+    opacity: 1
 }
 
 .editorialBrand .footerTop {

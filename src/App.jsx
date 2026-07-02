@@ -255,10 +255,12 @@ const footerNavColumns = [
 
 function EditorialFooter() {
   const [openCol, setOpenCol] = useState(null);
+  const videoRef = useRef(null);
+  useEffect(() => { if (videoRef.current) videoRef.current.playbackRate = 0.6; }, []);
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   return (
     <footer className="footer editorialFooter">
-      <video className="footerBgVideo" autoPlay loop muted playsInline src="/media/footer-terrain.mp4" />
+      <video ref={videoRef} className="footerBgVideo" autoPlay loop muted playsInline src="/media/footer-terrain.mp4" />
       <div className="footerTop">
         <div className="footerBrand">
           <Logo />
