@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity } from "lucide-react";
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Aspiration", "Our Governance"]],
-  ["Portfolio", ["Renal Care", "Oncology", "Diagnostics", "Elder Care (Coming Soon)", "Individual Company Pages"]],
+  ["Portfolio", ["Renal Care", "Oncology", "Diagnostics", "Elder Care (Coming Soon)"]],
   ["Investor Relations", ["Investment Overview", "Financial Information", "Announcements", "Investor Presentations"]]
 ];
 
@@ -35,8 +35,7 @@ const megaMenuConfigs = [
       { title: "Renal Care", description: "Explore Evervie's approach to accessible, continuous, and specialised kidney care.", route: "/portfolio/renal-care", icon: Droplet },
       { title: "Oncology", description: "Discover a specialist-led approach to coordinated and compassionate cancer care.", route: "/portfolio/oncology", icon: HeartPulse },
       { title: "Diagnostics", description: "See how reliable diagnostics can support earlier answers and stronger care decisions.", route: "/portfolio/diagnostics", icon: Microscope },
-      { title: "Elder Care", description: "A future-focused care platform designed around dignity, comfort, and support for ageing communities.", route: "/portfolio/elder-care", icon: HandHeart, badge: "Coming Soon" },
-      { title: "Individual Company Pages", description: "Explore the operating companies, care networks, locations, and impact within the Evervie portfolio.", route: "/portfolio/companies", icon: Network }
+      { title: "Elder Care", description: "A future-focused care platform designed around dignity, comfort, and support for ageing communities.", route: "/portfolio/elder-care", icon: HandHeart, badge: "Coming Soon" }
     ]
   },
   {
@@ -137,12 +136,12 @@ function MegaMenu({ config, isOpen, onOpen, onClose, triggerRef }) {
           <Placeholder text={`${config.triggerLabel} visual`} className="megaVisual" />
         </div>
         <div className="megaNavCol">
-          {config.items.map(({ title, description, icon: Icon, badge }) => (
-            <a href="#" className="megaRow" key={title}>
+          {config.items.map(({ title, description, route, icon: Icon, badge }) => (
+            <Link to={route} className="megaRow" key={title}>
               <span className="megaIcon"><Icon size={32} strokeWidth={1.75} /></span>
               <span className="megaRowText"><b>{title}{badge && <span className="megaBadge">{badge}</span>}</b><p>{description}</p></span>
               <ArrowRight className="megaArrow" size={24} />
-            </a>
+            </Link>
           ))}
         </div>
         {config.contextStrip && <div className="megaStrip">{config.contextStrip}</div>}
@@ -256,7 +255,7 @@ const footerNavColumns = [
 function EditorialFooter() {
   const [openCol, setOpenCol] = useState(null);
   const videoRef = useRef(null);
-  useEffect(() => { if (videoRef.current) videoRef.current.playbackRate = 0.6; }, []);
+  useEffect(() => { if (videoRef.current) videoRef.current.playbackRate = 0.3; }, []);
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
   return (
     <footer className="footer editorialFooter">
@@ -440,13 +439,13 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
     </section>
-    <section className="editorialHero heroAlt">
+    {/* <section className="editorialHero heroAlt">
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div>
       </div>
-    </section>
+    </section> */}
     <section className="section">
-      <img className="heroWideVisual" src="/media/hero-wide-visual.png" alt="Full-width healthcare ecosystem visual" />
+      {/* <img className="heroWideVisual" src="/media/hero-wide-visual.png" alt="Full-width healthcare ecosystem visual" /> */}
       <ScaleSnapshot />
     </section>
     {/* <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section> */}
@@ -506,6 +505,256 @@ function RouteLoader() {
   return <div className="routeLoader"><video autoPlay muted playsInline onEnded={() => setVisible(false)} src="/media/loader.mp4" /></div>;
 }
 
+function InnerPage({ eyebrow, title, lead }) {
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+        <section className="innerHero">
+          <div className="innerHeroContent">
+            <div className="eyebrow">{eyebrow}</div>
+            <h1>{title}</h1>
+            {lead && <p className="lead">{lead}</p>}
+          </div>
+        </section>
+        <section className="section innerBody">
+          <Placeholder text="Page content coming soon" style={{ minHeight: 480 }} />
+        </section>
+      </main>
+    </Frame>
+  );
+}
+
+function AboutWhoWeAre() {
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+
+        {/* Hero */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>About Evervie</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Who We Are</span>
+            </nav>
+            <div className="eyebrow">About Evervie</div>
+            <h1>Building healthcare platforms for the needs that matter most.</h1>
+            <p className="wwaHeroBody">We are a specialised healthcare platform company focused on expanding access, strengthening quality, and delivering care at meaningful scale.</p>
+          </div>
+          <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
+        </section>
+
+        {/* Company Statement */}
+        <section className="wwaStatement">
+          <div className="wwaStatementGrid">
+            <div className="wwaStatHead">
+              <h2>A healthcare platform built around <span className="highlight">lasting care</span>.</h2>
+              <p className="wwaStatCopy">
+                Evervie brings together clinical focus, management discipline, and long-term commitment. We build specialised platforms that grow responsibly to create lasting value for patients, professionals, and communities.
+              </p>
+            </div>
+            <div className="wwaStatPrinciples">
+              {[
+                [Heart, "Patient-first", "Every platform we build starts with what patients actually need."],
+                [Building2, "Operating excellence", "Consistent performance across care systems and patient touchpoints."],
+                [TrendingUp, "Long-term orientation", "Building platforms that create lasting value for generations ahead."]
+              ].map(([Icon, heading, copy]) => (
+                <div className="wwaStatPrinciple" key={heading}>
+                  <span className="wwaStatPrincipleIcon"><Icon size={18} strokeWidth={2} /></span>
+                  <div>
+                    <h4>{heading}</h4>
+                    <p>{copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Purpose in Practice — two-column editorial */}
+        <section className="wwaPurpose">
+          <div className="wwaPurposeLayout">
+            <div className="wwaPurposeIntro">
+              <div className="eyebrow">Purpose in Practice</div>
+              <h2>How Evervie moves from belief to care delivery.</h2>
+              <hr className="wwaPurposeRule" />
+              <p className="wwaPurposeBody">We design and scale healthcare platforms that bring access, quality, and scale together—so care reaches further and creates lasting impact.</p>
+            </div>
+            <div className="wwaPurposeJourney">
+              {purpose.map(([n, l, t, c], i) => {
+                const accents = [
+                  ['/circle-image.png',    '#FABE00'],
+                  ['/rectangle-image.png', '#FF91B4'],
+                  ['/bloom-image.png',     '#FF3C00'],
+                ];
+                const [icon, color] = accents[i];
+                return (
+                  <article className="wwaPurposeRow" key={l} style={{'--accent': color}}>
+                    <div className="wwaPurposeShapeMark">
+                      <img src={icon} alt="" className="wwaPurposeShape" />
+                    </div>
+                    <div className="wwaPurposeContent">
+                      <span className="wwaPurposeNum">{n}</span>
+                      <h3 className="wwaPurposeTitle">{l}</h3>
+                      <p className="wwaPurposeStatement">{t}</p>
+                      <p className="wwaPurposeDesc">{c}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Focused Platforms */}
+        <section className="section">
+          <SectionHead
+            eyebrow="What Evervie Does"
+            title="Four focused pathways into Evervie’s care world"
+            copy="Four specialised healthcare verticals, each designed around the particular needs of patients, professionals, and care communities."
+          />
+          <div className="staggeredCards">
+            {verticals.map(([l, t, c], i) => {
+              const Icon = i === 0 ? Droplet : i === 1 ? HeartPulse : i === 2 ? Microscope : HandHeart;
+              const hasBadge = l.includes("Coming Soon");
+              const labelText = hasBadge ? l.split(" · ")[0] : l;
+              return (
+                <article key={l} style={{ marginTop: i % 2 ? 40 : 0 }}>
+                  <div className="staggeredCardVisual">
+                    <div className={`staggeredCardGradient tagTone-${i + 1}`}>
+                      <Icon size={32} className="staggeredCardIcon" strokeWidth={1.5} />
+                    </div>
+                  </div>
+                  <div className="staggeredCardContent">
+                    <span className="tag">
+                      {labelText}
+                      {hasBadge && <span className="badge" style={{ marginLeft: 6, opacity: 0.8, fontSize: 10, background: 'rgba(40,40,40,0.06)', padding: '2px 6px', borderRadius: 4 }}>Coming Soon</span>}
+                    </span>
+                    <h3>{t}</h3>
+                    <p>{c}</p>
+                    <a className="exploreLink">Explore <ArrowRight size={14} /></a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Who We Serve */}
+        <section className="wwaAudience section">
+          <div className="wwaAudienceSplit">
+            <div className="wwaAudienceHead">
+              <div className="eyebrow">Who We Serve</div>
+              <h2>Partners in care. Aligned in purpose.</h2>
+            </div>
+            <div className="wwaAudienceGrid">
+              {[
+                [UsersRound, "Patients and families", "The reason every platform, process, and performance metric exists."],
+                [Activity, "Healthcare professionals", "Clinicians and care teams who deliver care at the frontline."],
+                [Network, "Operating partners", "Businesses, institutions, and communities working alongside Evervie."],
+                [BarChart3, "Investors and stakeholders", "Partners who believe in long-term value through responsible healthcare."]
+              ].map(([Icon, title, desc]) => (
+                <div className="wwaAudienceItem" key={title}>
+                  <span className="wwaAudienceIcon"><Icon size={22} strokeWidth={1.5} /></span>
+                  <h4>{title}</h4>
+                  <p>{desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* About Evervie Internal Navigation */}
+        <section className="wwaAboutNav section">
+          <div className="wwaAboutNavLayout">
+            <div className="wwaAboutNavIntro">
+              <div className="eyebrow">About Evervie</div>
+              <h2>Continue the Evervie story.</h2>
+              <p>Explore the people, purpose, and principles behind Evervie Health.</p>
+              <Link to="/editorial" className="btnOutline">View all About Evervie</Link>
+            </div>
+            <div className="wwaAboutBento">
+              <Link to="/about/leadership" className="wwaNavFeature">
+                <div className="wwaNavFeatureInner">
+                  <div className="wwaNavMeta">
+                    <span className="wwaNavNum">01</span>
+                    <span className="wwaNavNextTag">Next</span>
+                  </div>
+                  <h3>Our Leadership</h3>
+                  <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
+                  <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
+                </div>
+                <Placeholder text="Leadership visual" className="wwaNavFeatureImg" />
+              </Link>
+              <div className="wwaNavMinorGrid">
+                {[
+                  { to: "/about/mission-vision", num: "02", title: "Mission & Vision", desc: "Why we exist and where we are going." },
+                  { to: "/about/aspiration", num: "03", title: "Our Aspiration", desc: "The ambition behind the platform." },
+                  { to: "/about/governance", num: "04", title: "Our Governance", desc: "Integrity, accountability, and trust." }
+                ].map(({ to, num, title, desc }) => (
+                  <Link to={to} className="wwaNavMinor" key={title}>
+                    <span className="wwaNavNum">{num}</span>
+                    <h4>{title}</h4>
+                    <p>{desc}</p>
+                    <ArrowRight size={14} className="wwaNavArrow" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Signposts — News first since we're already on About */}
+        <section className="section">
+          <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
+          <div className="exploreGrid">
+            {[
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest",     "/image-1.png"],
+              ["Portfolio",       "Renal care, oncology, diagnostics, and elder care under one platform.",                  "Explore the portfolio", "/image-2.png"],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.",                       "Enter Investor Centre", "/image-3.png"]
+            ].map(([title, copy, cta, img], i) => (
+              <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
+                <div className="exploreCardText">
+                  <span className="exploreIndex">{String(i + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                  <a className="btnOutline">{cta}</a>
+                </div>
+                <img src={img} alt="" className="exploreCardVisual" />
+              </article>
+            ))}
+          </div>
+        </section>
+
+      </main>
+    </Frame>
+  );
+}
+function AboutLeadership() {
+  return <InnerPage eyebrow="About Evervie" title="Our Leadership" lead="Meet the leaders guiding Evervie with expertise, experience, and heart." />;
+}
+function AboutMissionVision() {
+  return <InnerPage eyebrow="About Evervie" title="Mission & Vision" lead="Why we exist, where we are going, and the future we are working to create." />;
+}
+function AboutAspiration() {
+  return <InnerPage eyebrow="About Evervie" title="Our Aspiration" lead="Our ambition to transform healthcare and improve lives at meaningful scale." />;
+}
+function AboutGovernance() {
+  return <InnerPage eyebrow="About Evervie" title="Our Governance" lead="The principles, practices, and oversight that ensure integrity, accountability, and trust." />;
+}
+
 export default function App() {
-  return <><RouteLoader /><Routes><Route path="/" element={<Home />} /><Route path="/editorial" element={<Editorial />} /><Route path="/bento" element={<Bento />} /><Route path="/journey" element={<Journey />} /></Routes></>;
+  return <><RouteLoader /><Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/editorial" element={<Editorial />} />
+    <Route path="/bento" element={<Bento />} />
+    <Route path="/journey" element={<Journey />} />
+    <Route path="/about/who-we-are" element={<AboutWhoWeAre />} />
+    <Route path="/about/leadership" element={<AboutLeadership />} />
+    <Route path="/about/mission-vision" element={<AboutMissionVision />} />
+    <Route path="/about/aspiration" element={<AboutAspiration />} />
+    <Route path="/about/governance" element={<AboutGovernance />} />
+  </Routes></>;
 }
