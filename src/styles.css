@@ -1431,13 +1431,395 @@ blockquote {
 }
 
 .editorialBrand .editorialHero {
-    background: url(/grandmother_and_child_in_warm_embrace.png) center/cover no-repeat;
+    background: #3c3c3c;
     position: relative;
     overflow: hidden
 }
 
+.editorialBrand .heroVideoBg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 35% center;
+    z-index: 0
+}
+
 .editorialBrand .editorialHero.heroAlt {
     background-image: url(/hero-section-background-2.png)
+}
+
+/* ── Gradient motion hero ─────────────────────────────── */
+.editorialBrand .editorialHeroGradient {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center
+}
+
+.editorialBrand .editorialHeroGradient .heroVideoBg {
+    object-position: center center
+}
+
+.editorialBrand .heroGradientOverlay {
+    display: none
+}
+
+.editorialBrand .heroGradientContent {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    padding: 0 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0
+}
+
+.editorialBrand .heroGradientEyebrow {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #282828;
+    margin-bottom: 24px
+}
+
+.editorialBrand .heroGradientHeadline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5.5vw, 76px);
+    font-weight: 500;
+    line-height: 1.08;
+    color: #282828;
+    margin: 0 0 28px;
+    letter-spacing: -.01em
+}
+
+.editorialBrand .heroGradientLead {
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.65;
+    color: rgba(40, 40, 40, .75);
+    margin: 0 0 44px;
+    max-width: 640px
+}
+
+.editorialBrand .heroGradientActions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center
+}
+
+.editorialBrand .heroGradientBtn {
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 32px;
+    border-radius: 100px;
+    background: #fff;
+    color: #282828;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 200ms ease, color 200ms ease, transform 200ms ease
+}
+
+.editorialBrand .heroGradientBtn:hover {
+    background: #FABE00;
+    transform: translateY(-2px)
+}
+
+.editorialBrand .heroGradientBtnOutline {
+    display: inline-flex;
+    align-items: center;
+    padding: 13px 32px;
+    border-radius: 100px;
+    border: 1.5px solid rgba(40, 40, 40, .5);
+    color: #282828;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 200ms ease, background 200ms ease, transform 200ms ease
+}
+
+.editorialBrand .heroGradientBtnOutline:hover {
+    border-color: #282828;
+    background: rgba(40, 40, 40, .08);
+    transform: translateY(-2px)
+}
+
+/* ── Purpose in Practice — principle grid ─────────── */
+.editorialBrand .wwaPrincipleGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 14px;
+    min-height: 780px;
+    padding: 64px;
+    background: var(--canvas)
+}
+
+.editorialBrand .wwaPrincipleLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 56px 40px 0;
+    align-self: stretch
+}
+
+.editorialBrand .wwaPEyebrow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-bottom: 20px
+}
+
+.editorialBrand .wwaPEyebrowDot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: var(--evervie-orange);
+    border-radius: 2px;
+    flex-shrink: 0
+}
+
+.editorialBrand .wwaPrincipleHeadline {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 4.2vw, 64px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: #111;
+    margin: 0 0 24px;
+    letter-spacing: -.02em
+}
+
+.editorialBrand .wwaPrincipleSub {
+    font-size: 15px;
+    line-height: 1.7;
+    color: rgba(40,40,40,.5);
+    margin: 0
+}
+
+/* Shared card base */
+.editorialBrand .wwaPCard {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 24px rgba(40, 40, 40, .08), 0 1px 4px rgba(40, 40, 40, .05)
+}
+
+/* Access — horizontal: circle left, text right */
+.editorialBrand .wwaPCardAccess {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: #fbf0dc;
+    --pulse-ring: rgba(250, 190, 0, .45)
+}
+
+.editorialBrand .wwaPCardAccess .wwaPCardSymbol {
+    flex-shrink: 0;
+    width: 50%;
+    align-self: stretch;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+/* Pulsating ring echoes behind circle */
+.editorialBrand .wwaPCardAccess .wwaPCardSymbol::before,
+.editorialBrand .wwaPCardAccess .wwaPCardSymbol::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    width: 220px;
+    height: 220px;
+    border: 1.5px solid var(--pulse-ring);
+    animation: wwaPulse 2.8s ease-out infinite;
+    pointer-events: none
+}
+
+.editorialBrand .wwaPCardAccess .wwaPCardSymbol::after {
+    animation-delay: 1.4s;
+    border-width: 1px
+}
+
+.editorialBrand .wwaPCardAccess .wwaPCardSymbol .wwaPSymbol {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    position: relative;
+    z-index: 1
+}
+
+.editorialBrand .wwaPCardAccess .wwaPCardBody {
+    flex: 1;
+    padding: 40px 44px 40px 8px
+}
+
+.editorialBrand .wwaPCardQuality {
+    background: #fcefef;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    --pulse-ring: rgba(255, 145, 180, .45)
+}
+
+.editorialBrand .wwaPCardScale {
+    background: #fbeee3;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    --pulse-ring: rgba(255, 60, 0, .35)
+}
+
+/* Floating shape wrapper for Quality + Scale */
+.editorialBrand .wwaPSymbolWrap {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none
+}
+
+.editorialBrand .wwaPCardQuality .wwaPSymbolWrap {
+    width: 260px;
+    height: 260px;
+    right: 36px
+}
+
+.editorialBrand .wwaPSymbolWrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1
+}
+
+.editorialBrand .wwaPSymbolWrap::before,
+.editorialBrand .wwaPSymbolWrap::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    animation: wwaPulse 2.8s ease-out infinite;
+    pointer-events: none
+}
+
+.editorialBrand .wwaPSymbolWrap::after {
+    animation-delay: 1.4s;
+    opacity: .7
+}
+
+/* Diamond ring — traces the star-1 polygon */
+.editorialBrand .wwaPCardQuality .wwaPSymbolWrap::before,
+.editorialBrand .wwaPCardQuality .wwaPSymbolWrap::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1678.56 1678.55'%3E%3Cpolygon fill='none' stroke='%23FF91B4' stroke-opacity='.4' stroke-width='16' points='0 836.32 836.32 1678.55 1678.56 836.32 836.32 0 0 836.32'/%3E%3C/svg%3E")
+}
+
+/* Bloom ring — traces the bloom-1 path */
+.editorialBrand .wwaPCardScale .wwaPSymbolWrap::before,
+.editorialBrand .wwaPCardScale .wwaPSymbolWrap::after {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1744.8 1744.88'%3E%3Cpath fill='none' stroke='%23FF3C00' stroke-opacity='.35' stroke-width='16' d='M1194.43,554.36C1141,350.19,1033.31,157.87,869.36,0c-154.24,158.2-259.26,347.97-314.48,548.26C350.52,600.97,158.02,707.36,0,869.42c158.01,156.05,347.53,262.34,547.6,318.31,52.5,205.21,159.1,398.55,321.76,557.15,156.6-158.58,263.11-348.91,318.9-549.77,205-53.23,398.12-161.14,556.55-325.68-158.75-154.79-349.29-260-550.38-315.06Z'/%3E%3C/svg%3E")
+}
+
+@keyframes wwaPulse {
+    0% { transform: scale(1); opacity: .55 }
+    100% { transform: scale(1.85); opacity: 0 }
+}
+
+/* Text elements */
+.editorialBrand .wwaPNum {
+    display: block;
+    font-size: 52px;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--evervie-orange);
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums
+}
+
+.editorialBrand .wwaPTitle {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.4vw, 36px);
+    font-weight: 500;
+    color: #111;
+    line-height: 1.1;
+    margin: 0 0 10px
+}
+
+.editorialBrand .wwaPRule {
+    border: none;
+    border-top: 2px solid var(--evervie-orange);
+    width: 24px;
+    margin: 0 0 14px
+}
+
+.editorialBrand .wwaPDesc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(40,40,40,.55);
+    margin: 0
+}
+
+/* Arrow buttons */
+.editorialBrand .wwaPArrow {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(40,40,40,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #282828;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 180ms ease, background 180ms ease
+}
+
+.editorialBrand .wwaPArrow:hover {
+    border-color: #282828;
+    background: rgba(40,40,40,.06)
+}
+
+.editorialBrand .wwaPArrowBR { bottom: 28px; right: 28px }
+.editorialBrand .wwaPArrowBL { bottom: 28px; left: 28px }
+
+@media (max-width: 1180px) {
+    .editorialBrand .wwaPrincipleGrid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 64px 24px
+    }
+    .editorialBrand .wwaPrincipleGrid { grid-template-columns: 1fr; padding: 40px 24px }
+    .editorialBrand .wwaPrincipleLeft { padding: 0 }
+    .editorialBrand .wwaPCardAccess { flex-direction: column; min-height: auto }
+    .editorialBrand .wwaPCardAccess .wwaPCardSymbol { width: 100%; height: 200px }
+    .editorialBrand .wwaPCardAccess .wwaPCardBody { padding: 32px }
 }
 
 .editorialBrand .editorialHero::after {
@@ -1445,12 +1827,11 @@ blockquote {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse 90% 85% at 100% 100%,
-        #FF3C00 0%,
-        rgba(255, 110, 46, 0.92) 22%,
-        rgba(255, 145, 180, 0.7) 46%,
-        rgba(255, 145, 180, 0.2) 65%,
-        transparent 78%
-    );
+            #FF3C00 0%,
+            rgba(255, 110, 46, 0.92) 22%,
+            rgba(255, 145, 180, 0.7) 46%,
+            rgba(255, 145, 180, 0.2) 65%,
+            transparent 78%);
     pointer-events: none;
     z-index: 1;
     transform-origin: bottom right;
@@ -1458,10 +1839,13 @@ blockquote {
 }
 
 @keyframes heroPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(0.93);
         opacity: 0.72
     }
+
     50% {
         transform: scale(1.07);
         opacity: 1
@@ -1754,11 +2138,49 @@ blockquote {
     font-size: clamp(36px, 4.5vw, 64px)
 }
 
+@property --heroAngle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false
+}
+
+@keyframes heroGradientRotate {
+    to {
+        --heroAngle: 360deg
+    }
+}
+
+.editorialBrand .heroWideVisualWrap {
+    position: relative;
+    border-radius: 18px;
+    padding: 2px;
+    background: conic-gradient(from var(--heroAngle),
+            #FF3C00 0%,
+            #FF91B4 25%,
+            #FABE00 50%,
+            #FF91B4 75%,
+            #FF3C00 100%);
+    animation: heroGradientRotate 6s linear infinite;
+    margin-top: 28px
+}
+
+.editorialBrand .heroWideVisualWrap::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border-radius: 16px;
+    background: inherit;
+    filter: blur(14px);
+    opacity: .45;
+    z-index: -1
+}
+
 .editorialBrand img.heroWideVisual {
     width: 100%;
     object-fit: cover;
     display: block;
-    border: 1px solid var(--line)
+    border-radius: 16px;
+    margin-top: 0
 }
 
 .routeLoader {
@@ -1951,10 +2373,9 @@ blockquote {
     position: absolute;
     inset: 0;
     background: radial-gradient(ellipse 70% 90% at 100% 100%,
-        rgba(255, 60, 0, 0.18) 0%,
-        rgba(255, 145, 180, 0.1) 50%,
-        transparent 75%
-    );
+            rgba(255, 60, 0, 0.18) 0%,
+            rgba(255, 145, 180, 0.1) 50%,
+            transparent 75%);
     pointer-events: none
 }
 
@@ -2168,7 +2589,7 @@ blockquote {
 
 .editorialBrand .copyright {
     font-size: 12px;
-    color: var(--muted)
+    color: #fff
 }
 
 .editorialBrand .footerLegalLinks {
@@ -2179,7 +2600,7 @@ blockquote {
 
 .editorialBrand .footerLegalLinks a {
     font-size: 12px;
-    color: var(--muted);
+    color: #fff;
     text-decoration: none
 }
 
@@ -2418,6 +2839,7 @@ blockquote {
 .editorialBrand .wwaStatHead h2 span.highlight {
     background: linear-gradient(135deg, var(--evervie-orange), var(--prime-pink));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 600;
 }
@@ -2462,7 +2884,7 @@ blockquote {
     background: #fff;
     display: grid;
     place-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
     flex-shrink: 0;
     margin-top: 0;
 }
@@ -2470,9 +2892,11 @@ blockquote {
 .editorialBrand .wwaStatPrinciple:nth-child(1) .wwaStatPrincipleIcon {
     color: var(--evervie-orange);
 }
+
 .editorialBrand .wwaStatPrinciple:nth-child(2) .wwaStatPrincipleIcon {
     color: var(--prime-pink);
 }
+
 .editorialBrand .wwaStatPrinciple:nth-child(3) .wwaStatPrincipleIcon {
     color: var(--prime-solar);
 }
@@ -2492,8 +2916,18 @@ blockquote {
 }
 
 .editorialBrand .wwaPurpose {
-    background: var(--graphite);
-    padding: 96px 56px
+    position: relative;
+    background:
+        radial-gradient(ellipse 60% 60% at 0% 100%,
+            rgba(255, 60, 0, 0.16) 0%,
+            rgba(255, 110, 46, 0.10) 25%,
+            rgba(255, 145, 180, 0.05) 50%,
+            transparent 75%),
+        linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        #0a0a0a;
+    background-size: 100% 100%, 32px 32px, 32px 32px;
+    padding: 96px 56px;
 }
 
 .editorialBrand .wwaPurpose .eyebrow {
@@ -3238,7 +3672,7 @@ blockquote {
 }
 
 .editorialBrand .staggeredCards .staggeredCardIcon {
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.05));
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
     transition: transform 0.3s ease;
 }
 
@@ -3295,7 +3729,7 @@ blockquote {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
-    
+
     .editorialBrand .staggeredCards article {
         min-height: auto;
     }
@@ -3306,7 +3740,928 @@ blockquote {
         grid-template-columns: 1fr;
         gap: 20px;
     }
+
     .editorialBrand .staggeredCards article {
         margin-top: 0 !important;
+    }
+}
+
+/* Our Leadership Page Style Extensions */
+
+/* Chairman spotlight section */
+.editorialBrand .wwaChairman {
+    padding: 120px 56px;
+    background: linear-gradient(180deg, var(--canvas) 0%, rgba(255, 255, 255, 0.7) 100%);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.editorialBrand .wwaChairmanLayout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 80px;
+    align-items: start;
+}
+
+.editorialBrand .wwaChairmanVisual {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 48px rgba(40, 40, 40, 0.12);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    margin-top: 10px;
+}
+
+.editorialBrand .wwaChairmanVisual:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 28px 56px rgba(40, 40, 40, 0.18);
+}
+
+.editorialBrand .wwaChairmanImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+}
+
+.editorialBrand .wwaChairmanBadge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.editorialBrand .wwaChairmanBadge h4 {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    color: var(--graphite);
+    font-weight: 600;
+}
+
+.editorialBrand .wwaChairmanBadge p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.02em;
+}
+
+.editorialBrand .wwaChairmanContent {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.editorialBrand .wwaChairmanQuote {
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.5vw, 36px);
+    line-height: 1.25;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--evervie-orange);
+    margin: 0;
+    position: relative;
+    padding-left: 24px;
+    border-left: 3px solid var(--evervie-orange);
+}
+
+.editorialBrand .wwaChairmanText {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin: 0;
+}
+
+.editorialBrand .wwaChairmanExp {
+    margin-top: 8px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 28px;
+}
+
+.editorialBrand .wwaChairmanExp h3 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .wwaChairmanExpSubtitle {
+    margin: 0 0 20px 0;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.editorialBrand .wwaChairmanExpGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}
+
+.editorialBrand .wwaChairmanExpCard {
+    background: #fff;
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid var(--line-soft);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.editorialBrand .wwaChairmanExpCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(40, 40, 40, 0.05);
+    border-color: var(--evervie-orange);
+}
+
+.editorialBrand .wwaChairmanExpNumber {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--evervie-orange);
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--evervie-orange), var(--prime-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.editorialBrand .wwaChairmanExpCard p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+    color: var(--muted);
+}
+
+.editorialBrand .wwaChairmanFooter {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.editorialBrand .wwaChairmanSignature {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .wwaChairmanTitle {
+    font-size: 13px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+}
+
+/* Board of Directors */
+.editorialBrand .wwaBoard {
+    padding: 110px 56px;
+    border-bottom: 1px solid var(--line-soft);
+    background: #fff;
+}
+
+.editorialBrand .wwaBoardGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+    margin-top: 60px;
+}
+
+.editorialBrand .wwaBoardCard {
+    background: var(--canvas);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+}
+
+.editorialBrand .wwaBoardCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(40, 40, 40, 0.08);
+    border-color: var(--evervie-orange);
+}
+
+.editorialBrand .wwaBoardCardVisual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--soft);
+}
+
+.editorialBrand .wwaBoardCardImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg {
+    transform: scale(1.04);
+}
+
+.editorialBrand .wwaBoardCardContent {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.editorialBrand .wwaBoardCardContent h3 {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    color: var(--graphite);
+    font-weight: 600;
+}
+
+.editorialBrand .wwaBoardCardTitle {
+    font-size: 13px;
+    color: var(--evervie-orange);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.editorialBrand .wwaBoardCardShortBio {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 20px 0;
+    flex-grow: 1;
+}
+
+.editorialBrand .wwaBoardCardExpertise {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.editorialBrand .wwaExpertiseTag {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--graphite);
+    background: rgba(40, 40, 40, 0.06);
+    padding: 4px 10px;
+    border-radius: 99px;
+}
+
+.editorialBrand .wwaBoardCardBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--graphite);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.2s ease;
+}
+
+.editorialBrand .wwaBoardCardBtn svg {
+    transition: transform 0.2s ease;
+}
+
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardBtn {
+    color: var(--evervie-orange);
+}
+
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardBtn svg {
+    transform: translateX(4px);
+}
+
+/* Executive Leadership */
+.editorialBrand .wwaExec {
+    padding: 110px 56px;
+    border-bottom: 1px solid var(--line-soft);
+    background: var(--canvas);
+}
+
+.editorialBrand .wwaExecGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 60px;
+}
+
+.editorialBrand .wwaExecCard {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px;
+    border: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editorialBrand .wwaExecCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(40, 40, 40, 0.06);
+}
+
+.editorialBrand .wwaExecCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.editorialBrand .wwaExecCardHeader h3 {
+    margin: 0 0 4px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .wwaExecCardTitle {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+}
+
+.editorialBrand .wwaExecLinkedin {
+    color: var(--muted);
+    transition: color 0.2s/bg 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--soft);
+}
+
+.editorialBrand .wwaExecLinkedin:hover {
+    color: var(--evervie-orange);
+    background: rgba(255, 60, 0, 0.08);
+}
+
+.editorialBrand .wwaExecCardBio {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin: 0 0 20px 0;
+    flex-grow: 1;
+}
+
+.editorialBrand .wwaExecCardFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border-top: 1px solid var(--line-soft);
+    padding-top: 16px;
+}
+
+.editorialBrand .wwaExecExpertiseLabel {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.editorialBrand .wwaExecExpertiseText {
+    font-size: 13px;
+    color: var(--graphite);
+    font-weight: 500;
+}
+
+/* Philosophy */
+.editorialBrand .wwaPhilosophy {
+    padding: 110px 56px;
+    border-bottom: 1px solid var(--line-soft);
+    background: #fff;
+}
+
+.editorialBrand .wwaPhilosophyGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+}
+
+@media (max-width: 1024px) {
+    .editorialBrand .wwaPhilosophyGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .editorialBrand .wwaPhilosophyGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.editorialBrand .wwaPhilosophyCard {
+    background: #fff;
+    border: 1px solid var(--line-soft);
+    border-radius: 24px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+
+.editorialBrand .wwaPhilosophyCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--evervie-orange), var(--prime-pink));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.editorialBrand .wwaPhilosophyCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(40, 40, 40, 0.08);
+    border-color: rgba(255, 60, 0, 0.3);
+}
+
+.editorialBrand .wwaPhilosophyCard:hover::before {
+    opacity: 1;
+}
+
+.editorialBrand .wwaPhilosophyCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editorialBrand .wwaPhilosophyIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--canvas);
+    color: var(--graphite);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line-soft);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.editorialBrand .wwaPhilosophyCard:hover .wwaPhilosophyIcon {
+    background: rgba(255, 60, 0, 0.08);
+    color: var(--evervie-orange);
+    border-color: rgba(255, 60, 0, 0.15);
+}
+
+.editorialBrand .wwaPhilosophyNumber {
+    font-family: var(--font-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--line-soft);
+    transition: color 0.3s ease;
+}
+
+.editorialBrand .wwaPhilosophyCard:hover .wwaPhilosophyNumber {
+    color: rgba(255, 60, 0, 0.2);
+}
+
+.editorialBrand .wwaPhilosophyCard h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--graphite);
+    line-height: 1.3;
+}
+
+.editorialBrand .wwaPhilosophyCard p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+/* Modal Overlay */
+.editorialBrand .wwaModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(34, 35, 38, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal Content Box */
+.editorialBrand .wwaModal {
+    background: #fff;
+    width: min(880px, 100%);
+    max-height: 85vh;
+    border-radius: 28px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--line-soft);
+    position: relative;
+    overflow-y: auto;
+    animation: scaleInModal 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes scaleInModal {
+    from {
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        transform: scale(1) translateY(0);
+    }
+}
+
+.editorialBrand .wwaModalCloseBtn {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--canvas);
+    border: 1px solid var(--line-soft);
+    color: var(--graphite);
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+}
+
+.editorialBrand .wwaModalCloseBtn:hover {
+    background: var(--line-soft);
+    transform: rotate(90deg);
+}
+
+.editorialBrand .wwaModalLayout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    padding: 48px;
+}
+
+.editorialBrand .wwaModalLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editorialBrand .wwaModalImg {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 20px;
+    border: 1px solid var(--line-soft);
+}
+
+.editorialBrand .wwaModalMeta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editorialBrand .wwaModalMeta h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .wwaModalTitle {
+    font-size: 13px;
+    color: var(--evervie-orange);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.editorialBrand .wwaModalLinkedin {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    margin-top: 8px;
+    transition: color 0.2s ease;
+}
+
+.editorialBrand .wwaModalLinkedin:hover {
+    color: var(--evervie-orange);
+}
+
+.editorialBrand .wwaModalRight {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.editorialBrand .wwaModalSection h4 {
+    margin: 0 0 10px 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+.editorialBrand .wwaModalBioText {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--graphite);
+    margin: 0;
+}
+
+.editorialBrand .wwaModalDivider {
+    height: 1px;
+    background: var(--line-soft);
+}
+
+.editorialBrand .wwaModalExpertiseTags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.editorialBrand .wwaModalResponsibilities {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--graphite);
+    margin: 0;
+}
+
+/* Responsiveness for Chairman and Modal */
+@media (max-width: 900px) {
+    .editorialBrand .wwaChairmanLayout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .editorialBrand .wwaChairmanVisual {
+        max-width: 380px;
+        margin: 0 auto;
+    }
+
+    .editorialBrand .wwaModalLayout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 32px;
+    }
+
+    .editorialBrand .wwaModalLeft {
+        max-width: 280px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .editorialBrand .wwaModalMeta {
+        align-items: center;
+    }
+}
+
+@media (max-width: 640px) {
+
+    .editorialBrand .wwaChairman,
+    .editorialBrand .wwaBoard,
+    .editorialBrand .wwaExec,
+    .editorialBrand .wwaPhilosophy {
+        padding: 60px 24px;
+    }
+
+    .editorialBrand .wwaModal {
+        max-height: 90vh;
+    }
+}
+
+/* Mobile Friendly Navigation Override */
+
+.editorialBrand .navHeaderBar,
+.editorialBrand .navMainContent {
+    display: contents;
+}
+
+.editorialBrand .mobileToggleBtn {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .editorialBrand .navHeaderBar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 16px 24px;
+        z-index: 100;
+        background: #fff;
+    }
+
+    .editorialBrand .mobileToggleBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        color: var(--ink);
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    .editorialBrand .mobileToggleBtn:hover {
+        background-color: var(--soft);
+    }
+
+    .editorialBrand .navEditorial {
+        display: block;
+        min-height: auto;
+        padding: 0;
+        position: sticky;
+        top: 0;
+        z-index: 200;
+        background: #fff;
+        border-bottom: 1px solid var(--line-soft);
+    }
+
+    .editorialBrand .navMainContent {
+        display: none;
+        background: #fff;
+        width: 100%;
+        padding: 0 24px 32px 24px;
+        border-top: 1px solid var(--line-soft);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .editorialBrand .navMainContent.show {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .editorialBrand .navLinks {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 24px 0 8px 0;
+    }
+
+    .editorialBrand .navLinks>a {
+        padding: 8px 0;
+        font-size: 16px;
+        border: 0 !important;
+        font-weight: 600;
+    }
+
+    .editorialBrand .navLinks>a.active {
+        color: var(--evervie-orange);
+    }
+
+    .editorialBrand .actions {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding-top: 24px;
+        border-top: 1px solid var(--line-soft);
+        width: 100%;
+    }
+
+    .editorialBrand .actions .btnOutline {
+        text-align: center;
+        padding: 12px;
+        font-size: 14px;
+        font-weight: 700;
+        width: 100%;
+    }
+
+    .editorialBrand .actions .search {
+        display: none;
+    }
+
+    /* Accordion mobile styling for MegaMenu inside the drawer */
+    .editorialBrand .megaMenu {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .editorialBrand .megaTrigger {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .editorialBrand .megaPanel {
+        position: static;
+        display: none;
+        box-shadow: none;
+        border: 0;
+        border-radius: 0;
+        padding: 12px 0 12px 12px;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+        background: transparent;
+        border-left: 2px solid var(--line-soft);
+        margin-left: 4px;
+        width: 100% !important;
+    }
+
+    .editorialBrand .megaPanel.open {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .editorialBrand .megaIntro {
+        display: none;
+    }
+
+    .editorialBrand .megaNavCol {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .editorialBrand .megaRow {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 0;
+        border-bottom: 0;
+    }
+
+    .editorialBrand .megaRow .megaIcon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        border-radius: 8px;
+        background: var(--canvas);
+        border: 1px solid var(--line-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .editorialBrand .megaRow .megaIcon svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .editorialBrand .megaRowText b {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--graphite);
+    }
+
+    .editorialBrand .megaRowText p {
+        display: none;
+    }
+
+    .editorialBrand .megaArrow {
+        display: none;
     }
 }

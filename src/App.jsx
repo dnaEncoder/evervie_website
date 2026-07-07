@@ -2,6 +2,28 @@ import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity } from "lucide-react";
 
+function Linkedin({ size = 16, style, className }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={style}
+      className={className}
+    >
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect width="4" height="12" x="2" y="9" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>
+  );
+}
+
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Aspiration", "Our Governance"]],
   ["Portfolio", ["Renal Care", "Oncology", "Diagnostics", "Elder Care (Coming Soon)"]],
@@ -78,8 +100,8 @@ const purpose = [
 const pillarShapes = ["circle", "diamond", "bloom"];
 
 const verticals = [
-  ["Renal Care", "Supporting patients through every stage of kidney care", "Continuity, clinical support, and accessible specialist kidney care across communities."],
   ["Oncology", "Compassionate cancer care with specialist focus", "Timely, trusted, and human-centered care across the patient journey."],
+  ["Renal Care", "Supporting patients through every stage of kidney care", "Continuity, clinical support, and accessible specialist kidney care across communities."],
   ["Diagnostics", "Earlier answers for better care decisions", "Diagnostic capabilities that support clarity, confidence, and better care pathways."],
   ["Elder Care · Coming Soon", "Care for an ageing future", "Dignity, comfort, and support for families as care needs evolve."]
 ];
@@ -152,10 +174,18 @@ function MegaMenu({ config, isOpen, onOpen, onClose, triggerRef }) {
 
 function EditorialNav() {
   const [openMenu, setOpenMenu] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const triggerRefs = useRef([]);
   const closeTimer = useRef(null);
   const openMega = (id) => { clearTimeout(closeTimer.current); setOpenMenu(id); };
   const scheduleClose = () => { closeTimer.current = setTimeout(() => setOpenMenu(null), 250); };
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setMobileOpen(false);
+    setOpenMenu(null);
+  }, [pathname]);
+
   useEffect(() => {
     if (openMenu === null) return;
     const onKey = (e) => {
@@ -169,19 +199,47 @@ function EditorialNav() {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [openMenu]);
+
   return (
-    <header className="nav navEditorial">
-      <Logo />
-      <div className="navLinks">
-        <NavLink to="/editorial">Home</NavLink>
-        {megaMenuConfigs.map((config, i) => (
-          <MegaMenu key={config.id} config={config} isOpen={openMenu === config.id}
-            onOpen={() => openMega(config.id)} onClose={scheduleClose}
-            triggerRef={(el) => (triggerRefs.current[i] = el)} />
-        ))}
-        <a>News & Insights</a><a>Careers</a><a>Connect</a>
+    <header className={`nav navEditorial ${mobileOpen ? "mobileMenuOpen" : ""}`}>
+      <div className="navHeaderBar">
+        <Logo />
+        <button 
+          className="mobileToggleBtn" 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-expanded={mobileOpen}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          )}
+        </button>
       </div>
-      <div className="actions"><a className="btnOutline">Enter Investor Centre</a><span className="search">⌕</span></div>
+      
+      <div className={`navMainContent ${mobileOpen ? "show" : ""}`}>
+        <div className="navLinks">
+          <NavLink to="/editorial">Home</NavLink>
+          {megaMenuConfigs.map((config, i) => (
+            <MegaMenu key={config.id} config={config} isOpen={openMenu === config.id}
+              onOpen={() => openMega(config.id)} onClose={scheduleClose}
+              triggerRef={(el) => (triggerRefs.current[i] = el)} />
+          ))}
+          <a>News & Insights</a><a>Careers</a><a>Connect</a>
+        </div>
+        <div className="actions">
+          <a className="btnOutline">Enter Investor Centre</a>
+          <span className="search">⌕</span>
+        </div>
+      </div>
     </header>
   );
 }
@@ -435,6 +493,7 @@ function Signposts() {
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
     <section className="editorialHero">
+      <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie_Discs_Web_v1 (1).mp4" />
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
@@ -444,12 +503,65 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div>
       </div>
     </section> */}
+    <section className="editorialHeroGradient">
+      <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie gradient motion.mp4" />
+      <div className="heroGradientOverlay" />
+      <div className="heroGradientContent">
+        <span className="heroGradientEyebrow">Future-focused healthcare</span>
+        <h1 className="heroGradientHeadline">Advancing specialized care<br />for more people, in more places</h1>
+        <p className="heroGradientLead">Evervie is building healthcare platforms that expand access,<br />strengthen quality, and scale care with purpose.</p>
+        <div className="heroGradientActions">
+          <a className="heroGradientBtn">Explore Our Care Platforms</a>
+          <a className="heroGradientBtnOutline">Enter Investor Centre</a>
+        </div>
+      </div>
+    </section>
     <section className="section">
-      {/* <img className="heroWideVisual" src="/media/hero-wide-visual.png" alt="Full-width healthcare ecosystem visual" /> */}
+      <div className="heroWideVisualWrap">
+        <img className="heroWideVisual" src="/happy-family.png" alt="Full-width healthcare ecosystem visual" />
+      </div>
       <ScaleSnapshot />
     </section>
     {/* <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section> */}
-    <section className="section"><img className="ethosVariant" src="/ethos-3.jpg" alt="Access, quality, and scale presented as an orbital diagram around the Evervie mark" /></section>
+    <section className="wwaPrincipleGrid">
+      <div className="wwaPrincipleLeft">
+        <div className="wwaPEyebrow"><span className="wwaPEyebrowDot" />Purpose in Practice</div>
+        <h2 className="wwaPrincipleHeadline">Access, quality,<br />and scale —<br />built into the<br />way care moves.</h2>
+        <p className="wwaPrincipleSub">Three principles, expressed through every care platform Evervie builds.</p>
+      </div>
+      <article className="wwaPCard wwaPCardAccess">
+        <div className="wwaPCardSymbol">
+          <img src="/circle-1.svg" alt="" className="wwaPSymbol" />
+        </div>
+        <div className="wwaPCardBody">
+          <span className="wwaPNum">01</span>
+          <h3 className="wwaPTitle">Access</h3>
+          <hr className="wwaPRule" />
+          <p className="wwaPDesc">Broader access to specialised care.</p>
+        </div>
+        <a className="wwaPArrow wwaPArrowBR"><ArrowRight size={16} /></a>
+      </article>
+      <article className="wwaPCard wwaPCardQuality">
+        <div className="wwaPCardBody">
+          <span className="wwaPNum">02</span>
+          <h3 className="wwaPTitle">Quality</h3>
+          <hr className="wwaPRule" />
+          <p className="wwaPDesc">Better delivery,<br />higher standards.</p>
+        </div>
+        <div className="wwaPSymbolWrap"><img src="/star-1.svg" alt="" /></div>
+        <a className="wwaPArrow wwaPArrowBL"><ArrowRight size={16} /></a>
+      </article>
+      <article className="wwaPCard wwaPCardScale">
+        <div className="wwaPCardBody">
+          <span className="wwaPNum">03</span>
+          <h3 className="wwaPTitle">Scale</h3>
+          <hr className="wwaPRule" />
+          <p className="wwaPDesc">Stronger platforms,<br />wider reach.</p>
+        </div>
+        <div className="wwaPSymbolWrap"><img src="/bloom-1.svg" alt="" /></div>
+        <a className="wwaPArrow wwaPArrowBL"><ArrowRight size={16} /></a>
+      </article>
+    </section>
     <Signposts />
   </main></Frame>;
 }
@@ -733,7 +845,420 @@ function AboutWhoWeAre() {
   );
 }
 function AboutLeadership() {
-  return <InnerPage eyebrow="About Evervie" title="Our Leadership" lead="Meet the leaders guiding Evervie with expertise, experience, and heart." />;
+  const [activeBoardMember, setActiveBoardMember] = useState(null);
+
+  useEffect(() => {
+    if (!activeBoardMember) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setActiveBoardMember(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeBoardMember]);
+
+  const boardMembers = [
+    {
+      name: "Dr. Marcus Vance",
+      designation: "Chairman of the Board",
+      photo: "/media/marcus_vance.png",
+      shortBio: "Dr. Marcus Vance brings over 25 years of clinical governance and healthcare system management to Evervie, guiding the board with long-term strategic perspective.",
+      expandedBio: "Dr. Marcus Vance has spent over two and a half decades leading hospital systems and advising on healthcare policy. Prior to joining Evervie, he served as the Chief Executive of the Vanguard Healthcare Group, where he led a network of 40+ clinical centers. Marcus is dedicated to improving access to specialized care and strengthening clinical governance, ensuring that patient outcomes are at the center of Evervie's growth strategy.",
+      expertise: ["Healthcare Systems", "Clinical Governance", "Corporate Strategy"],
+      responsibilities: "Chair of Nomination & Governance Committee; Member of Clinical Quality Committee",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "Sarah Jenkins",
+      designation: "Non-Executive Director",
+      photo: "/media/sarah_jenkins.png",
+      shortBio: "Sarah has 20 years of experience in healthcare private equity, advising platforms on disciplined growth and corporate finance.",
+      expandedBio: "Sarah Jenkins brings 20 years of experience in corporate finance, investment banking, and private equity, specifically focused on healthcare infrastructure. She previously served as Senior Partner at Apex Healthcare Partners, managing a portfolio of specialist clinical facilities. At Evervie, Sarah focuses on financial governance and disciplined capital allocation to support sustainable, long-term scaling.",
+      expertise: ["Corporate Finance", "Healthcare M&A", "Risk Management"],
+      responsibilities: "Chair of Audit & Risk Committee; Member of Nomination & Governance Committee",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "Dr. Elena Rostova",
+      designation: "Non-Executive Director",
+      photo: "/media/elena_rostova.png",
+      shortBio: "A renowned oncologist and quality assurance expert, Dr. Rostova ensures our care processes meet the highest clinical standards.",
+      expandedBio: "Dr. Elena Rostova is an accomplished clinical leader and oncologist with over 18 years of clinical and academic experience. She was previously the Director of Quality & Research at the Metropolitan Cancer Center, where she pioneered protocols for patient-centered oncology pathways. At Evervie, Dr. Rostova provides vital oversight to clinical safety, medical protocols, and oncology care quality.",
+      expertise: ["Clinical Quality", "Oncology Care Pathways", "Medical Research"],
+      responsibilities: "Chair of Clinical Quality Committee",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "David Chen",
+      designation: "Independent Director",
+      photo: "/media/david_chen.png",
+      shortBio: "David oversees legal, compliance, and regulatory affairs, ensuring Evervie operates with integrity and absolute transparency.",
+      expandedBio: "David Chen specializes in legal oversight, regulatory compliance, and governance within the life sciences and healthcare sectors. He served as General Counsel for Helix Medical Systems for over 15 years. At Evervie, David guides the board on regulatory compliance, ethical operations, and corporate accountability, ensuring that all portfolio companies adhere to the highest standards.",
+      expertise: ["Regulatory Compliance", "Healthcare Law", "Corporate Governance"],
+      responsibilities: "Chair of Compliance Committee; Member of Audit & Risk Committee",
+      linkedin: "https://linkedin.com"
+    }
+  ];
+
+  const executiveTeam = [
+    {
+      name: "Arthur Pendelton",
+      designation: "Managing Director & CEO",
+      bio: "Arthur brings 20+ years of operational healthcare leadership. He was previously Chief Operating Officer of a multi-market specialty care network.",
+      expertise: "Operations, Scaling, Strategy",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "Maya Lin",
+      designation: "Chief Financial Officer",
+      bio: "Maya has an extensive background in financial stewardship, corporate treasury, and strategic transactions within public and private health networks.",
+      expertise: "Capital Allocation, Treasury, M&A",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "Dr. Rajesh Patel",
+      designation: "Chief Medical Officer",
+      bio: "Dr. Patel is a board-certified physician with deep expertise in clinical quality, safety metrics, and developing clinical education frameworks.",
+      expertise: "Patient Safety, Clinical Protocols, Nephrology",
+      linkedin: "https://linkedin.com"
+    },
+    {
+      name: "Claire Dupont",
+      designation: "Chief Operating Officer",
+      bio: "Claire has managed operations for large-scale clinical footprints, focusing on technology integration, care coordination, and clinical workflows.",
+      expertise: "Healthcare Operations, Workflow Integration, Tech Enablement",
+      linkedin: "https://linkedin.com"
+    }
+  ];
+
+  const principles = [
+    {
+      title: "Patient needs guide decisions",
+      copy: "Every decision, protocol, and strategic investment starts with a single question: how does this serve the clinical outcome and comfort of the patient?",
+      icon: HeartPulse
+    },
+    {
+      title: "Expertise is respected",
+      copy: "We empower clinicians and operators with autonomy, recognizing that clinical quality is built on the expertise of frontline healthcare providers.",
+      icon: Microscope
+    },
+    {
+      title: "Accountability is shared",
+      copy: "Governance is not a checklist—it is an active discipline. We establish clear ownership at every level of our organization to ensure safety and trust.",
+      icon: ShieldCheck
+    },
+    {
+      title: "Growth must be responsible",
+      copy: "We expand our footprint only where we can preserve clinical quality. Sustainable scale is chosen over rapid, unchecked expansion.",
+      icon: TrendingUp
+    },
+    {
+      title: "Transparency builds trust",
+      copy: "We share our quality metrics, clinical outcomes, and operating performance openly with patients, families, and stakeholders.",
+      icon: Sparkles
+    },
+    {
+      title: "Strong operating companies create lasting impact",
+      copy: "We build resilient, self-governing local platforms that can adapt to their communities while benefiting from Evervie's group resources.",
+      icon: Building2
+    }
+  ];
+
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+        {/* Page Hero */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>About Evervie</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Our Leadership</span>
+            </nav>
+            <div className="eyebrow">Our Leadership</div>
+            <h1>Leadership grounded in experience, responsibility, and care.</h1>
+            <p className="wwaHeroBody">Evervie is guided by leaders who bring together healthcare understanding, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
+          </div>
+          <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
+        </section>
+
+        {/* Leadership Introduction */}
+        <section className="wwaStatement">
+          <div className="wwaStatementGrid">
+            <div className="wwaStatHead">
+              <h2>Guiding Evervie with <span className="highlight">long-term perspective</span>.</h2>
+              <p className="wwaStatCopy">
+                Our leaders combine deep clinical capability with corporate stewardship to build platforms capable of serving patient communities for generations. We believe that robust governance, operational accountability, and medical excellence must grow together to build healthcare platforms that stand the test of time.
+              </p>
+            </div>
+            <div className="wwaStatPrinciples">
+              {[
+                [Users, "Active Direction", "Our leadership actively steers portfolio companies, aligning strategy with clinical realities on the ground."],
+                [Network, "Multi-Disciplinary", "Bringing together a rare blend of medicine, business operations, capital management, and compliance."],
+                [ShieldCheck, "Outcome Focused", "Measuring success strictly through patient safety, clinical quality, and long-term organizational accountability."]
+              ].map(([Icon, heading, copy]) => (
+                <div className="wwaStatPrinciple" key={heading}>
+                  <span className="wwaStatPrincipleIcon"><Icon size={18} strokeWidth={2} /></span>
+                  <div>
+                    <h4>{heading}</h4>
+                    <p>{copy}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Chairman's Message */}
+        <section className="section wwaChairman">
+          <div className="wwaChairmanLayout">
+            <div className="wwaChairmanVisual">
+              <img src="/media/prasad_potluri.png" alt="Prasad V. Potluri, Chairman" className="wwaChairmanImg" />
+              <div className="wwaChairmanBadge">
+                <h4>Prasad V. Potluri</h4>
+                <p>Chairman of the Board</p>
+              </div>
+            </div>
+            <div className="wwaChairmanContent">
+              <span className="eyebrow">Message from the Chairman</span>
+              <blockquote className="wwaChairmanQuote">
+                "Driving innovation in global healthcare through advanced diagnostics, patient-focused care, and strategic partnerships."
+              </blockquote>
+              <p className="wwaChairmanText">
+                At Evervie, we are shaping the future of global healthcare platforms. By combining deep operating discipline with clinical innovation, we are constructing care systems that put the patient's needs and clinical quality above all else. Our long-term orientation drives us to build scalable networks that bring access, consistency, and standardisation to care.
+              </p>
+              <div className="wwaChairmanExp">
+                <h3>Prasad’s Experience</h3>
+                <p className="wwaChairmanExpSubtitle">Bringing decades of leadership and expertise to shape innovative healthcare solutions worldwide.</p>
+                <div className="wwaChairmanExpGrid">
+                  <div className="wwaChairmanExpCard">
+                    <span className="wwaChairmanExpNumber">20+ Yrs</span>
+                    <p>Leadership in healthcare and diagnostics.</p>
+                  </div>
+                  <div className="wwaChairmanExpCard">
+                    <span className="wwaChairmanExpNumber">Founder</span>
+                    <p>Founded PVP’s oncology and medical technology divisions.</p>
+                  </div>
+                  <div className="wwaChairmanExpCard">
+                    <span className="wwaChairmanExpNumber">Global</span>
+                    <p>Key driver of international expansion and innovation.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="wwaChairmanFooter">
+                <span className="wwaChairmanSignature">Prasad V. Potluri</span>
+                <span className="wwaChairmanTitle">Chairman & Founder, Evervie Health</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Board of Directors */}
+        <section className="section wwaBoard">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Governance</div>
+              <h2>Board of Directors</h2>
+            </div>
+            <p>Our board provides rigorous oversight and strategic guidance, ensuring Evervie operates with integrity, sustainability, and absolute clinical focus.</p>
+          </div>
+
+          <div className="wwaBoardGrid">
+            {boardMembers.map((member) => (
+              <article key={member.name} className="wwaBoardCard" onClick={() => setActiveBoardMember(member)}>
+                <div className="wwaBoardCardVisual">
+                  <img src={member.photo} alt={member.name} className="wwaBoardCardImg" />
+                </div>
+                <div className="wwaBoardCardContent">
+                  <h3>{member.name}</h3>
+                  <span className="wwaBoardCardTitle">{member.designation}</span>
+                  <p className="wwaBoardCardShortBio">{member.shortBio}</p>
+                  <div className="wwaBoardCardExpertise">
+                    {member.expertise.slice(0, 2).map((exp) => (
+                      <span key={exp} className="wwaExpertiseTag">{exp}</span>
+                    ))}
+                  </div>
+                  <button className="wwaBoardCardBtn" aria-label={`View biography of ${member.name}`}>
+                    View Full Biography <ArrowRight size={13} />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Executive Leadership */}
+        <section className="section wwaExec">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Operations</div>
+              <h2>Executive Leadership</h2>
+            </div>
+            <p>The operational team responsible for executing Evervie’s platform strategy, scaling care delivery networks, and supporting day-to-day clinical excellence.</p>
+          </div>
+
+          <div className="wwaExecGrid">
+            {executiveTeam.map((exec) => (
+              <article key={exec.name} className="wwaExecCard">
+                <div className="wwaExecCardHeader">
+                  <div>
+                    <h3>{exec.name}</h3>
+                    <span className="wwaExecCardTitle">{exec.designation}</span>
+                  </div>
+                  <a href={exec.linkedin} target="_blank" rel="noopener noreferrer" className="wwaExecLinkedin" aria-label={`${exec.name} LinkedIn Profile`}>
+                    <Linkedin size={16} />
+                  </a>
+                </div>
+                <p className="wwaExecCardBio">{exec.bio}</p>
+                <div className="wwaExecCardFooter">
+                  <span className="wwaExecExpertiseLabel">Focus:</span>
+                  <span className="wwaExecExpertiseText">{exec.expertise}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Leadership Philosophy */}
+        <section className="section wwaPhilosophy">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Philosophy</div>
+              <h2>How we lead.</h2>
+            </div>
+            <p>Operational tenets that define our approach to clinical oversight, partnership, and corporate governance.</p>
+          </div>
+
+          <div className="wwaPhilosophyGrid">
+            {principles.map((p, i) => {
+              const Icon = p.icon;
+              return (
+                <article key={p.title} className="wwaPhilosophyCard">
+                  <div className="wwaPhilosophyCardHeader">
+                    <span className="wwaPhilosophyIcon"><Icon size={22} strokeWidth={1.5} /></span>
+                    <span className="wwaPhilosophyNumber">{String(i + 1).padStart(2, "0")}</span>
+                  </div>
+                  <h3>{p.title}</h3>
+                  <p>{p.copy}</p>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* Replicated Internal Navigation Section */}
+        <section className="wwaAboutNav section">
+          <div className="wwaAboutNavLayout">
+            <div className="wwaAboutNavIntro">
+              <div className="eyebrow">About Evervie</div>
+              <h2>Continue the Evervie story.</h2>
+              <p>Explore the people, purpose, and principles behind Evervie Health.</p>
+              <Link to="/editorial" className="btnOutline">View all About Evervie</Link>
+            </div>
+            <div className="wwaAboutBento">
+              <Link to="/about/mission-vision" className="wwaNavFeature">
+                <div className="wwaNavFeatureInner">
+                  <div className="wwaNavMeta">
+                    <span className="wwaNavNum">02</span>
+                    <span className="wwaNavNextTag">Next</span>
+                  </div>
+                  <h3>Mission & Vision</h3>
+                  <p>Why we exist, where we are going, and the future we are working to create.</p>
+                  <span className="wwaNavCta">Explore our mission <ArrowRight size={13} /></span>
+                </div>
+                <Placeholder text="Mission & Vision visual" className="wwaNavFeatureImg" />
+              </Link>
+              <div className="wwaNavMinorGrid">
+                {[
+                  { to: "/about/who-we-are", num: "01", title: "Who We Are", desc: "Get to know Evervie—our story and values." },
+                  { to: "/about/aspiration", num: "03", title: "Our Aspiration", desc: "The ambition behind the platform." },
+                  { to: "/about/governance", num: "04", title: "Our Governance", desc: "Integrity, accountability, and trust." }
+                ].map(({ to, num, title, desc }) => (
+                  <Link to={to} className="wwaNavMinor" key={title}>
+                    <span className="wwaNavNum">{num}</span>
+                    <h4>{title}</h4>
+                    <p>{desc}</p>
+                    <ArrowRight size={14} className="wwaNavArrow" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Signposts */}
+        <section className="section">
+          <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
+          <div className="exploreGrid">
+            {[
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest",     "/image-1.png"],
+              ["Portfolio",       "Renal care, oncology, diagnostics, and elder care under one platform.",                  "Explore the portfolio", "/image-2.png"],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.",                       "Enter Investor Centre", "/image-3.png"]
+            ].map(([title, copy, cta, img], i) => (
+              <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
+                <div className="exploreCardText">
+                  <span className="exploreIndex">{String(i + 1).padStart(2, "0")}</span>
+                  <h3>{title}</h3>
+                  <p>{copy}</p>
+                  <a className="btnOutline">{cta}</a>
+                </div>
+                <img src={img} alt="" className="exploreCardVisual" />
+              </article>
+            ))}
+          </div>
+        </section>
+
+      </main>
+
+      {/* Expanded Profile Modal Dialog */}
+      {activeBoardMember && (
+        <div className="wwaModalOverlay" onClick={() => setActiveBoardMember(null)} role="dialog" aria-modal="true" aria-labelledby="modal-member-name">
+          <div className="wwaModal" onClick={(e) => e.stopPropagation()}>
+            <button className="wwaModalCloseBtn" onClick={() => setActiveBoardMember(null)} aria-label="Close modal">×</button>
+            <div className="wwaModalLayout">
+              <div className="wwaModalLeft">
+                <img src={activeBoardMember.photo} alt={activeBoardMember.name} className="wwaModalImg" />
+                <div className="wwaModalMeta">
+                  <h2 id="modal-member-name">{activeBoardMember.name}</h2>
+                  <span className="wwaModalTitle">{activeBoardMember.designation}</span>
+                  <a href={activeBoardMember.linkedin} target="_blank" rel="noopener noreferrer" className="wwaModalLinkedin">
+                    <Linkedin size={16} style={{ marginRight: 6 }} /> LinkedIn Profile
+                  </a>
+                </div>
+              </div>
+              <div className="wwaModalRight">
+                <div className="wwaModalSection">
+                  <h4>Biography</h4>
+                  <p className="wwaModalBioText">{activeBoardMember.expandedBio}</p>
+                </div>
+                
+                <div className="wwaModalDivider" />
+
+                <div className="wwaModalSection">
+                  <h4>Areas of Expertise</h4>
+                  <div className="wwaModalExpertiseTags">
+                    {activeBoardMember.expertise.map((exp) => (
+                      <span key={exp} className="wwaExpertiseTag">{exp}</span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="wwaModalDivider" />
+
+                <div className="wwaModalSection">
+                  <h4>Committee & Governance Responsibilities</h4>
+                  <p className="wwaModalResponsibilities">{activeBoardMember.responsibilities}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </Frame>
+  );
 }
 function AboutMissionVision() {
   return <InnerPage eyebrow="About Evervie" title="Mission & Vision" lead="Why we exist, where we are going, and the future we are working to create." />;
