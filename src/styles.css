@@ -1431,7 +1431,7 @@ blockquote {
 }
 
 .editorialBrand .editorialHero {
-    background: #3c3c3c;
+    background: #ffffff;
     position: relative;
     overflow: hidden
 }
@@ -1444,6 +1444,77 @@ blockquote {
     object-fit: cover;
     object-position: 35% center;
     z-index: 0
+}
+
+.editorialBrand .heroCurcleReveal {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0
+}
+
+.editorialBrand .hero3dBg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0
+}
+
+.editorialBrand .editorialHero.hero3dAsset {
+    background: #ffffff
+}
+
+.editorialBrand .editorialHero.heroBgStyle2 {
+    background-image: url(/background-image-style-2.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-color: #ffffff
+}
+
+.editorialBrand .editorialHero.heroBgStyle2 .heroSplitGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: flex-start;
+    width: 100%;
+    padding-top: 80px
+}
+
+.editorialBrand .editorialHero.heroBgStyle2 .heroSplitLeft,
+.editorialBrand .editorialHero.heroBgStyle2 .heroSplitRight {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: none
+}
+
+.editorialBrand .editorialHero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.18) 50%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+    animation: heroShimmer 4s linear infinite
+}
+
+@keyframes heroShimmer {
+    from { transform: translateX(-100%) }
+    to   { transform: translateX(300%) }
 }
 
 .editorialBrand .editorialHero.heroAlt {
@@ -1565,7 +1636,7 @@ blockquote {
     gap: 14px;
     min-height: 780px;
     padding: 64px;
-    background: var(--canvas)
+    background: #FAF9F8
 }
 
 .editorialBrand .wwaPrincipleLeft {
@@ -1822,7 +1893,7 @@ blockquote {
     .editorialBrand .wwaPCardAccess .wwaPCardBody { padding: 32px }
 }
 
-.editorialBrand .editorialHero::after {
+/* .editorialBrand .editorialHero::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -1836,7 +1907,7 @@ blockquote {
     z-index: 1;
     transform-origin: bottom right;
     animation: heroPulse 3.5s ease-in-out infinite
-}
+} */
 
 @keyframes heroPulse {
 
@@ -1858,6 +1929,226 @@ blockquote {
     gap: 8px;
     width: 100%;
     margin-top: 20px
+}
+
+.editorialBrand .ssIntro {
+    position: sticky;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px
+}
+
+.editorialBrand .ssHeadline {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 2.8vw, 42px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--graphite);
+    margin: 0
+}
+
+.editorialBrand .ssBody {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #777;
+    max-width: 280px;
+    margin: 0
+}
+
+.editorialBrand .ssCallout {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 16px 20px;
+    background: #EDECEA;
+    border-radius: 10px
+}
+
+.editorialBrand .ssCalloutIcon {
+    flex-shrink: 0;
+    color: var(--evervie-orange);
+    margin-top: 2px
+}
+
+.editorialBrand .ssCalloutText {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--graphite);
+    margin: 0
+}
+
+.editorialBrand .ssPanel {
+    display: flex;
+    flex-direction: column;
+    gap: 32px
+}
+
+.editorialBrand .ssProgress { width: 100% }
+
+.editorialBrand .ssProgressSvg {
+    width: 100%;
+    height: 56px;
+    display: block
+}
+
+.editorialBrand .ssMetricRow {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px
+}
+
+.editorialBrand .ssMetricValue {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--graphite);
+    display: block
+}
+
+.editorialBrand .ssMetricDivider {
+    border: none;
+    border-top: 1.5px solid #E4E2E0;
+    margin: 0;
+    width: 28px
+}
+
+.editorialBrand .ssMetricLabel {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #999
+}
+
+.editorialBrand .ssSummaryStrip {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 24px;
+    background: #F4F2F0;
+    border: 1px solid #E8E6E4;
+    border-radius: 10px
+}
+
+.editorialBrand .ssSummaryAccent {
+    flex-shrink: 0;
+    color: var(--evervie-orange);
+    margin-top: 2px
+}
+
+.editorialBrand .ssSummaryText {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0
+}
+
+.editorialBrand .ssSummaryText b { color: var(--graphite) }
+
+/* Company Snapshot — two-column editorial layout */
+.editorialBrand .companySnapshot {
+    display: grid;
+    grid-template-columns: 33fr 67fr;
+    gap: 80px;
+    padding: 80px 64px;
+    background: #ffffff;
+    align-items: start
+}
+
+.editorialBrand .csIntro {
+    position: sticky;
+    top: 80px
+}
+
+.editorialBrand .csHeading {
+    font-family: var(--font-display);
+    font-size: clamp(26px, 2.8vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--graphite);
+    margin: 16px 0 24px
+}
+
+.editorialBrand .csBody {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #777;
+    max-width: 300px
+}
+
+.editorialBrand .csMetrics {
+    display: flex;
+    flex-direction: column
+}
+
+.editorialBrand .csHeroRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 48px
+}
+
+.editorialBrand .csRuler {
+    border: none;
+    border-top: 1px solid #E4E2E0;
+    margin: 0 0 48px
+}
+
+.editorialBrand .csSupportRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr
+}
+
+.editorialBrand .csHeroRow .csMetric,
+.editorialBrand .csSupportRow .csMetric {
+    padding: 0 40px;
+    border-right: 1px solid #E4E2E0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px
+}
+
+.editorialBrand .csHeroRow .csMetric:first-child,
+.editorialBrand .csSupportRow .csMetric:first-child {
+    padding-left: 0
+}
+
+.editorialBrand .csHeroRow .csMetric:last-child,
+.editorialBrand .csSupportRow .csMetric:last-child {
+    border-right: none;
+    padding-right: 0
+}
+
+.editorialBrand .csMetricHero .csValue {
+    font-size: clamp(64px, 7.5vw, 104px)
+}
+
+.editorialBrand .csValue {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 5vw, 72px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--graphite);
+    display: block
+}
+
+.editorialBrand .csLabel {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--graphite);
+    margin-top: 10px
+}
+
+.editorialBrand .csDesc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.5;
+    margin: 4px 0 0
 }
 
 .editorialBrand .metricCard {

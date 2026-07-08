@@ -114,9 +114,9 @@ const regions = [
 ];
 
 const signposts = [
-  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie"],
-  ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio"],
-  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre"]
+  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie", "/image-1.png"],
+  ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
+  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
 ];
 
 const insights = [
@@ -371,6 +371,36 @@ function Metrics({ className = "" }) {
   return <div className={`metrics ${className}`}>{metrics.map(([k, v, c]) => <article key={k}><span className="tag">{k}</span><b>{v}</b><p>{c}</p></article>)}</div>;
 }
 
+function CompanySnapshot() {
+  return (
+    <div className="companySnapshot">
+      <div className="ssIntro">
+        <div className="eyebrow">Scale Snapshot</div>
+        <h2 className="ssHeadline">Built to reach further. Built to last.</h2>
+        <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised verticals — expanding with discipline and purpose.</p>
+        <div className="ssCallout">
+          <span className="ssCalloutIcon"><TrendingUp size={16} strokeWidth={1.5} /></span>
+          <p className="ssCalloutText">Committed to expanding access to specialised care where it matters most.</p>
+        </div>
+      </div>
+      <div className="ssPanel">
+        <div className="ssMetricRow">
+          {scaleMetrics.filter(m => m.label !== "Care Network").map(({ label, value, description, icon: Icon, tone }) => (
+            <article className="metricCard" key={label}>
+              <div className="metricHeader">
+                <span className={`metricIcon metricIcon--${tone}`}><Icon /></span>
+                <span className="metricLabel">{label}</span>
+              </div>
+              <strong className="metricValue">{value}</strong>
+              <p className="metricDescription">{description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ScaleSnapshot() {
   return (
     <section className="scaleSnapshot" aria-label="Evervie scale snapshot">
@@ -474,7 +504,7 @@ function Signposts() {
   return (
     <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build, and how we're funded." />
       <div className="exploreGrid">
-        {signposts.map(([title, copy, cta], i) => (
+        {signposts.map(([title, copy, cta, img], i) => (
           <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
             <div className="exploreCardText">
               <span className="exploreIndex">{String(i + 1).padStart(2, "0")}</span>
@@ -482,7 +512,7 @@ function Signposts() {
               <p>{copy}</p>
               <a className="btnOutline">{cta}</a>
             </div>
-            <Placeholder text={`${title} visual`} className="exploreCardVisual" />
+            <img src={img} alt="" className="exploreCardVisual" />
           </article>
         ))}
       </div>
@@ -493,9 +523,30 @@ function Signposts() {
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
     <section className="editorialHero">
-      <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie_Discs_Web_v1 (1).mp4" />
+      <img className="heroCurcleReveal" src="/Evervie_PPT_Curcle_v1.png" alt="" />
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
+      </div>
+    </section>
+    <section className="editorialHero hero3dAsset">
+      <img className="hero3dBg" src="/hero-section-image-background.png" alt="" />
+      <div className="heroStage">
+        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
+      </div>
+    </section>
+    <section className="editorialHero heroBgStyle2">
+      <div className="heroStage">
+        <div className="editorialHeroGrid heroSplitGrid">
+          <div className="heroSplitLeft">
+            <div className="eyebrow">Future-focused healthcare</div>
+            <h1>Advancing specialized care for more people, in more places</h1>
+          </div>
+          <div className="heroSplitRight">
+            <p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p>
+            <p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p>
+            <div className="buttonRow"><a className="btn">Explore Our Care Platforms</a></div>
+          </div>
+        </div>
       </div>
     </section>
     {/* <section className="editorialHero heroAlt">
@@ -504,7 +555,7 @@ function Editorial() {
       </div>
     </section> */}
     <section className="editorialHeroGradient">
-      <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie gradient motion.mp4" />
+      <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie_Gradient_AE_!6x9.mp4" />
       <div className="heroGradientOverlay" />
       <div className="heroGradientContent">
         <span className="heroGradientEyebrow">Future-focused healthcare</span>
@@ -518,9 +569,9 @@ function Editorial() {
     </section>
     <section className="section">
       <div className="heroWideVisualWrap">
-        <img className="heroWideVisual" src="/happy-family.png" alt="Full-width healthcare ecosystem visual" />
+        {/* <img className="heroWideVisual" src="/happy-family.png" alt="Full-width healthcare ecosystem visual" /> */}
       </div>
-      <ScaleSnapshot />
+      <CompanySnapshot />
     </section>
     {/* <section className="section"><SectionHead eyebrow="Purpose in practice" title="Access, quality, and scale — built into the way care moves" copy="Evervie's brand marks stand in for three commitments — click one to read it in full." /><Pillars /></section> */}
     <section className="wwaPrincipleGrid">
