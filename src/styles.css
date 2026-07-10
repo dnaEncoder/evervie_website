@@ -1474,6 +1474,11 @@ blockquote {
     background: #ffffff
 }
 
+.editorialBrand .editorialHero.hero3dAsset .editorialHeroGrid {
+    align-items: start;
+    padding-top: 72px
+}
+
 .editorialBrand .editorialHero.heroBgStyle2 {
     background-image: url(/background-image-style-2.jpg);
     background-size: cover;
@@ -1497,6 +1502,39 @@ blockquote {
     flex-direction: column;
     gap: 20px;
     max-width: none
+}
+
+.editorialBrand .editorialHero.heroVideoSplit {
+    background: #ffffff
+}
+
+.editorialBrand .editorialHero.heroVideoSplit .heroVidGrid {
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 0
+}
+
+.editorialBrand .editorialHero.heroVideoSplit .heroVidLeft {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 24px;
+    max-width: none;
+    padding-right: 80px
+}
+
+.editorialBrand .editorialHero.heroVideoSplit .heroVidRight {
+    position: relative;
+    overflow: hidden
+}
+
+.editorialBrand .editorialHero.heroVideoSplit .heroVidAsset {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
 }
 
 .editorialBrand .editorialHero::before {

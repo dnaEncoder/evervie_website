@@ -534,6 +534,22 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
     </section>
+    <section className="editorialHero heroVideoSplit">
+      <div className="heroStage">
+        <div className="editorialHeroGrid heroVidGrid">
+          <div className="heroVidLeft">
+            <div className="eyebrow">Future-focused healthcare</div>
+            <h1>Advancing specialized care for more people, in more places</h1>
+            <p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p>
+            <p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p>
+            <div className="buttonRow"><a className="btn">Explore Our Care Platforms</a></div>
+          </div>
+          <div className="heroVidRight">
+            <video autoPlay muted loop playsInline src="/Evervie_Logo_Clip2-EDIT.mp4" className="heroVidAsset" />
+          </div>
+        </div>
+      </div>
+    </section>
     <section className="editorialHero heroBgStyle2">
       <div className="heroStage">
         <div className="editorialHeroGrid heroSplitGrid">
