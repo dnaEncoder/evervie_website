@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity } from "lucide-react";
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 function Linkedin({ size = 16, style, className }) {
   return (
@@ -204,8 +207,8 @@ function EditorialNav() {
     <header className={`nav navEditorial ${mobileOpen ? "mobileMenuOpen" : ""}`}>
       <div className="navHeaderBar">
         <Logo />
-        <button 
-          className="mobileToggleBtn" 
+        <button
+          className="mobileToggleBtn"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-expanded={mobileOpen}
           aria-label="Toggle menu"
@@ -224,7 +227,7 @@ function EditorialNav() {
           )}
         </button>
       </div>
-      
+
       <div className={`navMainContent ${mobileOpen ? "show" : ""}`}>
         <div className="navLinks">
           <NavLink to="/editorial">Home</NavLink>
@@ -764,13 +767,13 @@ function AboutWhoWeAre() {
             <div className="wwaPurposeJourney">
               {purpose.map(([n, l, t, c], i) => {
                 const accents = [
-                  ['/circle-image.png',    '#FABE00'],
+                  ['/circle-image.png', '#FABE00'],
                   ['/rectangle-image.png', '#FF91B4'],
-                  ['/bloom-image.png',     '#FF3C00'],
+                  ['/bloom-image.png', '#FF3C00'],
                 ];
                 const [icon, color] = accents[i];
                 return (
-                  <article className="wwaPurposeRow" key={l} style={{'--accent': color}}>
+                  <article className="wwaPurposeRow" key={l} style={{ '--accent': color }}>
                     <div className="wwaPurposeShapeMark">
                       <img src={icon} alt="" className="wwaPurposeShape" />
                     </div>
@@ -890,9 +893,9 @@ function AboutWhoWeAre() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest",     "/image-1.png"],
-              ["Portfolio",       "Renal care, oncology, diagnostics, and elder care under one platform.",                  "Explore the portfolio", "/image-2.png"],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.",                       "Enter Investor Centre", "/image-3.png"]
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/image-1.png"],
+              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
             ].map(([title, copy, cta, img], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1261,9 +1264,9 @@ function AboutLeadership() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest",     "/image-1.png"],
-              ["Portfolio",       "Renal care, oncology, diagnostics, and elder care under one platform.",                  "Explore the portfolio", "/image-2.png"],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.",                       "Enter Investor Centre", "/image-3.png"]
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/image-1.png"],
+              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
             ].map(([title, copy, cta, img], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1301,7 +1304,7 @@ function AboutLeadership() {
                   <h4>Biography</h4>
                   <p className="wwaModalBioText">{activeBoardMember.expandedBio}</p>
                 </div>
-                
+
                 <div className="wwaModalDivider" />
 
                 <div className="wwaModalSection">
@@ -1328,13 +1331,1191 @@ function AboutLeadership() {
   );
 }
 function AboutMissionVision() {
-  return <InnerPage eyebrow="About Evervie" title="Mission & Vision" lead="Why we exist, where we are going, and the future we are working to create." />;
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+
+        {/* Hero */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>About Evervie</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Mission & Vision</span>
+            </nav>
+            <div className="eyebrow">Mission & Vision</div>
+            <h1>A clearer purpose for a healthier future.</h1>
+            <p className="wwaHeroBody">Evervie exists to expand access to specialised care, strengthen the quality of healthcare delivery, and build platforms capable of creating meaningful impact over time.</p>
+          </div>
+          <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
+        </section>
+
+        {/* Mission & Vision Statement */}
+        <section className="mvStatement">
+          <div className="mvStatementInner">
+            <div className="mvStatHead">
+              <div className="eyebrow">Mission & Vision</div>
+              <h2>What guides us today, and what shapes tomorrow.</h2>
+              <p className="mvStatSubline">Our mission defines what we are building now. Our vision defines the future we are working toward.</p>
+            </div>
+            <div className="mvStatGrid">
+              <div className="mvBlock mvMission">
+                <div className="mvBlockIconWrap"><Target size={24} strokeWidth={1.5} /></div>
+                <span className="mvLabel">Our Mission</span>
+                <h3 className="mvSubheading">Why we exist.</h3>
+                <p className="mvBlockStatement">To build, deliver and scale global specialty care.</p>
+                <p className="mvBlockCopy">Evervie's mission is to build healthcare platforms that can deliver focused specialty care with consistency, trust, and long-term operating strength.</p>
+              </div>
+              <div className="mvStatDivider" aria-hidden="true" />
+              <div className="mvBlock mvVision">
+                <div className="mvBlockIconWrap"><Sparkles size={24} strokeWidth={1.5} /></div>
+                <span className="mvLabel">Our Vision</span>
+                <h3 className="mvSubheading">The future we are working toward.</h3>
+                <p className="mvBlockStatement">More people, more places — care that's actually there.</p>
+                <p className="mvBlockCopy">Evervie's vision is a future where specialty care is not distant or fragmented, but present, dependable, and accessible to more communities across the world.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Purpose in Practice */}
+        <section className="wwaPurpose">
+          <div className="wwaPurposeLayout">
+            <div className="wwaPurposeIntro">
+              <div className="eyebrow">Purpose in Practice</div>
+              <h2>How Evervie moves from belief to care delivery.</h2>
+              <hr className="wwaPurposeRule" />
+              <p className="wwaPurposeBody">We design and scale healthcare platforms that bring access, quality, and scale together—so care reaches further and creates lasting impact.</p>
+            </div>
+            <div className="wwaPurposeJourney">
+              {purpose.map(([n, l, t, c], i) => {
+                const accents = [
+                  ['/circle-image.png', '#FABE00'],
+                  ['/rectangle-image.png', '#FF91B4'],
+                  ['/bloom-image.png', '#FF3C00'],
+                ];
+                const [icon, color] = accents[i];
+                return (
+                  <article className="wwaPurposeRow" key={l} style={{ '--accent': color }}>
+                    <div className="wwaPurposeShapeMark">
+                      <img src={icon} alt="" className="wwaPurposeShape" />
+                    </div>
+                    <div className="wwaPurposeContent">
+                      <span className="wwaPurposeNum">{n}</span>
+                      <h3 className="wwaPurposeTitle">{l}</h3>
+                      <p className="wwaPurposeStatement">{t}</p>
+                      <p className="wwaPurposeDesc">{c}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* About Evervie Navigation */}
+        <section className="wwaAboutNav section">
+          <div className="wwaAboutNavLayout">
+            <div className="wwaAboutNavIntro">
+              <div className="eyebrow">About Evervie</div>
+              <h2>Continue the Evervie story.</h2>
+              <p>Explore the people, purpose, and principles behind Evervie Health.</p>
+              <Link to="/editorial" className="btnOutline">View all About Evervie</Link>
+            </div>
+            <div className="wwaAboutBento">
+              <Link to="/about/leadership" className="wwaNavFeature">
+                <div className="wwaNavFeatureInner">
+                  <div className="wwaNavMeta">
+                    <span className="wwaNavNum">01</span>
+                    <span className="wwaNavNextTag">Next</span>
+                  </div>
+                  <h3>Our Leadership</h3>
+                  <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
+                  <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
+                </div>
+                <Placeholder text="Leadership visual" className="wwaNavFeatureImg" />
+              </Link>
+              <div className="wwaNavMinorGrid">
+                {[
+                  { to: "/about/mission-vision", num: "02", title: "Mission & Vision", desc: "Why we exist and where we are going." },
+                  { to: "/about/aspiration", num: "03", title: "Our Aspiration", desc: "The ambition behind the platform." },
+                  { to: "/about/governance", num: "04", title: "Our Governance", desc: "Integrity, accountability, and trust." }
+                ].map(({ to, num, title, desc }) => (
+                  <Link to={to} className="wwaNavMinor" key={title}>
+                    <span className="wwaNavNum">{num}</span>
+                    <h4>{title}</h4>
+                    <p>{desc}</p>
+                    <ArrowRight size={14} className="wwaNavArrow" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </Frame>
+  );
 }
 function AboutAspiration() {
   return <InnerPage eyebrow="About Evervie" title="Our Aspiration" lead="Our ambition to transform healthcare and improve lives at meaningful scale." />;
 }
 function AboutGovernance() {
   return <InnerPage eyebrow="About Evervie" title="Our Governance" lead="The principles, practices, and oversight that ensure integrity, accountability, and trust." />;
+}
+
+// Portfolio Vertical Reusable Template
+// Portfolio Vertical Reusable Template
+function PortfolioVertical({
+  eyebrow = "Our Portfolio",
+  title,
+  subtitle,
+  intro,
+  heroImage,
+  metrics = [],
+  platform = {},
+  footprint = {},
+  network = {},
+  careExperience = [],
+  closing = {},
+  footprintIcon = Globe2,
+  networkIcon = Network
+}) {
+  const ClosingIcon = closing.icon || Droplet;
+  const FootprintIcon = footprintIcon;
+  const NetworkIcon = networkIcon;
+
+  // Leaflet dynamic GeoJSON loading
+  const [geoJsonData, setGeoJsonData] = useState(null);
+  const [mapViewMode, setMapViewMode] = useState("2D");
+  const dialysisStates = footprint.mapData ? footprint.mapData.dialysisStates : [];
+
+  useEffect(() => {
+    if (footprint.mapData) {
+      fetch("/india_states.geojson")
+        .then((res) => res.json())
+        .then((data) => setGeoJsonData(data))
+        .catch((err) => console.error("Error loading GeoJSON data:", err));
+    }
+  }, [footprint.mapData]);
+
+  // Leaflet custom styling rules
+  const getStateStyle = (feature) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = dialysisStates.includes(stateName) || (stateName === "Uttaranchal" && dialysisStates.includes("Uttarakhand"));
+
+    return {
+      fillColor: isHighlighted ? "url(#active-stripes)" : "url(#diagonal-stripes)",
+      stroke: true,
+      weight: 1,
+      opacity: 1.0,
+      color: isHighlighted ? "rgba(255, 60, 0, 0.7)" : "#d2ccc6",
+      fillOpacity: 1.0
+    };
+  };
+
+  const onEachFeature = (feature, layer) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = dialysisStates.includes(stateName) || (stateName === "Uttaranchal" && dialysisStates.includes("Uttarakhand"));
+    const displayName = stateName === "Uttaranchal" ? "Uttarakhand" : stateName;
+
+    layer.bindTooltip(`
+      <div style="font-family: inherit; font-size: 12px; padding: 4px 8px;">
+        <strong>${displayName}</strong><br/>
+        ${isHighlighted ? 'Dialysis Centre Footprint<br/><span style="color:var(--evervie-orange);font-weight:600;">Part of 20-centre network</span>' : 'No direct footprint'}
+      </div>
+    `, {
+      sticky: true,
+      direction: "auto",
+      opacity: 0.95
+    });
+
+    layer.on({
+      mouseover: (e) => {
+        const l = e.target;
+        l.setStyle({
+          fillOpacity: isHighlighted ? 0.45 : 1.0,
+          fillColor: isHighlighted ? "var(--evervie-orange)" : "url(#diagonal-stripes-hover)",
+          stroke: true,
+          weight: 1.5,
+          color: isHighlighted ? "var(--evervie-orange)" : "#a09d97"
+        });
+      },
+      mouseout: (e) => {
+        const l = e.target;
+        l.setStyle(getStateStyle(feature));
+      }
+    });
+  };
+
+  // Custom marker DivIcon avoiding Vite asset bundler paths
+  const customMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+    html: `<div style="
+      background-color: var(--evervie-orange);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 8px rgba(255, 60, 0, 0.6);
+    "></div>`,
+    className: "custom-leaflet-marker",
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+    popupAnchor: [0, -8]
+  }) : null;
+
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+        {/* Header and Breadcrumb & Hero */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>Our Portfolio</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">{title}</span>
+            </nav>
+            <div className="eyebrow">{eyebrow}</div>
+            <h1>{title}</h1>
+            <p className="heroGradientLead" style={{ fontWeight: 600, color: 'var(--graphite)', marginBottom: 16 }}>{subtitle}</p>
+            <p className="wwaHeroBody" style={{ margin: 0 }}>{intro}</p>
+          </div>
+          <img src={heroImage} alt="" className="wwaHeroDiamond" aria-hidden="true" style={{ opacity: 0.85 }} />
+        </section>
+
+        {/* Impact Metrics Strip */}
+        {metrics.length > 0 && (
+          <section className="metricsStrip">
+            {metrics.map((m, index) => {
+              const MetricIcon = m.icon;
+              return (
+                <article className="metricCard" key={index}>
+                  <div className="metricHeader">
+                    <span className={`metricIcon metricIcon--${m.tone || 'orange'}`}>
+                      <MetricIcon size={20} />
+                    </span>
+                    <span className="metricLabel">{m.label}</span>
+                  </div>
+                  <strong className="metricValue">{m.number}</strong>
+                  <p className="metricDescription">{m.desc}</p>
+                </article>
+              );
+            })}
+          </section>
+        )}
+
+        {/* Platform Introduction Section */}
+        {platform.name && (
+          <section className="platformSection">
+            <div className="platformLayout">
+              <div className="platformLeft">
+                <div className="eyebrow">{platform.label || "Our Operating Platform"}</div>
+                <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '8px 0 20px 0', color: 'var(--graphite)' }}>{platform.name}</h2>
+                <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--muted)', marginBottom: 32 }}>{platform.desc}</p>
+                {platform.ctaText && (
+                  <a href={platform.ctaLink || "#"} className="btn">
+                    {platform.ctaText}
+                  </a>
+                )}
+              </div>
+              <div className="platformRight">
+                {platform.logo ? (
+                  platform.logo
+                ) : (
+                  <div className="platformLogoBox">
+                    <span className="platformLogoText">{platform.name}</span>
+                    <span className="platformLogoSub">An Evervie Platform</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Operating Footprint and Clinical Network Section */}
+        {footprint.mapData ? (
+          <section className="footprintSection">
+            <div className="footprintLayout">
+              <div className="leftFootprintSummary">
+                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: 8 }}>EVERVIE RENAL CARE</div>
+                <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '0 0 16px 0', color: 'var(--graphite)', letterSpacing: '-0.02em' }}>{footprint.title || "Operating Footprint"}</h2>
+                <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--muted)', marginBottom: 40 }}>{footprint.desc || "Renal care reach across dialysis centres and hospitals in India."}</p>
+
+                <div className="footprintMetricBlock">
+                  <div className="footprintMetricHeader">
+                    <div className="footprintMetricIcon">
+                      <Building2 size={22} />
+                    </div>
+                    <div>
+                      <strong className="footprintMetricNumber">{footprint.dialysisCount || 20}</strong>
+                      <span className="footprintMetricLabel">Dialysis Centres</span>
+                    </div>
+                  </div>
+                  <div className="footprintMetricBody">
+                    <strong>Across {footprint.statesCount || 7} states:</strong>
+                    <p>{footprint.statesList || "Delhi, Haryana, Rajasthan, Uttar Pradesh, Uttarakhand, Bihar, Jharkhand"}</p>
+                  </div>
+                </div>
+
+                <div className="footprintMetricDivider" />
+
+                <div className="footprintMetricBlock">
+                  <div className="footprintMetricHeader">
+                    <div className="footprintMetricIcon">
+                      <HeartPulse size={22} />
+                    </div>
+                    <div>
+                      <strong className="footprintMetricNumber">{network.hospitalCount || 4}</strong>
+                      <span className="footprintMetricLabel">Hospitals</span>
+                    </div>
+                  </div>
+                  <div className="footprintMetricBody">
+                    <strong>Located in:</strong>
+                    <p>{network.citiesList || "Delhi, Moradabad, Varanasi, Mau"}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={`mapContainerWrapper ${mapViewMode === "3D" ? "map3DMode" : ""}`}>
+                {/* SVG pattern definitions for vector map styling */}
+                <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+                  <defs>
+                    <pattern id="diagonal-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="8" stroke="#eae6e1" strokeWidth="1.5" />
+                    </pattern>
+                    <pattern id="diagonal-stripes-hover" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="8" stroke="#d2ccc6" strokeWidth="2" />
+                    </pattern>
+                    <pattern id="active-stripes" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                      <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255, 60, 0, 0.45)" strokeWidth="2.5" />
+                    </pattern>
+                  </defs>
+                </svg>
+
+                <div className="mapViewSwitch">
+                  <button 
+                    className={`switchBtn ${mapViewMode === "2D" ? "active" : ""}`}
+                    onClick={() => setMapViewMode("2D")}
+                  >
+                    2D Map
+                  </button>
+                  {/* <button 
+                    className={`switchBtn ${mapViewMode === "3D" ? "active" : ""}`}
+                    onClick={() => setMapViewMode("3D")}
+                  >
+                    3D Perspective
+                  </button> */}
+                </div>
+                {geoJsonData && (
+                  <MapContainer
+                    center={mapViewMode === "3D" ? [27.0, 81.3] : (footprint.mapCenter || [27.0, 83.5])}
+                    zoom={mapViewMode === "3D" ? 5.1 : (footprint.mapZoom || 5.3)}
+                    zoomSnap={0.1}
+                    scrollWheelZoom={false}
+                    doubleClickZoom={false}
+                    dragging={false}
+                    zoomControl={false}
+                    attributionControl={false}
+                    touchZoom={false}
+                    boxZoom={false}
+                    keyboard={false}
+                  >
+                    <GeoJSON
+                      data={geoJsonData}
+                      style={getStateStyle}
+                      onEachFeature={onEachFeature}
+                    />
+                    {footprint.hospitalsList && footprint.hospitalsList.map((h, i) => (
+                      <Marker
+                        key={i}
+                        position={h.coordinates}
+                        icon={customMarkerIcon}
+                      >
+                        <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
+                          {h.city}
+                        </Tooltip>
+                        <Popup>
+                          <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                            <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Hospital Location</strong>
+                            <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
+                            <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Evervie’s renal care hospital network.</span>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                  </MapContainer>
+                )}
+
+                {/* Map Legend */}
+                <div className="mapLegendBox">
+                  <h4>Map Legend</h4>
+                  <div className="legendItem">
+                    <span className="legendColorBox" style={{ background: "rgba(255, 60, 0, 0.25)", border: "1px solid var(--evervie-orange)" }}></span>
+                    <div>
+                      <strong>Dialysis Centre Footprint</strong>
+                      <p>States with dialysis centre presence</p>
+                    </div>
+                  </div>
+                  <div className="legendItem">
+                    <span className="legendMarkerDot"></span>
+                    <div>
+                      <strong>Hospital Locations</strong>
+                      <p>Cities with Evervie renal care hospitals</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <section className="footprintSection">
+            <div className="footprintLayout" style={{ gridTemplateColumns: '1fr 1fr' }}>
+              <div className="footprintCol">
+                <div className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
+                  <FootprintIcon size={14} strokeWidth={2.5} style={{ color: 'var(--evervie-orange)' }} />
+                  <span>{footprint.title || "Operating Footprint"}</span>
+                </div>
+                {footprint.items && footprint.items.map((item, idx) => (
+                  <div className="footprintCard" key={idx}>
+                    <div className="footprintCardHeader">
+                      <h4>{item.heading}</h4>
+                      <span className="footprintCardIndex">0{idx + 1}</span>
+                    </div>
+                    <p style={{ marginTop: 8 }}>{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="footprintCol">
+                <div className="eyebrow" style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
+                  <NetworkIcon size={14} strokeWidth={2.5} style={{ color: 'var(--evervie-orange)' }} />
+                  <span>{network.title || "Clinical Network"}</span>
+                </div>
+                {network.items && network.items.map((item, idx) => (
+                  <div className="footprintCard" key={idx}>
+                    <div className="footprintCardHeader">
+                      <h4>{item.heading}</h4>
+                      <span className="footprintCardIndex">0{idx + 1}</span>
+                    </div>
+                    <p style={{ marginTop: 8 }}>{item.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Clinical Network Section */}
+        <section className="clinicalNetworkSection">
+          <div className="clinicalNetworkLayout">
+            {/* Left Column */}
+            <div className="clinicalNetworkIntro">
+              <div className="eyebrow">CLINICAL NETWORK</div>
+              <h2 className="clinicalNetworkHeading">
+                A strong network<br />
+                behind better<br />
+                renal care.
+              </h2>
+              <p className="clinicalNetworkDesc">
+                Our renal care platform is supported by specialist expertise and trained care teams.
+              </p>
+              
+              {/* Subtle background medical visual (temporary image) */}
+              <div className="clinicalNetworkVisual">
+                <img 
+                  src="/clinical_network_temp.png" 
+                  alt="Clinical Network Graphic" 
+                  className="clinicalNetworkImage" 
+                />
+              </div>
+            </div>
+
+            {/* Right Column */}
+            <div className="clinicalNetworkMetrics">
+              {/* Metric Block 01 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">01</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>20 Nephrologists</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Associated super-specialist nephrologists guiding our clinical standards, treatments, and pathways.</p>
+                </div>
+              </div>
+
+              {/* Metric Block 02 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">02</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>350+ Trained Personnel</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Skilled nurses and dialysis technicians delivering professional and compassionate daily care.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Impact / Care Experience Section */}
+        {careExperience.length > 0 && (
+          <section className="careExpSection">
+            <div className="sectionHead" style={{ margin: 0 }}>
+              <div>
+                <div className="eyebrow">Impact & Care</div>
+                <h2>Delivering care that actually matters.</h2>
+              </div>
+              <p>How we measure clinical excellence, access, and daily dedication across the vertical.</p>
+            </div>
+            <div className="careExpGrid">
+              {careExperience.map((exp, idx) => (
+                <div className="careExpCard" key={idx}>
+                  {exp.image ? (
+                    <div className="careExpImageWrapper">
+                      <img src={exp.image} alt={exp.heading} className="careExpImage" />
+                    </div>
+                  ) : (
+                    exp.icon && (
+                      <div className="careExpIcon">
+                        {(() => {
+                          const ExpIcon = exp.icon;
+                          return <ExpIcon size={18} strokeWidth={2.5} />;
+                        })()}
+                      </div>
+                    )
+                  )}
+                  <h3>{exp.heading}</h3>
+                  <p>{exp.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Closing CTA Section */}
+        <section className="portfolioClosing">
+          <div className="portfolioClosingBox">
+            <div className="portfolioClosingIcon">
+              <ClosingIcon size={24} />
+            </div>
+            <div className="portfolioClosingText">
+              <h3>{closing.statement || "Building the future of care."}</h3>
+              <p>{closing.supporting || "With strong foundations, we expand access, quality, and impact."}</p>
+            </div>
+            <Link to={closing.ctaLink || "/editorial"} className="btnOutline">
+              {closing.ctaText || "Explore Our Portfolio"}
+            </Link>
+          </div>
+        </section>
+
+      </main>
+    </Frame>
+  );
+}
+
+// Renal Care Page Component
+function RenalCare() {
+  const metrics = [
+    { icon: Building2, label: "Dialysis Centres", number: "20", desc: "Dialysis centres across 7 states", tone: "orange" },
+    { icon: Users, label: "Hospitals", number: "4", desc: "Hospitals in 4 cities", tone: "solar" },
+    { icon: Activity, label: "Dialysis Sessions", number: "10 Lakh+", desc: "High-quality dialysis sessions delivered since 2013", tone: "pink" },
+    { icon: UsersRound, label: "Patients Served", number: "25,000+", desc: "Patients served across hospitals", tone: "orange" },
+    { icon: Globe2, label: "Outreach Patients", number: "2,500+", desc: "Patients reached through community outreach and OPD camps", tone: "solar" }
+  ];
+
+  const platform = {
+    label: "Our Renal Care Platform",
+    name: "7Med India",
+    desc: "7Med India is Evervie’s dedicated renal care platform, delivering accessible and high-quality dialysis services across North and East India. Partnering with leading nephrologists and hospitals, 7Med provides patient-first kidney care that combines clinical discipline with compassionate treatment.",
+    ctaText: "Explore 7Med India",
+    ctaLink: "#",
+    logo: (
+      <img 
+        src="/7med_logo_No Background.png" 
+        alt="7Med India Logo" 
+        style={{ maxWidth: '350px', width: '100%', height: 'auto', display: 'block' }} 
+      />
+    )
+  };
+
+  const footprint = {
+    title: "Operating Footprint",
+    desc: "Renal care reach across dialysis centres and hospitals in India.",
+    dialysisCount: 20,
+    statesCount: 7,
+    statesList: "Delhi, Haryana, Rajasthan, Uttar Pradesh, Uttarakhand, Bihar, and Jharkhand",
+    mapCenter: [27.0, 83.5],
+    mapZoom: 5.3,
+    mapData: {
+      dialysisStates: [
+        "Delhi",
+        "Haryana",
+        "Rajasthan",
+        "Uttar Pradesh",
+        "Uttarakhand",
+        "Bihar",
+        "Jharkhand"
+      ]
+    },
+    hospitalsList: [
+      { city: "Delhi", state: "Delhi", coordinates: [28.6139, 77.2090] },
+      { city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.8386, 78.7733] },
+      { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.3176, 82.9739] },
+      { city: "Mau", state: "Uttar Pradesh", coordinates: [25.9417, 83.5611] }
+    ]
+  };
+
+  const network = {
+    title: "Clinical Network",
+    hospitalCount: 4,
+    citiesList: "Delhi, Moradabad, Varanasi, and Mau"
+  };
+
+  const careExperience = [
+    { image: "/patient_first_care.png", heading: "Patient-First Care", desc: "Safe, effective, and compassionate kidney care tailored around patient schedules and long-term health." },
+    { image: "/clinical_excellence.png", heading: "Clinical Excellence", desc: "Nephrologist-led expertise, clinical protocols, and trained care teams ensuring the highest treatment quality." },
+    { image: "/accessible_care.png", heading: "Accessible Care", desc: "Strategic footprint expansion across multiple states to bring renal care closer to under-served communities." },
+    { image: "/community_impact.png", heading: "Community Impact", desc: "Organizing regular free outreach programs, diagnostics checks, and local OPD camps for early detection." }
+  ];
+
+  const closing = {
+    icon: Droplet,
+    statement: "Building the future of kidney care in India.",
+    supporting: "With strong foundations and a patient-first approach, we continue to expand access, quality, and impact.",
+    ctaText: "Explore Our Portfolio",
+    ctaLink: "/editorial"
+  };
+
+  return (
+    <PortfolioVertical
+      title="Renal Care"
+      subtitle="Specialised kidney care platforms built around accessibility, clinical focus, and long-term continuity."
+      intro="Evervie’s renal care vertical is dedicated to addressing the growing demand for trusted dialysis services and comprehensive kidney care. Through modern operating platforms and expert care teams, we bring continuous support to patients and families."
+      heroImage="/renal_care_hero.png"
+      metrics={metrics}
+      platform={platform}
+      footprint={footprint}
+      network={network}
+      careExperience={careExperience}
+      closing={closing}
+    />
+  );
+}
+
+// Oncology Page Component
+function Oncology() {
+  const [geoJsonData, setGeoJsonData] = useState(null);
+
+  useEffect(() => {
+    fetch("/india_states.geojson")
+      .then((res) => res.json())
+      .then((data) => setGeoJsonData(data))
+      .catch((err) => console.error("Error loading GeoJSON data:", err));
+  }, []);
+
+  const mapCenter = [19.6, 75.8];
+  const mapZoom = 6.4;
+  const highlightedStates = ["Maharashtra"];
+
+  const getStateStyle = (feature) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = highlightedStates.includes(stateName);
+
+    return {
+      fillColor: isHighlighted ? "url(#active-stripes)" : "url(#diagonal-stripes)",
+      stroke: true,
+      weight: 1,
+      opacity: 1.0,
+      color: isHighlighted ? "rgba(255, 60, 0, 0.7)" : "#d2ccc6",
+      fillOpacity: 1.0
+    };
+  };
+
+  const onEachFeature = (feature, layer) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = highlightedStates.includes(stateName);
+
+    layer.bindTooltip(`
+      <div style="font-family: inherit; font-size: 12px; padding: 4px 8px;">
+        <strong>${stateName}</strong><br/>
+        ${isHighlighted ? 'Active Footprint<br/><span style="color:var(--evervie-orange);font-weight:600;">Maharashtra Expansion Hub</span>' : 'No direct footprint'}
+      </div>
+    `, {
+      sticky: true,
+      direction: "auto",
+      opacity: 0.95
+    });
+
+    layer.on({
+      mouseover: (e) => {
+        const l = e.target;
+        l.setStyle({
+          fillOpacity: isHighlighted ? 0.45 : 1.0,
+          fillColor: isHighlighted ? "var(--evervie-orange)" : "url(#diagonal-stripes-hover)",
+          stroke: true,
+          weight: 1.5,
+          color: isHighlighted ? "var(--evervie-orange)" : "#a09d97"
+        });
+      },
+      mouseout: (e) => {
+        const l = e.target;
+        l.setStyle(getStateStyle(feature));
+      }
+    });
+  };
+
+  const customMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+    html: `<div style="
+      background-color: var(--evervie-orange);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 8px rgba(255, 60, 0, 0.6);
+    "></div>`,
+    className: "custom-leaflet-marker",
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+    popupAnchor: [0, -8]
+  }) : null;
+
+  const facilities = [
+    { city: "Latur", coordinates: [18.4088, 76.5604] },
+    { city: "Akola", coordinates: [20.7002, 77.0082] },
+    { city: "Solapur", coordinates: [17.6599, 75.9064] },
+    { city: "Dhule", coordinates: [20.9020, 74.7749] },
+    { city: "Pimpri-Chinchwad (Pune)", coordinates: [18.6298, 73.7997] }
+  ];
+
+  const expertisePathway = [
+    { icon: Microscope, title: "Early Detection & Screening", desc: "Screening and early detection support for better treatment readiness." },
+    { icon: Activity, title: "Diagnostics", desc: "Diagnostic services that support accurate and timely clinical decisions." },
+    { icon: Droplet, title: "Medical Oncology & Chemotherapy", desc: "Evidence-based treatment planning and systemic cancer care." },
+    { icon: Target, title: "Radiation Oncology", desc: "Radiation treatment capabilities supported by modern oncology facilities." },
+    { icon: Sparkles, title: "Targeted Therapy & Immunotherapy", desc: "Advanced treatment approaches for more personalised cancer care." },
+    { icon: HandHeart, title: "Supportive Care & Rehabilitation", desc: "Support for healing, recovery, and patient well-being." },
+    { icon: Award, title: "Survivorship Programs", desc: "Long-term guidance and support beyond active treatment." }
+  ];
+
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main className="oncologyPage">
+        {/* Hero Section */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>Our Portfolio</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Oncology</span>
+            </nav>
+            <div className="eyebrow">OUR PORTFOLIO</div>
+            <h1>Oncology</h1>
+            <p className="heroGradientLead" style={{ fontWeight: 600, color: 'var(--graphite)', marginBottom: 16 }}>
+              Comprehensive cancer care.<br />Closer to home.
+            </p>
+            <p className="wwaHeroBody" style={{ margin: 0 }}>
+              Optimus Oncology is a rapidly growing oncology healthcare organisation focused on making advanced cancer care accessible across India, especially in Tier-2 and Tier-3 cities.
+            </p>
+          </div>
+          <img 
+            src="/oncology_hero_patient_care.png" 
+            alt="" 
+            className="wwaHeroDiamond" 
+            aria-hidden="true" 
+            style={{ opacity: 0.85 }} 
+          />
+        </section>
+
+        {/* Impact Metrics Strip */}
+        <section className="metricsStrip oncologyMetrics">
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Target size={20} />
+              </span>
+              <span className="metricLabel">Radiotherapy Treatments</span>
+            </div>
+            <strong className="metricValue">20,000+</strong>
+            <p className="metricDescription">Radiotherapy treatments delivered supporting patients throughout their recovery journey.</p>
+          </article>
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Activity size={20} />
+              </span>
+              <span className="metricLabel">Oncology Consultations</span>
+            </div>
+            <strong className="metricValue">50,000+</strong>
+            <p className="metricDescription">Oncology consultations provided ensuring precise treatment pathways and clinical clarity.</p>
+          </article>
+        </section>
+
+        {/* Platform Introduction Section */}
+        <section className="platformSection">
+          <div className="platformLayout">
+            <div className="platformLeft">
+              <div className="eyebrow">OUR ONCOLOGY PLATFORM</div>
+              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '8px 0 20px 0', color: 'var(--graphite)' }}>Optimus Oncology</h2>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--muted)', marginBottom: 32 }}>
+                Optimus Oncology is Evervie’s dedicated oncology platform, focused on making advanced and comprehensive cancer care accessible across India. Founded and led by renowned oncologists from Tata Memorial Centre, the platform integrates diagnostics, medical oncology, radiation oncology, and supportive care to bring patient-first clinical standards closer to home, especially in under-served regions.
+              </p>
+              <a href="#clinical-network" className="btn">
+                Explore Clinical Network
+              </a>
+            </div>
+            <div className="platformRight">
+              <img 
+                src="/OPTIMUS LOGO.JPG" 
+                alt="Optimus Oncology Logo" 
+                style={{ maxWidth: '350px', width: '100%', height: 'auto', display: 'block', margin: '0 auto' }} 
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Our Expertise Section */}
+        <section className="oncologyExpertiseSection">
+          <div className="oncologyExpertiseLayout">
+            <div className="oncologyExpertiseIntro">
+              <div className="eyebrow">OUR EXPERTISE</div>
+              <h2 className="oncologyExpertiseHeading">Advanced care.<br />Delivered with expertise and compassion.</h2>
+              <p className="oncologyExpertiseDesc">
+                From early detection to advanced treatment and recovery support, Optimus Oncology brings together integrated cancer-care capabilities across every stage of the patient journey.
+              </p>
+            </div>
+            <div className="oncologyExpertisePathway">
+              {expertisePathway.map((step, idx) => {
+                const StepIcon = step.icon;
+                return (
+                  <div className="oncologyPathwayStep" key={idx}>
+                    <div className="oncologyStepProgress">
+                      <div className="oncologyStepDot">
+                        <StepIcon size={16} />
+                      </div>
+                      {idx < expertisePathway.length - 1 && <div className="oncologyStepLine" />}
+                    </div>
+                    <div className="oncologyStepContent">
+                      <h4>{step.title}</h4>
+                      <p>{step.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Operating Footprint Section */}
+        <section className="footprintSection">
+          <div className="footprintLayout">
+            <div className="leftFootprintSummary">
+              <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: 8 }}>OUR FOOTPRINT</div>
+              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '0 0 16px 0', color: 'var(--graphite)', letterSpacing: '-0.02em' }}>Expanding access across Maharashtra.</h2>
+              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--muted)', marginBottom: 40 }}>
+                Comprehensive cancer centres across Maharashtra, with radiation oncology facilities in key cities.
+              </p>
+              
+              <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
+                <div className="oncologyLocationHeader">Radiation oncology facilities in:</div>
+                <ul className="oncologyLocationList">
+                  {facilities.map((f, i) => (
+                    <li key={i}>{f.city}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mapContainerWrapper">
+              {/* SVG Pattern Definition for map stripes */}
+              <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+                <defs>
+                  <pattern id="diagonal-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="8" stroke="#eae6e1" strokeWidth="1.5" />
+                  </pattern>
+                  <pattern id="diagonal-stripes-hover" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="8" stroke="#d2ccc6" strokeWidth="2" />
+                  </pattern>
+                  <pattern id="active-stripes" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255, 60, 0, 0.45)" strokeWidth="2.5" />
+                  </pattern>
+                </defs>
+              </svg>
+
+              {geoJsonData && (
+                <MapContainer
+                  center={mapCenter}
+                  zoom={mapZoom}
+                  zoomSnap={0.1}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={false}
+                  dragging={false}
+                  zoomControl={false}
+                  attributionControl={false}
+                  touchZoom={false}
+                  boxZoom={false}
+                  keyboard={false}
+                >
+                  <GeoJSON
+                    data={geoJsonData}
+                    style={getStateStyle}
+                    onEachFeature={onEachFeature}
+                  />
+                  {facilities.map((f, i) => (
+                    <Marker
+                      key={i}
+                      position={f.coordinates}
+                      icon={customMarkerIcon}
+                    >
+                      <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
+                        {f.city.split(" (")[0]}
+                      </Tooltip>
+                      <Popup>
+                        <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                          <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Radiation Oncology Facility</strong>
+                          <span style={{ fontWeight: 700 }}>{f.city}</span><br />
+                          <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Optimus Oncology's care network.</span>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Clinical Network & Expansion Section */}
+        <section id="clinical-network" className="oncologyNetworkExpansionSection">
+          <div className="oncologyNetworkExpansionLayout">
+            {/* 6A. Clinical Network */}
+            <div className="oncologyNetworkBlock">
+              <div className="eyebrow">OUR CLINICAL NETWORK</div>
+              <h2 className="oncologyBlockHeading">Expertise that makes a difference.</h2>
+              <div className="oncologyNetworkList">
+                <div className="oncologyNetworkItem">
+                  <div className="oncologyNetworkDot" />
+                  <p>Founded and led by five renowned oncologists from Tata Memorial Centre.</p>
+                </div>
+                <div className="oncologyNetworkItem">
+                  <div className="oncologyNetworkDot" />
+                  <p>Team of 15+ experienced oncologists and cancer specialists.</p>
+                </div>
+              </div>
+              <div className="oncologyNetworkImageWrapper">
+                <img src="/oncology_clinical_team.png" alt="Optimus Oncology team of doctors" />
+              </div>
+            </div>
+
+            {/* 6B. Expansion Plan */}
+            <div className="oncologyExpansionBlock">
+              <div className="eyebrow">OUR EXPANSION PLAN</div>
+              <h2 className="oncologyBlockHeading">Building the future of cancer care.</h2>
+              <p className="oncologyExpansionText">
+                Expansion target of 50 cancer centres across India within the next five years.
+              </p>
+              
+              {/* Symbolic growth map / India expansion visual */}
+              <div className="oncologyExpansionVisual">
+                <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M50 220 C 150 180, 250 140, 350 100" stroke="var(--line-soft)" strokeWidth="2" strokeDasharray="4 4" />
+                  <path d="M50 250 C 150 200, 250 150, 350 120" stroke="var(--line-soft)" strokeWidth="1" />
+                  
+                  <circle cx="100" cy="210" r="8" fill="var(--evervie-orange)" opacity="0.3" />
+                  <circle cx="100" cy="210" r="4" fill="var(--evervie-orange)" />
+                  
+                  <circle cx="180" cy="170" r="12" fill="var(--evervie-orange)" opacity="0.2" />
+                  <circle cx="180" cy="170" r="6" fill="var(--evervie-orange)" />
+                  
+                  <circle cx="260" cy="130" r="16" fill="var(--evervie-orange)" opacity="0.15" />
+                  <circle cx="260" cy="130" r="8" fill="var(--evervie-orange)" />
+                  
+                  <circle cx="340" cy="100" r="24" fill="var(--evervie-orange)" opacity="0.1" />
+                  <circle cx="340" cy="100" r="10" fill="var(--evervie-orange)" />
+                  
+                  <text x="90" y="240" fill="var(--graphite)" fontSize="11" fontWeight="700">YEAR 1</text>
+                  <text x="170" y="200" fill="var(--graphite)" fontSize="11" fontWeight="700">YEAR 3</text>
+                  <text x="310" y="65" fill="var(--evervie-orange)" fontSize="14" fontWeight="700">50 CENTRES</text>
+                  
+                  <path d="M90 215 L335 105" stroke="var(--evervie-orange)" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vision & Mission Section */}
+        <section className="oncologyVisionMissionSection">
+          <div className="oncologyVisionMissionLayout">
+            <div className="oncologyVMCard">
+              <div className="eyebrow">OUR VISION</div>
+              <p>
+                To become India’s most trusted oncology network by making comprehensive cancer care accessible to every patient, irrespective of geography.
+              </p>
+            </div>
+            <div className="oncologyVMCard">
+              <div className="eyebrow">OUR MISSION</div>
+              <p>
+                To develop and operate technologically advanced, patient-centric cancer centres that deliver comprehensive, affordable, and high-quality oncology services closer to home.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Closing CTA Section */}
+        <section className="portfolioClosing">
+          <div className="portfolioClosingBox">
+            <div className="portfolioClosingIcon">
+              <Target size={24} />
+            </div>
+            <div className="portfolioClosingText">
+              <h3>Better cancer care. Closer to every community.</h3>
+              <p>Explore how Evervie is building specialised healthcare platforms across critical areas of care.</p>
+            </div>
+            <Link to="/editorial" className="btnOutline">
+              Explore Our Portfolio
+            </Link>
+          </div>
+        </section>
+      </main>
+    </Frame>
+  );
+}
+
+// Diagnostics Placeholder Page Component
+function Diagnostics() {
+  const metrics = [
+    { icon: Building2, label: "Core Labs", number: "8", desc: "State-of-the-art diagnostic laboratories", tone: "solar" },
+    { icon: Users, label: "Collection Centres", number: "180+", desc: "Strategic collection hubs across cities", tone: "orange" },
+    { icon: Activity, label: "Tests Processed", number: "40 Lakh+", desc: "Accurate clinical tests processed annually", tone: "pink" },
+    { icon: UsersRound, label: "Clinicians Served", number: "12,000+", desc: "Associated doctors trusting our lab reports", tone: "solar" },
+    { icon: Globe2, label: "Test Menu", number: "2,500+", desc: "Comprehensive pathology and genomics menu", tone: "orange" }
+  ];
+
+  const platform = {
+    label: "Our Diagnostics Platform",
+    name: "Evervie Diagnostics",
+    desc: "Evervie Diagnostics operates advanced clinical labs that form the backbone of accurate medical answers. Using automated platforms, strict quality controls, and molecular diagnostics, we support physicians and patients with trusted insights to make timely care decisions.",
+    ctaText: "Explore Diagnostics Platform",
+    ctaLink: "#"
+  };
+
+  const footprint = {
+    title: "Network Footprint",
+    items: [
+      { heading: "8 Reference Labs", detail: "Central pathology and genomics labs equipped with high-throughput automated analyzers." },
+      { heading: "180+ Collection Points", detail: "Wide collection and logistics network ensuring quick turnaround times for under-served areas." }
+    ]
+  };
+
+  const network = {
+    title: "Clinical Network",
+    items: [
+      { heading: "35+ Clinical Pathologists", detail: "Board-certified pathologists, microbiologists, and geneticists certifying diagnostics reports." },
+      { heading: "400+ Logistics Partners", detail: "Cold-chain sample management technicians ensuring sample stability and accuracy." }
+    ]
+  };
+
+  const careExperience = [
+    { icon: Heart, heading: "Timely Reporting", desc: "Optimized collection-to-report workflows ensuring rapid turnaround for critical care insights." },
+    { icon: Award, heading: "Accredited Labs", desc: "Strict adherence to quality standards and internal/external proficiency testing protocols." },
+    { icon: Globe2, heading: "Genomics Capabilities", desc: "Advanced molecular testing menus supporting personalized medicine and targeted oncology treatments." },
+    { icon: UsersRound, heading: "Doctor Collaboration", desc: "Online portal providing clinicians with direct access to patient test histories and trends." }
+  ];
+
+  return (
+    <PortfolioVertical
+      title="Diagnostics"
+      subtitle="Early detection and reliable diagnostics to guide critical health decisions."
+      intro="Through diagnostic networks and advanced labs, Evervie supports clinicians and patients with accurate, timely answers that form the foundation of successful treatments."
+      heroImage="/image-2.png"
+      metrics={metrics}
+      platform={platform}
+      footprint={footprint}
+      network={network}
+      careExperience={careExperience}
+      closing={{
+        icon: Microscope,
+        statement: "Precision testing for better clinical choices.",
+        supporting: "Accurate answers form the bedrock of reliable healthcare platforms.",
+        ctaText: "Explore Our Portfolio",
+        ctaLink: "/editorial"
+      }}
+    />
+  );
+}
+
+// Elder Care Placeholder Page Component
+function ElderCare() {
+  const metrics = [
+    { icon: Building2, label: "Planned Homes", number: "6", desc: "Modern senior living spaces in development", tone: "orange" },
+    { icon: Users, label: "Care Planners", number: "15+", desc: "Super-specialist geriatric care professionals", tone: "solar" },
+    { icon: Activity, label: "Home Visits", number: "Coming", desc: "Coordinated home healthcare visits planned", tone: "pink" },
+    { icon: UsersRound, label: "Support Network", number: "Planned", desc: "24/7 emergency coordination systems", tone: "orange" },
+    { icon: Globe2, label: "Launch Window", number: "2027", desc: "Scheduled vertical launch and first center opening", tone: "solar" }
+  ];
+
+  const platform = {
+    label: "Future Platform Concept",
+    name: "Evervie Elder Care",
+    desc: "Our elder care platform is designed around comfort, dignity, and specialized care. As ageing demographics require more integrated support, Evervie is developing a comprehensive care model that blends assisted living, home healthcare, and community activities into a trusted system.",
+    ctaText: "Register Interest",
+    ctaLink: "#",
+    logo: (
+      <div className="platformLogoBox" style={{ opacity: 0.6 }}>
+        <span className="platformLogoText">Elder Care</span>
+        <span className="platformLogoSub" style={{ color: 'var(--evervie-orange)', fontWeight: 700 }}>Coming Soon</span>
+      </div>
+    )
+  };
+
+  const footprint = {
+    title: "Planned Footprint",
+    items: [
+      { heading: "6 Planned Communities", detail: "Initial sites selected for development in metropolitan areas with high demand for senior services." },
+      { heading: "Home Healthcare Network", detail: "Partnerships in progress with certified home care providers for seamless in-home clinical support." }
+    ]
+  };
+
+  const network = {
+    title: "Planned Care Model",
+    items: [
+      { heading: "Geriatric Specialization", detail: "Designated medical directors specializing in geriatric care to oversee resident wellness and medicine." },
+      { heading: "Emergency Integration", detail: "Connected ambulance and hospital networks to guarantee immediate response and care coordination." }
+    ]
+  };
+
+  const careExperience = [
+    { icon: Heart, heading: "Dignity & Comfort", desc: "Creating positive living environments that respect individual independence while offering full support." },
+    { icon: Award, heading: "Geriatric Medicine", desc: "Focused clinical pathways address cognitive wellness, physical mobility, and nutritional balance." },
+    { icon: Globe2, heading: "Connected Security", desc: "Wearable safety monitors and health trackers linked to centralized emergency response systems." },
+    { icon: UsersRound, heading: "Community Support", desc: "Encouraging social inclusion through regular group activities, wellness seminars, and outings." }
+  ];
+
+  return (
+    <PortfolioVertical
+      title="Elder Care"
+      subtitle="Dignified, comfortable, and coordinated care for ageing communities."
+      intro="Our elder care vertical is a future-focused platform designed around the clinical, physical, and emotional needs of elderly individuals and their families."
+      heroImage="/grandmother_and_child_in_warm_embrace.png"
+      metrics={metrics}
+      platform={platform}
+      footprint={footprint}
+      network={network}
+      careExperience={careExperience}
+      closing={{
+        icon: HandHeart,
+        statement: "Envisioning the future of senior living.",
+        supporting: "Building platforms that respect dignity and support families.",
+        ctaText: "Explore Our Portfolio",
+        ctaLink: "/editorial"
+      }}
+    />
+  );
 }
 
 export default function App() {
@@ -1348,5 +2529,9 @@ export default function App() {
     <Route path="/about/mission-vision" element={<AboutMissionVision />} />
     <Route path="/about/aspiration" element={<AboutAspiration />} />
     <Route path="/about/governance" element={<AboutGovernance />} />
+    <Route path="/portfolio/renal-care" element={<RenalCare />} />
+    <Route path="/portfolio/oncology" element={<Oncology />} />
+    <Route path="/portfolio/diagnostics" element={<Diagnostics />} />
+    <Route path="/portfolio/elder-care" element={<ElderCare />} />
   </Routes></>;
 }

@@ -11,9 +11,11 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@vitejs/plugin-react": "latest",
+    "leaflet": "^1.9.4",
     "lucide-react": "^1.22.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-leaflet": "^5.0.0",
     "react-router-dom": "latest",
     "three": "^0.185.0",
     "vite": "latest"
