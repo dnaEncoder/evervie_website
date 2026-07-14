@@ -1625,46 +1625,7 @@ blockquote {
     justify-content: center
 }
 
-.editorialBrand .heroGradientBtn {
-    display: inline-flex;
-    align-items: center;
-    padding: 14px 32px;
-    border-radius: 100px;
-    background: #fff;
-    color: #282828;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: .01em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 200ms ease, color 200ms ease, transform 200ms ease
-}
 
-.editorialBrand .heroGradientBtn:hover {
-    background: #FABE00;
-    transform: translateY(-2px)
-}
-
-.editorialBrand .heroGradientBtnOutline {
-    display: inline-flex;
-    align-items: center;
-    padding: 13px 32px;
-    border-radius: 100px;
-    border: 1.5px solid rgba(40, 40, 40, .5);
-    color: #282828;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: .01em;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 200ms ease, background 200ms ease, transform 200ms ease
-}
-
-.editorialBrand .heroGradientBtnOutline:hover {
-    border-color: #282828;
-    background: rgba(40, 40, 40, .08);
-    transform: translateY(-2px)
-}
 
 /* ── Purpose in Practice — principle grid ─────────── */
 .editorialBrand .wwaPrincipleGrid {
@@ -4150,6 +4111,7 @@ blockquote {
     line-height: 1.25;
     font-weight: 500;
     font-style: italic;
+    letter-spacing: 0.02em;
     color: var(--evervie-orange);
     margin: 0;
     position: relative;
@@ -6328,6 +6290,8 @@ blockquote {
         grid-template-columns: 1fr;
         gap: 56px;
     }
+
+
     .editorialBrand .oncologyExpertiseIntro {
         position: relative;
         top: 0;
@@ -6361,5 +6325,49 @@ blockquote {
     }
     .editorialBrand .oncologyVMCard p {
         font-size: 16px;
+    }
+}
+
+/* ==========================================================================
+   Diagnostics Page Styles
+   ========================================================================== */
+.editorialBrand .diagnosticsPage {
+    background: #ffffff;
+}
+
+.editorialBrand .diagnosticsExpertiseSection {
+    padding: 110px 56px;
+    background: #ffffff;
+}
+
+.editorialBrand .diagnosticsNetworkExpansionSection {
+    padding: 110px 56px;
+    background: #ffffff;
+}
+
+.editorialBrand .diagnosticsVisionMissionSection {
+    padding: 100px 56px;
+    background: var(--canvas);
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line-soft);
+}
+
+@media(max-width: 1200px) {
+    .editorialBrand .diagnosticsExpertiseSection,
+    .editorialBrand .diagnosticsNetworkExpansionSection {
+        padding: 100px 40px;
+    }
+    .editorialBrand .diagnosticsVisionMissionSection {
+        padding: 80px 40px;
+    }
+}
+
+@media(max-width: 480px) {
+    .editorialBrand .diagnosticsExpertiseSection,
+    .editorialBrand .diagnosticsNetworkExpansionSection {
+        padding: 80px 24px;
+    }
+    .editorialBrand .diagnosticsVisionMissionSection {
+        padding: 60px 24px;
     }
 }

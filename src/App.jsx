@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity, Home as HomeIcon } from "lucide-react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -525,12 +525,12 @@ function Signposts() {
 
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
-    <section className="editorialHero">
+    {/* <section className="editorialHero">
       <img className="heroCurcleReveal" src="/Evervie_PPT_Curcle_v1.png" alt="" />
       <div className="heroStage">
-        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
+        <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a></div></div></div>
       </div>
-    </section>
+    </section> */}
     <section className="editorialHero hero3dAsset">
       <img className="hero3dBg" src="/hero-section-image-background.png" alt="" />
       <div className="heroStage">
@@ -548,12 +548,12 @@ function Editorial() {
             <div className="buttonRow"><a className="btn">Explore Our Care Platforms</a></div>
           </div>
           <div className="heroVidRight">
-            <video autoPlay muted loop playsInline src="/Evervie_Logo_Clip2-EDIT.mp4" className="heroVidAsset" />
+            <video autoPlay muted loop playsInline src="/trimmed-logo-anmation-video.mp4" className="heroVidAsset" />
           </div>
         </div>
       </div>
     </section>
-    <section className="editorialHero heroBgStyle2">
+    {/* <section className="editorialHero heroBgStyle2">
       <div className="heroStage">
         <div className="editorialHeroGrid heroSplitGrid">
           <div className="heroSplitLeft">
@@ -567,7 +567,7 @@ function Editorial() {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
     {/* <section className="editorialHero heroAlt">
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div>
@@ -581,8 +581,8 @@ function Editorial() {
         <h1 className="heroGradientHeadline">Advancing specialized care<br />for more people, in more places</h1>
         <p className="heroGradientLead">Evervie is building healthcare platforms that expand access,<br />strengthen quality, and scale care with purpose.</p>
         <div className="heroGradientActions">
-          <a className="heroGradientBtn">Explore Our Care Platforms</a>
-          <a className="heroGradientBtnOutline">Enter Investor Centre</a>
+          <a className="btn">Explore Our Care Platforms</a>
+          <a className="btnOutline">Enter Investor Centre</a>
         </div>
       </div>
     </section>
@@ -2321,27 +2321,88 @@ function Oncology() {
               
               {/* Symbolic growth map / India expansion visual */}
               <div className="oncologyExpansionVisual">
-                <svg viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M50 220 C 150 180, 250 140, 350 100" stroke="var(--line-soft)" strokeWidth="2" strokeDasharray="4 4" />
-                  <path d="M50 250 C 150 200, 250 150, 350 120" stroke="var(--line-soft)" strokeWidth="1" />
+                <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="expansion-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0,0,0,0.03)" strokeWidth="1" />
+                    </pattern>
+                    <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
+                    </linearGradient>
+                    <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.5" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" />
+                    </linearGradient>
+                    <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="5" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
                   
-                  <circle cx="100" cy="210" r="8" fill="var(--evervie-orange)" opacity="0.3" />
-                  <circle cx="100" cy="210" r="4" fill="var(--evervie-orange)" />
-                  
-                  <circle cx="180" cy="170" r="12" fill="var(--evervie-orange)" opacity="0.2" />
-                  <circle cx="180" cy="170" r="6" fill="var(--evervie-orange)" />
-                  
-                  <circle cx="260" cy="130" r="16" fill="var(--evervie-orange)" opacity="0.15" />
-                  <circle cx="260" cy="130" r="8" fill="var(--evervie-orange)" />
-                  
-                  <circle cx="340" cy="100" r="24" fill="var(--evervie-orange)" opacity="0.1" />
-                  <circle cx="340" cy="100" r="10" fill="var(--evervie-orange)" />
-                  
-                  <text x="90" y="240" fill="var(--graphite)" fontSize="11" fontWeight="700">YEAR 1</text>
-                  <text x="170" y="200" fill="var(--graphite)" fontSize="11" fontWeight="700">YEAR 3</text>
-                  <text x="310" y="65" fill="var(--evervie-orange)" fontSize="14" fontWeight="700">50 CENTRES</text>
-                  
-                  <path d="M90 215 L335 105" stroke="var(--evervie-orange)" strokeWidth="2" strokeLinecap="round" />
+                  {/* Grid Background */}
+                  <rect width="100%" height="100%" fill="url(#expansion-grid)" rx="10" />
+
+                  {/* Horizontal Guideline */}
+                  <line x1="50" y1="280" x2="450" y2="280" stroke="var(--line-soft)" strokeWidth="1.5" />
+                  <line x1="50" y1="180" x2="450" y2="180" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
+                  <line x1="50" y1="80" x2="450" y2="80" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
+
+                  {/* Area Under Curve */}
+                  <path 
+                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60 L 430 280 Z" 
+                    fill="url(#area-gradient)" 
+                  />
+
+                  {/* Glowing line overlay */}
+                  <path 
+                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60" 
+                    stroke="var(--evervie-orange)" 
+                    strokeWidth="8" 
+                    strokeOpacity="0.25"
+                    filter="url(#glow-filter)"
+                    strokeLinecap="round"
+                  />
+
+                  {/* Main Curve */}
+                  <path 
+                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60" 
+                    stroke="url(#line-gradient)" 
+                    strokeWidth="3.5" 
+                    strokeLinecap="round"
+                  />
+
+                  {/* Year 1 Hub */}
+                  <circle cx="120" cy="255" r="14" fill="var(--evervie-orange)" opacity="0.12" />
+                  <circle cx="120" cy="255" r="7" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
+                  <circle cx="120" cy="255" r="3.5" fill="var(--evervie-orange)" />
+                  <g transform="translate(90, 205)">
+                    <rect x="0" y="0" width="60" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
+                    <text x="30" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">10 Centres</text>
+                  </g>
+
+                  {/* Year 3 Hub */}
+                  <circle cx="270" cy="145" r="18" fill="var(--evervie-orange)" opacity="0.12" />
+                  <circle cx="270" cy="145" r="9" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
+                  <circle cx="270" cy="145" r="4.5" fill="var(--evervie-orange)" />
+                  <g transform="translate(240, 95)">
+                    <rect x="0" y="0" width="60" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
+                    <text x="30" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">25 Centres</text>
+                  </g>
+
+                  {/* Year 5 Hub */}
+                  <circle cx="430" cy="60" r="24" fill="var(--evervie-orange)" opacity="0.15" />
+                  <circle cx="430" cy="60" r="12" fill="none" stroke="var(--evervie-orange)" strokeWidth="2" />
+                  <circle cx="430" cy="60" r="6" fill="var(--evervie-orange)" />
+                  <g transform="translate(370, 10)">
+                    <rect x="0" y="0" width="90" height="28" rx="6" fill="var(--graphite)" />
+                    <text x="45" y="17" fill="#ffffff" fontSize="10" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">50 CENTRES</text>
+                  </g>
+
+                  {/* Grid X Axis Labels */}
+                  <text x="120" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 1</text>
+                  <text x="270" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 3</text>
+                  <text x="430" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 5</text>
                 </svg>
               </div>
             </div>
@@ -2387,65 +2448,460 @@ function Oncology() {
 }
 
 // Diagnostics Placeholder Page Component
+// Diagnostics Page Component
 function Diagnostics() {
-  const metrics = [
-    { icon: Building2, label: "Core Labs", number: "8", desc: "State-of-the-art diagnostic laboratories", tone: "solar" },
-    { icon: Users, label: "Collection Centres", number: "180+", desc: "Strategic collection hubs across cities", tone: "orange" },
-    { icon: Activity, label: "Tests Processed", number: "40 Lakh+", desc: "Accurate clinical tests processed annually", tone: "pink" },
-    { icon: UsersRound, label: "Clinicians Served", number: "12,000+", desc: "Associated doctors trusting our lab reports", tone: "solar" },
-    { icon: Globe2, label: "Test Menu", number: "2,500+", desc: "Comprehensive pathology and genomics menu", tone: "orange" }
+  const [geoJsonData, setGeoJsonData] = useState(null);
+
+  useEffect(() => {
+    fetch("/india_states.geojson")
+      .then((res) => res.json())
+      .then((data) => setGeoJsonData(data))
+      .catch((err) => console.error("Error loading GeoJSON data:", err));
+  }, []);
+
+  const mapCenter = [11.0, 78.5];
+  const mapZoom = 6.8;
+  const highlightedStates = ["Tamil Nadu"];
+
+  const getStateStyle = (feature) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = highlightedStates.includes(stateName);
+
+    return {
+      fillColor: isHighlighted ? "url(#active-stripes)" : "url(#diagonal-stripes)",
+      stroke: true,
+      weight: 1,
+      opacity: 1.0,
+      color: isHighlighted ? "rgba(255, 60, 0, 0.7)" : "#d2ccc6",
+      fillOpacity: 1.0
+    };
+  };
+
+  const onEachFeature = (feature, layer) => {
+    const stateName = feature.properties.NAME_1;
+    const isHighlighted = highlightedStates.includes(stateName);
+
+    layer.bindTooltip(`
+      <div style="font-family: inherit; font-size: 12px; padding: 4px 8px;">
+        <strong>${stateName}</strong><br/>
+        ${isHighlighted ? 'Active Footprint<br/><span style="color:var(--evervie-orange);font-weight:600;">Medilabs Tamil Nadu Hub</span>' : 'No direct footprint'}
+      </div>
+    `, {
+      sticky: true,
+      direction: "auto",
+      opacity: 0.95
+    });
+
+    layer.on({
+      mouseover: (e) => {
+        const l = e.target;
+        l.setStyle({
+          fillOpacity: isHighlighted ? 0.45 : 1.0,
+          fillColor: isHighlighted ? "var(--evervie-orange)" : "url(#diagonal-stripes-hover)",
+          stroke: true,
+          weight: 1.5,
+          color: isHighlighted ? "var(--evervie-orange)" : "#a09d97"
+        });
+      },
+      mouseout: (e) => {
+        const l = e.target;
+        l.setStyle(getStateStyle(feature));
+      }
+    });
+  };
+
+  const customMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+    html: `<div style="
+      background-color: var(--evervie-orange);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 8px rgba(255, 60, 0, 0.6);
+    "></div>`,
+    className: "custom-leaflet-marker",
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
+    popupAnchor: [0, -8]
+  }) : null;
+
+  const facilities = [
+    { city: "Chennai", coordinates: [13.0827, 80.2707] },
+    { city: "Coimbatore", coordinates: [11.0168, 76.9558] },
+    { city: "Madurai", coordinates: [9.9252, 78.1198] },
+    { city: "Trichy", coordinates: [10.7905, 78.7047] },
+    { city: "Salem", coordinates: [11.6643, 78.1460] }
   ];
 
-  const platform = {
-    label: "Our Diagnostics Platform",
-    name: "Evervie Diagnostics",
-    desc: "Evervie Diagnostics operates advanced clinical labs that form the backbone of accurate medical answers. Using automated platforms, strict quality controls, and molecular diagnostics, we support physicians and patients with trusted insights to make timely care decisions.",
-    ctaText: "Explore Diagnostics Platform",
-    ctaLink: "#"
-  };
-
-  const footprint = {
-    title: "Network Footprint",
-    items: [
-      { heading: "8 Reference Labs", detail: "Central pathology and genomics labs equipped with high-throughput automated analyzers." },
-      { heading: "180+ Collection Points", detail: "Wide collection and logistics network ensuring quick turnaround times for under-served areas." }
-    ]
-  };
-
-  const network = {
-    title: "Clinical Network",
-    items: [
-      { heading: "35+ Clinical Pathologists", detail: "Board-certified pathologists, microbiologists, and geneticists certifying diagnostics reports." },
-      { heading: "400+ Logistics Partners", detail: "Cold-chain sample management technicians ensuring sample stability and accuracy." }
-    ]
-  };
-
-  const careExperience = [
-    { icon: Heart, heading: "Timely Reporting", desc: "Optimized collection-to-report workflows ensuring rapid turnaround for critical care insights." },
-    { icon: Award, heading: "Accredited Labs", desc: "Strict adherence to quality standards and internal/external proficiency testing protocols." },
-    { icon: Globe2, heading: "Genomics Capabilities", desc: "Advanced molecular testing menus supporting personalized medicine and targeted oncology treatments." },
-    { icon: UsersRound, heading: "Doctor Collaboration", desc: "Online portal providing clinicians with direct access to patient test histories and trends." }
+  const servicesPathway = [
+    { icon: Microscope, title: "Clinical Pathology & Biochemistry", desc: "Advanced hematology, pathology, biochemistry, and specialized test menu exceeding 1,500 tests." },
+    { icon: Activity, title: "Radiology & Advanced Imaging", desc: "Diagnostic centers equipped with modern CT scans, ultrasound, and state-of-the-art diagnostic imaging." },
+    { icon: Heart, title: "Preventive Health Screening", desc: "Comprehensive, customized wellness checks for early risk assessment and health monitoring." },
+    { icon: HomeIcon, title: "Home Sample Collection", desc: "Reliable, sterile sample collection services from the comfort and safety of your home across Tamil Nadu." },
+    { icon: Building2, title: "Hospital Laboratory Management", desc: "Comprehensive management services for clinics and hospitals, delivering high-throughput and quality accuracy." },
+    { icon: UsersRound, title: "Corporate Wellness Programs", desc: "Specialized preventive screening packages, health talks, and diagnostics for corporate workforces." }
   ];
 
   return (
-    <PortfolioVertical
-      title="Diagnostics"
-      subtitle="Early detection and reliable diagnostics to guide critical health decisions."
-      intro="Through diagnostic networks and advanced labs, Evervie supports clinicians and patients with accurate, timely answers that form the foundation of successful treatments."
-      heroImage="/image-2.png"
-      metrics={metrics}
-      platform={platform}
-      footprint={footprint}
-      network={network}
-      careExperience={careExperience}
-      closing={{
-        icon: Microscope,
-        statement: "Precision testing for better clinical choices.",
-        supporting: "Accurate answers form the bedrock of reliable healthcare platforms.",
-        ctaText: "Explore Our Portfolio",
-        ctaLink: "/editorial"
-      }}
-    />
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main className="diagnosticsPage">
+        {/* Hero Section */}
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/editorial">Home</Link>
+              <ChevronRight size={13} />
+              <span>Our Portfolio</span>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Diagnostics</span>
+            </nav>
+            <div className="eyebrow">OUR PORTFOLIO</div>
+            <h1>Diagnostics</h1>
+            <p className="heroGradientLead" style={{ fontWeight: 600, color: 'var(--graphite)', marginBottom: 16 }}>
+              Reliable diagnostics.<br />Bedrock of care decisions.
+            </p>
+            <p className="wwaHeroBody" style={{ margin: 0 }}>
+              Medilabs specializes in pathology, radiology, and preventive screening, delivering precise healthcare diagnostics that form the foundation of clinical recovery.
+            </p>
+          </div>
+          <img 
+            src="/diagnostics_hero_lab.png" 
+            alt="" 
+            className="wwaHeroDiamond" 
+            aria-hidden="true" 
+            style={{ opacity: 0.85 }} 
+          />
+        </section>
+
+        {/* Impact Metrics Strip */}
+        <section className="metricsStrip oncologyMetrics">
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Users size={20} />
+              </span>
+              <span className="metricLabel">Patients Served</span>
+            </div>
+            <strong className="metricValue">10 Lakh+</strong>
+            <p className="metricDescription">Over 10,00,000 happy customers served with accurate and reliable clinical diagnostic reports.</p>
+          </article>
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Building2 size={20} />
+              </span>
+              <span className="metricLabel">Diagnostic Centres</span>
+            </div>
+            <strong className="metricValue">50+</strong>
+            <p className="metricDescription">Widespread presence across Chennai and Tamil Nadu ensuring convenient local care access.</p>
+          </article>
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Microscope size={20} />
+              </span>
+              <span className="metricLabel">Test Menu</span>
+            </div>
+            <strong className="metricValue">1,500+</strong>
+            <p className="metricDescription">Vast menu of routine pathology and complex tests tailored for clinics, hospitals, and patients.</p>
+          </article>
+          <article className="metricCard">
+            <div className="metricHeader">
+              <span className="metricIcon metricIcon--orange">
+                <Activity size={20} />
+              </span>
+              <span className="metricLabel">Radiology Imaging</span>
+            </div>
+            <strong className="metricValue">CT & Scan</strong>
+            <p className="metricDescription">Equipped with CT scan, ultrasound, and clinical imaging systems for complete diagnostic clarity.</p>
+          </article>
+        </section>
+
+        {/* Platform Introduction Section */}
+        <section className="platformSection">
+          <div className="platformLayout">
+            <div className="platformLeft">
+              <div className="eyebrow">OUR DIAGNOSTICS PLATFORM</div>
+              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '8px 0 20px 0', color: 'var(--graphite)' }}>Medilabs</h2>
+              <p style={{ fontSize: 13, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--evervie-orange)', fontWeight: 700, margin: '-10px 0 16px 0' }}>
+                A Unit of Biohygea Global Private Limited
+              </p>
+              <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--muted)', marginBottom: 32 }}>
+                Medilabs is a premier diagnostics provider specializing in pathology, radiology, preventive health screening, home sample collection, hospital laboratory management, and corporate wellness programs. By operating a robust diagnostic network equipped with state-of-the-art automated testing and imaging capabilities, Medilabs delivers precise clinical insights for hospitals, clinics, corporate clients, and individual patients across Tamil Nadu.
+              </p>
+              <a href="#clinical-network" className="btn">
+                Explore Clinical Network
+              </a>
+            </div>
+            <div className="platformRight">
+              <div className="platformLogoBox">
+                <span className="platformLogoText">Medilabs</span>
+                <span className="platformLogoSub">Biohygea Global</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Pathway Section */}
+        <section className="diagnosticsExpertiseSection">
+          <div className="oncologyExpertiseLayout">
+            <div className="oncologyExpertiseIntro">
+              <div className="eyebrow">OUR SERVICES</div>
+              <h2 className="oncologyExpertiseHeading">Comprehensive diagnostic solutions.</h2>
+              <p className="oncologyExpertiseDesc">
+                From simple blood profiles to complex imaging assays, Medilabs coordinates diagnostic resources to support clinicians with absolute accuracy.
+              </p>
+            </div>
+            <div className="oncologyExpertisePathway">
+              {servicesPathway.map((step, idx) => {
+                const StepIcon = step.icon;
+                return (
+                  <div className="oncologyPathwayStep" key={idx}>
+                    <div className="oncologyStepProgress">
+                      <div className="oncologyStepDot">
+                        <StepIcon size={16} />
+                      </div>
+                      {idx < servicesPathway.length - 1 && <div className="oncologyStepLine" />}
+                    </div>
+                    <div className="oncologyStepContent">
+                      <h4>{step.title}</h4>
+                      <p>{step.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Operating Footprint Section */}
+        <section className="footprintSection">
+          <div className="footprintLayout">
+            <div className="leftFootprintSummary">
+              <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: 8 }}>OUR FOOTPRINT</div>
+              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '0 0 16px 0', color: 'var(--graphite)', letterSpacing: '-0.02em' }}>Tamil Nadu Diagnostic Network</h2>
+              <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--muted)', marginBottom: 40 }}>
+                Medilabs operates centers and home collection networks across key cities of Tamil Nadu, ensuring sample management and diagnostics access.
+              </p>
+              
+              <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
+                <div className="oncologyLocationHeader">Active cities in Tamil Nadu:</div>
+                <ul className="oncologyLocationList">
+                  {facilities.map((f, i) => (
+                    <li key={i}>{f.city}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mapContainerWrapper">
+              {/* SVG Pattern Definition for map stripes */}
+              <svg style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+                <defs>
+                  <pattern id="diagonal-stripes" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="8" stroke="#eae6e1" strokeWidth="1.5" />
+                  </pattern>
+                  <pattern id="diagonal-stripes-hover" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="8" stroke="#d2ccc6" strokeWidth="2" />
+                  </pattern>
+                  <pattern id="active-stripes" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                    <line x1="0" y1="0" x2="0" y2="6" stroke="rgba(255, 60, 0, 0.45)" strokeWidth="2.5" />
+                  </pattern>
+                </defs>
+              </svg>
+
+              {geoJsonData && (
+                <MapContainer
+                  center={mapCenter}
+                  zoom={mapZoom}
+                  zoomSnap={0.1}
+                  scrollWheelZoom={false}
+                  doubleClickZoom={false}
+                  dragging={false}
+                  zoomControl={false}
+                  attributionControl={false}
+                  touchZoom={false}
+                  boxZoom={false}
+                  keyboard={false}
+                >
+                  <GeoJSON
+                    data={geoJsonData}
+                    style={getStateStyle}
+                    onEachFeature={onEachFeature}
+                  />
+                  {facilities.map((f, i) => (
+                    <Marker
+                      key={i}
+                      position={f.coordinates}
+                      icon={customMarkerIcon}
+                    >
+                      <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
+                        {f.city}
+                      </Tooltip>
+                      <Popup>
+                        <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                          <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Medilabs Hub</strong>
+                          <span style={{ fontWeight: 700 }}>{f.city} Center</span><br />
+                          <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Providing pathology, home sample collection, and radiology.</span>
+                        </div>
+                      </Popup>
+                    </Marker>
+                  ))}
+                </MapContainer>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Clinical Network Section */}
+        <section id="clinical-network" className="diagnosticsNetworkExpansionSection">
+          <div className="oncologyNetworkExpansionLayout">
+            {/* Clinical Network */}
+            <div className="oncologyNetworkBlock">
+              <div className="eyebrow">OUR CLINICAL NETWORK</div>
+              <h2 className="oncologyBlockHeading">Precision guided by diagnostic experts.</h2>
+              <div className="oncologyNetworkList">
+                <div className="oncologyNetworkItem">
+                  <div className="oncologyNetworkDot" />
+                  <p>Certified clinical pathologists, laboratory technicians, and biochemists.</p>
+                </div>
+                <div className="oncologyNetworkItem">
+                  <div className="oncologyNetworkDot" />
+                  <p>400+ logistics partners managing cold-chain integrity and rapid turnaround times.</p>
+                </div>
+              </div>
+              <div className="oncologyNetworkImageWrapper">
+                <img src="/diagnostics_clinical_team.png" alt="Medilabs team of pathologists and lab technicians" />
+              </div>
+            </div>
+
+            {/* Expansion Plan */}
+            <div className="oncologyExpansionBlock">
+              <div className="eyebrow">OUR EXPANSION TARGET</div>
+              <h2 className="oncologyBlockHeading">Deeper diagnostic penetration.</h2>
+              <p className="oncologyExpansionText">
+                Medilabs is consistently expanding its footprint across secondary and tertiary towns of Tamil Nadu to bring NABL-standard quality reporting.
+              </p>
+              
+              {/* Symbolic growth map / Tamil Nadu expansion visual */}
+              <div className="oncologyExpansionVisual">
+                <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <pattern id="diagnostics-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+                      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0,0,0,0.03)" strokeWidth="1" />
+                    </pattern>
+                    <linearGradient id="diag-area-gradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.18" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
+                    </linearGradient>
+                    <linearGradient id="diag-line-gradient" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.5" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" />
+                    </linearGradient>
+                    <filter id="diag-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="5" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+                  
+                  <rect width="100%" height="100%" fill="url(#diagnostics-grid)" rx="10" />
+
+                  <line x1="50" y1="280" x2="450" y2="280" stroke="var(--line-soft)" strokeWidth="1.5" />
+                  <line x1="50" y1="180" x2="450" y2="180" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
+                  <line x1="50" y1="80" x2="450" y2="80" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
+
+                  <path 
+                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70 L 430 280 Z" 
+                    fill="url(#diag-area-gradient)" 
+                  />
+
+                  <path 
+                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70" 
+                    stroke="var(--evervie-orange)" 
+                    strokeWidth="8" 
+                    strokeOpacity="0.25"
+                    filter="url(#diag-glow-filter)"
+                    strokeLinecap="round"
+                  />
+
+                  <path 
+                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70" 
+                    stroke="url(#diag-line-gradient)" 
+                    strokeWidth="3.5" 
+                    strokeLinecap="round"
+                  />
+
+                  {/* Year 1 Hub */}
+                  <circle cx="120" cy="255" r="14" fill="var(--evervie-orange)" opacity="0.12" />
+                  <circle cx="120" cy="255" r="7" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
+                  <circle cx="120" cy="255" r="3.5" fill="var(--evervie-orange)" />
+                  <g transform="translate(90, 205)">
+                    <rect x="0" y="0" width="65" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
+                    <text x="32.5" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">15 Centres</text>
+                  </g>
+
+                  {/* Year 3 Hub */}
+                  <circle cx="270" cy="160" r="18" fill="var(--evervie-orange)" opacity="0.12" />
+                  <circle cx="270" cy="160" r="9" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
+                  <circle cx="270" cy="160" r="4.5" fill="var(--evervie-orange)" />
+                  <g transform="translate(240, 110)">
+                    <rect x="0" y="0" width="65" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
+                    <text x="32.5" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">35 Centres</text>
+                  </g>
+
+                  {/* Year 5 Hub */}
+                  <circle cx="430" cy="70" r="24" fill="var(--evervie-orange)" opacity="0.15" />
+                  <circle cx="430" cy="70" r="12" fill="none" stroke="var(--evervie-orange)" strokeWidth="2" />
+                  <circle cx="430" cy="70" r="6" fill="var(--evervie-orange)" />
+                  <g transform="translate(370, 20)">
+                    <rect x="0" y="0" width="90" height="28" rx="6" fill="var(--graphite)" />
+                    <text x="45" y="17" fill="#ffffff" fontSize="10" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">50 CENTRES</text>
+                  </g>
+
+                  <text x="120" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 1</text>
+                  <text x="270" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 3</text>
+                  <text x="430" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 5</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vision & Mission Section */}
+        <section className="diagnosticsVisionMissionSection">
+          <div className="oncologyVisionMissionLayout">
+            <div className="oncologyVMCard">
+              <div className="eyebrow">OUR VISION</div>
+              <p>
+                To be Tamil Nadu's most trusted diagnostics network by making reliable, high-quality, and preventive health screenings accessible to every community.
+              </p>
+            </div>
+            <div className="oncologyVMCard">
+              <div className="eyebrow">OUR MISSION</div>
+              <p>
+                To deliver precise, timely diagnostic services with advanced pathology, radiology, and home care collection models that form the bedrock of clinical decisions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Closing CTA Section */}
+        <section className="portfolioClosing">
+          <div className="portfolioClosingBox">
+            <div className="portfolioClosingIcon">
+              <Microscope size={24} />
+            </div>
+            <div className="portfolioClosingText">
+              <h3>Precision testing for better clinical choices.</h3>
+              <p>Explore how Evervie is building specialised healthcare platforms across critical areas of care.</p>
+            </div>
+            <Link to="/editorial" className="btnOutline">
+              Explore Our Portfolio
+            </Link>
+          </div>
+        </section>
+      </main>
+    </Frame>
   );
 }
 
