@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity, Home as HomeIcon } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronRight, Activity, Home as HomeIcon, MapPin } from "lucide-react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -117,7 +117,7 @@ const regions = [
 ];
 
 const signposts = [
-  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie", "/image-1.png"],
+  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie", "/news_insights_editorial.png"],
   ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
   ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
 ];
@@ -537,7 +537,7 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
     </section>
-    <section className="editorialHero heroVideoSplit">
+    {/* <section className="editorialHero heroVideoSplit">
       <div className="heroStage">
         <div className="editorialHeroGrid heroVidGrid">
           <div className="heroVidLeft">
@@ -552,7 +552,7 @@ function Editorial() {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
     {/* <section className="editorialHero heroBgStyle2">
       <div className="heroStage">
         <div className="editorialHeroGrid heroSplitGrid">
@@ -573,7 +573,7 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow">Future-focused healthcare</div><h1>Advancing specialized care for more people, in more places</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Across critical areas of care, we bring together focused healthcare expertise, long-term operating discipline, and a patient-first belief in better care delivery.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></div></div>
       </div>
     </section> */}
-    <section className="editorialHeroGradient">
+    {/* <section className="editorialHeroGradient">
       <video className="heroVideoBg" autoPlay muted loop playsInline src="/Evervie_Gradient_AE_!6x9.mp4" />
       <div className="heroGradientOverlay" />
       <div className="heroGradientContent">
@@ -585,7 +585,7 @@ function Editorial() {
           <a className="btnOutline">Enter Investor Centre</a>
         </div>
       </div>
-    </section>
+    </section> */}
     <section className="section">
       <div className="heroWideVisualWrap">
         {/* <img className="heroWideVisual" src="/happy-family.png" alt="Full-width healthcare ecosystem visual" /> */}
@@ -824,6 +824,40 @@ function AboutWhoWeAre() {
           </div>
         </section>
 
+        {/* Focused Platforms (Orange Theme with custom SVGs) */}
+        <section className="section">
+          <SectionHead
+            eyebrow="Specialised Care"
+            title="Four pillars of dedicated care platforms"
+            copy="Every pathway is designed to unify clinical excellence, operational systems, and patient compassion under a singular orange-themed identity."
+          />
+          <div className="staggeredCards">
+            {verticals.map(([l, t, c], i) => {
+              const svgIcon = i === 0 ? "/oncology.svg" : i === 1 ? "/renal-cre.svg" : i === 2 ? "/diagnostics.svg" : "/elder-care.svg";
+              const hasBadge = l.includes("Coming Soon");
+              const labelText = hasBadge ? l.split(" · ")[0] : l;
+              return (
+                <article key={l} style={{ marginTop: i % 2 ? 40 : 0 }}>
+                  <div className="staggeredCardVisual">
+                    <div className="staggeredCardGradient tagTone-1">
+                      <img src={svgIcon} alt={labelText} className="staggeredCardIcon" style={{ width: 84, height: 84, objectFit: 'contain' }} />
+                    </div>
+                  </div>
+                  <div className="staggeredCardContent">
+                    <span className="tag">
+                      {labelText}
+                      {hasBadge && <span className="badge" style={{ marginLeft: 6, opacity: 0.8, fontSize: 10, background: 'rgba(40,40,40,0.06)', padding: '2px 6px', borderRadius: 4 }}>Coming Soon</span>}
+                    </span>
+                    <h3>{t}</h3>
+                    <p>{c}</p>
+                    <a className="exploreLink">Explore <ArrowRight size={14} /></a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Who We Serve */}
         <section className="wwaAudience section">
           <div className="wwaAudienceSplit">
@@ -893,7 +927,7 @@ function AboutWhoWeAre() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/image-1.png"],
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/news_insights_editorial.png"],
               ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
             ].map(([title, copy, cta, img], i) => (
@@ -1264,7 +1298,7 @@ function AboutLeadership() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/image-1.png"],
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/news_insights_editorial.png"],
               ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
             ].map(([title, copy, cta, img], i) => (
@@ -1657,7 +1691,11 @@ function PortfolioVertical({
                   </div>
                   <div className="footprintMetricBody">
                     <strong>Across {footprint.statesCount || 7} states:</strong>
-                    <p>{footprint.statesList || "Delhi, Haryana, Rajasthan, Uttar Pradesh, Uttarakhand, Bihar, Jharkhand"}</p>
+                    <div className="chipGrid">
+                      {(footprint.statesList || "Delhi, Haryana, Rajasthan, Uttar Pradesh, Uttarakhand, Bihar, Jharkhand").split(",").map((s, i) => (
+                        <div className="cityChip" key={i}><MapPin size={13} />{s.trim()}</div>
+                      ))}
+                    </div>
                   </div>
                 </div>
 
@@ -1675,7 +1713,11 @@ function PortfolioVertical({
                   </div>
                   <div className="footprintMetricBody">
                     <strong>Located in:</strong>
-                    <p>{network.citiesList || "Delhi, Moradabad, Varanasi, Mau"}</p>
+                    <div className="chipGrid">
+                      {(network.citiesList || "Delhi, Moradabad, Varanasi, Mau").split(",").map((c, i) => (
+                        <div className="cityChip" key={i}><MapPin size={13} />{c.trim()}</div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2222,11 +2264,14 @@ function Oncology() {
               
               <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
                 <div className="oncologyLocationHeader">Radiation oncology facilities in:</div>
-                <ul className="oncologyLocationList">
+                <div className="oncologyLocationList">
                   {facilities.map((f, i) => (
-                    <li key={i}>{f.city}</li>
+                    <div className="cityChip" key={i}>
+                      <MapPin size={13} />
+                      {f.city}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
 
@@ -2634,10 +2679,11 @@ function Diagnostics() {
               </a>
             </div>
             <div className="platformRight">
-              <div className="platformLogoBox">
-                <span className="platformLogoText">Medilabs</span>
-                <span className="platformLogoSub">Biohygea Global</span>
-              </div>
+              <img
+                src="/Medilabs logo.webp"
+                alt="Medilabs Logo"
+                style={{ maxWidth: '350px', width: '100%', height: 'auto', display: 'block' }}
+              />
             </div>
           </div>
         </section>
@@ -2686,11 +2732,14 @@ function Diagnostics() {
               
               <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
                 <div className="oncologyLocationHeader">Active cities in Tamil Nadu:</div>
-                <ul className="oncologyLocationList">
+                <div className="oncologyLocationList">
                   {facilities.map((f, i) => (
-                    <li key={i}>{f.city}</li>
+                    <div className="cityChip" key={i}>
+                      <MapPin size={13} />
+                      {f.city}
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
 
