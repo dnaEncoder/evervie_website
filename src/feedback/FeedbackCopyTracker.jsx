@@ -69,26 +69,63 @@ function groupBlocksBySection(blocks) {
   return groups;
 }
 
-function SectionPreviewFrame({ path, sectionId, sectionLabel }) {
-  const iframeRef = useRef(null);
+const PREVIEW_FRAME_WIDTH = 1280;
+const PREVIEW_MAX_HEIGHT = 640;
 
-  function handleLoad() {
-    const scrollToSection = () => {
-      const doc = iframeRef.current?.contentWindow?.document;
-      doc?.getElementById(sectionId)?.scrollIntoView({ block: "start" });
-    };
-    scrollToSection();
-    setTimeout(scrollToSection, 400);
+function SectionPreviewFrame({ path, sectionId, sectionLabel }) {
+  const wrapRef = useRef(null);
+  const iframeRef = useRef(null);
+  const [frame, setFrame] = useState(null);
+
+  function measure() {
+    const wrapEl = wrapRef.current;
+    const doc = iframeRef.current?.contentWindow?.document;
+    const target = doc?.getElementById(sectionId);
+    if (!wrapEl || !target) return;
+
+    const scale = wrapEl.clientWidth / PREVIEW_FRAME_WIDTH;
+    const sectionHeight = Math.min(target.offsetHeight, PREVIEW_MAX_HEIGHT / scale);
+
+    setFrame({
+      scale,
+      top: target.offsetTop,
+      height: sectionHeight,
+      pageHeight: doc.documentElement.scrollHeight,
+    });
   }
 
+  function handleLoad() {
+    measure();
+    setTimeout(measure, 500);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="feedbackSectionFrameWrap">
+    <div
+      ref={wrapRef}
+      className="feedbackSectionFrameWrap"
+      style={frame ? { height: `${frame.height * frame.scale}px` } : undefined}
+    >
       <iframe
         ref={iframeRef}
         src={`${path}#${sectionId}`}
         loading="lazy"
         title={sectionLabel}
         className="feedbackSectionFrame"
+        style={
+          frame
+            ? {
+                width: `${PREVIEW_FRAME_WIDTH}px`,
+                height: `${frame.pageHeight}px`,
+                transform: `scale(${frame.scale}) translateY(${-frame.top}px)`,
+              }
+            : undefined
+        }
         onLoad={handleLoad}
       />
     </div>
@@ -152,59 +189,66 @@ function PageOutline({ page, token }) {
   }
 
   const groups = groupBlocksBySection(blocks);
+  let sectionNumber = 0;
 
   return (
     <div>
-      {groups.map((group) => (
-        <div className="feedbackSectionGroup" key={group.sectionId || "other"}>
-          <p className="feedbackSectionGroupHeader">{group.sectionLabel}</p>
+      {groups.map((group) => {
+        const number = group.sectionId ? ++sectionNumber : null;
+        return (
+          <div className="feedbackSectionGroup" key={group.sectionId || "other"}>
+            <p className="feedbackSectionGroupHeader">
+              {number != null && <span className="feedbackSectionNumber">{number}.</span>}
+              {group.sectionLabel}
+            </p>
 
-          {group.sectionId && (
-            <SectionPreviewFrame path={page.path} sectionId={group.sectionId} sectionLabel={group.sectionLabel} />
-          )}
+            {group.sectionId && (
+              <SectionPreviewFrame path={page.path} sectionId={group.sectionId} sectionLabel={group.sectionLabel} />
+            )}
 
-          {group.blocks.map((block) => {
-            const threadComments = comments.filter((c) => c.anchorId === block.anchorId);
-            return (
-              <div className="feedbackOutlineBlock" key={block.anchorId}>
-                <p className="feedbackOutlineTag">{block.tag}</p>
-                <p className="feedbackOutlineText">{block.text}</p>
+            {group.blocks.map((block) => {
+              const threadComments = comments.filter((c) => c.anchorId === block.anchorId);
+              return (
+                <div className="feedbackOutlineBlock" key={block.anchorId}>
+                  <p className="feedbackOutlineTag">{block.tag}</p>
+                  <p className="feedbackOutlineText">{block.text}</p>
 
-                {threadComments.length > 0 && (
-                  <div className="feedbackCommentThread">
-                    {threadComments.map((c) => (
-                      <div className="feedbackCommentItem" key={c.documentId}>
-                        <p className="feedbackCommentMeta">
-                          {c.reviewerEmail} · {new Date(c.createdAt).toLocaleDateString()}
-                        </p>
-                        {c.note}
-                      </div>
-                    ))}
+                  {threadComments.length > 0 && (
+                    <div className="feedbackCommentThread">
+                      {threadComments.map((c) => (
+                        <div className="feedbackCommentItem" key={c.documentId}>
+                          <p className="feedbackCommentMeta">
+                            {c.reviewerEmail} · {new Date(c.createdAt).toLocaleDateString()}
+                          </p>
+                          {c.note}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="feedbackOutlineForm">
+                    <textarea
+                      placeholder="Suggest a copy change…"
+                      value={noteDrafts[block.anchorId] || ""}
+                      onChange={(e) =>
+                        setNoteDrafts((prev) => ({ ...prev, [block.anchorId]: e.target.value }))
+                      }
+                    />
+                    <button
+                      type="button"
+                      className="btn"
+                      disabled={submittingId === block.anchorId || !(noteDrafts[block.anchorId] || "").trim()}
+                      onClick={() => handleSubmit(block)}
+                    >
+                      {submittingId === block.anchorId ? "Saving…" : "Save"}
+                    </button>
                   </div>
-                )}
-
-                <div className="feedbackOutlineForm">
-                  <textarea
-                    placeholder="Suggest a copy change…"
-                    value={noteDrafts[block.anchorId] || ""}
-                    onChange={(e) =>
-                      setNoteDrafts((prev) => ({ ...prev, [block.anchorId]: e.target.value }))
-                    }
-                  />
-                  <button
-                    type="button"
-                    className="btn"
-                    disabled={submittingId === block.anchorId || !(noteDrafts[block.anchorId] || "").trim()}
-                    onClick={() => handleSubmit(block)}
-                  >
-                    {submittingId === block.anchorId ? "Saving…" : "Save"}
-                  </button>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      ))}
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }
