@@ -8,6 +8,10 @@ import "leaflet/dist/leaflet.css";
 import { getInvestorCentrePage, getFinancialDocuments, getLatestInvestorNews, getUpcomingInvestorEvents, getFeaturedNews, getFeaturedPastEvents, getPastInvestorEvents } from "./lib/investorApi.js";
 import { getHeroArticle, getFeaturedInsights, getBlogPosts, getBlogPostBySlug, getRelatedArticles, getBlogFacets } from "./lib/newsApi.js";
 import { getCareerOpenings, getCareerOpeningBySlug, getRelatedOpenings, getCareerFacets } from "./lib/careersApi.js";
+import FeedbackLoginPage from "./feedback/FeedbackLoginPage.jsx";
+import FeedbackVerifyPage from "./feedback/FeedbackVerifyPage.jsx";
+import FeedbackWidget from "./feedback/FeedbackWidget.jsx";
+import FeedbackCopyTracker from "./feedback/FeedbackCopyTracker.jsx";
 
 function Linkedin({ size = 16, style, className }) {
   return (
@@ -6214,8 +6218,28 @@ function ScrollToTop() {
   return null;
 }
 
+export const FEEDBACK_TRACKED_PAGES = [
+  { path: "/", label: "Home", Component: Editorial },
+  { path: "/about/who-we-are", label: "About — Who We Are", Component: AboutWhoWeAre },
+  { path: "/about/leadership", label: "About — Leadership", Component: AboutLeadership },
+  { path: "/about/mission-vision", label: "About — Mission & Vision", Component: AboutMissionVision },
+  { path: "/about/aspiration", label: "About — Aspiration", Component: AboutAspiration },
+  { path: "/about/governance", label: "About — Governance", Component: AboutGovernance },
+  { path: "/portfolio/renal-care", label: "Portfolio — Renal Care", Component: RenalCare },
+  { path: "/portfolio/oncology", label: "Portfolio — Oncology", Component: Oncology },
+  { path: "/portfolio/diagnostics", label: "Portfolio — Diagnostics", Component: Diagnostics },
+  { path: "/portfolio/elder-care", label: "Portfolio — Elder Care", Component: ElderCare },
+  { path: "/investor-centre", label: "Investor Centre", Component: InvestorCentre },
+  { path: "/investor-centre/investment-overview", label: "Investor Centre — Investment Overview", Component: InvestmentOverview },
+  { path: "/investor-centre/financial-information", label: "Investor Centre — Financial Information", Component: FinancialInformation },
+  { path: "/investor-centre/announcements", label: "Investor Centre — News & Events", Component: NewsAndEvents },
+  { path: "/investor-centre/presentations", label: "Investor Centre — Presentations", Component: InvestorPresentations },
+  { path: "/news-insights", label: "News & Insights", Component: NewsInsights },
+  { path: "/careers", label: "Careers", Component: CareersPage },
+];
+
 export default function App() {
-  return <><ScrollToTop /><RouteLoader /><Routes>
+  return <><ScrollToTop /><RouteLoader /><FeedbackWidget /><Routes>
     <Route path="/" element={<Editorial />} />
     <Route path="/editorial" element={<Editorial />} />
     {/* Hidden variation routes for now */}
@@ -6240,5 +6264,8 @@ export default function App() {
     <Route path="/news-insights/:slug" element={<ArticleDetail />} />
     <Route path="/careers" element={<CareersPage />} />
     <Route path="/careers/:slug" element={<CareerDetail />} />
+    <Route path="/feedback" element={<FeedbackLoginPage />} />
+    <Route path="/feedback/verify" element={<FeedbackVerifyPage />} />
+    <Route path="/feedback/copy" element={<FeedbackCopyTracker />} />
   </Routes></>;
 }
