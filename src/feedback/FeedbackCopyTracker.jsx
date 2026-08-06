@@ -69,69 +69,6 @@ function groupBlocksBySection(blocks) {
   return groups;
 }
 
-const PREVIEW_FRAME_WIDTH = 1280;
-const PREVIEW_MAX_HEIGHT = 640;
-
-function SectionPreviewFrame({ path, sectionId, sectionLabel }) {
-  const wrapRef = useRef(null);
-  const iframeRef = useRef(null);
-  const [frame, setFrame] = useState(null);
-
-  function measure() {
-    const wrapEl = wrapRef.current;
-    const doc = iframeRef.current?.contentWindow?.document;
-    const target = doc?.getElementById(sectionId);
-    if (!wrapEl || !target) return;
-
-    const scale = wrapEl.clientWidth / PREVIEW_FRAME_WIDTH;
-    const sectionHeight = Math.min(target.offsetHeight, PREVIEW_MAX_HEIGHT / scale);
-
-    setFrame({
-      scale,
-      top: target.offsetTop,
-      height: sectionHeight,
-      pageHeight: doc.documentElement.scrollHeight,
-    });
-  }
-
-  function handleLoad() {
-    measure();
-    setTimeout(measure, 500);
-  }
-
-  useEffect(() => {
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return (
-    <div
-      ref={wrapRef}
-      className="feedbackSectionFrameWrap"
-      style={frame ? { height: `${frame.height * frame.scale}px` } : undefined}
-    >
-      <iframe
-        ref={iframeRef}
-        src={`${path}#${sectionId}`}
-        loading="lazy"
-        title={sectionLabel}
-        className="feedbackSectionFrame"
-        style={
-          frame
-            ? {
-                width: `${PREVIEW_FRAME_WIDTH}px`,
-                height: `${frame.pageHeight}px`,
-                transform: `scale(${frame.scale}) translateY(${-frame.top}px)`,
-              }
-            : undefined
-        }
-        onLoad={handleLoad}
-      />
-    </div>
-  );
-}
-
 function PageOutline({ page, token }) {
   const [blocks, setBlocks] = useState(null);
   const [comments, setComments] = useState([]);
@@ -201,10 +138,6 @@ function PageOutline({ page, token }) {
               {number != null && <span className="feedbackSectionNumber">{number}.</span>}
               {group.sectionLabel}
             </p>
-
-            {group.sectionId && (
-              <SectionPreviewFrame path={page.path} sectionId={group.sectionId} sectionLabel={group.sectionLabel} />
-            )}
 
             {group.blocks.map((block) => {
               const threadComments = comments.filter((c) => c.anchorId === block.anchorId);
