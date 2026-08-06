@@ -11207,3 +11207,36 @@ blockquote {
     font-size: 13px;
     resize: vertical;
 }
+
+.feedbackSectionGroup {
+    padding: 28px 0;
+    border-top: 1px solid var(--line);
+}
+
+.feedbackSectionGroup:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.feedbackSectionGroupHeader {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0 0 14px;
+}
+
+.feedbackSectionFrameWrap {
+    height: 420px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    margin-bottom: 18px;
+    background: var(--soft);
+}
+
+.feedbackSectionFrame {
+    width: 100%;
+    height: 100%;
+    border: none;
+}

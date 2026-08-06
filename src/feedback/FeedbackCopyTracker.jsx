@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { useFeedbackSession } from "./FeedbackSessionContext.jsx";
 import { createComment, listPageComments } from "../lib/feedbackApi.js";
-import { extractTextBlocks } from "./TextExtractor.js";
+import { assignSectionIds, extractTextBlocks } from "./TextExtractor.js";
 import { FEEDBACK_TRACKED_PAGES } from "../App.jsx";
 
 function OffscreenExtractor({ page, onExtracted }) {
@@ -23,6 +23,7 @@ function OffscreenExtractor({ page, onExtracted }) {
       clearTimeout(hardTimeout);
       clearTimeout(debounceTimer);
       observer.disconnect();
+      assignSectionIds(el);
       onExtracted(extractTextBlocks(el, page.path));
     }
 
@@ -49,6 +50,48 @@ function OffscreenExtractor({ page, onExtracted }) {
       <page.Component />
     </div>,
     document.body
+  );
+}
+
+function groupBlocksBySection(blocks) {
+  const groups = [];
+  const bySection = new Map();
+  for (const block of blocks) {
+    const key = block.sectionId || "other";
+    let group = bySection.get(key);
+    if (!group) {
+      group = { sectionId: block.sectionId, sectionLabel: block.sectionLabel, blocks: [] };
+      bySection.set(key, group);
+      groups.push(group);
+    }
+    group.blocks.push(block);
+  }
+  return groups;
+}
+
+function SectionPreviewFrame({ path, sectionId, sectionLabel }) {
+  const iframeRef = useRef(null);
+
+  function handleLoad() {
+    const scrollToSection = () => {
+      const doc = iframeRef.current?.contentWindow?.document;
+      doc?.getElementById(sectionId)?.scrollIntoView({ block: "start" });
+    };
+    scrollToSection();
+    setTimeout(scrollToSection, 400);
+  }
+
+  return (
+    <div className="feedbackSectionFrameWrap">
+      <iframe
+        ref={iframeRef}
+        src={`${path}#${sectionId}`}
+        loading="lazy"
+        title={sectionLabel}
+        className="feedbackSectionFrame"
+        onLoad={handleLoad}
+      />
+    </div>
   );
 }
 
@@ -108,48 +151,60 @@ function PageOutline({ page, token }) {
     return <p>No copy blocks found on this page.</p>;
   }
 
+  const groups = groupBlocksBySection(blocks);
+
   return (
     <div>
-      {blocks.map((block) => {
-        const threadComments = comments.filter((c) => c.anchorId === block.anchorId);
-        return (
-          <div className="feedbackOutlineBlock" key={block.anchorId}>
-            <p className="feedbackOutlineTag">{block.tag}</p>
-            <p className="feedbackOutlineText">{block.text}</p>
+      {groups.map((group) => (
+        <div className="feedbackSectionGroup" key={group.sectionId || "other"}>
+          <p className="feedbackSectionGroupHeader">{group.sectionLabel}</p>
 
-            {threadComments.length > 0 && (
-              <div className="feedbackCommentThread">
-                {threadComments.map((c) => (
-                  <div className="feedbackCommentItem" key={c.documentId}>
-                    <p className="feedbackCommentMeta">
-                      {c.reviewerEmail} · {new Date(c.createdAt).toLocaleDateString()}
-                    </p>
-                    {c.note}
+          {group.sectionId && (
+            <SectionPreviewFrame path={page.path} sectionId={group.sectionId} sectionLabel={group.sectionLabel} />
+          )}
+
+          {group.blocks.map((block) => {
+            const threadComments = comments.filter((c) => c.anchorId === block.anchorId);
+            return (
+              <div className="feedbackOutlineBlock" key={block.anchorId}>
+                <p className="feedbackOutlineTag">{block.tag}</p>
+                <p className="feedbackOutlineText">{block.text}</p>
+
+                {threadComments.length > 0 && (
+                  <div className="feedbackCommentThread">
+                    {threadComments.map((c) => (
+                      <div className="feedbackCommentItem" key={c.documentId}>
+                        <p className="feedbackCommentMeta">
+                          {c.reviewerEmail} · {new Date(c.createdAt).toLocaleDateString()}
+                        </p>
+                        {c.note}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                )}
 
-            <div className="feedbackOutlineForm">
-              <textarea
-                placeholder="Suggest a copy change…"
-                value={noteDrafts[block.anchorId] || ""}
-                onChange={(e) =>
-                  setNoteDrafts((prev) => ({ ...prev, [block.anchorId]: e.target.value }))
-                }
-              />
-              <button
-                type="button"
-                className="btn"
-                disabled={submittingId === block.anchorId || !(noteDrafts[block.anchorId] || "").trim()}
-                onClick={() => handleSubmit(block)}
-              >
-                {submittingId === block.anchorId ? "Saving…" : "Save"}
-              </button>
-            </div>
-          </div>
-        );
-      })}
+                <div className="feedbackOutlineForm">
+                  <textarea
+                    placeholder="Suggest a copy change…"
+                    value={noteDrafts[block.anchorId] || ""}
+                    onChange={(e) =>
+                      setNoteDrafts((prev) => ({ ...prev, [block.anchorId]: e.target.value }))
+                    }
+                  />
+                  <button
+                    type="button"
+                    className="btn"
+                    disabled={submittingId === block.anchorId || !(noteDrafts[block.anchorId] || "").trim()}
+                    onClick={() => handleSubmit(block)}
+                  >
+                    {submittingId === block.anchorId ? "Saving…" : "Save"}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ))}
     </div>
   );
 }
