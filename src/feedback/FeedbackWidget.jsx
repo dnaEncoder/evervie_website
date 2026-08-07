@@ -41,6 +41,21 @@ function domPathFor(el) {
   return parts.join(">");
 }
 
+// Re-derive the anchorId hash for every live element so a stored comment can be
+// re-attached to the exact node it was left on, instead of trusting stale
+// page-relative x/y percentages that drift whenever the page reflows.
+function buildAnchorMap(pagePath) {
+  const map = new Map();
+  const all = document.body.querySelectorAll("*");
+  for (const el of all) {
+    if (el.closest("[data-feedback-ui]")) continue;
+    const textSnapshot = (el.textContent || "").trim().slice(0, 160);
+    const hash = hashString(`${pagePath}|${domPathFor(el)}|${textSnapshot.slice(0, 80)}`);
+    if (!map.has(hash)) map.set(hash, el);
+  }
+  return map;
+}
+
 export default function FeedbackWidget() {
   const { isAuthed, token, email, logout } = useFeedbackSession();
   const location = useLocation();
@@ -55,6 +70,7 @@ export default function FeedbackWidget() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [overlaySize, setOverlaySize] = useState({ width: 0, height: 0 });
+  const [pinPositions, setPinPositions] = useState({});
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
@@ -96,19 +112,63 @@ export default function FeedbackWidget() {
     };
   }, [isAuthed, token, pagePath]);
 
-  const recomputeOverlaySize = useCallback(() => {
+  const recomputeOverlay = useCallback(() => {
     setOverlaySize({
       width: document.documentElement.scrollWidth,
       height: document.documentElement.scrollHeight,
     });
-  }, []);
+
+    if (!comments.length) {
+      setPinPositions({});
+      return;
+    }
+
+    const anchorMap = buildAnchorMap(pagePath);
+    const next = {};
+    for (const c of comments) {
+      const el = c.anchorId ? anchorMap.get(c.anchorId) : null;
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        next[c.documentId] = {
+          left: rect.left + window.scrollX + 4,
+          top: rect.top + window.scrollY + 4,
+        };
+      } else if (c.x != null && c.y != null) {
+        // Fall back to the stored page-relative click position if the
+        // original element can no longer be found (e.g. content changed).
+        next[c.documentId] = {
+          left: (c.x / 100) * document.documentElement.scrollWidth,
+          top: (c.y / 100) * document.documentElement.scrollHeight,
+        };
+      }
+    }
+    setPinPositions(next);
+  }, [comments, pagePath]);
 
   useEffect(() => {
-    if (!isAuthed) return;
-    recomputeOverlaySize();
-    window.addEventListener("resize", recomputeOverlaySize);
-    return () => window.removeEventListener("resize", recomputeOverlaySize);
-  }, [isAuthed, recomputeOverlaySize, comments]);
+    if (!isAuthed) return undefined;
+    recomputeOverlay();
+    // Content that loads async (fonts, images, CMS-fetched sections) can shift
+    // layout after the first paint, so re-measure a beat later and again once
+    // web fonts settle.
+    const timer = setTimeout(recomputeOverlay, 600);
+    if (document.fonts?.ready) document.fonts.ready.then(recomputeOverlay);
+
+    let debounceTimer = null;
+    const observer = new MutationObserver(() => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(recomputeOverlay, 300);
+    });
+    observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+
+    window.addEventListener("resize", recomputeOverlay);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(debounceTimer);
+      observer.disconnect();
+      window.removeEventListener("resize", recomputeOverlay);
+    };
+  }, [isAuthed, recomputeOverlay]);
 
   useEffect(() => {
     if (pagePath === "/feedback/copy") setMode(false);
@@ -229,12 +289,14 @@ export default function FeedbackWidget() {
           data-feedback-ui
           style={{ width: overlaySize.width, height: overlaySize.height }}
         >
-          {comments.map((c, i) =>
-            c.x == null || c.y == null ? null : (
+          {comments.map((c, i) => {
+            const pos = pinPositions[c.documentId];
+            if (!pos) return null;
+            return (
               <div
                 key={c.documentId || i}
                 className="feedbackPin"
-                style={{ left: `${c.x}%`, top: `${c.y}%` }}
+                style={{ left: pos.left, top: pos.top }}
                 onClick={(e) => {
                   e.stopPropagation();
                   setViewing({ comment: c, clientX: e.clientX, clientY: e.clientY });
@@ -242,8 +304,8 @@ export default function FeedbackWidget() {
               >
                 {i + 1}
               </div>
-            )
-          )}
+            );
+          })}
         </div>,
         document.body
       )}
