@@ -11079,7 +11079,7 @@ blockquote {
     display: grid;
     place-items: center;
     pointer-events: auto;
-    cursor: default;
+    cursor: pointer;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
@@ -11121,6 +11121,23 @@ blockquote {
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.feedbackViewPopover .feedbackPopoverActions {
+    justify-content: flex-end;
+}
+
+.feedbackViewNote {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 10px;
+    white-space: pre-wrap;
+}
+
+.feedbackViewMeta {
+    font-size: 11px;
+    color: var(--muted);
+    margin: 0;
 }
 
 .feedbackTrackerAccordion {

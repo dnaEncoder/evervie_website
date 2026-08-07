@@ -50,6 +50,7 @@ export default function FeedbackWidget() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [pending, setPending] = useState(null); // { clientX, clientY, x, y, anchorId, elementLabel, textSnapshot }
+  const [viewing, setViewing] = useState(null); // { comment, clientX, clientY }
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -111,6 +112,7 @@ export default function FeedbackWidget() {
 
   useEffect(() => {
     if (pagePath === "/feedback/copy") setMode(false);
+    setViewing(null);
   }, [pagePath]);
 
   useEffect(() => {
@@ -233,7 +235,10 @@ export default function FeedbackWidget() {
                 key={c.documentId || i}
                 className="feedbackPin"
                 style={{ left: `${c.x}%`, top: `${c.y}%` }}
-                title={c.note}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setViewing({ comment: c, clientX: e.clientX, clientY: e.clientY });
+                }}
               >
                 {i + 1}
               </div>
@@ -270,6 +275,30 @@ export default function FeedbackWidget() {
                 </button>
               </div>
             </form>
+          </div>,
+          document.body
+        )}
+
+      {viewing &&
+        createPortal(
+          <div className="feedbackPopoverBackdrop" data-feedback-ui onClick={() => setViewing(null)}>
+            <div
+              className="feedbackPopover feedbackViewPopover"
+              style={{ left: viewing.clientX, top: viewing.clientY }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <p className="feedbackPopoverLabel">{viewing.comment.elementLabel || "Selected element"}</p>
+              <p className="feedbackViewNote">{viewing.comment.note}</p>
+              <p className="feedbackViewMeta">
+                {viewing.comment.reviewerEmail}
+                {viewing.comment.createdAt ? ` · ${new Date(viewing.comment.createdAt).toLocaleDateString()}` : ""}
+              </p>
+              <div className="feedbackPopoverActions">
+                <button type="button" className="feedbackLinkButton" onClick={() => setViewing(null)}>
+                  Close
+                </button>
+              </div>
+            </div>
           </div>,
           document.body
         )}
