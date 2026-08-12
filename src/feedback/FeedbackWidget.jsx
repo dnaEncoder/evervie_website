@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useFeedbackSession } from "./FeedbackSessionContext.jsx";
-import { createComment, listPageComments } from "../lib/feedbackApi.js";
+import { createComment, listPageComments, updateCommentStatus } from "../lib/feedbackApi.js";
 
 function hashString(input) {
   let hash = 0x811c9dc5;
@@ -63,6 +63,7 @@ export default function FeedbackWidget() {
 
   const [mode, setMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notesOpen, setNotesOpen] = useState(false);
   const [comments, setComments] = useState([]);
   const [pending, setPending] = useState(null); // { clientX, clientY, x, y, anchorId, elementLabel, textSnapshot }
   const [viewing, setViewing] = useState(null); // { comment, clientX, clientY }
@@ -234,6 +235,16 @@ export default function FeedbackWidget() {
     }
   }
 
+  async function handleToggleStatus(comment) {
+    const nextStatus = comment.status === "resolved" ? "open" : "resolved";
+    try {
+      const updated = await updateCommentStatus(token, comment.documentId, nextStatus);
+      setComments((prev) => prev.map((c) => (c.documentId === comment.documentId ? updated : c)));
+    } catch {
+      // Leave the checklist as-is; the reviewer can retry the click.
+    }
+  }
+
   const onCopyTracker = pagePath === "/feedback/copy";
   if (!isAuthed || pagePath === "/feedback" || pagePath === "/feedback/verify") return null;
 
@@ -272,6 +283,18 @@ export default function FeedbackWidget() {
               <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
+
+          <button
+            type="button"
+            className="feedbackMenuItem"
+            onClick={() => {
+              setNotesOpen(true);
+              setMenuOpen(false);
+            }}
+          >
+            <span>Page notes</span>
+            <span className="feedbackMenuItemState">{comments.length}</span>
+          </button>
         </div>
       )}
 
@@ -290,6 +313,7 @@ export default function FeedbackWidget() {
           style={{ width: overlaySize.width, height: overlaySize.height }}
         >
           {comments.map((c, i) => {
+            if (c.status === "resolved") return null;
             const pos = pinPositions[c.documentId];
             if (!pos) return null;
             return (
@@ -360,6 +384,50 @@ export default function FeedbackWidget() {
                   Close
                 </button>
               </div>
+            </div>
+          </div>,
+          document.body
+        )}
+
+      {notesOpen &&
+        createPortal(
+          <div className="feedbackPopoverBackdrop" data-feedback-ui onClick={() => setNotesOpen(false)}>
+            <div className="feedbackNotesPanel" onClick={(e) => e.stopPropagation()}>
+              <div className="feedbackNotesHeader">
+                <p className="feedbackPopoverLabel">Page notes</p>
+                <button type="button" className="feedbackLinkButton" onClick={() => setNotesOpen(false)}>
+                  Close
+                </button>
+              </div>
+              {comments.length === 0 ? (
+                <p className="feedbackNotesEmpty">No notes on this page yet.</p>
+              ) : (
+                <ul className="feedbackNotesList">
+                  {comments.map((c, i) => (
+                    <li
+                      key={c.documentId || i}
+                      className={`feedbackNotesItem${c.status === "resolved" ? " feedbackNotesItem--done" : ""}`}
+                    >
+                      <label className="feedbackNotesCheck">
+                        <input
+                          type="checkbox"
+                          checked={c.status === "resolved"}
+                          onChange={() => handleToggleStatus(c)}
+                        />
+                        <span className="feedbackNotesNumber">{i + 1}</span>
+                      </label>
+                      <div className="feedbackNotesBody">
+                        <p className="feedbackNotesElement">{c.elementLabel || "Selected element"}</p>
+                        <p className="feedbackNotesNote">{c.note}</p>
+                        <p className="feedbackViewMeta">
+                          {c.reviewerEmail}
+                          {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString()}` : ""}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>,
           document.body

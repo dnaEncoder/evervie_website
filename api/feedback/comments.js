@@ -22,7 +22,7 @@ function mapComment(row) {
 }
 
 export default async function handler(req, res) {
-  if (!methodGuard(req, res, ["GET", "POST"])) return;
+  if (!methodGuard(req, res, ["GET", "POST", "PATCH"])) return;
   await ensureSchema();
 
   const reviewer = await requireReviewer(req, res);
@@ -34,6 +34,27 @@ export default async function handler(req, res) {
       ? await sql`SELECT * FROM feedback_comments WHERE page_path = ${pagePath} ORDER BY created_at ASC`
       : await sql`SELECT * FROM feedback_comments ORDER BY created_at ASC`;
     sendJson(res, 200, { comments: rows.map(mapComment) });
+    return;
+  }
+
+  if (req.method === "PATCH") {
+    const body = getBody(req);
+    const id = typeof body.id === "string" || typeof body.id === "number" ? String(body.id) : "";
+    const status = body.status === "open" || body.status === "resolved" ? body.status : "";
+
+    if (!id || !status) {
+      sendJson(res, 400, { error: { message: "id and status are required." } });
+      return;
+    }
+
+    const rows = await sql`
+      UPDATE feedback_comments SET status = ${status} WHERE id = ${id} RETURNING *
+    `;
+    if (!rows[0]) {
+      sendJson(res, 404, { error: { message: "Comment not found." } });
+      return;
+    }
+    sendJson(res, 200, { comment: mapComment(rows[0]) });
     return;
   }
 

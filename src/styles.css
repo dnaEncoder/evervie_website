@@ -1955,10 +1955,9 @@ blockquote {
 }
 
 .editorialBrand .editorialAboutContainer {
-    display: grid;
-    grid-template-columns: 1.15fr 1fr;
-    gap: 72px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
     max-width: 1312px;
     margin: 0 auto;
 }
@@ -1968,8 +1967,9 @@ blockquote {
     border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 12px 40px rgba(40, 40, 40, 0.08), 0 1px 4px rgba(40, 40, 40, 0.04);
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 21 / 9;
     background: #eaeae8;
+    width: 100%;
 }
 
 .editorialBrand .editorialAboutImg {
@@ -2026,6 +2026,9 @@ blockquote {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .editorialBrand .editorialAboutContent .eyebrow {
@@ -2107,8 +2110,8 @@ blockquote {
 
 .editorialBrand .editorialAboutPillars {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
     margin-bottom: 36px;
 }
 
@@ -2136,12 +2139,15 @@ blockquote {
 
 @media (max-width: 1024px) {
     .editorialBrand .editorialAboutContainer {
-        grid-template-columns: 1fr;
         gap: 40px;
     }
     
     .editorialBrand .editorialAboutSection {
         padding: 80px 40px;
+    }
+
+    .editorialBrand .editorialAboutVisual {
+        aspect-ratio: 16 / 9;
     }
 }
 
@@ -2159,6 +2165,15 @@ blockquote {
     .editorialBrand .editorialAboutActions .btnOutline {
         text-align: center;
         justify-content: center;
+    }
+
+    .editorialBrand .editorialAboutVisual {
+        aspect-ratio: 4 / 3;
+    }
+
+    .editorialBrand .editorialAboutPillars {
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
 }
 
@@ -2341,9 +2356,12 @@ blockquote {
 /* ── CompanySnapshotWithMap ─────────────────────────────────── */
 .editorialBrand .companySnapshotMap {
     display: grid;
-    grid-template-columns: 30fr 70fr;
-    gap: 64px;
-    padding: 80px 64px;
+    grid-template-columns: 34fr 66fr;
+    gap: 48px;
+    padding: 80px 48px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
     background: #ffffff;
     align-items: start
 }
@@ -2362,11 +2380,11 @@ blockquote {
 
 /* Compact metric cards inside the presence map section only */
 .editorialBrand .companySnapshotMap .metricCard {
-    padding: 14px 16px 16px;
+    padding: 14px 10px 16px 12px;
     min-height: unset
 }
 .editorialBrand .companySnapshotMap .metricHeader {
-    gap: 8px;
+    gap: 6px;
     margin-bottom: 8px
 }
 .editorialBrand .companySnapshotMap .metricIcon {
@@ -2379,16 +2397,38 @@ blockquote {
     height: 14px
 }
 .editorialBrand .companySnapshotMap .metricLabel {
-    font-size: 10px;
-    letter-spacing: 0.06em
+    font-size: 9.5px;
+    letter-spacing: 0.04em;
+    line-height: 1.2
 }
 .editorialBrand .companySnapshotMap .metricValue {
     font-size: 26px;
     margin-bottom: 4px
 }
 .editorialBrand .companySnapshotMap .metricDescription {
-    font-size: 12px;
-    line-height: 1.4
+    font-size: 11.5px;
+    line-height: 1.35
+}
+
+@media (max-width: 1024px) {
+    .editorialBrand .companySnapshotMap {
+        grid-template-columns: 1fr;
+        gap: 48px;
+        padding: 60px 40px;
+    }
+    .editorialBrand .companySnapshotMap .mapContainerWrapper {
+        height: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .editorialBrand .companySnapshotMap {
+        padding: 40px 24px;
+        gap: 32px;
+    }
+    .editorialBrand .companySnapshotMap .mapContainerWrapper {
+        height: 450px;
+    }
 }
 
 /* Logo-card marker pin */
@@ -2400,25 +2440,28 @@ blockquote {
 }
 
 .presenceLogoPin {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     gap: 3px;
     background: transparent;
     cursor: pointer;
+    width: 100%;
+    height: 100%;
 }
 
 .presenceLogoPin > img {
     display: block;
-    height: 36px;
-    max-width: 120px;
+    height: 60px;
+    max-width: 140px;
     width: auto;
     object-fit: contain;
     background: #fff;
     border: 1.5px solid;
-    border-radius: 7px;
-    padding: 4px 8px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.13);
+    border-radius: 10px;
+    padding: 20px 22px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
     cursor: pointer;
 }
 
@@ -2650,8 +2693,8 @@ blockquote {
 }
 
 .editorialBrand header .brand img {
-    height: 60px;
-    max-width: 230px
+    height: 72px;
+    max-width: 250px
 }
 
 .editorialBrand .megaMenu {
@@ -3223,6 +3266,9 @@ blockquote {
     height: 100%;
     min-height: 100%;
     object-fit: cover;
+    object-position: right center;
+    transform: scale(1.2);
+    transform-origin: right center;
     border-radius: 0
 }
 
@@ -3486,6 +3532,7 @@ blockquote {
 
 .editorialBrand .copyright {
     font-size: 12px;
+    font-weight: 500;
     color: #fff
 }
 
@@ -3497,6 +3544,7 @@ blockquote {
 
 .editorialBrand .footerLegalLinks a {
     font-size: 12px;
+    font-weight: 500;
     color: #fff;
     text-decoration: none
 }
@@ -4535,7 +4583,7 @@ blockquote {
     border: 1px solid var(--line-soft);
     background: #fff;
     border-radius: 20px;
-    min-height: 440px;
+    min-height: 380px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -4699,6 +4747,7 @@ blockquote {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    object-position: center 12%;
     display: block;
 }
 
@@ -4857,7 +4906,7 @@ blockquote {
     border: 1px solid var(--line-soft);
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    cursor: default;
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
 }
 
@@ -4895,12 +4944,12 @@ blockquote {
     transform: scale(1.34) translateY(-6%);
 }
 
-.editorialBrand .wwaBoardCardImg[src="/PVP_0425.jpg"] {
-    transform: scale(1.2) translateY(-4%);
+.editorialBrand .wwaBoardCardImg[src="/PVP_0474.jpg"] {
+    transform: scale(1.15) translateY(2%);
 }
 
-.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/PVP_0425.jpg"] {
-    transform: scale(1.24) translateY(-4%);
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/PVP_0474.jpg"] {
+    transform: scale(1.19) translateY(2%);
 }
 
 .editorialBrand .wwaBoardCardContent {
@@ -6078,6 +6127,7 @@ blockquote {
     height: 100%;
     z-index: 1;
     background: #ffffff;
+    overflow: visible;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border 0.4s ease;
 }
 /* 3D Mode Tilt and Extruded Edge */
@@ -6317,15 +6367,19 @@ blockquote {
     border-color: var(--evervie-orange);
 }
 .editorialBrand .careExpIcon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     background: rgba(255, 60, 0, 0.08);
     color: var(--evervie-orange);
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 24px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.editorialBrand .careExpCard:hover .careExpIcon {
+    transform: scale(1.1);
 }
 .editorialBrand .careExpImageWrapper {
     width: 100%;
@@ -6516,7 +6570,7 @@ blockquote {
 
 .editorialBrand .clinicalMetricNumber {
     font-family: var(--font-display); /* Large refined display serif font */
-    font-size: 80px; /* Substantially larger */
+    font-size: 68px; /* Adjusted to fit multi-digit numbers like 350+ */
     font-weight: 400;
     color: var(--evervie-orange);
     opacity: 1; /* Fully visible accent number */
@@ -10780,6 +10834,82 @@ blockquote {
     color: var(--evervie-orange);
 }
 
+.editorialBrand .careersJoinSection {
+    margin-top: 32px;
+}
+
+.editorialBrand .careersJoinForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 640px;
+    margin-top: 32px;
+    padding: 40px;
+    border-radius: 20px;
+    background: #FAF8F5;
+    border: 1px solid #e4e2e0;
+}
+
+.editorialBrand .careersJoinFormRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.editorialBrand .careersJoinForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editorialBrand .careersJoinForm label span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .careersJoinForm input,
+.editorialBrand .careersJoinForm textarea {
+    border: 1px solid #e4e2e0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--graphite);
+    resize: vertical;
+}
+
+.editorialBrand .careersJoinForm input::placeholder,
+.editorialBrand .careersJoinForm textarea::placeholder {
+    color: #a3a09c;
+}
+
+.editorialBrand .careersJoinForm input:focus,
+.editorialBrand .careersJoinForm textarea:focus {
+    outline: none;
+    border-color: var(--evervie-orange);
+}
+
+.editorialBrand .careersJoinForm button {
+    align-self: flex-start;
+}
+
+.editorialBrand .careersJoinFormNote {
+    margin: 0;
+    font-size: 13.5px;
+    color: #6b6b6b;
+}
+
+@media (max-width: 640px) {
+    .editorialBrand .careersJoinFormRow {
+        grid-template-columns: 1fr;
+    }
+    .editorialBrand .careersJoinForm {
+        padding: 28px 24px;
+    }
+}
+
 .editorialBrand .careersCTA {
     margin-top: 96px;
     border-radius: 24px;
@@ -11138,6 +11268,101 @@ blockquote {
     font-size: 11px;
     color: var(--muted);
     margin: 0;
+}
+
+.feedbackNotesPanel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(480px, calc(100vw - 32px));
+    max-height: min(640px, calc(100vh - 64px));
+    display: flex;
+    flex-direction: column;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    padding: 18px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.feedbackNotesHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.feedbackNotesHeader .feedbackPopoverLabel {
+    margin: 0;
+}
+
+.feedbackNotesEmpty {
+    font-size: 13px;
+    color: var(--muted);
+    margin: 0;
+}
+
+.feedbackNotesList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.feedbackNotesItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid var(--line);
+}
+
+.feedbackNotesItem--done {
+    opacity: 0.55;
+}
+
+.feedbackNotesCheck {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+}
+
+.feedbackNotesCheck input {
+    margin: 0;
+}
+
+.feedbackNotesNumber {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.feedbackNotesBody {
+    flex: 1;
+    min-width: 0;
+}
+
+.feedbackNotesElement {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin: 0 0 4px;
+}
+
+.feedbackNotesNote {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 6px;
+    white-space: pre-wrap;
+}
+
+.feedbackNotesItem--done .feedbackNotesNote {
+    text-decoration: line-through;
 }
 
 .feedbackTrackerAccordion {

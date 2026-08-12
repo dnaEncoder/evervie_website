@@ -37,7 +37,7 @@ function Linkedin({ size = 16, style, className }) {
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Governance · Coming Soon"]],
-  ["Portfolio", ["Renal Care", "Oncology", "Diagnostics", "Elder Care · Coming Soon"]],
+  ["Platforms", ["Renal Care", "Oncology", "Diagnostics", "Elder Care · Coming Soon"]],
   ["Investor Relations", ["Investor Centre", "Financial Information", "Announcements", "Investor Presentations"]]
 ];
 
@@ -45,7 +45,7 @@ const megaMenuConfigs = [
   {
     id: "about",
     triggerLabel: "About Evervie",
-    image: "/image-1.png",
+    image: "/EvervieGuidelines_SlidePartition1_v1.png",
     eyebrow: "ABOUT EVERVIE",
     headline: "Building the healthcare system the world deserves.",
     supportingCopy: "We combine deep healthcare expertise with technology and compassion to deliver measurable outcomes at scale.",
@@ -59,8 +59,8 @@ const megaMenuConfigs = [
   },
   {
     id: "portfolio",
-    triggerLabel: "Portfolio",
-    image: "/image-2.png",
+    triggerLabel: "Platforms",
+    image: "/EvervieGuidelines_SlidePartition1_v1.png",
     eyebrow: "OUR PORTFOLIO",
     headline: "Delivering specialized care across critical verticals.",
     supportingCopy: "Evervie builds dedicated operating platforms in renal care, oncology, diagnostics, and elder care.",
@@ -75,7 +75,7 @@ const megaMenuConfigs = [
   {
     id: "investors",
     triggerLabel: "Investor relations",
-    image: "/image-3.png",
+    image: "/EvervieGuidelines_SlidePartition1_v1.png",
     eyebrow: "INVESTOR RELATIONS",
     headline: "Information, performance, and perspective for investors.",
     supportingCopy: "Access Evervie's investor centre, financial information, and announcements.",
@@ -96,11 +96,11 @@ const metrics = [
 ];
 
 const scaleMetrics = [
-  { label: "Countries", value: "6", description: "Markets across the healthcare and investment footprint.", icon: Globe2, tone: "pink" },
+  { label: "States", value: "9", description: "Markets across the healthcare and investment footprint.", icon: Globe2, tone: "pink" },
   { label: "Care Network", value: "250+", description: "Care touchpoints across patient-facing services.", icon: UsersRound, tone: "solar" },
-  { label: "Operating Locations", value: "80+", description: "Locations supporting specialized healthcare delivery.", icon: Building2, tone: "pink" },
+  { label: "Operating Locations", value: "80+", description: "Locations supporting specialty healthcare delivery.", icon: Building2, tone: "pink" },
   { label: "Years of Commitment", value: "20+", description: "Years of healthcare learning and patient service.", icon: Award, tone: "solar" },
-  { label: "Portfolio Breadth", value: "4", description: "Renal care, oncology, diagnostics, and elder care.", icon: Heart, tone: "pink" }
+  { label: "Portfolio Breadth", value: "4", description: "Renal care, oncology, and diagnostics.", icon: Heart, tone: "pink" }
 ];
 
 const purpose = [
@@ -167,9 +167,9 @@ const presenceLocations = [
 ];
 
 const signposts = [
-  ["About Evervie", "Who we are, our leadership, and the mission behind the platform.", "Learn about Evervie", "/news_insights_editorial.png"],
-  ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png"],
-  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png"]
+  ["About Evervie", "Who we are, our leadership, and the mission behind our group.", "Learn about Evervie", "/EvervieGuidelines_SlidePartition1_v1.png"],
+  ["Platforms", "Renal care, oncology, diagnostics, and elder care under one group.", "EXPLORE OUR PLATFORMS", "/Evervie_PPT_Diamond_v1.png"],
+  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png"]
 ];
 
 const insights = [
@@ -358,7 +358,7 @@ function JourneyNav() {
         </div>
       </div>
       <div className="journeyLinks">
-        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Portfolio</a><a>Investor Relations</a><Link to="/news-insights">News & Insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
+        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Platforms</a><a>Investor Relations</a><Link to="/news-insights">News & Insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
       </div>
       {open && (
         <div className="journeyMega">
@@ -388,7 +388,7 @@ function Footer() {
         <Link to="#" style={{ opacity: 0.7, cursor: 'default' }} onClick={e => e.preventDefault()}>Our governance <span style={{ fontSize: 10, background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4, marginLeft: 4, fontWeight: 500, color: '#666' }}>Coming soon</span></Link>
       </div>
       <div>
-        <h4>Portfolio</h4>
+        <h4>Platforms</h4>
         <Link to="/portfolio/renal-care">Renal care</Link>
         <Link to="/portfolio/oncology">Oncology</Link>
         <Link to="/portfolio/diagnostics">Diagnostics</Link>
@@ -408,7 +408,7 @@ const footerNavColumns = [
     links: megaMenuConfigs[0].items.map((i) => ({ title: i.title, to: i.route || "#", badge: i.badge })) 
   },
   { 
-    title: "Portfolio", 
+    title: "Platforms", 
     links: megaMenuConfigs[1].items.map((i) => ({ title: i.title, to: i.route || "#", badge: i.badge })) 
   },
   { 
@@ -549,7 +549,7 @@ function CompanySnapshotWithMap() {
   const medilabsStates = ["Tamil Nadu"];
 
   const getStateStyle = (feature) => {
-    const name = feature.properties.NAME_1;
+    const name = feature.properties.ST_NM;
     const normalized = name === "Uttaranchal" ? "Uttarakhand" : name;
     if (sevenMedStates.includes(normalized))
       return { fillColor: "rgba(255,60,0,0.14)", stroke: true, weight: 1, opacity: 1, color: "rgba(255,60,0,0.45)", fillOpacity: 1 };
@@ -561,7 +561,7 @@ function CompanySnapshotWithMap() {
   };
 
   const onEachFeature = (feature, layer) => {
-    const name = feature.properties.NAME_1;
+    const name = feature.properties.ST_NM;
     const normalized = name === "Uttaranchal" ? "Uttarakhand" : name;
     const is7med = sevenMedStates.includes(normalized);
     const isOptimus = optimusStates.includes(normalized);
@@ -581,9 +581,9 @@ function CompanySnapshotWithMap() {
     ? presenceLocations.map(({ colorHex, logo, company }) => new L.DivIcon({
       html: `<div class="presenceLogoPin" style="border-color:${colorHex};"><img src="${logo}" alt="${company}" /><div class="presencePinDot" style="background:${colorHex};"></div></div>`,
       className: "presencePinWrap",
-      iconSize: null,
-      iconAnchor: [65, 62],
-      popupAnchor: [0, -64]
+      iconSize: [160, 80],
+      iconAnchor: [80, 80],
+      popupAnchor: [0, -80]
     }))
     : [];
 
@@ -604,7 +604,7 @@ function CompanySnapshotWithMap() {
         <div className="ssIntro">
           <div className="eyebrow"><EyebrowSymbol />Our Presence</div>
           <h2 className="ssHeadline">Built to reach further. Built to last.</h2>
-          <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised verticals — expanding with discipline and purpose.</p>
+          <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised verticals — expanding with purpose and discipline.</p>
           <div className="ssCallout">
             <span className="ssCalloutIcon"><TrendingUp size={16} strokeWidth={1.5} /></span>
             <p className="ssCalloutText">Committed to expanding access to specialised care where it matters most.</p>
@@ -841,7 +841,7 @@ function Editorial() {
     <section className="editorialHero hero3dAsset">
       <img className="hero3dBg" src="/hero-section-image-background.png" alt="" />
       <div className="heroStage">
-        <div className="editorialHeroGrid"><div><div className="eyebrow"><EyebrowSymbol />Future-focused healthcare</div><h1>Providing high-quality specialty care for the underserved</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Evervie Health builds and scales exceptional operating companies, globally. We back founder-led healthcare businesses with majority capital, the expertise to scale and long-term support</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
+        <div className="editorialHeroGrid"><div><div className="eyebrow"><EyebrowSymbol />Future-focused healthcare</div><h1>Providing high-quality specialty care for the underserved</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><div className="buttonRow"><a className="btn">Explore Our Care Platforms</a>{/* <a className="btnOutline">Enter Investor Centre</a> */}</div></div></div>
       </div>
     </section>
     {/* <section className="editorialHero heroVideoSplit">
@@ -1069,7 +1069,7 @@ function AboutWhoWeAre() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />About Evervie</div>
             <h1>Building healthcare platforms for the needs that matter most.</h1>
-            <p className="wwaHeroBody">We are a specialised healthcare platform company focused on expanding access, strengthening quality, and delivering care at meaningful scale.</p>
+            <p className="wwaHeroBody">We are a healthcare group focused on expanding access, strengthening quality, and delivering specialty care at meaningful scale.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
@@ -1078,15 +1078,15 @@ function AboutWhoWeAre() {
         <section className="wwaStatement">
           <div className="wwaStatementGrid">
             <div className="wwaStatHead">
-              <h2>A healthcare platform built around <span className="highlight">lasting care</span>.</h2>
+              <h2>Healthcare platforms built around <span className="highlight">lasting care</span>.</h2>
               <p className="wwaStatCopy">
-                Evervie brings together clinical focus, management discipline, and long-term commitment. We build specialised platforms that grow responsibly to create lasting value for patients, professionals, and communities.
+                Evervie brings together clinical focus, management discipline, and long-term commitment. We build specialty platforms that grow responsibly to create lasting value for patients, professionals, and communities.
               </p>
             </div>
             <div className="wwaStatPrinciples">
               {[
                 [Heart, "Patient-first", "Every platform we build starts with what patients actually need."],
-                [Building2, "Operating excellence", "Consistent performance across care systems and patient touchpoints."],
+                [Building2, "Operating excellence", "Consistent quality and performance across care systems and patient touchpoints."],
                 [TrendingUp, "Long-term orientation", "Building platforms that create lasting value for generations ahead."]
               ].map(([Icon, heading, copy]) => (
                 <div className="wwaStatPrinciple" key={heading}>
@@ -1101,7 +1101,7 @@ function AboutWhoWeAre() {
           </div>
         </section>
 
-        {/* Purpose in Practice — two-column editorial */}
+        {/* Purpose in Practice — two-column editorial
         <section className="wwaPurpose">
           <div className="wwaPurposeLayout">
             <div className="wwaPurposeIntro">
@@ -1135,6 +1135,7 @@ function AboutWhoWeAre() {
             </div>
           </div>
         </section>
+        */}
 
 
 
@@ -1143,7 +1144,6 @@ function AboutWhoWeAre() {
           <SectionHead
             eyebrow="Specialised Care"
             title="Four pillars of dedicated care platforms"
-            copy="Every pathway is designed to unify clinical excellence, operational systems, and patient compassion under a singular orange-themed identity."
           />
           <div className="staggeredCards">
             {verticals.map(([l, t, c], i) => {
@@ -1159,41 +1159,16 @@ function AboutWhoWeAre() {
                     </div>
                   </div>
                   <div className="staggeredCardContent">
-                    <span className="tag">
+                    <h3>
                       {labelText}
                       {hasBadge && <span className="badge" style={{ marginLeft: 6, opacity: 0.8, fontSize: 10, background: 'rgba(40,40,40,0.06)', padding: '2px 6px', borderRadius: 4 }}>Coming Soon</span>}
-                    </span>
-                    <h3>{t}</h3>
+                    </h3>
                     <p>{c}</p>
                     <Link to={path} className="exploreLink">Explore <ArrowRight size={14} /></Link>
                   </div>
                 </article>
               );
             })}
-          </div>
-        </section>
-
-        {/* Who We Serve */}
-        <section className="wwaAudience section">
-          <div className="wwaAudienceSplit">
-            <div className="wwaAudienceHead">
-              <div className="eyebrow">Who We Serve</div>
-              <h2>Partners in care. Aligned in purpose.</h2>
-            </div>
-            <div className="wwaAudienceGrid">
-              {[
-                [UsersRound, "Patients and families", "The reason every platform, process, and performance metric exists."],
-                [Activity, "Healthcare professionals", "Clinicians and care teams who deliver care at the frontline."],
-                [Network, "Operating partners", "Businesses, institutions, and communities working alongside Evervie."],
-                [BarChart3, "Investors and stakeholders", "Partners who believe in long-term value through responsible healthcare."]
-              ].map(([Icon, title, desc]) => (
-                <div className="wwaAudienceItem" key={title}>
-                  <span className="wwaAudienceIcon"><Icon size={22} strokeWidth={1.5} /></span>
-                  <h4>{title}</h4>
-                  <p>{desc}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -1241,9 +1216,9 @@ function AboutWhoWeAre() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/news_insights_editorial.png", "/news-insights"],
-              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png", null],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png", null]
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
+              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/Evervie_PPT_Diamond_v1.png", null],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1280,8 +1255,8 @@ function AboutLeadership() {
     {
       name: "Prasad V. Potluri",
       designation: "Chairman & Managing Director",
-      photo: "/PVP_0425.jpg",
-      shortBio: "Serial entrepreneur with an approximately $800M+ transaction track record; led the company's BSE/NSE listing.",
+      photo: "/PVP_0474.jpg",
+      shortBio: "Serial entrepreneur with 30+ years of experience and $800M+ transaction track record; founder with a vision to scale healthcare globally.",
       expandedBio: "Prasad V. Potluri is a serial entrepreneur with an approximately $800M+ transaction track record across healthcare and related sectors. He led Evervie's listing on the BSE and NSE, bringing disciplined capital strategy and long-term platform thinking to every stage of the company's growth. As Chairman & Managing Director, he sets the strategic direction for the group and its healthcare verticals.",
       expertise: ["Corporate Strategy", "Capital Markets", "Healthcare Platforms"],
       responsibilities: "Chairman of the Board; Managing Director",
@@ -1291,7 +1266,7 @@ function AboutLeadership() {
       name: "Dr. Ellen Feehan",
       designation: "Chief Executive Officer",
       photo: "/leadership_ellen.jpg",
-      shortBio: "Former McKinsey Partner across the UK, EU, US and APAC; surgeon; founded the McKinsey Health Institute's Healthy Longevity initiative.",
+      shortBio: "Global healthcare leader, ex McKinsey Partner and surgeon with operating experience across US, UK, EU, and APAC.",
       expandedBio: "Dr. Ellen Feehan brings a rare combination of clinical expertise and global management consulting experience. A trained surgeon and former McKinsey Partner with cross-continental leadership, she founded the McKinsey Health Institute's Healthy Longevity initiative before joining Evervie as Chief Executive Officer.",
       expertise: ["Healthcare Strategy", "Global Operations", "Longevity & Wellness"],
       responsibilities: "Chief Executive Officer",
@@ -1301,7 +1276,7 @@ function AboutLeadership() {
       name: "Dr. Neeraja Nagarajan",
       designation: "Chief Operating Officer",
       photo: "/leadership_neeraja.jpg",
-      shortBio: "Physician-scientist with experience at Brigham and Women's Hospital/Harvard and Johns Hopkins; former McKinsey Associate Partner; published in The Lancet, BMJ and JAMA.",
+      shortBio: "US and India trained healthcare leader, ex-McKinsey Associate Partner with expertise in driving clinical quality and access.",
       expandedBio: "Dr. Neeraja Nagarajan is a physician-scientist whose clinical and research experience spans Brigham and Women's Hospital, Harvard, and Johns Hopkins. A former McKinsey Associate Partner, her work has been published in The Lancet, BMJ and JAMA. She leads Evervie's operational delivery as Chief Operating Officer.",
       expertise: ["Clinical Operations", "Health Systems", "Research & Evidence"],
       responsibilities: "Chief Operating Officer",
@@ -1311,7 +1286,7 @@ function AboutLeadership() {
       name: "Raghu Chaitanya",
       designation: "Chief Financial Officer",
       photo: "/leadership_raghu.jpg",
-      shortBio: "Experienced in corporate finance, treasury and governance; leads group finance, capital planning and lender relationships.",
+      shortBio: "Cross-sectoral financial leader, certified chartered accountant with experience in corporate finance, treasury, governance and capital planning across the Indian market.",
       expandedBio: "Raghu Chaitanya brings deep experience in corporate finance, treasury management and governance. As Chief Financial Officer, he leads Evervie's group finance function, overseeing capital planning, lender relationships and financial governance across the portfolio.",
       expertise: ["Corporate Finance", "Treasury", "Capital Planning"],
       responsibilities: "Chief Financial Officer",
@@ -1321,7 +1296,7 @@ function AboutLeadership() {
       name: "Dr. Varshini Varadaraj",
       designation: "Group Medical Director",
       photo: "/leadership_varshini.jpg",
-      shortBio: "MPH in epidemiology and biostatistics from Johns Hopkins; Johns Hopkins faculty researcher; responsible for clinical quality and outcomes across the organisation's pillars.",
+      shortBio: "Physician-scientist, global thought leader on longevity with a focus on scaling evidence-based practice.",
       expandedBio: "Dr. Varshini Varadaraj holds an MPH in epidemiology and biostatistics from Johns Hopkins, where she also serves as a faculty researcher. As Group Medical Director, she is responsible for clinical quality and outcomes measurement across all of Evervie's care verticals.",
       expertise: ["Epidemiology", "Clinical Quality", "Outcomes Research"],
       responsibilities: "Group Medical Director",
@@ -1329,19 +1304,19 @@ function AboutLeadership() {
     },
     {
       name: "Dr. Sruthi Sivamurugan",
-      designation: "Director of Marketing & Business Development",
+      designation: "Director of Brand & Business Development",
       photo: "/leadership_shruti.jpg",
-      shortBio: "Physician and hospital owner-operator based in Chennai; has first-hand experience in hospital P&L management, marketing and business development.",
-      expandedBio: "Dr. Sruthi Sivamurugan is a physician and hospital owner-operator based in Chennai, bringing first-hand experience in hospital P&L management, marketing and business development to Evervie's growth strategy as Director of Marketing & Business Development.",
+      shortBio: "Physician and hospital owner-operator with first-hand experience in healthcare P&L management, branding and business development.",
+      expandedBio: "Dr. Sruthi Sivamurugan is a physician and hospital owner-operator based in Chennai, bringing first-hand experience in hospital P&L management, marketing and business development to Evervie's growth strategy as Director of Brand & Business Development.",
       expertise: ["Healthcare Marketing", "Hospital Operations", "Business Development"],
-      responsibilities: "Director of Marketing & Business Development",
+      responsibilities: "Director of Brand & Business Development",
       linkedin: "https://linkedin.com"
     },
     {
       name: "Dr. Niranjani Nagarajan",
       designation: "Director of Clinical Innovation",
       photo: "/leadership_niranjani.jpg",
-      shortBio: "Physician-scientist with experience at the University of Michigan and Johns Hopkins; involved in multi-country, NIH-funded programmes across India, the US and Africa.",
+      shortBio: "Specialty physician and US trained academic with experience implementing large scale public health innovations across India and Africa.",
       expandedBio: "Dr. Niranjani Nagarajan is a physician-scientist with experience at the University of Michigan and Johns Hopkins. She has been involved in multi-country, NIH-funded research programmes spanning India, the US and Africa, and leads clinical innovation strategy at Evervie.",
       expertise: ["Clinical Innovation", "Global Health", "NIH Research Programmes"],
       responsibilities: "Director of Clinical Innovation",
@@ -1351,7 +1326,7 @@ function AboutLeadership() {
       name: "Anjali Menon",
       designation: "Lead of Innovation",
       photo: "/leadership_anjali.jpg",
-      shortBio: "Former McKinsey professional; previously worked with Flagship Pioneering and W Health Ventures, building healthcare ventures from the ground up.",
+      shortBio: "Healthcare investor and former McKinsey professional with experience building healthcare ventures from the ground up in India.",
       expandedBio: "Anjali Menon is a former McKinsey professional who has built healthcare ventures from the ground up at Flagship Pioneering and W Health Ventures. As Lead of Innovation at Evervie, she drives the identification and development of new platform opportunities within the group.",
       expertise: ["Healthcare Ventures", "Innovation Strategy", "New Platform Development"],
       responsibilities: "Lead of Innovation",
@@ -1407,7 +1382,7 @@ function AboutLeadership() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Our Leadership</div>
             <h1>Leadership grounded in experience, responsibility, and care.</h1>
-            <p className="wwaHeroBody">Evervie is guided by leaders who bring together healthcare understanding, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
+            <p className="wwaHeroBody">Evervie is guided by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
@@ -1418,12 +1393,12 @@ function AboutLeadership() {
             <div className="wwaStatHead">
               <h2>Guiding Evervie with <span className="highlight">long-term perspective</span>.</h2>
               <p className="wwaStatCopy">
-                Our leaders combine deep clinical capability with corporate stewardship to build platforms capable of serving patient communities for generations. We believe that robust governance, operational accountability, and medical excellence must grow together to build healthcare platforms that stand the test of time.
+                Our leaders combine deep clinical capability with corporate stewardship to build platforms capable of serving patient communities for generations. We believe that robust governance, operational accountability, and clinical excellence must grow together to build healthcare platforms that stand the test of time.
               </p>
             </div>
             <div className="wwaStatPrinciples">
               {[
-                [Users, "Active Direction", "Our leadership actively steers portfolio companies, aligning strategy with clinical realities on the ground."],
+                [Users, "Active Direction", "Our leadership actively steers platform companies, aligning strategy with operational realities on the ground."],
                 [Network, "Multi-Disciplinary", "Bringing together a rare blend of medicine, business operations, capital management, and compliance."],
                 [ShieldCheck, "Outcome Focused", "Measuring success strictly through patient safety, clinical quality, and long-term organizational accountability."]
               ].map(([Icon, heading, copy]) => (
@@ -1443,7 +1418,7 @@ function AboutLeadership() {
         <section className="section wwaChairman">
           <div className="wwaChairmanLayout">
             <div className="wwaChairmanVisual">
-              <img src="/PVP_0474.jpg" alt="Prasad V. Potluri, Chairman & Managing Director" className="wwaChairmanImg" />
+              <img src="/PVP_0425.jpg" alt="Prasad V. Potluri, Chairman & Managing Director" className="wwaChairmanImg" />
               <div className="wwaChairmanBadge">
                 <h4>Prasad V. Potluri</h4>
                 <p>Chairman & Managing Director</p>
@@ -1452,10 +1427,13 @@ function AboutLeadership() {
             <div className="wwaChairmanContent">
               <span className="eyebrow">Message from the Chairman</span>
               <blockquote className="wwaChairmanQuote">
-                "Driving innovation in global healthcare through advanced diagnostics, patient-focused care, and strategic partnerships."
+                "I founded Evervie Health, a PVP Group company, to scale without limits."
               </blockquote>
               <p className="wwaChairmanText">
-                At Evervie, we are shaping the future of global healthcare platforms. By combining deep operating discipline with clinical innovation, we are constructing care systems that put the patient's needs and clinical quality above all else. Our long-term orientation drives us to build scalable networks that bring access, consistency, and standardisation to care.
+                Evervie's mission is to build, deliver, and scale global specialty care. Under the guidance of our leadership team, we are shaping a future where high-quality specialty care is never distant or fragmented, but present, dependable, and accessible to communities worldwide.
+              </p>
+              <p className="wwaChairmanText">
+                I am relentless about talent and leadership. I endeavour to find exceptional people, and give them real ownership and empowerment. We are creating an institution that will outlive us and serve the planet for generations to come.
               </p>
               <div className="wwaChairmanExp">
                 <h3>Prasad’s experience</h3>
@@ -1495,7 +1473,7 @@ function AboutLeadership() {
 
           <div className="wwaBoardGrid">
             {boardMembers.map((member) => (
-              <article key={member.name} className="wwaBoardCard" onClick={() => setActiveBoardMember(member)}>
+              <article key={member.name} className="wwaBoardCard">
                 <div className="wwaBoardCardVisual">
                   {member.photo
                     ? <img src={member.photo} alt={member.name} className="wwaBoardCardImg" />
@@ -1505,9 +1483,6 @@ function AboutLeadership() {
                   <h3>{member.name}</h3>
                   <span className="wwaBoardCardTitle">{member.designation}</span>
                   <p className="wwaBoardCardShortBio">{member.shortBio}</p>
-                  <button className="wwaBoardCardBtn" aria-label={`View biography of ${member.name}`}>
-                    View Full Biography <ArrowRight size={13} />
-                  </button>
                 </div>
               </article>
             ))}
@@ -1585,9 +1560,9 @@ function AboutLeadership() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/news_insights_editorial.png", "/news-insights"],
-              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/image-2.png", null],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/image-3.png", null]
+              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
+              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/Evervie_PPT_Diamond_v1.png", null],
+              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1990,7 +1965,7 @@ function PortfolioVertical({
 
   // Leaflet custom styling rules
   const getStateStyle = (feature) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = dialysisStates.includes(stateName) || (stateName === "Uttaranchal" && dialysisStates.includes("Uttarakhand"));
 
     return {
@@ -2004,7 +1979,7 @@ function PortfolioVertical({
   };
 
   const onEachFeature = (feature, layer) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = dialysisStates.includes(stateName) || (stateName === "Uttaranchal" && dialysisStates.includes("Uttarakhand"));
     const displayName = stateName === "Uttaranchal" ? "Uttarakhand" : stateName;
 
@@ -2398,11 +2373,17 @@ function PortfolioVertical({
             <div className="clinicalNetworkMetrics">
               {/* Metric Block 01 */}
               <div className="clinicalMetricBlock">
-                <div className="clinicalMetricNumber">01</div>
+                <div className="clinicalMetricNumber">
+                  {title === "Renal Care" ? "20+" : "01"}
+                </div>
                 <div className="clinicalMetricDivider" />
                 <div className="clinicalMetricContent">
                   <h3>
-                    {title === "Elder Care" ? "Geriatric Specialization" : "20 Nephrologists"}
+                    {title === "Renal Care"
+                      ? "Associated Nephrologists"
+                      : title === "Elder Care"
+                      ? "Geriatric Specialization"
+                      : "20 Nephrologists"}
                   </h3>
                   <div className="clinicalMetricAccent" />
                   <p>
@@ -2417,11 +2398,17 @@ function PortfolioVertical({
 
               {/* Metric Block 02 */}
               <div className="clinicalMetricBlock">
-                <div className="clinicalMetricNumber">02</div>
+                <div className="clinicalMetricNumber">
+                  {title === "Renal Care" ? "350+" : "02"}
+                </div>
                 <div className="clinicalMetricDivider" />
                 <div className="clinicalMetricContent">
                   <h3>
-                    {title === "Elder Care" ? "Emergency Integration" : "350+ Trained Personnel"}
+                    {title === "Renal Care"
+                      ? "Trained Care Personnel"
+                      : title === "Elder Care"
+                      ? "Emergency Integration"
+                      : "350+ Trained Personnel"}
                   </h3>
                   <div className="clinicalMetricAccent" />
                   <p>
@@ -2456,10 +2443,13 @@ function PortfolioVertical({
                     </div>
                   ) : (
                     exp.icon && (
-                      <div className="careExpIcon">
+                      <div 
+                        className="careExpIcon" 
+                        style={exp.color ? { background: exp.color, color: "#ffffff" } : {}}
+                      >
                         {(() => {
                           const ExpIcon = exp.icon;
-                          return <ExpIcon size={18} strokeWidth={2.5} />;
+                          return <ExpIcon size={20} strokeWidth={2.5} />;
                         })()}
                       </div>
                     )
@@ -2556,10 +2546,10 @@ function RenalCare() {
   };
 
   const careExperience = [
-    { image: "/patient_first_care.png", heading: "Patient-First Care", desc: "Safe, effective, and compassionate kidney care tailored around patient schedules and long-term health." },
-    { image: "/clinical_excellence.png", heading: "Clinical Excellence", desc: "Nephrologist-led expertise, clinical protocols, and trained care teams ensuring the highest treatment quality." },
-    { image: "/accessible_care.png", heading: "Accessible Care", desc: "Strategic footprint expansion across multiple states to bring renal care closer to under-served communities." },
-    { image: "/community_impact.png", heading: "Community Impact", desc: "Organizing regular free outreach programs, diagnostics checks, and local OPD camps for early detection." }
+    { icon: Heart, color: "#FF3C00", heading: "Patient-First Care", desc: "Safe, effective, and compassionate kidney care tailored around patient schedules and long-term health." },
+    { icon: Award, color: "#FABE00", heading: "Clinical Excellence", desc: "Nephrologist-led expertise, clinical protocols, and trained care teams ensuring the highest treatment quality." },
+    { icon: Globe2, color: "#FF91B4", heading: "Accessible Care", desc: "Strategic footprint expansion across multiple states to bring renal care closer to under-served communities." },
+    { icon: UsersRound, color: "#FF6F61", heading: "Community Impact", desc: "Organizing regular free outreach programs, diagnostics checks, and local OPD camps for early detection." }
   ];
 
   const closing = {
@@ -2603,7 +2593,7 @@ function Oncology() {
   const highlightedStates = ["Maharashtra"];
 
   const getStateStyle = (feature) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = highlightedStates.includes(stateName);
 
     return {
@@ -2617,7 +2607,7 @@ function Oncology() {
   };
 
   const onEachFeature = (feature, layer) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = highlightedStates.includes(stateName);
 
     if (isHighlighted) {
@@ -3072,7 +3062,7 @@ function Diagnostics() {
   const highlightedStates = ["Tamil Nadu"];
 
   const getStateStyle = (feature) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = highlightedStates.includes(stateName);
 
     return {
@@ -3086,7 +3076,7 @@ function Diagnostics() {
   };
 
   const onEachFeature = (feature, layer) => {
-    const stateName = feature.properties.NAME_1;
+    const stateName = feature.properties.ST_NM;
     const isHighlighted = highlightedStates.includes(stateName);
 
     if (isHighlighted) {
@@ -3580,10 +3570,10 @@ function ElderCare() {
   };
 
   const careExperience = [
-    { icon: Heart, heading: "Dignity & Comfort", desc: "Creating positive living environments that respect individual independence while offering full support." },
-    { icon: Award, heading: "Geriatric Medicine", desc: "Focused clinical pathways address cognitive wellness, physical mobility, and nutritional balance." },
-    { icon: Globe2, heading: "Connected Security", desc: "Wearable safety monitors and health trackers linked to centralized emergency response systems." },
-    { icon: UsersRound, heading: "Community Support", desc: "Encouraging social inclusion through regular group activities, wellness seminars, and outings." }
+    { icon: Heart, color: "#FF3C00", heading: "Dignity & Comfort", desc: "Creating positive living environments that respect individual independence while offering full support." },
+    { icon: Award, color: "#FABE00", heading: "Geriatric Medicine", desc: "Focused clinical pathways address cognitive wellness, physical mobility, and nutritional balance." },
+    { icon: Globe2, color: "#FF91B4", heading: "Connected Security", desc: "Wearable safety monitors and health trackers linked to centralized emergency response systems." },
+    { icon: UsersRound, color: "#FF6F61", heading: "Community Support", desc: "Encouraging social inclusion through regular group activities, wellness seminars, and outings." }
   ];
 
   return (
@@ -5854,7 +5844,7 @@ function CareersHero() {
           At Evervie, we are creating lasting impact across healthcare. Join a team committed to innovation, collaboration, and better outcomes for the communities we serve.
         </p>
         <button type="button" className="btn" onClick={scrollToPositions} style={{ marginTop: '28px' }}>
-          Explore opportunities <ArrowRight size={16} />
+          Get in touch <ArrowRight size={16} />
         </button>
       </div>
       <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
@@ -6055,6 +6045,54 @@ function OpenPositionsSection() {
   );
 }
 
+function JoinTeamForm() {
+  const [form, setForm] = useState({ name: "", email: "", role: "", message: "" });
+  const [sent, setSent] = useState(false);
+
+  const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Careers inquiry: ${form.name || "New applicant"}`);
+    const body = encodeURIComponent(
+      `Name: ${form.name}\nEmail: ${form.email}\nRole of interest: ${form.role || "—"}\n\n${form.message}`
+    );
+    window.location.href = `mailto:careers@evervie.com?subject=${subject}&body=${body}`;
+    setSent(true);
+  };
+
+  return (
+    <section id="open-positions" tabIndex={-1} className="careersJoinSection">
+      <div className="neSectionHeader">
+        <h2>Join our team</h2>
+        <p>We are not actively listing open roles right now, but we would love to hear from you. Share a few details below and our talent team will be in touch.</p>
+      </div>
+      <form className="careersJoinForm" onSubmit={handleSubmit}>
+        <div className="careersJoinFormRow">
+          <label>
+            <span>Full name</span>
+            <input type="text" required value={form.name} onChange={update("name")} placeholder="Your name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" required value={form.email} onChange={update("email")} placeholder="you@example.com" />
+          </label>
+        </div>
+        <label>
+          <span>Role or area of interest</span>
+          <input type="text" value={form.role} onChange={update("role")} placeholder="e.g. Oncology Operations, Finance" />
+        </label>
+        <label>
+          <span>Message</span>
+          <textarea rows={5} value={form.message} onChange={update("message")} placeholder="Tell us a bit about yourself and what you're looking for" />
+        </label>
+        <button type="submit" className="btn">Send introduction <ArrowRight size={16} /></button>
+        {sent && <p className="careersJoinFormNote">Thanks — your email client should have opened with your message ready to send.</p>}
+      </form>
+    </section>
+  );
+}
+
 function RecruitmentCTA() {
   return (
     <section className="careersCTA">
@@ -6076,7 +6114,7 @@ function CareersPage() {
         <CareersHero />
         <section className="innerBody careersSection">
           <CareerOpportunities />
-          <OpenPositionsSection />
+          <JoinTeamForm />
         </section>
         <RecruitmentCTA />
       </main>

@@ -51,3 +51,12 @@ export async function createComment(sessionToken, comment) {
   });
   return json.comment;
 }
+
+export async function updateCommentStatus(sessionToken, id, status) {
+  const json = await feedbackFetch("/api/feedback/comments", {
+    method: "PATCH",
+    token: sessionToken,
+    body: { id, status },
+  });
+  return json.comment;
+}
