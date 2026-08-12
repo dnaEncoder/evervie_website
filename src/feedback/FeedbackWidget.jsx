@@ -64,6 +64,7 @@ export default function FeedbackWidget() {
   const [mode, setMode] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [notesOpen, setNotesOpen] = useState(false);
+  const [pinsVisible, setPinsVisible] = useState(true);
   const [comments, setComments] = useState([]);
   const [pending, setPending] = useState(null); // { clientX, clientY, x, y, anchorId, elementLabel, textSnapshot }
   const [viewing, setViewing] = useState(null); // { comment, clientX, clientY }
@@ -272,6 +273,15 @@ export default function FeedbackWidget() {
             </button>
           )}
 
+          <button
+            type="button"
+            className={`feedbackMenuItem${pinsVisible ? "" : " feedbackMenuItem--muted"}`}
+            onClick={() => setPinsVisible((v) => !v)}
+          >
+            <span>Show pins on page</span>
+            <span className="feedbackMenuItemState">{pinsVisible ? "On" : "Off"}</span>
+          </button>
+
           {onCopyTracker ? (
             <div className="feedbackMenuItem feedbackMenuItem--muted">
               <span>Copy tracker</span>
@@ -286,53 +296,101 @@ export default function FeedbackWidget() {
 
           <button
             type="button"
-            className="feedbackMenuItem"
-            onClick={() => {
-              setNotesOpen(true);
-              setMenuOpen(false);
-            }}
+            className={`feedbackMenuItem${notesOpen ? " feedbackMenuItem--active" : ""}`}
+            onClick={() => setNotesOpen((o) => !o)}
           >
             <span>Page notes</span>
             <span className="feedbackMenuItemState">{comments.length}</span>
           </button>
+
+          {notesOpen && (
+            <div className="feedbackMenuNotes">
+              {comments.length === 0 ? (
+                <p className="feedbackNotesEmpty">No notes on this page yet.</p>
+              ) : (
+                <ul className="feedbackNotesList">
+                  {comments.map((c, i) => (
+                    <li
+                      key={c.documentId || i}
+                      className={`feedbackNotesItem${c.status === "resolved" ? " feedbackNotesItem--done" : ""}`}
+                    >
+                      <label className="feedbackNotesCheck">
+                        <input
+                          type="checkbox"
+                          checked={c.status === "resolved"}
+                          onChange={() => handleToggleStatus(c)}
+                        />
+                        <span className="feedbackNotesNumber">{i + 1}</span>
+                      </label>
+                      <div className="feedbackNotesBody">
+                        <p className="feedbackNotesElement">{c.elementLabel || "Selected element"}</p>
+                        <p className="feedbackNotesNote">{c.note}</p>
+                        <p className="feedbackViewMeta">
+                          {c.reviewerEmail}
+                          {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString()}` : ""}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
         </div>
       )}
 
-      <button
-        type="button"
-        className={`feedbackModeToggle${mode ? " feedbackModeToggle--on" : ""}`}
-        onClick={() => setMenuOpen((o) => !o)}
-      >
-        Feedback{mode ? " · On" : ""}
-      </button>
-
-      {createPortal(
-        <div
-          className="feedbackPinLayer"
-          data-feedback-ui
-          style={{ width: overlaySize.width, height: overlaySize.height }}
+      <div className="feedbackModeToggleWrap">
+        <button
+          type="button"
+          className={`feedbackModeToggle${mode ? " feedbackModeToggle--on" : ""}`}
+          onClick={() => setMenuOpen((o) => !o)}
         >
-          {comments.map((c, i) => {
-            if (c.status === "resolved") return null;
-            const pos = pinPositions[c.documentId];
-            if (!pos) return null;
-            return (
-              <div
-                key={c.documentId || i}
-                className="feedbackPin"
-                style={{ left: pos.left, top: pos.top }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setViewing({ comment: c, clientX: e.clientX, clientY: e.clientY });
-                }}
-              >
-                {i + 1}
-              </div>
-            );
-          })}
-        </div>,
-        document.body
-      )}
+          Feedback{mode ? " · On" : ""}
+        </button>
+        {mode && (
+          <button
+            type="button"
+            className="feedbackModeClose"
+            aria-label="Turn off feedback mode"
+            title="Turn off feedback mode"
+            onClick={(e) => {
+              e.stopPropagation();
+              setMode(false);
+            }}
+          >
+            &times;
+          </button>
+        )}
+      </div>
+
+      {pinsVisible &&
+        createPortal(
+          <div
+            className="feedbackPinLayer"
+            data-feedback-ui
+            style={{ width: overlaySize.width, height: overlaySize.height }}
+          >
+            {comments.map((c, i) => {
+              if (c.status === "resolved") return null;
+              const pos = pinPositions[c.documentId];
+              if (!pos) return null;
+              return (
+                <div
+                  key={c.documentId || i}
+                  className="feedbackPin"
+                  style={{ left: pos.left, top: pos.top }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setViewing({ comment: c, clientX: e.clientX, clientY: e.clientY });
+                  }}
+                >
+                  {i + 1}
+                </div>
+              );
+            })}
+          </div>,
+          document.body
+        )}
 
       {pending &&
         createPortal(
@@ -384,50 +442,6 @@ export default function FeedbackWidget() {
                   Close
                 </button>
               </div>
-            </div>
-          </div>,
-          document.body
-        )}
-
-      {notesOpen &&
-        createPortal(
-          <div className="feedbackPopoverBackdrop" data-feedback-ui onClick={() => setNotesOpen(false)}>
-            <div className="feedbackNotesPanel" onClick={(e) => e.stopPropagation()}>
-              <div className="feedbackNotesHeader">
-                <p className="feedbackPopoverLabel">Page notes</p>
-                <button type="button" className="feedbackLinkButton" onClick={() => setNotesOpen(false)}>
-                  Close
-                </button>
-              </div>
-              {comments.length === 0 ? (
-                <p className="feedbackNotesEmpty">No notes on this page yet.</p>
-              ) : (
-                <ul className="feedbackNotesList">
-                  {comments.map((c, i) => (
-                    <li
-                      key={c.documentId || i}
-                      className={`feedbackNotesItem${c.status === "resolved" ? " feedbackNotesItem--done" : ""}`}
-                    >
-                      <label className="feedbackNotesCheck">
-                        <input
-                          type="checkbox"
-                          checked={c.status === "resolved"}
-                          onChange={() => handleToggleStatus(c)}
-                        />
-                        <span className="feedbackNotesNumber">{i + 1}</span>
-                      </label>
-                      <div className="feedbackNotesBody">
-                        <p className="feedbackNotesElement">{c.elementLabel || "Selected element"}</p>
-                        <p className="feedbackNotesNote">{c.note}</p>
-                        <p className="feedbackViewMeta">
-                          {c.reviewerEmail}
-                          {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString()}` : ""}
-                        </p>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
           </div>,
           document.body

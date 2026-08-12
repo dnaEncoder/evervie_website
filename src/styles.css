@@ -11111,11 +11111,35 @@ blockquote {
     border-color: var(--evervie-orange);
 }
 
+.feedbackModeToggleWrap {
+    position: relative;
+    display: inline-flex;
+}
+
+.feedbackModeClose {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1px solid var(--ink);
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
 .feedbackMenuPanel {
     position: absolute;
     right: 0;
     bottom: calc(100% + 10px);
-    width: 240px;
+    width: 280px;
+    max-height: min(70vh, 560px);
     background: var(--paper);
     border: 1px solid var(--ink);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
@@ -11123,6 +11147,7 @@ blockquote {
     display: flex;
     flex-direction: column;
     gap: 4px;
+    overflow-y: auto;
 }
 
 .feedbackMenuHeader {
@@ -11271,30 +11296,12 @@ blockquote {
     margin: 0;
 }
 
-.feedbackNotesPanel {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(480px, calc(100vw - 32px));
-    max-height: min(640px, calc(100vh - 64px));
-    display: flex;
-    flex-direction: column;
-    background: var(--paper);
-    border: 1px solid var(--ink);
-    padding: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-}
-
-.feedbackNotesHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-}
-
-.feedbackNotesHeader .feedbackPopoverLabel {
-    margin: 0;
+.feedbackMenuNotes {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--line);
+    max-height: 320px;
+    overflow-y: auto;
 }
 
 .feedbackNotesEmpty {
