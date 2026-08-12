@@ -1260,7 +1260,7 @@ function AboutLeadership() {
       expandedBio: "Prasad V. Potluri is a serial entrepreneur with an approximately $800M+ transaction track record across healthcare and related sectors. He led Evervie's listing on the BSE and NSE, bringing disciplined capital strategy and long-term platform thinking to every stage of the company's growth. As Chairman & Managing Director, he sets the strategic direction for the group and its healthcare verticals.",
       expertise: ["Corporate Strategy", "Capital Markets", "Healthcare Platforms"],
       responsibilities: "Chairman of the Board; Managing Director",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/prasad-v-potluri-8032699/"
     },
     {
       name: "Dr. Ellen Feehan",
@@ -1270,7 +1270,7 @@ function AboutLeadership() {
       expandedBio: "Dr. Ellen Feehan brings a rare combination of clinical expertise and global management consulting experience. A trained surgeon and former McKinsey Partner with cross-continental leadership, she founded the McKinsey Health Institute's Healthy Longevity initiative before joining Evervie as Chief Executive Officer.",
       expertise: ["Healthcare Strategy", "Global Operations", "Longevity & Wellness"],
       responsibilities: "Chief Executive Officer",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/ellen-feehan/"
     },
     {
       name: "Dr. Neeraja Nagarajan",
@@ -1280,7 +1280,7 @@ function AboutLeadership() {
       expandedBio: "Dr. Neeraja Nagarajan is a physician-scientist whose clinical and research experience spans Brigham and Women's Hospital, Harvard, and Johns Hopkins. A former McKinsey Associate Partner, her work has been published in The Lancet, BMJ and JAMA. She leads Evervie's operational delivery as Chief Operating Officer.",
       expertise: ["Clinical Operations", "Health Systems", "Research & Evidence"],
       responsibilities: "Chief Operating Officer",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/dr-neeraja-nagarajan-35696977/"
     },
     {
       name: "Raghu Chaitanya",
@@ -1290,7 +1290,7 @@ function AboutLeadership() {
       expandedBio: "Raghu Chaitanya brings deep experience in corporate finance, treasury management and governance. As Chief Financial Officer, he leads Evervie's group finance function, overseeing capital planning, lender relationships and financial governance across the portfolio.",
       expertise: ["Corporate Finance", "Treasury", "Capital Planning"],
       responsibilities: "Chief Financial Officer",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/raghu-chaitanya/"
     },
     {
       name: "Dr. Varshini Varadaraj",
@@ -1300,7 +1300,7 @@ function AboutLeadership() {
       expandedBio: "Dr. Varshini Varadaraj holds an MPH in epidemiology and biostatistics from Johns Hopkins, where she also serves as a faculty researcher. As Group Medical Director, she is responsible for clinical quality and outcomes measurement across all of Evervie's care verticals.",
       expertise: ["Epidemiology", "Clinical Quality", "Outcomes Research"],
       responsibilities: "Group Medical Director",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/varshini-varadaraj/"
     },
     {
       name: "Dr. Sruthi Sivamurugan",
@@ -1310,7 +1310,7 @@ function AboutLeadership() {
       expandedBio: "Dr. Sruthi Sivamurugan is a physician and hospital owner-operator based in Chennai, bringing first-hand experience in hospital P&L management, marketing and business development to Evervie's growth strategy as Director of Brand & Business Development.",
       expertise: ["Healthcare Marketing", "Hospital Operations", "Business Development"],
       responsibilities: "Director of Brand & Business Development",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/dr-sruthi-sivamurugan-100a97125/"
     },
     {
       name: "Dr. Niranjani Nagarajan",
@@ -1320,7 +1320,7 @@ function AboutLeadership() {
       expandedBio: "Dr. Niranjani Nagarajan is a physician-scientist with experience at the University of Michigan and Johns Hopkins. She has been involved in multi-country, NIH-funded research programmes spanning India, the US and Africa, and leads clinical innovation strategy at Evervie.",
       expertise: ["Clinical Innovation", "Global Health", "NIH Research Programmes"],
       responsibilities: "Director of Clinical Innovation",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/dr-niranjani-nagarajan-211668b6/"
     },
     {
       name: "Anjali Menon",
@@ -1330,7 +1330,7 @@ function AboutLeadership() {
       expandedBio: "Anjali Menon is a former McKinsey professional who has built healthcare ventures from the ground up at Flagship Pioneering and W Health Ventures. As Lead of Innovation at Evervie, she drives the identification and development of new platform opportunities within the group.",
       expertise: ["Healthcare Ventures", "Innovation Strategy", "New Platform Development"],
       responsibilities: "Lead of Innovation",
-      linkedin: "https://linkedin.com"
+      linkedin: "https://www.linkedin.com/in/anjalimenon12/"
     }
   ];
 
@@ -1483,6 +1483,14 @@ function AboutLeadership() {
                   <h3>{member.name}</h3>
                   <span className="wwaBoardCardTitle">{member.designation}</span>
                   <p className="wwaBoardCardShortBio">{member.shortBio}</p>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="wwaBoardCardBtn"
+                  >
+                    LinkedIn Profile <ArrowRight size={13} />
+                  </a>
                 </div>
               </article>
             ))}
