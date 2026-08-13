@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useSearchParams, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronLeft, ChevronRight, Activity, Home as HomeIcon, MapPin, Download, FileText, Newspaper, Calendar, Clock, Video, Bell, Search, ChevronDown, SlidersHorizontal, Inbox, AlertCircle, CalendarPlus, ExternalLink, X, PieChart, ClipboardList, CheckSquare, Folder, Briefcase } from "lucide-react";
-import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getInvestorCentrePage, getFinancialDocuments, getLatestInvestorNews, getUpcomingInvestorEvents, getFeaturedNews, getFeaturedPastEvents, getPastInvestorEvents } from "./lib/investorApi.js";
@@ -37,7 +37,7 @@ function Linkedin({ size = 16, style, className }) {
 
 const menu = [
   ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Governance · Coming Soon"]],
-  ["Platforms", ["Renal Care", "Oncology", "Diagnostics", "Elder Care · Coming Soon"]],
+  ["Platforms", ["Renal Care", "Oncology", "Diagnostics"]],
   ["Investor Relations", ["Investor Centre", "Financial Information", "Announcements", "Investor Presentations"]]
 ];
 
@@ -62,14 +62,13 @@ const megaMenuConfigs = [
     triggerLabel: "Platforms",
     image: "/EvervieGuidelines_SlidePartition1_v1.png",
     eyebrow: "OUR PORTFOLIO",
-    headline: "Delivering specialized care across critical verticals.",
-    supportingCopy: "Evervie builds dedicated operating platforms in renal care, oncology, diagnostics, and elder care.",
+    headline: "Delivering specialized care across critical platforms.",
+    supportingCopy: "Evervie builds dedicated operating platforms in renal care, oncology, and diagnostics.",
     contextStrip: "Explore our specialty brands. 7Med India · Optimus Oncology · Medilabs",
     items: [
       { title: "Renal care", description: "Learn about 7Med India—our dedicated renal care platform across India.", route: "/portfolio/renal-care", icon: Droplet },
       { title: "Oncology", description: "Explore Optimus Oncology—coordinated, expert cancer care closer to home.", route: "/portfolio/oncology", icon: HeartPulse },
-      { title: "Diagnostics", description: "Discover Medilabs—precise pathology, radiology, and wellness screenings.", route: "/portfolio/diagnostics", icon: Microscope },
-      { title: "Elder care", description: "A concept care model designed around healthy ageing, security, and comfort.", route: "#", icon: HandHeart, badge: "Coming soon" }
+      { title: "Diagnostics", description: "Discover Medilabs—precise pathology, radiology, and home care collection models.", route: "/portfolio/diagnostics", icon: Microscope }
     ]
   },
   {
@@ -92,7 +91,7 @@ const metrics = [
   ["Care Network", "250+", "Care touchpoints across patient-facing services."],
   ["Operating Locations", "80+", "Locations supporting specialized healthcare delivery."],
   ["Years of Commitment", "20+", "Years of healthcare learning and patient service."],
-  ["Portfolio Breadth", "4", "Renal care, oncology, diagnostics, and elder care."]
+  ["Portfolio Breadth", "3", "Renal care, oncology, and diagnostics."]
 ];
 
 const scaleMetrics = [
@@ -100,7 +99,7 @@ const scaleMetrics = [
   { label: "Care Network", value: "250+", description: "Care touchpoints across patient-facing services.", icon: UsersRound, tone: "solar" },
   { label: "Operating Locations", value: "80+", description: "Locations supporting specialty healthcare delivery.", icon: Building2, tone: "pink" },
   { label: "Years of Commitment", value: "20+", description: "Years of healthcare learning and patient service.", icon: Award, tone: "solar" },
-  { label: "Portfolio Breadth", value: "4", description: "Renal care, oncology, and diagnostics.", icon: Heart, tone: "pink" }
+  { label: "Portfolio Breadth", value: "3", description: "Renal care, oncology, and diagnostics.", icon: Heart, tone: "pink" }
 ];
 
 const purpose = [
@@ -114,8 +113,7 @@ const pillarShapes = ["circle", "diamond", "bloom"];
 const verticals = [
   ["Oncology", "Compassionate cancer care with specialist focus", "Timely, trusted, and human-centered care across the patient journey."],
   ["Renal Care", "Supporting patients through every stage of kidney care", "Continuity, clinical support, and accessible specialist kidney care across communities."],
-  ["Diagnostics", "Earlier answers for better care decisions", "Diagnostic capabilities that support clarity, confidence, and better care pathways."],
-  ["Elder Care", "Care for an ageing future", "Dignity, comfort, and support for families as care needs evolve."]
+  ["Diagnostics", "Earlier answers for better care decisions", "Diagnostic capabilities that support clarity, confidence, and better care pathways."]
 ];
 
 const regions = [
@@ -132,10 +130,32 @@ const presenceLocations = [
     logo: "/7med_logo_No Background.png",
     colorHex: "#FF3C00",
     cities: [
-      { city: "Delhi", coordinates: [28.6139, 77.2090] },
-      { city: "Moradabad", coordinates: [28.8386, 78.7733] },
-      { city: "Varanasi", coordinates: [25.3176, 82.9739] },
-      { city: "Mau", coordinates: [25.9417, 83.5611] }
+      { name: "JJIMS", city: "Bahadurgarh", state: "Haryana", coordinates: [28.689252, 76.947634] },
+      { name: "Krishna Hospital", city: "Kashipur", state: "Uttarakhand", coordinates: [29.222413, 78.970881] },
+      { name: "AIIMS", city: "Rishikesh", state: "Uttarakhand", coordinates: [30.078879, 78.286009] },
+      { name: "Amrit Hospital", city: "Rudrapur", state: "Uttarakhand", coordinates: [28.971822, 79.394465] },
+      { name: "Apex Hospital", city: "Bikaner", state: "Rajasthan", coordinates: [28.009523, 73.318896] },
+      { name: "Apex Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.854769, 75.825263] },
+      { name: "Suraj Prakash Arogya Kendra", city: "Faridabad", state: "Haryana", coordinates: [28.368274, 77.335404] },
+      { name: "CKS Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.981923, 75.774849] },
+      { name: "7MED Hospital", city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.880642, 78.744292] },
+      { name: "7MED Hospital", city: "Mau", state: "Uttar Pradesh", coordinates: [25.932517, 83.572181] },
+      { name: "7MED Hospital", city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.320984, 82.992272] },
+      { name: "Deepsiya Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.88943, 75.884753] },
+      { name: "Mercy Hospital", city: "Jamshedpur", state: "Jharkhand", coordinates: [22.799413, 86.247984] },
+      { name: "Katyal Hospital", city: "Rewari", state: "Haryana", coordinates: [28.190298, 76.617898] },
+      { name: "Keshlata Hospital", city: "Bareilly", state: "Uttar Pradesh", coordinates: [28.385459, 79.4361] },
+      { name: "Model Eye Hospital", city: "New Delhi", state: "Delhi", coordinates: [28.572486, 77.241511] },
+      { name: "Primus Hospital", city: "New Delhi", state: "Delhi", coordinates: [28.592945, 77.181216] },
+      { name: "Rohilkhand medical College", city: "Bareilly", state: "Uttar Pradesh", coordinates: [28.380642, 79.462238] },
+      { name: "Solanki Hospital", city: "Alwar", state: "Rajasthan", coordinates: [27.559231, 76.611163] },
+      { name: "Trome Hospital", city: "Muzaffarpur", state: "Bihar", coordinates: [26.121416, 85.364664] },
+      { name: "Varun Arjun Medical College", city: "Shahjahanpur", state: "Uttar Pradesh", coordinates: [27.929248, 79.808123] },
+      { name: "Vivekanand Arogya Kendra", city: "Gurugram", state: "Haryana", coordinates: [28.471062, 77.02908] },
+      { name: "Hill Candy Hospital", city: "Bokaro", state: "Jharkhand", coordinates: [23.435103, 86.186996] },
+      { name: "Rama Singhal Hospital", city: "Rampur", state: "Uttar Pradesh", coordinates: [28.786106, 79.020557] },
+      { name: "Navjyoti Hospital", city: "Basti", state: "Uttar Pradesh", coordinates: [26.818298, 82.727826] },
+      { name: "Krishna Hospital", city: "Kushinagar", state: "Uttar Pradesh", coordinates: [26.752583, 83.926714] },
     ]
   },
   {
@@ -144,11 +164,11 @@ const presenceLocations = [
     logo: "/OPTIMUS LOGO.JPG",
     colorHex: "#C850A0",
     cities: [
-      { city: "Latur", coordinates: [18.4088, 76.5604] },
-      { city: "Akola", coordinates: [20.7002, 77.0082] },
-      { city: "Solapur", coordinates: [17.6599, 75.9064] },
-      { city: "Dhule", coordinates: [20.9020, 74.7749] },
-      { city: "Pimpri-Chinchwad", coordinates: [18.6298, 73.7997] }
+      { name: "Solapur Cancer Centre", city: "Solapur", state: "Maharashtra", coordinates: [17.656764, 75.896614] },
+      { name: "Lifepoint Multispeciality Hospital", city: "Pune", state: "Maharashtra", coordinates: [18.59773, 73.755635] },
+      { name: "Khandesh Cancer Centre", city: "Dhule", state: "Maharashtra", coordinates: [20.873641, 74.762007] },
+      { name: "Vivekanand Cancer Hospital", city: "Latur", state: "Maharashtra", coordinates: [18.414554, 76.538606] },
+      { name: "Belgaum Cancer Hospital", city: "Belagavi", state: "Karnataka", coordinates: [15.872094, 74.527796] },
     ]
   },
   {
@@ -157,18 +177,63 @@ const presenceLocations = [
     logo: "/Medilabs logo.webp",
     colorHex: "#FABE00",
     cities: [
-      { city: "Chennai", coordinates: [13.0827, 80.2707] },
-      { city: "Coimbatore", coordinates: [11.0168, 76.9558] },
-      { city: "Madurai", coordinates: [9.9252, 78.1198] },
-      { city: "Trichy", coordinates: [10.7905, 78.7047] },
-      { city: "Salem", coordinates: [11.6643, 78.1460] }
+      { name: "A4 Hospital", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.912512, 80.143019] },
+      { name: "Yogana Hospital", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.87625, 80.079681] },
+      { name: "Adambakkam", city: "Ponmaligai", state: "Tamil Nadu", coordinates: [12.992244, 80.205881] },
+      { name: "Akshara Hospital", city: "Sembakam", state: "Tamil Nadu", coordinates: [12.922573, 80.164223] },
+      { name: "Bewell Hospitals", city: "Anna Nagar", state: "Tamil Nadu", coordinates: [13.079393, 80.19825] },
+      { name: "Ambujam Scans", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.924898, 80.112479] },
+      { name: "Anugraha Hospital", city: "Pammal", state: "Tamil Nadu", coordinates: [12.978362, 80.13838] },
+      { name: "Aram Scans", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.936971, 80.128166] },
+      { name: "Babu Maternity Hospitals", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.929512, 80.119479] },
+      { name: "Bewell Hospitals", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.921864, 80.14173] },
+      { name: "Bharathi Fertility", city: "Madaveli", state: "Tamil Nadu", coordinates: [13.026549, 80.262] },
+      { name: "MM Hospitals", city: "Guduvanchery", state: "Tamil Nadu", coordinates: [12.84224, 80.06114] },
+      { name: "Prashanth Hospital", city: "Gummidipoondi", state: "Tamil Nadu", coordinates: [13.39944, 80.134028] },
+      { name: "Uma Rani Multispecality Hospital", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.50926, 78.221574] },
+      { name: "Madhu Hospitals", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.92528, 80.127097] },
+      { name: "Murugan Hospital", city: "Kilpak", state: "Tamil Nadu", coordinates: [13.083388, 80.234254] },
+      { name: "Pranav Clininc", city: "Urapakam", state: "Tamil Nadu", coordinates: [12.864442, 80.079094] },
+      { name: "Bewell Hospitals", city: "Ambatur", state: "Tamil Nadu", coordinates: [13.12614, 80.140812] },
+      { name: "SM Hospital", city: "kk nagar", state: "Tamil Nadu", coordinates: [13.040176, 80.204457] },
+      { name: "Sudha Fertility", city: "Purasaiwakkam", state: "Tamil Nadu", coordinates: [13.079118, 80.254134] },
+      { name: "Padma Nursing Home", city: "Vepery", state: "Tamil Nadu", coordinates: [13.077069, 80.235129] },
+      { name: "Bewell Hospitals", city: "T Nagar", state: "Tamil Nadu", coordinates: [13.043078, 80.245321] },
+      { name: "Bharathi Fertility", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.863598, 80.073738] },
+      { name: "Bharathi Fertility", city: "Ambatur", state: "Tamil Nadu", coordinates: [13.123332, 80.150181] },
+      { name: "KKR ENT Hospital and Research Centre", city: "Vepery", state: "Tamil Nadu", coordinates: [13.078209, 80.245149] },
+      { name: "A4  Banu Hospital", city: "Pammal", state: "Tamil Nadu", coordinates: [12.975137, 80.132429] },
+      { name: "A4 Hospital", city: "Chengalpet", state: "Tamil Nadu", coordinates: [12.692988, 79.979397] },
+      { name: "Aradhana Clinic", city: "Urapakam", state: "Tamil Nadu", coordinates: [12.858955, 80.07591] },
+      { name: "Aval Clinics+2", city: "Perumbakam", state: "Tamil Nadu", coordinates: [12.905364, 80.199601] },
+      { name: "KMR Lungs Clinic", city: "Porur", state: "Tamil Nadu", coordinates: [13.039137, 80.150987] },
+      { name: "Mother & Child Clinic", city: "Manapakam", state: "Tamil Nadu", coordinates: [13.019622, 80.181176] },
+      { name: "Sairaksha Fertility Centre", city: "Medavakam", state: "Tamil Nadu", coordinates: [12.914505, 80.19481] },
+      { name: "SK Clinic", city: "Gudvanchery", state: "Tamil Nadu", coordinates: [12.84605, 80.061493] },
+      { name: "Sonomed Scans Centre", city: "Avadi", state: "Tamil Nadu", coordinates: [13.115136, 80.102862] },
+      { name: "SS Clinic", city: "Marai malai nagar", state: "Tamil Nadu", coordinates: [12.796789, 80.02936] },
+      { name: "Supriya Medical Centre", city: "Vellore", state: "Tamil Nadu", coordinates: [12.906472, 79.134077] },
+      { name: "Bharathi Fertility", city: "Avadi", state: "Tamil Nadu", coordinates: [13.112281, 80.102939] },
+      { name: "A4 Hospital", city: "Paddur", state: "Tamil Nadu", coordinates: [12.807122, 80.226345] },
+      { name: "A4  Hospital", city: "Washermanpet", state: "Tamil Nadu", coordinates: [13.116723, 80.28375] },
+      { name: "Medilabs", city: "Guduvanchery", state: "Tamil Nadu", coordinates: [12.847577, 80.063329] },
+      { name: "Medilabs", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.922241, 80.141169] },
+      { name: "Medilabs", city: "Vepery", state: "Tamil Nadu", coordinates: [13.081134, 80.261968] },
+      { name: "Medilabs", city: "Vellore", state: "Tamil Nadu", coordinates: [12.934087, 79.138963] },
+      { name: "Medilabs", city: "Anna Nagar", state: "Tamil Nadu", coordinates: [13.090437, 80.211824] },
+      { name: "Medilabs", city: "Velachery", state: "Tamil Nadu", coordinates: [12.975461, 80.220705] },
+      { name: "Medilabs", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.863071, 80.072479] },
+      { name: "Medilabs", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.524785, 78.216004] },
+      { name: "FRANCHISEE - Camp Road", city: "Camp Road", state: "Tamil Nadu", coordinates: [12.906818, 80.142587] },
+      { name: "FRANCHISEE - Sholinghur", city: "Sholinghur", state: "Tamil Nadu", coordinates: [13.111585, 79.431005] },
+      { name: "Yoganna Hospital", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.948649, 80.193026] },
     ]
-  }
+  },
 ];
 
 const signposts = [
   ["About Evervie", "Who we are, our leadership, and the mission behind our group.", "Learn about Evervie", "/EvervieGuidelines_SlidePartition1_v1.png"],
-  ["Platforms", "Renal care, oncology, diagnostics, and elder care under one group.", "EXPLORE OUR PLATFORMS", "/Evervie_PPT_Diamond_v1.png"],
+  ["Platforms", "Renal care, oncology, and diagnostics under one group.", "EXPLORE OUR PLATFORMS", "/Evervie_PPT_Diamond_v1.png"],
   ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png"]
 ];
 
@@ -392,7 +457,6 @@ function Footer() {
         <Link to="/portfolio/renal-care">Renal care</Link>
         <Link to="/portfolio/oncology">Oncology</Link>
         <Link to="/portfolio/diagnostics">Diagnostics</Link>
-        <Link to="#" style={{ opacity: 0.7, cursor: 'default' }} onClick={e => e.preventDefault()}>Elder care <span style={{ fontSize: 10, background: 'rgba(0,0,0,0.06)', padding: '2px 6px', borderRadius: 4, marginLeft: 4, fontWeight: 500, color: '#666' }}>Coming soon</span></Link>
       </div>
       <div><h4>Investor relations</h4><Link to="/investor-centre">Investor centre</Link><Link to="/investor-centre/financial-information">Financial information</Link><Link to="/investor-centre/announcements">Announcements</Link><Link to="/investor-centre/presentations">Investor presentations</Link></div>
       <div><h4>News & careers</h4><Link to="/news-insights">Featured insights</Link><a href="#">Media updates</a><Link to="/careers">Careers</Link></div>
@@ -509,7 +573,7 @@ function CompanySnapshot() {
       <div className="ssIntro">
         <div className="eyebrow"><EyebrowSymbol />Scale Snapshot</div>
         <h2 className="ssHeadline">Built to reach further. Built to last.</h2>
-        <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised verticals — expanding with discipline and purpose.</p>
+        <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised platforms — expanding with discipline and purpose.</p>
         <div className="ssCallout">
           <span className="ssCalloutIcon"><TrendingUp size={16} strokeWidth={1.5} /></span>
           <p className="ssCalloutText">Committed to expanding access to specialised care where it matters most.</p>
@@ -578,8 +642,8 @@ function CompanySnapshotWithMap() {
 
   // Logo card markers (one per company, at primary city — first city in array)
   const logoIcons = typeof window !== "undefined"
-    ? presenceLocations.map(({ colorHex, logo, company }) => new L.DivIcon({
-      html: `<div class="presenceLogoPin" style="border-color:${colorHex};"><img src="${logo}" alt="${company}" /><div class="presencePinDot" style="background:${colorHex};"></div></div>`,
+    ? presenceLocations.map(({ colorHex, company }) => new L.DivIcon({
+      html: `<div class="presenceLogoPin"><div class="presenceLogoCard" style="border-color:${colorHex};">${company}</div><div class="presencePinDot" style="background:${colorHex};"></div></div>`,
       className: "presencePinWrap",
       iconSize: [160, 80],
       iconAnchor: [80, 80],
@@ -590,11 +654,11 @@ function CompanySnapshotWithMap() {
   // Small dot markers for secondary cities
   const dotIcons = typeof window !== "undefined"
     ? presenceLocations.map(({ colorHex }) => new L.DivIcon({
-      html: `<div style="width:10px;height:10px;border-radius:50%;background:${colorHex};border:2px solid #fff;box-shadow:0 1px 5px ${colorHex}88;"></div>`,
+      html: `<div style="width:6px;height:6px;border-radius:50%;background:${colorHex};border:1.5px solid #fff;box-shadow:0 1px 4px ${colorHex}66;"></div>`,
       className: "",
-      iconSize: [10, 10],
-      iconAnchor: [5, 5],
-      popupAnchor: [0, -8]
+      iconSize: [6, 6],
+      iconAnchor: [3, 3],
+      popupAnchor: [0, -6]
     }))
     : [];
 
@@ -604,7 +668,7 @@ function CompanySnapshotWithMap() {
         <div className="ssIntro">
           <div className="eyebrow"><EyebrowSymbol />Our Presence</div>
           <h2 className="ssHeadline">Built to reach further. Built to last.</h2>
-          <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised verticals — expanding with purpose and discipline.</p>
+          <p className="ssBody">A growing healthcare platform with operating presence across markets, care networks, and specialised platforms — expanding with purpose and discipline.</p>
           <div className="ssCallout">
             <span className="ssCalloutIcon"><TrendingUp size={16} strokeWidth={1.5} /></span>
             <p className="ssCalloutText">Committed to expanding access to specialised care where it matters most.</p>
@@ -650,12 +714,12 @@ function CompanySnapshotWithMap() {
             >
               <GeoJSON data={geoJsonData} style={getStateStyle} onEachFeature={onEachFeature} />
               {presenceLocations.map(({ company, vertical, cities, colorHex }, idx) =>
-                cities.map(({ city, coordinates }, cityIdx) => {
+                cities.map(({ name, city, state, coordinates }, cityIdx) => {
                   const isPrimary = cityIdx === 0;
                   const route = vertical === "Renal Care" ? "/portfolio/renal-care" : vertical === "Oncology" ? "/portfolio/oncology" : "/portfolio/diagnostics";
                   return isPrimary ? (
                     <Marker
-                      key={`${company}-${city}`}
+                      key={`${company}-${name}-${cityIdx}`}
                       position={coordinates}
                       icon={logoIcons[idx]}
                       eventHandlers={{
@@ -666,25 +730,25 @@ function CompanySnapshotWithMap() {
                     >
                       <Popup>
                         <div className="presencePopup">
-                          <img src={presenceLocations[idx].logo} alt={company} className="presencePopupLogo" />
                           <div className="presencePopupInfo">
                             <strong>{company}</strong>
                             <span className="presencePopupVertical">{vertical}</span>
-                            <span className="presencePopupCity">{city}</span>
+                            <span className="presencePopupCity">{name} — {city}, {state}</span>
                           </div>
                         </div>
                       </Popup>
                     </Marker>
                   ) : (
-                    <Marker key={`${company}-${city}`} position={coordinates} icon={dotIcons[idx]}>
-                      <Tooltip permanent direction="right" offset={[8, 0]} className="custom-map-label">
-                        {city}
+                    <Marker key={`${company}-${name}-${cityIdx}`} position={coordinates} icon={dotIcons[idx]}>
+                      <Tooltip direction="top" offset={[0, -5]} className="custom-map-label">
+                        {name} ({city})
                       </Tooltip>
                       <Popup>
                         <div style={{ fontFamily: 'inherit', fontSize: 13, lineHeight: 1.4, padding: 4 }}>
                           <strong style={{ color: colorHex, fontSize: 14, display: 'block', marginBottom: 4 }}>{company}</strong>
-                          <span style={{ fontWeight: 700 }}>{city}</span><br />
-                          <span style={{ color: '#666', marginTop: 4, display: 'block' }}>{vertical}</span>
+                          <span style={{ fontWeight: 700 }}>{name}</span><br />
+                          <span style={{ color: '#555', fontSize: 12 }}>{city}, {state}</span><br />
+                          <span style={{ color: '#888', marginTop: 4, display: 'block', fontSize: 11 }}>{vertical}</span>
                         </div>
                       </Popup>
                     </Marker>
@@ -896,8 +960,7 @@ function Editorial() {
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
         <div className="editorialAboutVisual">
-          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg editorialAboutImg--default" />
-          <img src="/Evervie_1599.jpg" alt="Evervie Leadership Group Alternate" className="editorialAboutImg editorialAboutImg--hover" />
+          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
           <div className="editorialAboutImageOverlay">
             <span className="editorialAboutImageCaption">Evervie Leadership Team & Partners</span>
           </div>
@@ -949,8 +1012,8 @@ function Bento() {
   return <Frame nav={<BentoNav />} label="Variation 02 · Modular bento homepage"><main>
     <section className="bentoHero"><div className="bentoGrid"><article className="bentoMain"><div><div className="eyebrow"><EyebrowSymbol />Future-focused healthcare</div><h1>Specialized care, built for the next era</h1><p className="lead">Evervie builds healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><p>Our work is shaped by a patient-first belief in better delivery, stronger systems, and healthcare that can reach further.</p></div><div className="buttonRow"><a className="btn">Explore Care Platforms</a><a className="btnOutline">Enter Investor Centre</a></div></article><Placeholder text="Hero care visual" /><article className="bentoTile"><span className="tag">Care network</span><b>250+</b><p>Care touchpoints across patient-facing services.</p></article><article className="bentoTile"><span className="tag">Locations</span><b>80+</b><p>Operating locations across priority markets.</p></article><article className="bentoTile"><h3>Specialized care. Scaled with purpose</h3><p>A compact promise that makes the page feel more brand-led.</p><a className="btnOutline">Partner With Us</a></article></div></section>
     <section className="section"><SectionHead eyebrow="Purpose in practice" title="Three ideas, one care-building system" copy="A central brand belief block surrounded by the three proof themes." /><div className="coreWheel"><article><span className="tag">Access</span><h3>Care should be easier to reach</h3><p>We build with communities and patients in mind, making specialized healthcare more accessible.</p></article><article className="center"><span className="tag">Evervie promise</span><h3>Access. Quality. Scale</h3><p>Better healthcare is built when reach, trust, and operating discipline move together.</p></article><article><span className="tag">Quality</span><h3>Trust should be felt in every care experience</h3><p>We focus on consistency, continuity, and care environments families can rely on.</p></article><article><span className="tag">Scale</span><h3>Growth should create lasting care value</h3><p>Healthcare platforms must grow responsibly so they can serve more patients and regions.</p></article></div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="Four focused pathways into Evervie’s care world" copy="Staggered vertical cards make the section feel less boxy while still showing the complete portfolio overview." /><div className="staggeredCards">{verticals.map(([l, t, c], i) => {
-      const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : i === 2 ? "/portfolio/diagnostics" : "/portfolio/elder-care";
+    <section className="section"><SectionHead eyebrow="Care gateway" title="Three focused pathways into Evervie’s care world" copy="Staggered platform cards make the section feel less boxy while still showing the complete platforms overview." /><div className="staggeredCards">{verticals.map(([l, t, c], i) => {
+      const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : "/portfolio/diagnostics";
       return (
         <article key={l} style={{ marginTop: i % 2 ? 60 : 0 }}>
           <Placeholder text={l} />
@@ -972,7 +1035,7 @@ function Journey() {
     <section className="journeyHero"><div className="journeyIntro"><div><div className="eyebrow"><EyebrowSymbol />Future-focused healthcare</div><h1>Care that reaches further, with systems built to last</h1></div><div><p className="lead">Evervie is building specialized healthcare platforms for access, quality, and scale.</p><p>This variation starts with a hub visual that turns the company story into a care ecosystem.</p><div className="buttonRow"><a className="btn">Explore care platforms</a><a className="btnOutline">Enter investor centre</a></div></div></div><div className="hub"><div className="hubRing">Evervie</div>{["Access", "Quality", "Scale", "Global Focus", "Patient-first"].map((t, i) => <article className={`hubNode n${i + 1}`} key={t}><h4>{t}</h4><p>{i === 0 ? "Care closer to patients." : i === 1 ? "Trust across experiences." : i === 2 ? "Platforms that grow responsibly." : i === 3 ? "Reach across priority markets." : "Healthcare built around people."}</p></article>)}</div></section>
     <section className="section"><SectionHead eyebrow="Scale snapshot" title="Focused reach, presented as a pathway" copy="Metrics become a horizontal evidence path instead of individual static boxes." /><Metrics className="pathMetrics" /></section>
     <section className="section"><SectionHead eyebrow="Purpose in practice" title="How Evervie moves from belief to care delivery" copy="A timeline layout gives the three ideas a progressive narrative." /><div className="timeline">{purpose.map(([n, l, t, c]) => <article key={l}><div className="num">{n}</div><div><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></div></article>)}</div></section>
-    <section className="section"><SectionHead eyebrow="Care gateway" title="A care universe built around focused needs" copy="Orbit-style vertical cards create a different visual rhythm for the care gateway." /><div className="orbit"><div className="orbitCenter"><h3>Evervie care platforms</h3></div>{verticals.map(([l, t, c], i) => <article className={`orbitCard o${i + 1}`} key={l}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
+    <section className="section"><SectionHead eyebrow="Care gateway" title="A care universe built around focused needs" copy="Orbit-style platform cards create a different visual rhythm for the care gateway." /><div className="orbit"><div className="orbitCenter"><h3>Evervie care platforms</h3></div>{verticals.map(([l, t, c], i) => <article className={`orbitCard o${i + 1}`} key={l}><span className="tag">{l}</span><h3>{t}</h3><p>{c}</p></article>)}</div></section>
     <GlobalPresence mode="stage" /><Ethos mode="center" /><Insights mode="flow" /><FinalCta route />
   </main></Frame>;
 }
@@ -1143,14 +1206,14 @@ function AboutWhoWeAre() {
         <section className="section">
           <SectionHead
             eyebrow="Specialised Care"
-            title="Four pillars of dedicated care platforms"
+            title="Three dedicated care platforms"
           />
           <div className="staggeredCards">
             {verticals.map(([l, t, c], i) => {
-              const svgIcon = i === 0 ? "/oncology.svg" : i === 1 ? "/renal-cre.svg" : i === 2 ? "/diagnostics.svg" : "/elder-care.svg";
+              const svgIcon = i === 0 ? "/oncology.svg" : i === 1 ? "/renal-cre.svg" : "/diagnostics.svg";
               const hasBadge = l.includes("Coming Soon");
               const labelText = hasBadge ? l.split(" · ")[0] : l;
-              const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : i === 2 ? "/portfolio/diagnostics" : "/portfolio/elder-care";
+              const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : "/portfolio/diagnostics";
               return (
                 <article key={l} style={{ marginTop: i % 2 ? 40 : 0 }}>
                   <div className="staggeredCardVisual">
@@ -1217,7 +1280,7 @@ function AboutWhoWeAre() {
           <div className="exploreGrid">
             {[
               ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
-              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/Evervie_PPT_Diamond_v1.png", null],
+              ["Platforms", "Renal care, oncology, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", null],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
@@ -1257,7 +1320,7 @@ function AboutLeadership() {
       designation: "Chairman & Managing Director",
       photo: "/PVP_0474.jpg",
       shortBio: "Serial entrepreneur with 30+ years of experience and $800M+ transaction track record; founder with a vision to scale healthcare globally.",
-      expandedBio: "Prasad V. Potluri is a serial entrepreneur with an approximately $800M+ transaction track record across healthcare and related sectors. He led Evervie's listing on the BSE and NSE, bringing disciplined capital strategy and long-term platform thinking to every stage of the company's growth. As Chairman & Managing Director, he sets the strategic direction for the group and its healthcare verticals.",
+      expandedBio: "Prasad V. Potluri is a serial entrepreneur with an approximately $800M+ transaction track record across healthcare and related sectors. He led Evervie's listing on the BSE and NSE, bringing disciplined capital strategy and long-term platform thinking to every stage of the company's growth. As Chairman & Managing Director, he sets the strategic direction for the group and its healthcare platforms.",
       expertise: ["Corporate Strategy", "Capital Markets", "Healthcare Platforms"],
       responsibilities: "Chairman of the Board; Managing Director",
       linkedin: "https://www.linkedin.com/in/prasad-v-potluri-8032699/"
@@ -1297,7 +1360,7 @@ function AboutLeadership() {
       designation: "Group Medical Director",
       photo: "/leadership_varshini.jpg",
       shortBio: "Physician-scientist, global thought leader on longevity with a focus on scaling evidence-based practice.",
-      expandedBio: "Dr. Varshini Varadaraj holds an MPH in epidemiology and biostatistics from Johns Hopkins, where she also serves as a faculty researcher. As Group Medical Director, she is responsible for clinical quality and outcomes measurement across all of Evervie's care verticals.",
+      expandedBio: "Dr. Varshini Varadaraj holds an MPH in epidemiology and biostatistics from Johns Hopkins, where she also serves as a faculty researcher. As Group Medical Director, she is responsible for clinical quality and outcomes measurement across all of Evervie's care platforms.",
       expertise: ["Epidemiology", "Clinical Quality", "Outcomes Research"],
       responsibilities: "Group Medical Director",
       linkedin: "https://www.linkedin.com/in/varshini-varadaraj/"
@@ -1468,7 +1531,7 @@ function AboutLeadership() {
               <div className="eyebrow">Leadership</div>
               <h2>Executive leadership</h2>
             </div>
-            <p>The team responsible for executing Evervie's platform strategy, scaling care delivery networks, and driving clinical excellence across every vertical.</p>
+            <p>The team responsible for executing Evervie's platform strategy, scaling care delivery networks, and driving clinical excellence across every platform.</p>
           </div>
 
           <div className="wwaBoardGrid">
@@ -1569,7 +1632,7 @@ function AboutLeadership() {
           <div className="exploreGrid">
             {[
               ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
-              ["Portfolio", "Renal care, oncology, diagnostics, and elder care under one platform.", "Explore the portfolio", "/Evervie_PPT_Diamond_v1.png", null],
+              ["Platforms", "Renal care, oncology, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", null],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
@@ -1797,14 +1860,6 @@ const portfolioList = [
     desc: "Reliable pathology, radiology, and home care collection models.",
     num: "03",
     img: "/diagnostics_hero_lab.png"
-  },
-  {
-    name: "Elder Care",
-    path: "/portfolio/elder-care",
-    title: "Elder Care Platform",
-    desc: "Dignified, comfortable, and coordinated care for senior living.",
-    num: "04",
-    img: "/grandmother_and_child_in_warm_embrace.png"
   }
 ];
 
@@ -1818,7 +1873,7 @@ function PortfolioNavSection({ currentVertical }) {
     <section className="wwaAboutNav section">
       <div className="wwaAboutNavLayout">
         <div className="wwaAboutNavIntro">
-          <div className="eyebrow">Portfolio Verticals</div>
+          <div className="eyebrow">Portfolio Platforms</div>
           <h2>Explore our specialty platforms.</h2>
           <p>Evervie builds and scales dedicated care platforms designed around patients and communities.</p>
           <Link to="/" className="btnOutline">Back to Homepage</Link>
@@ -1828,7 +1883,7 @@ function PortfolioNavSection({ currentVertical }) {
             <div className="wwaNavFeatureInner">
               <div className="wwaNavMeta">
                 <span className="wwaNavNum">{nextPlatform.num}</span>
-                <span className="wwaNavNextTag">Next Vertical</span>
+                <span className="wwaNavNextTag">Next Platform</span>
               </div>
               <h3>{nextPlatform.title}</h3>
               <p>{nextPlatform.desc}</p>
@@ -1995,7 +2050,7 @@ function PortfolioVertical({
       layer.bindTooltip(`
         <div style="font-family: inherit; font-size: 12px; padding: 4px 8px;">
           <strong>${displayName}</strong><br/>
-          Dialysis Centre Footprint<br/><span style="color:var(--evervie-orange);font-weight:600;">Part of 20-centre network</span>
+          Dialysis Centre Footprint<br/><span style="color:var(--evervie-orange);font-weight:600;">Part of ${footprint.dialysisCount || 20}-centre network</span>
         </div>
       `, {
         sticky: true,
@@ -2440,7 +2495,7 @@ function PortfolioVertical({
                 <div className="eyebrow">Impact & Care</div>
                 <h2>Delivering care that actually matters.</h2>
               </div>
-              <p>How we measure clinical excellence, access, and daily dedication across the vertical.</p>
+              <p>How we measure clinical excellence, access, and daily dedication across the platform.</p>
             </div>
             <div className="careExpGrid">
               {careExperience.map((exp, idx) => (
@@ -2498,10 +2553,10 @@ function PortfolioVertical({
 // Renal Care Page Component
 function RenalCare() {
   const metrics = [
-    { icon: Building2, label: "Dialysis Centres", number: "20", desc: "Dialysis centres across 7 states", tone: "orange" },
-    { icon: Users, label: "Hospitals", number: "4", desc: "Hospitals in 4 cities", tone: "solar" },
+    { icon: Building2, label: "Dialysis Centres", number: "26", desc: "Dialysis centres across 7 states", tone: "orange" },
+    { icon: Users, label: "Hospitals", number: "3", desc: "Hospitals in 3 cities", tone: "solar" },
     { icon: Activity, label: "Dialysis Sessions", number: "10 Lakh+", desc: "High-quality dialysis sessions delivered since 2013", tone: "pink" },
-    { icon: UsersRound, label: "Patients Served", number: "25,000+", desc: "Patients served across hospitals", tone: "orange" },
+    { icon: UsersRound, label: "Patients Served", number: "15,000+", desc: "Patients served across hospitals", tone: "orange" },
     { icon: Globe2, label: "Outreach Patients", number: "2,500+", desc: "Patients reached through community outreach and OPD camps", tone: "solar" }
   ];
 
@@ -2523,7 +2578,7 @@ function RenalCare() {
   const footprint = {
     title: "Operating Footprint",
     desc: "Renal care reach across dialysis centres and hospitals in India.",
-    dialysisCount: 20,
+    dialysisCount: 26,
     statesCount: 7,
     statesList: "Delhi, Haryana, Rajasthan, Uttar Pradesh, Uttarakhand, Bihar, and Jharkhand",
     mapCenter: [27.0, 83.5],
@@ -2540,17 +2595,16 @@ function RenalCare() {
       ]
     },
     hospitalsList: [
-      { city: "Delhi", state: "Delhi", coordinates: [28.6139, 77.2090] },
-      { city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.8386, 78.7733] },
-      { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.3176, 82.9739] },
-      { city: "Mau", state: "Uttar Pradesh", coordinates: [25.9417, 83.5611] }
+      { city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.880642, 78.744292] },
+      { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.320984, 82.992272] },
+      { city: "Mau", state: "Uttar Pradesh", coordinates: [25.932517, 83.572181] }
     ]
   };
 
   const network = {
     title: "Clinical Network",
-    hospitalCount: 4,
-    citiesList: "Delhi, Moradabad, Varanasi, and Mau"
+    hospitalCount: 3,
+    citiesList: "Moradabad, Varanasi, and Mau"
   };
 
   const careExperience = [
@@ -2572,7 +2626,7 @@ function RenalCare() {
     <PortfolioVertical
       title="Renal Care"
       subtitle="Specialised kidney care platforms built around accessibility, clinical focus, and long-term continuity."
-      intro="Evervie’s renal care vertical is dedicated to addressing the growing demand for trusted dialysis services and comprehensive kidney care. Through modern operating platforms and expert care teams, we bring continuous support to patients and families."
+      intro="Evervie’s renal care platform is dedicated to addressing the growing demand for trusted dialysis services and comprehensive kidney care. Through modern operating platforms and expert care teams, we bring continuous support to patients and families."
       heroImage="/renal_care_hero.png"
       heroBgImage="/7Med/7med-aiims-dialysis-unit-nurses-station.png"
       metrics={metrics}
@@ -3545,7 +3599,7 @@ function ElderCare() {
     { icon: Users, label: "Care Planners", number: "15+", desc: "Super-specialist geriatric care professionals", tone: "solar" },
     { icon: Activity, label: "Home Visits", number: "Coming", desc: "Coordinated home healthcare visits planned", tone: "pink" },
     { icon: UsersRound, label: "Support Network", number: "Planned", desc: "24/7 emergency coordination systems", tone: "orange" },
-    { icon: Globe2, label: "Launch Window", number: "2027", desc: "Scheduled vertical launch and first center opening", tone: "solar" }
+    { icon: Globe2, label: "Launch Window", number: "2027", desc: "Scheduled platform launch and first center opening", tone: "solar" }
   ];
 
   const platform = {
@@ -3588,7 +3642,7 @@ function ElderCare() {
     <PortfolioVertical
       title="Elder Care"
       subtitle="Dignified, comfortable, and coordinated care for ageing communities."
-      intro="Our elder care vertical is a future-focused platform designed around the clinical, physical, and emotional needs of elderly individuals and their families."
+      intro="Our elder care platform is a future-focused platform designed around the clinical, physical, and emotional needs of elderly individuals and their families."
       heroImage="/grandmother_and_child_in_warm_embrace.png"
       metrics={metrics}
       platform={platform}
@@ -3611,7 +3665,7 @@ function ElderCare() {
 // ==========================================================================
 
 const investorMetrics = [
-  { id: "verticals", label: "Healthcare Verticals", value: "4 Verticals", description: "Renal Care, Oncology, Diagnostics, and Elder Care platforms.", icon: Activity, source: "Evervie Platform Data", lastUpdated: "Q2 FY26" },
+  { id: "verticals", label: "Healthcare Platforms", value: "3 Platforms", description: "Renal Care, Oncology, and Diagnostics platforms.", icon: Activity, source: "Evervie Platform Data", lastUpdated: "Q2 FY26" },
   { id: "presence", label: "Operating Presence", value: "12 States", description: "Operational footprint across key Indian states.", icon: Globe2, source: "Geographic Directory", lastUpdated: "July 2026" },
   { id: "network", label: "Care Network", value: "30+ Centres", description: "Hospitals, dialysis centers, and diagnostic labs.", icon: Building2, source: "Clinical Register", lastUpdated: "July 2026" },
   { id: "listed", label: "Market Discipline", value: "NSE / BSE Listing", description: "Planned public listing with complete regulatory compliance.", icon: TrendingUp, source: "Corporate Filings", lastUpdated: "July 2026" }
@@ -4414,15 +4468,15 @@ function InvestorCentre() {
         <section className="section">
           <SectionHead
             eyebrow="Specialised Care"
-            title="Four pillars of dedicated care platforms"
+            title="Three dedicated care platforms"
             copy="Every pathway is designed to unify clinical excellence, operational systems, and patient compassion under a singular orange-themed identity."
           />
           <div className="staggeredCards">
             {verticals.map(([l, t, c], i) => {
-              const svgIcon = i === 0 ? "/oncology.svg" : i === 1 ? "/renal-cre.svg" : i === 2 ? "/diagnostics.svg" : "/elder-care.svg";
+              const svgIcon = i === 0 ? "/oncology.svg" : i === 1 ? "/renal-cre.svg" : "/diagnostics.svg";
               const hasBadge = l.includes("Coming Soon");
               const labelText = hasBadge ? l.split(" · ")[0] : l;
-              const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : i === 2 ? "/portfolio/diagnostics" : "/portfolio/elder-care";
+              const path = i === 0 ? "/portfolio/oncology" : i === 1 ? "/portfolio/renal-care" : "/portfolio/diagnostics";
               return (
                 <article key={l} style={{ marginTop: i % 2 ? 40 : 0 }}>
                   <div className="staggeredCardVisual">
@@ -5825,7 +5879,7 @@ function ArticleDetail() {
 const CAREER_OPPORTUNITY_MODULES = [
   { icon: Sparkles, title: "Innovative Environment", copy: "Work on healthcare challenges that matter, with the freedom to bring new ideas forward." },
   { icon: UsersRound, title: "Collaborative Culture", copy: "Join a team that values open thinking, mutual respect, and shared ownership of outcomes." },
-  { icon: TrendingUp, title: "Career Growth", copy: "Build your career alongside a platform that is scaling across multiple healthcare verticals." },
+  { icon: TrendingUp, title: "Career Growth", copy: "Build your career alongside a platform that is scaling across multiple healthcare platforms." },
   { icon: Globe2, title: "Global Impact", copy: "Contribute to work that is shaping access to care for communities across India." },
 ];
 
@@ -6274,7 +6328,6 @@ export const FEEDBACK_TRACKED_PAGES = [
   { path: "/portfolio/renal-care", label: "Portfolio — Renal Care", Component: RenalCare },
   { path: "/portfolio/oncology", label: "Portfolio — Oncology", Component: Oncology },
   { path: "/portfolio/diagnostics", label: "Portfolio — Diagnostics", Component: Diagnostics },
-  { path: "/portfolio/elder-care", label: "Portfolio — Elder Care", Component: ElderCare },
   { path: "/investor-centre", label: "Investor Centre", Component: InvestorCentre },
   { path: "/investor-centre/investment-overview", label: "Investor Centre — Investment Overview", Component: InvestmentOverview },
   { path: "/investor-centre/financial-information", label: "Investor Centre — Financial Information", Component: FinancialInformation },
@@ -6299,7 +6352,7 @@ export default function App() {
     <Route path="/portfolio/renal-care" element={<RenalCare />} />
     <Route path="/portfolio/oncology" element={<Oncology />} />
     <Route path="/portfolio/diagnostics" element={<Diagnostics />} />
-    <Route path="/portfolio/elder-care" element={<ElderCare />} />
+    {/* Elder Care platform removed */}
     <Route path="/investor-centre" element={<InvestorCentre />} />
     <Route path="/investors/overview" element={<InvestorCentre />} />
     <Route path="/investor-centre/investment-overview" element={<InvestmentOverview />} />
