@@ -56,6 +56,26 @@ function buildAnchorMap(pagePath) {
   return map;
 }
 
+// The exact-match hash above breaks whenever an unrelated section is
+// added/removed anywhere above an anchor, since every element's DOM path
+// index below the edit shifts even though the anchored content itself
+// didn't move. Fall back to matching on the stored text snapshot alone
+// (same-page, same visible text) before giving up and using the stale
+// click-time x/y percentage, which is only accurate if the page's overall
+// height hasn't changed since the note was left.
+function buildTextMap(pagePath) {
+  const map = new Map();
+  const all = document.body.querySelectorAll("*");
+  for (const el of all) {
+    if (el.closest("[data-feedback-ui]")) continue;
+    const textSnapshot = (el.textContent || "").trim().slice(0, 160);
+    if (!textSnapshot) continue;
+    const key = `${pagePath}|${textSnapshot}`;
+    if (!map.has(key)) map.set(key, el);
+  }
+  return map;
+}
+
 export default function FeedbackWidget() {
   const { isAuthed, token, email, logout } = useFeedbackSession();
   const location = useLocation();
@@ -126,21 +146,34 @@ export default function FeedbackWidget() {
     }
 
     const anchorMap = buildAnchorMap(pagePath);
+    let textMap = null; // built lazily - most comments resolve via anchorMap
+    const maxLeft = document.documentElement.scrollWidth;
+    const maxTop = document.documentElement.scrollHeight;
     const next = {};
     for (const c of comments) {
-      const el = c.anchorId ? anchorMap.get(c.anchorId) : null;
+      let el = c.anchorId ? anchorMap.get(c.anchorId) : null;
+      if (!el && c.textSnapshot) {
+        if (!textMap) textMap = buildTextMap(pagePath);
+        el = textMap.get(`${pagePath}|${c.textSnapshot}`) || null;
+      }
       if (el) {
         const rect = el.getBoundingClientRect();
         next[c.documentId] = {
-          left: rect.left + window.scrollX + 4,
-          top: rect.top + window.scrollY + 4,
+          // getBoundingClientRect() follows CSS transforms (e.g. the map's
+          // 3D tilt), which can place an anchor's rect far outside the
+          // document - clamp so one stray pin can't blow up the page's
+          // scrollable area.
+          left: Math.min(Math.max(rect.left + window.scrollX + 4, 0), maxLeft),
+          top: Math.min(Math.max(rect.top + window.scrollY + 4, 0), maxTop),
         };
       } else if (c.x != null && c.y != null) {
-        // Fall back to the stored page-relative click position if the
-        // original element can no longer be found (e.g. content changed).
+        // Last resort: the stored page-relative click position. Only
+        // accurate if the page's overall height hasn't shifted since the
+        // note was left (e.g. an unrelated section elsewhere was removed),
+        // so anything that reaches this branch is a best-effort guess.
         next[c.documentId] = {
-          left: (c.x / 100) * document.documentElement.scrollWidth,
-          top: (c.y / 100) * document.documentElement.scrollHeight,
+          left: Math.min(Math.max((c.x / 100) * maxLeft, 0), maxLeft),
+          top: Math.min(Math.max((c.y / 100) * maxTop, 0), maxTop),
         };
       }
     }
