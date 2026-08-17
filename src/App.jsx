@@ -508,7 +508,7 @@ function EditorialFooter() {
       <div className="footerTop">
         <div className="footerBrand">
           <Logo />
-          <p className="footerStatement">Specialized care. Scaled with purpose.</p>
+          <p className="footerStatement">Specialty care. Scaled with purpose.</p>
           <p>Evervie Health is building future-focused healthcare platforms across critical areas of care.</p>
         </div>
         <div className="newsletterPanel">
@@ -962,7 +962,7 @@ function Editorial() {
         <div className="editorialAboutVisual">
           <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
           <div className="editorialAboutImageOverlay">
-            <span className="editorialAboutImageCaption">Evervie Leadership Team & Partners</span>
+            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
           </div>
         </div>
         <div className="editorialAboutContent">
@@ -990,7 +990,7 @@ function Editorial() {
             </div>
             <div className="editorialAboutPillar">
               <h4>Strategic partnerships</h4>
-              <p>Driving global innovation through advanced diagnostics, patient-focused specialist care, and trusted collaborations.</p>
+              <p>Driving global innovation through advanced technologies, patient-focused specialist care, and trusted collaborations.</p>
             </div>
           </div>
 
@@ -1148,7 +1148,7 @@ function AboutWhoWeAre() {
             </div>
             <div className="wwaStatPrinciples">
               {[
-                [Heart, "Patient-first", "Every platform we build starts with what patients actually need."],
+                [Heart, "Patient-first", "Every platform we build and scale starts with what patients actually need."],
                 [Building2, "Operating excellence", "Consistent quality and performance across care systems and patient touchpoints."],
                 [TrendingUp, "Long-term orientation", "Building platforms that create lasting value for generations ahead."]
               ].map(([Icon, heading, copy]) => (
@@ -1456,7 +1456,7 @@ function AboutLeadership() {
             <div className="wwaStatHead">
               <h2>Guiding Evervie with <span className="highlight">long-term perspective</span>.</h2>
               <p className="wwaStatCopy">
-                Our leaders combine deep clinical capability with corporate stewardship to build platforms capable of serving patient communities for generations. We believe that robust governance, operational accountability, and clinical excellence must grow together to build healthcare platforms that stand the test of time.
+                Our leaders combine deep clinical capability with corporate stewardship to build and scale platforms capable of serving patient communities for generations. We believe that robust governance, operational accountability, and clinical excellence must grow together to build healthcare platforms that stand the test of time.
               </p>
             </div>
             <div className="wwaStatPrinciples">
@@ -1500,21 +1500,7 @@ function AboutLeadership() {
               </p>
               <div className="wwaChairmanExp">
                 <h3>Prasad’s experience</h3>
-                <p className="wwaChairmanExpSubtitle">Bringing decades of leadership and expertise to shape innovative healthcare solutions worldwide.</p>
-                <div className="wwaChairmanExpGrid">
-                  <div className="wwaChairmanExpCard">
-                    <span className="wwaChairmanExpNumber">$800M+</span>
-                    <p>Transaction track record across healthcare and related sectors.</p>
-                  </div>
-                  <div className="wwaChairmanExpCard">
-                    <span className="wwaChairmanExpNumber">Serial</span>
-                    <p>Entrepreneur who founded and scaled multiple healthcare platforms.</p>
-                  </div>
-                  <div className="wwaChairmanExpCard">
-                    <span className="wwaChairmanExpNumber">Listed</span>
-                    <p>Led the company’s listing on both BSE and NSE.</p>
-                  </div>
-                </div>
+                <p className="wwaChairmanExpSubtitle">Serial entrepreneur with experience building and exiting 4 enterprises in the US and UK.</p>
               </div>
               <div className="wwaChairmanFooter">
                 <span className="wwaChairmanSignature">Prasad V. Potluri</span>
@@ -1915,19 +1901,19 @@ const galleryData = {
   "Renal Care": {
     eyebrow: "Care in Action",
     title: "Inside our dialysis centres.",
-    desc: "A visual overview of our modern dialysis suites, medical facilities, and community health services.",
+    desc: "A visual overview of our modern dialysis centers, medical facilities, and community health services.",
     items: [
       { img: "/7Med/7med-epitome-kidney-urology-institute-exterior.jpg", title: "Epitome Kidney & Urology Institute", desc: "A state-of-the-art specialty center delivering world-class tertiary renal treatments." },
       { img: "/7Med/7med-aiims-dialysis-unit-nurses-station.png", title: "AIIMS Dialysis Unit Nurses Station", desc: "Highly monitored care desks ensuring safety and rapid clinical response." },
-      { img: "/7Med/7med-doctor-nurse-patient-consultation.jpg", title: "Nephrologist Consultation", desc: "Patient-first medical advisory panels mapping personalized recovery plans." },
-      { img: "/7Med/7med-nurse-patient-bedside-care.jpg", title: "Compassionate Bedside Care", desc: "Continuous patient monitoring and warm, expert nursing care throughout dialysis sessions." },
-      { img: "/7Med/7med-ct-scan-diagnostic-imaging.jpg", title: "Diagnostic Imaging Suite", desc: "Advanced imaging units supporting detailed structural and vascular assessments." },
-      { img: "/7Med/7med-epitome-hospital-staff-group-photo.jpg", title: "Epitome Hospital Clinical Team", desc: "Our dedicated network of nephrologists, dialysis nurses, and patient care coordinators." }
+      { img: "/7Med/7med-doctor-nurse-patient-consultation.jpg", title: "Nephrologist consultation", desc: "Patient-first medical advisory panels mapping personalized recovery plans." },
+      { img: "/7Med/7med-nurse-patient-bedside-care.jpg", title: "High-quality bedside care", desc: "Continuous patient monitoring and warm, expert nursing care throughout dialysis sessions." },
+      { img: "/7Med/7med-ct-scan-diagnostic-imaging.jpg", title: "Diagnostic imaging suite", desc: "Advanced imaging units supporting detailed structural and vascular assessments." },
+      { img: "/7Med/7med-epitome-hospital-staff-group-photo.jpg", title: "Epitome hospital clinical team", desc: "Our dedicated network of nephrologists, dialysis nurses, and patient care coordinators." }
     ]
   },
   "Oncology": {
     eyebrow: "Inside the Platform",
-    title: "Specialized cancer care settings.",
+    title: "Comprehensive cancer care.",
     desc: "A closer look at our patient-centric oncology centres, medical consultation rooms, and care coordination.",
     items: [
       { img: "/oncology_clinical_team.png", title: "Specialist Tumour Board", desc: "Our collaborative network of super-specialists reviewing complex patient clinical pathways." },
@@ -2298,7 +2284,7 @@ function PortfolioVertical({
                     <span className="legendMarkerDot"></span>
                     <div>
                       <strong>Hospital Locations</strong>
-                      <p>Cities with Evervie renal care hospitals</p>
+                      <p>Cities with hospitals</p>
                     </div>
                   </div>
                 </div>
@@ -2443,7 +2429,7 @@ function PortfolioVertical({
                 <div className="clinicalMetricContent">
                   <h3>
                     {title === "Renal Care"
-                      ? "Associated Nephrologists"
+                      ? "Associated nephrologists"
                       : title === "Elder Care"
                       ? "Geriatric Specialization"
                       : "20 Nephrologists"}
@@ -2468,7 +2454,7 @@ function PortfolioVertical({
                 <div className="clinicalMetricContent">
                   <h3>
                     {title === "Renal Care"
-                      ? "Trained Care Personnel"
+                      ? "Trained care personnel"
                       : title === "Elder Care"
                       ? "Emergency Integration"
                       : "350+ Trained Personnel"}
@@ -2563,7 +2549,7 @@ function RenalCare() {
   const platform = {
     label: "Our Renal Care Platform",
     name: "7Med India",
-    desc: "7Med India is Evervie’s dedicated renal care platform, delivering accessible and high-quality dialysis services across North and East India. Partnering with leading nephrologists and hospitals, 7Med provides patient-first kidney care that combines clinical discipline with compassionate treatment.",
+    desc: "7Med India is Evervie’s dedicated renal care platform, delivering accessible and high-quality dialysis services across India. Partnering with leading nephrologists and hospitals, 7Med provides patient-first kidney care that combines clinical discipline with compassionate treatment.",
     ctaText: "Explore 7Med India",
     ctaLink: "#",
     logo: (
@@ -2609,9 +2595,9 @@ function RenalCare() {
 
   const careExperience = [
     { icon: Heart, color: "#FF3C00", heading: "Patient-First Care", desc: "Safe, effective, and compassionate kidney care tailored around patient schedules and long-term health." },
-    { icon: Award, color: "#FABE00", heading: "Clinical Excellence", desc: "Nephrologist-led expertise, clinical protocols, and trained care teams ensuring the highest treatment quality." },
-    { icon: Globe2, color: "#FF91B4", heading: "Accessible Care", desc: "Strategic footprint expansion across multiple states to bring renal care closer to under-served communities." },
-    { icon: UsersRound, color: "#FF6F61", heading: "Community Impact", desc: "Organizing regular free outreach programs, diagnostics checks, and local OPD camps for early detection." }
+    { icon: Award, color: "#FABE00", heading: "Clinical excellence", desc: "Nephrologist-led expertise, clinical protocols, and trained care teams ensuring the highest treatment quality." },
+    { icon: Globe2, color: "#FF91B4", heading: "Accessible care", desc: "Strategic footprint expansion across multiple states to bring renal care closer to under-served communities." },
+    { icon: UsersRound, color: "#FF6F61", heading: "Community impact", desc: "Organizing regular free outreach programs, diagnostics checks, and local OPD camps for early detection." }
   ];
 
   const closing = {
@@ -2853,9 +2839,9 @@ function Oncology() {
           <div className="footprintLayout">
             <div className="leftFootprintSummary">
               <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: 8 }}>OUR FOOTPRINT</div>
-              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '0 0 16px 0', color: 'var(--graphite)', letterSpacing: '-0.02em' }}>Expanding access across Maharashtra.</h2>
+              <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '0 0 16px 0', color: 'var(--graphite)', letterSpacing: '-0.02em' }}>Expanding access in Maharashtra and beyond.</h2>
               <p style={{ fontSize: 15, lineHeight: 1.6, color: 'var(--muted)', marginBottom: 40 }}>
-                Comprehensive cancer centres across Maharashtra, with radiation oncology facilities in key cities.
+                Comprehensive cancer centres across Western India, with radiation oncology facilities in key cities.
               </p>
 
               <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
@@ -5877,10 +5863,10 @@ function ArticleDetail() {
 // --------------------------------------------------------------------------
 
 const CAREER_OPPORTUNITY_MODULES = [
-  { icon: Sparkles, title: "Innovative Environment", copy: "Work on healthcare challenges that matter, with the freedom to bring new ideas forward." },
-  { icon: UsersRound, title: "Collaborative Culture", copy: "Join a team that values open thinking, mutual respect, and shared ownership of outcomes." },
-  { icon: TrendingUp, title: "Career Growth", copy: "Build your career alongside a platform that is scaling across multiple healthcare platforms." },
-  { icon: Globe2, title: "Global Impact", copy: "Contribute to work that is shaping access to care for communities across India." },
+  { icon: Sparkles, title: "Innovative environment", copy: "Work on healthcare challenges that matter, with the freedom to bring new ideas forward." },
+  { icon: UsersRound, title: "Collaborative culture", copy: "Join a team that values open thinking, mutual respect, and shared ownership of outcomes." },
+  { icon: TrendingUp, title: "Career growth", copy: "Build your career alongside a platform that is scaling across multiple healthcare platforms." },
+  { icon: Globe2, title: "Global impact", copy: "Contribute to work that is shaping access to care for communities across India and beyond." },
 ];
 
 function CareersHero() {

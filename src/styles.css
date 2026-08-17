@@ -96,7 +96,8 @@ body {
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden
 }
 
 .app {
@@ -146,10 +147,15 @@ body {
     object-fit: contain
 }
 
+header .brand img {
+    height: 60px;
+    max-width: 250px
+}
+
 .navEditorial {
     min-height: 86px;
     display: grid;
-    grid-template-columns: 220px 1fr auto;
+    grid-template-columns: 280px 1fr auto;
     gap: 28px;
     align-items: center;
     padding: 0 34px
@@ -1979,27 +1985,6 @@ blockquote {
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: opacity 0.6s ease-in-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.editorialBrand .editorialAboutImg--default {
-    opacity: 1;
-    z-index: 1;
-}
-
-.editorialBrand .editorialAboutImg--hover {
-    opacity: 0;
-    z-index: 2;
-}
-
-.editorialBrand .editorialAboutVisual:hover .editorialAboutImg--hover {
-    opacity: 1;
-    transform: scale(1.03);
-}
-
-.editorialBrand .editorialAboutVisual:hover .editorialAboutImg--default {
-    opacity: 0;
-    transform: scale(1.03);
 }
 
 .editorialBrand .editorialAboutImageOverlay {
@@ -2451,6 +2436,25 @@ blockquote {
     height: 100%;
 }
 
+.presenceLogoCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    min-width: 120px;
+    background: #fff;
+    border: 1.5px solid;
+    border-radius: 8px;
+    padding: 0 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+    cursor: pointer;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--graphite);
+    text-align: center;
+    box-sizing: border-box;
+}
+
 .presenceLogoPin > img {
     display: block;
     height: 60px;
@@ -2693,8 +2697,8 @@ blockquote {
 }
 
 .editorialBrand header .brand img {
-    height: 72px;
-    max-width: 250px
+    height: 90px;
+    max-width: 312px
 }
 
 .editorialBrand .megaMenu {
@@ -4723,7 +4727,7 @@ blockquote {
 
 .editorialBrand .wwaChairmanLayout {
     display: grid;
-    grid-template-columns: 380px 1fr;
+    grid-template-columns: 480px 1fr;
     gap: 80px;
     align-items: start;
 }
@@ -4818,48 +4822,8 @@ blockquote {
 }
 
 .editorialBrand .wwaChairmanExpSubtitle {
-    margin: 0 0 20px 0;
-    font-size: 14px;
-    color: var(--muted);
-}
-
-.editorialBrand .wwaChairmanExpGrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-}
-
-.editorialBrand .wwaChairmanExpCard {
-    background: #fff;
-    padding: 18px;
-    border-radius: 16px;
-    border: 1px solid var(--line-soft);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-.editorialBrand .wwaChairmanExpCard:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(40, 40, 40, 0.05);
-    border-color: var(--evervie-orange);
-}
-
-.editorialBrand .wwaChairmanExpNumber {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--evervie-orange);
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--evervie-orange), var(--prime-pink));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.editorialBrand .wwaChairmanExpCard p {
     margin: 0;
-    font-size: 13px;
-    line-height: 1.45;
+    font-size: 14px;
     color: var(--muted);
 }
 
@@ -5435,7 +5399,7 @@ blockquote {
 
     .editorialBrand .wwaChairmanVisual {
         position: relative;
-        max-width: 380px;
+        max-width: 480px;
         margin: 0 auto;
     }
 
@@ -6128,7 +6092,7 @@ blockquote {
     height: 100%;
     z-index: 1;
     background: #ffffff;
-    overflow: visible;
+    overflow: hidden;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1), border 0.4s ease;
 }
 /* 3D Mode Tilt and Extruded Edge */
@@ -11217,6 +11181,7 @@ blockquote {
     position: absolute;
     top: 0;
     left: 0;
+    overflow: hidden;
     pointer-events: none;
     z-index: 9990;
 }
@@ -11481,3 +11446,5 @@ blockquote {
     color: var(--evervie-orange);
     margin-right: 6px;
 }
+
+
