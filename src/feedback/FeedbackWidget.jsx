@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useFeedbackSession } from "./FeedbackSessionContext.jsx";
@@ -39,6 +39,41 @@ function domPathFor(el) {
     depth += 1;
   }
   return parts.join(">");
+}
+
+const INLINE_SELECTION_TAGS = new Set([
+  "SPAN", "A", "STRONG", "EM", "B", "I", "SMALL", "CODE", "MARK", "ABBR", "TIME", "SUB", "SUP", "U", "S",
+]);
+const ATOMIC_SELECTION_TAGS = new Set(["IMG", "PICTURE", "SVG", "VIDEO", "CANVAS", "IFRAME"]);
+
+// DevTools-Inspect-Element-style target resolution: climbs from the literal
+// click/hover target up through inline-display ancestors until it reaches
+// the nearest block-level element. This makes different reviewers' clicks
+// on the same visual block (a paragraph, a card, a link inside body copy)
+// converge on the same element - and therefore the same anchorId - instead
+// of each landing on whichever inline sub-node happened to be under the
+// cursor.
+function resolveSelectableElement(target) {
+  let node = target;
+  if (!node || node === document.body) return node;
+  if (ATOMIC_SELECTION_TAGS.has(node.tagName)) return node;
+
+  let depth = 0;
+  while (node && node !== document.body && depth < 12) {
+    if (ATOMIC_SELECTION_TAGS.has(node.tagName)) return node;
+    let display = "";
+    try {
+      display = window.getComputedStyle(node).display;
+    } catch {
+      display = "";
+    }
+    if (!INLINE_SELECTION_TAGS.has(node.tagName) && display !== "inline") return node;
+    const parent = node.parentElement;
+    if (!parent || parent === document.body) return node;
+    node = parent;
+    depth += 1;
+  }
+  return node;
 }
 
 // Re-derive the anchorId hash for every live element so a stored comment can be
@@ -87,14 +122,46 @@ export default function FeedbackWidget() {
   const [pinsVisible, setPinsVisible] = useState(true);
   const [comments, setComments] = useState([]);
   const [pending, setPending] = useState(null); // { clientX, clientY, x, y, anchorId, elementLabel, textSnapshot }
-  const [viewing, setViewing] = useState(null); // { comment, clientX, clientY }
+  const [viewing, setViewing] = useState(null); // { key, clientX, clientY }
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [pinPositions, setPinPositions] = useState({});
   const [orphaned, setOrphaned] = useState(() => new Set());
+  const [hover, setHover] = useState(null); // { left, top, width, height, label }
+  const [threadNote, setThreadNote] = useState("");
+  const [threadSubmitting, setThreadSubmitting] = useState(false);
+  const [threadSubmitError, setThreadSubmitError] = useState("");
   const modeRef = useRef(mode);
   modeRef.current = mode;
+
+  const anchorGroups = useMemo(() => {
+    const map = new Map();
+    for (const c of comments) {
+      const key = c.anchorId || `doc:${c.documentId}`;
+      if (!map.has(key)) map.set(key, []);
+      map.get(key).push(c);
+    }
+    for (const group of map.values()) {
+      group.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
+    }
+    return map;
+  }, [comments]);
+  const anchorGroupsRef = useRef(anchorGroups);
+  anchorGroupsRef.current = anchorGroups;
+
+  const viewingGroup = viewing ? anchorGroups.get(viewing.key) || [] : [];
+
+  useEffect(() => {
+    if (viewing && (!anchorGroups.has(viewing.key) || anchorGroups.get(viewing.key).length === 0)) {
+      setViewing(null);
+    }
+  }, [viewing, anchorGroups]);
+
+  useEffect(() => {
+    setThreadNote("");
+    setThreadSubmitError("");
+  }, [viewing?.key]);
 
   useEffect(() => {
     if (!menuOpen) return undefined;
@@ -142,21 +209,34 @@ export default function FeedbackWidget() {
     }
 
     const anchorMap = buildAnchorMap(pagePath);
-    let textMap = null; // built lazily - most comments resolve via anchorMap
+    let textMap = null; // built lazily - most groups resolve via anchorMap
     const maxLeft = document.documentElement.scrollWidth;
     const maxTop = document.documentElement.scrollHeight;
+
+    // One pin per element, not one pin per note: group comments sharing an
+    // anchorId (the element a reviewer selected) before resolving a
+    // position, so multiple notes on the same element render as a single
+    // pin instead of one pin each.
+    const groups = new Map();
+    for (const c of comments) {
+      const key = c.anchorId || `doc:${c.documentId}`;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(c);
+    }
+
     const raw = [];
     const nextOrphaned = new Set();
-    for (const c of comments) {
-      let el = c.anchorId ? anchorMap.get(c.anchorId) : null;
-      if (!el && c.textSnapshot) {
+    for (const [key, group] of groups) {
+      const anchorId = group[0].anchorId;
+      let el = anchorId ? anchorMap.get(anchorId) : null;
+      if (!el && group[0].textSnapshot) {
         if (!textMap) textMap = buildTextMap(pagePath);
-        el = textMap.get(`${pagePath}|${c.textSnapshot}`) || null;
+        el = textMap.get(`${pagePath}|${group[0].textSnapshot}`) || null;
       }
       if (el) {
         const rect = el.getBoundingClientRect();
         raw.push({
-          documentId: c.documentId,
+          key,
           // getBoundingClientRect() follows CSS transforms (e.g. the map's
           // 3D tilt), which can place an anchor's rect far outside the
           // document - clamp so one stray pin can't blow up the page's
@@ -165,27 +245,26 @@ export default function FeedbackWidget() {
           top: Math.min(Math.max(rect.top + window.scrollY + 4, 0), maxTop),
         });
       } else {
-        // The element this note was left on couldn't be found on the page
+        // The element this thread was left on couldn't be found on the page
         // anymore (content removed/restructured) - flag it so the reviewer
         // can spot and clean it up, and fall back to the stale page-relative
         // click position as a best-effort guess at where to still show it.
-        nextOrphaned.add(c.documentId);
-        if (c.x != null && c.y != null) {
+        for (const c of group) nextOrphaned.add(c.documentId);
+        const fallback = group.find((c) => c.x != null && c.y != null);
+        if (fallback) {
           raw.push({
-            documentId: c.documentId,
-            left: Math.min(Math.max((c.x / 100) * maxLeft, 0), maxLeft),
-            top: Math.min(Math.max((c.y / 100) * maxTop, 0), maxTop),
+            key,
+            left: Math.min(Math.max((fallback.x / 100) * maxLeft, 0), maxLeft),
+            top: Math.min(Math.max((fallback.y / 100) * maxTop, 0), maxTop),
           });
         }
       }
     }
 
-    // Different reviewers rarely click the exact same DOM node for what
-    // looks like one element (one lands on a <p>, another on a <span>
-    // inside it), so grouping by anchor identity misses most real-world
-    // overlaps. Fan out by final screen position instead: any pin that
-    // would land within one pin's width/height of an already-placed pin
-    // gets nudged right until it's visibly its own target.
+    // Secondary safety net, not the primary grouping mechanism: if two
+    // genuinely different elements' pins still land within one pin's
+    // width/height of each other (e.g. a tight row of small icons), nudge
+    // one sideways so both stay clickable.
     const PIN_SPACING = 22;
     const placed = [];
     const next = {};
@@ -201,7 +280,7 @@ export default function FeedbackWidget() {
         guard += 1;
       }
       placed.push({ left, top });
-      next[p.documentId] = { left, top };
+      next[p.key] = { left, top };
     }
 
     setPinPositions(next);
@@ -246,12 +325,18 @@ export default function FeedbackWidget() {
       e.preventDefault();
       e.stopPropagation();
 
-      const target = e.target;
+      const target = resolveSelectableElement(e.target);
       const textSnapshot = (target.textContent || "").trim().slice(0, 160);
       const elementLabel = nearestHeadingText(target) || target.tagName.toLowerCase();
       const anchorId = hashString(`${pagePath}|${domPathFor(target)}|${textSnapshot.slice(0, 80)}`);
       const x = (e.pageX / document.documentElement.scrollWidth) * 100;
       const y = (e.pageY / document.documentElement.scrollHeight) * 100;
+
+      const existingGroup = anchorGroupsRef.current.get(anchorId);
+      if (existingGroup && existingGroup.length) {
+        setViewing({ key: anchorId, clientX: e.clientX, clientY: e.clientY });
+        return;
+      }
 
       setPending({
         clientX: e.clientX,
@@ -268,6 +353,55 @@ export default function FeedbackWidget() {
 
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
+  }, [isAuthed, mode, pagePath]);
+
+  useEffect(() => {
+    if (!isAuthed || !mode || pagePath === "/feedback/copy") {
+      setHover(null);
+      return undefined;
+    }
+
+    let raf = null;
+
+    function handleMove(e) {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = null;
+        if (e.target.closest("[data-feedback-ui]")) {
+          setHover(null);
+          return;
+        }
+        const el = resolveSelectableElement(e.target);
+        if (!el || el === document.body) {
+          setHover(null);
+          return;
+        }
+        const rect = el.getBoundingClientRect();
+        const textSnapshot = (el.textContent || "").trim().slice(0, 160);
+        const anchorId = hashString(`${pagePath}|${domPathFor(el)}|${textSnapshot.slice(0, 80)}`);
+        const group = anchorGroupsRef.current.get(anchorId);
+        const openCount = group ? group.filter((c) => c.status !== "resolved").length : 0;
+        setHover({
+          left: rect.left,
+          top: rect.top,
+          width: rect.width,
+          height: rect.height,
+          label: openCount > 0 ? `${openCount} note${openCount === 1 ? "" : "s"} · click to view` : "Click to comment",
+        });
+      });
+    }
+
+    function handleLeave() {
+      setHover(null);
+    }
+
+    document.addEventListener("mousemove", handleMove);
+    document.addEventListener("mouseleave", handleLeave);
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseleave", handleLeave);
+    };
   }, [isAuthed, mode, pagePath]);
 
   async function handleSubmitNote(e) {
@@ -294,6 +428,32 @@ export default function FeedbackWidget() {
       setSubmitError(err.message || "Could not save this note.");
     } finally {
       setSubmitting(false);
+    }
+  }
+
+  async function handleAddToThread(e, template) {
+    e.preventDefault();
+    if (!threadNote.trim() || !template) return;
+    setThreadSubmitting(true);
+    setThreadSubmitError("");
+    try {
+      const created = await createComment(token, {
+        pagePath,
+        pageLabel: document.title || pagePath,
+        mode: "element",
+        anchorId: template.anchorId,
+        elementLabel: template.elementLabel,
+        textSnapshot: template.textSnapshot,
+        note: threadNote.trim(),
+        x: template.x,
+        y: template.y,
+      });
+      setComments((prev) => [...prev, created]);
+      setThreadNote("");
+    } catch (err) {
+      setThreadSubmitError(err.message || "Could not save this note.");
+    } finally {
+      setThreadSubmitting(false);
     }
   }
 
@@ -467,24 +627,40 @@ export default function FeedbackWidget() {
       {pinsVisible &&
         createPortal(
           <div className="feedbackPinLayer" data-feedback-ui>
-            {comments.map((c, i) => {
-              if (c.status === "resolved") return null;
-              const pos = pinPositions[c.documentId];
+            {Array.from(anchorGroups.entries()).map(([key, group]) => {
+              const openCount = group.filter((c) => c.status !== "resolved").length;
+              if (openCount === 0) return null;
+              const pos = pinPositions[key];
               if (!pos) return null;
               return (
                 <div
-                  key={c.documentId || i}
+                  key={key}
                   className="feedbackPin"
                   style={{ left: pos.left, top: pos.top }}
                   onClick={(e) => {
                     e.stopPropagation();
-                    setViewing({ comment: c, clientX: e.clientX, clientY: e.clientY });
+                    setViewing({ key, clientX: e.clientX, clientY: e.clientY });
                   }}
                 >
-                  {i + 1}
+                  {openCount}
                 </div>
               );
             })}
+          </div>,
+          document.body
+        )}
+
+      {mode &&
+        hover &&
+        !pending &&
+        !viewing &&
+        createPortal(
+          <div
+            className="feedbackHoverHighlight"
+            data-feedback-ui
+            style={{ left: hover.left, top: hover.top, width: hover.width, height: hover.height }}
+          >
+            <span className="feedbackHoverHighlightLabel">{hover.label}</span>
           </div>,
           document.body
         )}
@@ -521,6 +697,7 @@ export default function FeedbackWidget() {
         )}
 
       {viewing &&
+        viewingGroup.length > 0 &&
         createPortal(
           <div className="feedbackPopoverBackdrop" data-feedback-ui onClick={() => setViewing(null)}>
             <div
@@ -528,17 +705,57 @@ export default function FeedbackWidget() {
               style={{ left: viewing.clientX, top: viewing.clientY }}
               onClick={(e) => e.stopPropagation()}
             >
-              <p className="feedbackPopoverLabel">{viewing.comment.elementLabel || "Selected element"}</p>
-              <p className="feedbackViewNote">{viewing.comment.note}</p>
-              <p className="feedbackViewMeta">
-                {viewing.comment.reviewerEmail}
-                {viewing.comment.createdAt ? ` · ${new Date(viewing.comment.createdAt).toLocaleDateString()}` : ""}
-              </p>
-              <div className="feedbackPopoverActions">
-                <button type="button" className="feedbackLinkButton" onClick={() => setViewing(null)}>
-                  Close
-                </button>
-              </div>
+              <p className="feedbackPopoverLabel">{viewingGroup[0].elementLabel || "Selected element"}</p>
+              <ul className="feedbackThreadList">
+                {viewingGroup.map((c) => (
+                  <li
+                    key={c.documentId}
+                    className={`feedbackNotesItem${c.status === "resolved" ? " feedbackNotesItem--done" : ""}`}
+                  >
+                    <label className="feedbackNotesCheck">
+                      <input
+                        type="checkbox"
+                        checked={c.status === "resolved"}
+                        onChange={() => handleToggleStatus(c)}
+                      />
+                    </label>
+                    <div className="feedbackNotesBody">
+                      <p className="feedbackNotesNote">{c.note}</p>
+                      <p className="feedbackViewMeta">
+                        {c.reviewerEmail}
+                        {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString()}` : ""}
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      className="feedbackNotesDelete"
+                      aria-label="Delete note"
+                      title="Delete note"
+                      onClick={() => handleDelete(c)}
+                    >
+                      &times;
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <form className="feedbackThreadAddForm" onSubmit={(e) => handleAddToThread(e, viewingGroup[0])}>
+                <textarea
+                  placeholder="Add another note on this element…"
+                  value={threadNote}
+                  onChange={(e) => setThreadNote(e.target.value)}
+                  rows={2}
+                />
+                {threadSubmitError && <p className="feedbackAuthError">{threadSubmitError}</p>}
+                <div className="feedbackPopoverActions">
+                  <button type="button" className="feedbackLinkButton" onClick={() => setViewing(null)}>
+                    Close
+                  </button>
+                  <button type="submit" className="btn" disabled={threadSubmitting || !threadNote.trim()}>
+                    {threadSubmitting ? "Saving…" : "Add note"}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>,
           document.body
