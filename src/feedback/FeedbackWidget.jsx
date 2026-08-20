@@ -145,11 +145,8 @@ export default function FeedbackWidget() {
     let textMap = null; // built lazily - most comments resolve via anchorMap
     const maxLeft = document.documentElement.scrollWidth;
     const maxTop = document.documentElement.scrollHeight;
-    const next = {};
+    const raw = [];
     const nextOrphaned = new Set();
-    // Multiple notes can resolve to the same element - stack them into a
-    // visible row instead of letting every pin land on the exact same pixel.
-    const seenAtElement = new Map();
     for (const c of comments) {
       let el = c.anchorId ? anchorMap.get(c.anchorId) : null;
       if (!el && c.textSnapshot) {
@@ -158,16 +155,15 @@ export default function FeedbackWidget() {
       }
       if (el) {
         const rect = el.getBoundingClientRect();
-        const stackIndex = seenAtElement.get(el) || 0;
-        seenAtElement.set(el, stackIndex + 1);
-        next[c.documentId] = {
+        raw.push({
+          documentId: c.documentId,
           // getBoundingClientRect() follows CSS transforms (e.g. the map's
           // 3D tilt), which can place an anchor's rect far outside the
           // document - clamp so one stray pin can't blow up the page's
           // scrollable area.
-          left: Math.min(Math.max(rect.left + window.scrollX + 4 + stackIndex * 20, 0), maxLeft),
+          left: Math.min(Math.max(rect.left + window.scrollX + 4, 0), maxLeft),
           top: Math.min(Math.max(rect.top + window.scrollY + 4, 0), maxTop),
-        };
+        });
       } else {
         // The element this note was left on couldn't be found on the page
         // anymore (content removed/restructured) - flag it so the reviewer
@@ -175,13 +171,39 @@ export default function FeedbackWidget() {
         // click position as a best-effort guess at where to still show it.
         nextOrphaned.add(c.documentId);
         if (c.x != null && c.y != null) {
-          next[c.documentId] = {
+          raw.push({
+            documentId: c.documentId,
             left: Math.min(Math.max((c.x / 100) * maxLeft, 0), maxLeft),
             top: Math.min(Math.max((c.y / 100) * maxTop, 0), maxTop),
-          };
+          });
         }
       }
     }
+
+    // Different reviewers rarely click the exact same DOM node for what
+    // looks like one element (one lands on a <p>, another on a <span>
+    // inside it), so grouping by anchor identity misses most real-world
+    // overlaps. Fan out by final screen position instead: any pin that
+    // would land within one pin's width/height of an already-placed pin
+    // gets nudged right until it's visibly its own target.
+    const PIN_SPACING = 22;
+    const placed = [];
+    const next = {};
+    for (const p of raw) {
+      let left = p.left;
+      const top = p.top;
+      let guard = 0;
+      while (
+        placed.some((q) => Math.abs(q.left - left) < PIN_SPACING && Math.abs(q.top - top) < PIN_SPACING) &&
+        guard < 60
+      ) {
+        left = Math.min(left + PIN_SPACING, maxLeft);
+        guard += 1;
+      }
+      placed.push({ left, top });
+      next[p.documentId] = { left, top };
+    }
+
     setPinPositions(next);
     setOrphaned(nextOrphaned);
   }, [comments, pagePath]);
