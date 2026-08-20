@@ -37,3 +37,4 @@ jobs:
 
       - name: Restart app
         run: ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} /var/www/evervie/deploy/ci-deploy.sh
+# Deploys to production automatically on push to main via GitHub Actions (.github/workflows/deploy.yml).
