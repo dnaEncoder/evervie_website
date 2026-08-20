@@ -11181,7 +11181,9 @@ blockquote {
     position: absolute;
     top: 0;
     left: 0;
-    overflow: hidden;
+    width: 0;
+    height: 0;
+    overflow: visible;
     pointer-events: none;
     z-index: 9990;
 }
@@ -11275,6 +11277,21 @@ blockquote {
     margin: 0;
 }
 
+.feedbackNotesCleanup {
+    display: block;
+    width: 100%;
+    margin: 0 0 10px;
+    padding: 8px 10px;
+    border: 1px solid var(--evervie-orange);
+    background: transparent;
+    color: var(--evervie-orange);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+}
+
 .feedbackNotesList {
     list-style: none;
     margin: 0;
@@ -11320,11 +11337,24 @@ blockquote {
 }
 
 .feedbackNotesElement {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     font-size: 11px;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--muted);
     margin: 0 0 4px;
+}
+
+.feedbackNotesOrphanBadge {
+    padding: 1px 6px;
+    border: 1px solid var(--evervie-orange);
+    color: var(--evervie-orange);
+    font-size: 10px;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    white-space: nowrap;
 }
 
 .feedbackNotesNote {
@@ -11336,6 +11366,25 @@ blockquote {
 
 .feedbackNotesItem--done .feedbackNotesNote {
     text-decoration: line-through;
+}
+
+.feedbackNotesDelete {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+}
+
+.feedbackNotesDelete:hover {
+    border-color: var(--ink);
+    color: var(--ink);
 }
 
 .feedbackTrackerAccordion {

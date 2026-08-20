@@ -60,3 +60,11 @@ export async function updateCommentStatus(sessionToken, id, status) {
   });
   return json.comment;
 }
+
+export async function deleteComment(sessionToken, id) {
+  await feedbackFetch("/api/feedback/comments", {
+    method: "DELETE",
+    token: sessionToken,
+    body: { id },
+  });
+}

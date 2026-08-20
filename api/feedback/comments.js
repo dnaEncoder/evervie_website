@@ -22,7 +22,7 @@ function mapComment(row) {
 }
 
 export default async function handler(req, res) {
-  if (!methodGuard(req, res, ["GET", "POST", "PATCH"])) return;
+  if (!methodGuard(req, res, ["GET", "POST", "PATCH", "DELETE"])) return;
   await ensureSchema();
 
   const reviewer = await requireReviewer(req, res);
@@ -55,6 +55,24 @@ export default async function handler(req, res) {
       return;
     }
     sendJson(res, 200, { comment: mapComment(rows[0]) });
+    return;
+  }
+
+  if (req.method === "DELETE") {
+    const body = getBody(req);
+    const id = typeof body.id === "string" || typeof body.id === "number" ? String(body.id) : "";
+
+    if (!id) {
+      sendJson(res, 400, { error: { message: "id is required." } });
+      return;
+    }
+
+    const rows = await sql`DELETE FROM feedback_comments WHERE id = ${id} RETURNING id`;
+    if (!rows[0]) {
+      sendJson(res, 404, { error: { message: "Comment not found." } });
+      return;
+    }
+    sendJson(res, 200, { deleted: id });
     return;
   }
 

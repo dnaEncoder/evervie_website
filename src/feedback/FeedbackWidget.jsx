@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { useFeedbackSession } from "./FeedbackSessionContext.jsx";
-import { createComment, listPageComments, updateCommentStatus } from "../lib/feedbackApi.js";
+import { createComment, deleteComment, listPageComments, updateCommentStatus } from "../lib/feedbackApi.js";
 
 function hashString(input) {
   let hash = 0x811c9dc5;
@@ -91,8 +91,8 @@ export default function FeedbackWidget() {
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [overlaySize, setOverlaySize] = useState({ width: 0, height: 0 });
   const [pinPositions, setPinPositions] = useState({});
+  const [orphaned, setOrphaned] = useState(() => new Set());
   const modeRef = useRef(mode);
   modeRef.current = mode;
 
@@ -135,13 +135,9 @@ export default function FeedbackWidget() {
   }, [isAuthed, token, pagePath]);
 
   const recomputeOverlay = useCallback(() => {
-    setOverlaySize({
-      width: document.documentElement.scrollWidth,
-      height: document.documentElement.scrollHeight,
-    });
-
     if (!comments.length) {
       setPinPositions({});
+      setOrphaned(new Set());
       return;
     }
 
@@ -150,6 +146,10 @@ export default function FeedbackWidget() {
     const maxLeft = document.documentElement.scrollWidth;
     const maxTop = document.documentElement.scrollHeight;
     const next = {};
+    const nextOrphaned = new Set();
+    // Multiple notes can resolve to the same element - stack them into a
+    // visible row instead of letting every pin land on the exact same pixel.
+    const seenAtElement = new Map();
     for (const c of comments) {
       let el = c.anchorId ? anchorMap.get(c.anchorId) : null;
       if (!el && c.textSnapshot) {
@@ -158,26 +158,32 @@ export default function FeedbackWidget() {
       }
       if (el) {
         const rect = el.getBoundingClientRect();
+        const stackIndex = seenAtElement.get(el) || 0;
+        seenAtElement.set(el, stackIndex + 1);
         next[c.documentId] = {
           // getBoundingClientRect() follows CSS transforms (e.g. the map's
           // 3D tilt), which can place an anchor's rect far outside the
           // document - clamp so one stray pin can't blow up the page's
           // scrollable area.
-          left: Math.min(Math.max(rect.left + window.scrollX + 4, 0), maxLeft),
+          left: Math.min(Math.max(rect.left + window.scrollX + 4 + stackIndex * 20, 0), maxLeft),
           top: Math.min(Math.max(rect.top + window.scrollY + 4, 0), maxTop),
         };
-      } else if (c.x != null && c.y != null) {
-        // Last resort: the stored page-relative click position. Only
-        // accurate if the page's overall height hasn't shifted since the
-        // note was left (e.g. an unrelated section elsewhere was removed),
-        // so anything that reaches this branch is a best-effort guess.
-        next[c.documentId] = {
-          left: Math.min(Math.max((c.x / 100) * maxLeft, 0), maxLeft),
-          top: Math.min(Math.max((c.y / 100) * maxTop, 0), maxTop),
-        };
+      } else {
+        // The element this note was left on couldn't be found on the page
+        // anymore (content removed/restructured) - flag it so the reviewer
+        // can spot and clean it up, and fall back to the stale page-relative
+        // click position as a best-effort guess at where to still show it.
+        nextOrphaned.add(c.documentId);
+        if (c.x != null && c.y != null) {
+          next[c.documentId] = {
+            left: Math.min(Math.max((c.x / 100) * maxLeft, 0), maxLeft),
+            top: Math.min(Math.max((c.y / 100) * maxTop, 0), maxTop),
+          };
+        }
       }
     }
     setPinPositions(next);
+    setOrphaned(nextOrphaned);
   }, [comments, pagePath]);
 
   useEffect(() => {
@@ -279,6 +285,27 @@ export default function FeedbackWidget() {
     }
   }
 
+  async function handleDelete(comment) {
+    try {
+      await deleteComment(token, comment.documentId);
+      setComments((prev) => prev.filter((c) => c.documentId !== comment.documentId));
+    } catch {
+      // Leave the checklist as-is; the reviewer can retry the click.
+    }
+  }
+
+  async function handleCleanupOrphaned() {
+    const targets = comments.filter((c) => orphaned.has(c.documentId));
+    if (!targets.length) return;
+    const ok = window.confirm(
+      `Delete ${targets.length} note${targets.length === 1 ? "" : "s"} whose element could not be found on this page?`
+    );
+    if (!ok) return;
+    const ids = new Set(targets.map((c) => c.documentId));
+    await Promise.allSettled(targets.map((c) => deleteComment(token, c.documentId)));
+    setComments((prev) => prev.filter((c) => !ids.has(c.documentId)));
+  }
+
   const onCopyTracker = pagePath === "/feedback/copy";
   if (!isAuthed || pagePath === "/feedback" || pagePath === "/feedback/verify") return null;
 
@@ -338,6 +365,11 @@ export default function FeedbackWidget() {
 
           {notesOpen && (
             <div className="feedbackMenuNotes">
+              {orphaned.size > 0 && (
+                <button type="button" className="feedbackNotesCleanup" onClick={handleCleanupOrphaned}>
+                  Clean up {orphaned.size} orphaned
+                </button>
+              )}
               {comments.length === 0 ? (
                 <p className="feedbackNotesEmpty">No notes on this page yet.</p>
               ) : (
@@ -356,13 +388,27 @@ export default function FeedbackWidget() {
                         <span className="feedbackNotesNumber">{i + 1}</span>
                       </label>
                       <div className="feedbackNotesBody">
-                        <p className="feedbackNotesElement">{c.elementLabel || "Selected element"}</p>
+                        <p className="feedbackNotesElement">
+                          {c.elementLabel || "Selected element"}
+                          {orphaned.has(c.documentId) && (
+                            <span className="feedbackNotesOrphanBadge">Not found on page</span>
+                          )}
+                        </p>
                         <p className="feedbackNotesNote">{c.note}</p>
                         <p className="feedbackViewMeta">
                           {c.reviewerEmail}
                           {c.createdAt ? ` · ${new Date(c.createdAt).toLocaleDateString()}` : ""}
                         </p>
                       </div>
+                      <button
+                        type="button"
+                        className="feedbackNotesDelete"
+                        aria-label="Delete note"
+                        title="Delete note"
+                        onClick={() => handleDelete(c)}
+                      >
+                        &times;
+                      </button>
                     </li>
                   ))}
                 </ul>
@@ -398,11 +444,7 @@ export default function FeedbackWidget() {
 
       {pinsVisible &&
         createPortal(
-          <div
-            className="feedbackPinLayer"
-            data-feedback-ui
-            style={{ width: overlaySize.width, height: overlaySize.height }}
-          >
+          <div className="feedbackPinLayer" data-feedback-ui>
             {comments.map((c, i) => {
               if (c.status === "resolved") return null;
               const pos = pinPositions[c.documentId];

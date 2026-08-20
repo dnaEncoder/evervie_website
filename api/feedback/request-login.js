@@ -3,7 +3,7 @@ import { generateOpaqueToken } from "../_lib/session.js";
 import { sendMagicLinkEmail } from "../_lib/email.js";
 import { sendJson, methodGuard, getBody, getFrontendUrl } from "../_lib/http.js";
 
-const LOGIN_TOKEN_TTL_MS = 15 * 60 * 1000;
+const LOGIN_TOKEN_TTL_MS = 24 * 60 * 60 * 1000;
 const REQUEST_RATE_LIMIT_MS = 60 * 1000;
 const isValidEmail = (email) => typeof email === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
