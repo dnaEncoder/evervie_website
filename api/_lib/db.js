@@ -64,5 +64,18 @@ export async function ensureSchema() {
   `;
   await sql`CREATE INDEX IF NOT EXISTS feedback_comments_page_path_idx ON feedback_comments (page_path)`;
 
+  await sql`
+    CREATE TABLE IF NOT EXISTS download_leads (
+      id SERIAL PRIMARY KEY,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      company TEXT,
+      document_slug TEXT NOT NULL,
+      document_title TEXT NOT NULL,
+      document_category TEXT NOT NULL,
+      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+    )
+  `;
+
   schemaReady = true;
 }

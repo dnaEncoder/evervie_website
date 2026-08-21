@@ -7,6 +7,7 @@ import comments from "./api/feedback/comments.js";
 import me from "./api/feedback/me.js";
 import requestLogin from "./api/feedback/request-login.js";
 import verifyLogin from "./api/feedback/verify-login.js";
+import captureLead from "./api/leads/capture.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const distDir = path.join(__dirname, "dist");
@@ -18,6 +19,7 @@ app.all("/api/feedback/comments", comments);
 app.all("/api/feedback/me", me);
 app.all("/api/feedback/request-login", requestLogin);
 app.all("/api/feedback/verify-login", verifyLogin);
+app.all("/api/leads/capture", captureLead);
 
 app.use(express.static(distDir));
 app.use((req, res) => {

@@ -65,3 +65,26 @@ export async function sendNewCommentNotification({ comment, frontendUrl }) {
     console.error("feedback: failed to send comment notification email (check SMTP config)", err);
   }
 }
+
+export async function sendNewLeadNotification({ lead }) {
+  const notifyEmail = process.env.LEADS_NOTIFY_EMAIL || process.env.FEEDBACK_NOTIFY_EMAIL || "m.suhas@novastudioshq.com";
+
+  const contextLines = [
+    `Name: ${lead.name}`,
+    `Email: ${lead.email}`,
+    lead.company ? `Organization: ${lead.company}` : null,
+    `Document: ${lead.documentTitle} (${lead.documentCategory})`,
+  ].filter(Boolean);
+
+  try {
+    await getTransporter().sendMail({
+      from: fromAddress(),
+      to: notifyEmail,
+      subject: `New investor download lead: ${lead.documentTitle}`,
+      text: contextLines.join("\n"),
+      html: `<p>${contextLines.join("<br/>")}</p>`,
+    });
+  } catch (err) {
+    console.error("leads: failed to send new lead notification email (check SMTP config)", err);
+  }
+}

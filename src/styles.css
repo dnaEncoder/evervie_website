@@ -5317,6 +5317,83 @@ blockquote {
     transform: rotate(90deg);
 }
 
+.editorialBrand .wwaModal.leadGateModal {
+    width: min(480px, 100%);
+}
+
+.editorialBrand .leadGateContent {
+    padding: 48px 40px 40px;
+}
+
+.editorialBrand .leadGateContent h2 {
+    font-size: 22px;
+    margin: 0 0 8px;
+    padding-right: 32px;
+}
+
+.editorialBrand .leadGateContent > p {
+    margin: 0 0 28px;
+    color: #666;
+    font-size: 14.5px;
+}
+
+.editorialBrand .leadGateForm {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.editorialBrand .leadGateField {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.editorialBrand .leadGateField span {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .leadGateField input {
+    border: 1px solid #e4e2e0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    color: var(--graphite);
+}
+
+.editorialBrand .leadGateField input::placeholder {
+    color: #a3a09c;
+}
+
+.editorialBrand .leadGateField input:focus {
+    outline: none;
+    border-color: var(--evervie-orange);
+}
+
+.editorialBrand .leadGateActions {
+    margin-top: 4px;
+}
+
+.editorialBrand .leadGateActions button {
+    width: 100%;
+    justify-content: center;
+}
+
+.editorialBrand .leadGateActions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.editorialBrand .leadGateError {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--evervie-orange);
+}
+
 .editorialBrand .wwaModalLayout {
     display: grid;
     grid-template-columns: 280px 1fr;
@@ -9287,6 +9364,64 @@ blockquote {
 
 .editorialBrand .finCompactDownload:hover {
     color: var(--evervie-orange);
+}
+
+.editorialBrand button.reportCardDownload,
+.editorialBrand button.finRowAction,
+.editorialBrand button.finCompactDownload {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+.editorialBrand button.reportCardDownload:disabled,
+.editorialBrand button.finRowAction:disabled,
+.editorialBrand button.finCompactDownload:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.editorialBrand button.reportCardDownload:disabled:hover,
+.editorialBrand button.finRowAction:disabled:hover,
+.editorialBrand button.finCompactDownload:disabled:hover {
+    color: var(--ink);
+    background: transparent;
+}
+
+.editorialBrand .finYearPills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.editorialBrand .finYearPill {
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    background: #fff;
+    border: 1px solid #e4e2e0;
+    border-radius: 999px;
+    padding: 9px 18px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.editorialBrand .finYearPill:hover {
+    color: var(--graphite);
+    border-color: #d8d5d1;
+}
+
+.editorialBrand .finYearPill.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
 }
 
 .editorialBrand .finLoadMore {

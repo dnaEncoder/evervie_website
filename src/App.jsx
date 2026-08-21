@@ -8,6 +8,7 @@ import "leaflet/dist/leaflet.css";
 import { getInvestorCentrePage, getFinancialDocuments, getLatestInvestorNews, getUpcomingInvestorEvents, getFeaturedNews, getFeaturedPastEvents, getPastInvestorEvents } from "./lib/investorApi.js";
 import { getHeroArticle, getFeaturedInsights, getBlogPosts, getBlogPostBySlug, getRelatedArticles, getBlogFacets } from "./lib/newsApi.js";
 import { getCareerOpenings, getCareerOpeningBySlug, getRelatedOpenings, getCareerFacets } from "./lib/careersApi.js";
+import { submitDownloadLead } from "./lib/leadsApi.js";
 import FeedbackLoginPage from "./feedback/FeedbackLoginPage.jsx";
 import FeedbackVerifyPage from "./feedback/FeedbackVerifyPage.jsx";
 import FeedbackWidget from "./feedback/FeedbackWidget.jsx";
@@ -3871,7 +3872,7 @@ function InvestorMetricCarousel() {
 
 const REPORT_CATEGORIES = [
   { key: "annual-report", label: "Annual Reports", archiveField: "annualReportsArchiveUrl", archiveLabel: "View all annual reports" },
-  { key: "quarterly-result", label: "Quarterly Results", archiveField: "quarterlyResultsArchiveUrl", archiveLabel: "View all quarterly results" },
+  { key: "quarterly-result", label: "Quarterly Reports", archiveField: "quarterlyResultsArchiveUrl", archiveLabel: "View all quarterly reports" },
   { key: "company-presentation", label: "Company Presentations", archiveField: "presentationsArchiveUrl", archiveLabel: "View all company presentations" }
 ];
 
@@ -3886,7 +3887,7 @@ const FINANCIAL_INFO_CATEGORIES = [
   },
   {
     key: "quarterly-result",
-    label: "Financial Results",
+    label: "Quarterly Reports",
     description: "Access quarterly and annual financial results, review reports, and board meeting outcomes.",
     icon: BarChart3,
     filters: ["search", "financialYear", "reportingPeriod", "sort"],
@@ -4075,7 +4076,112 @@ function attendanceLabel(event) {
   return event.venue || "In person";
 }
 
-function FinancialReportsSection({ page }) {
+const LEAD_STORAGE_KEY = "evervie_lead_captured";
+
+// Gates annual-report downloads behind a short lead-capture form. Returns
+// `requestDownload(doc)` to call from a download control, and `modal` JSX
+// to render once per page.
+function useDownloadGate() {
+  const [pendingDoc, setPendingDoc] = useState(null);
+  const [form, setForm] = useState({ name: "", email: "", company: "" });
+  const [state, setState] = useState("idle"); // idle | sending | error
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!pendingDoc) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") closeModal();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingDoc]);
+
+  const closeModal = () => {
+    setPendingDoc(null);
+    setState("idle");
+    setError("");
+  };
+
+  const triggerDownload = (doc) => {
+    const url = doc.documentUrl || doc.externalUrl;
+    if (url) window.open(url, "_blank");
+  };
+
+  const requestDownload = (doc) => {
+    const url = doc.documentUrl || doc.externalUrl;
+    if (!url) return;
+    if (window.localStorage.getItem(LEAD_STORAGE_KEY)) {
+      triggerDownload(doc);
+      return;
+    }
+    setForm({ name: "", email: "", company: "" });
+    setState("idle");
+    setError("");
+    setPendingDoc(doc);
+  };
+
+  const updateField = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.email.trim() || state === "sending") return;
+    setState("sending");
+    setError("");
+    try {
+      await submitDownloadLead({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        company: form.company.trim() || null,
+        documentSlug: pendingDoc.id,
+        documentTitle: pendingDoc.title,
+        documentCategory: pendingDoc.category,
+      });
+      window.localStorage.setItem(LEAD_STORAGE_KEY, "1");
+      triggerDownload(pendingDoc);
+      closeModal();
+    } catch (err) {
+      setError(err.message || "Something went wrong. Please try again.");
+      setState("error");
+    }
+  };
+
+  const modal = pendingDoc && (
+    <div className="wwaModalOverlay leadGateOverlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="lead-gate-title">
+      <div className="wwaModal leadGateModal" onClick={(e) => e.stopPropagation()}>
+        <button className="wwaModalCloseBtn" onClick={closeModal} aria-label="Close">×</button>
+        <div className="leadGateContent">
+          <h2 id="lead-gate-title">Download {pendingDoc.title}</h2>
+          <p>Share a few details and we&rsquo;ll take you straight to the download.</p>
+          <form className="leadGateForm" onSubmit={handleSubmit}>
+            <label className="leadGateField">
+              <span>Full name</span>
+              <input type="text" required value={form.name} onChange={updateField("name")} placeholder="Your name" />
+            </label>
+            <label className="leadGateField">
+              <span>Work email</span>
+              <input type="email" required value={form.email} onChange={updateField("email")} placeholder="you@company.com" />
+            </label>
+            <label className="leadGateField">
+              <span>Organization (optional)</span>
+              <input type="text" value={form.company} onChange={updateField("company")} placeholder="Company or fund" />
+            </label>
+            <div className="leadGateActions">
+              <button type="submit" className="btn" disabled={state === "sending"}>
+                {state === "sending" ? "Submitting…" : "Continue to download"}
+              </button>
+            </div>
+            {state === "error" && <p className="leadGateError">{error}</p>}
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+
+  return { requestDownload, modal };
+}
+
+function FinancialReportsSection({ page, onRequestDownload }) {
   const defaultCategory = page?.reportsDefaultCategory || "annual-report";
   const [activeCategory, setActiveCategory] = useState(defaultCategory);
   const [cache, setCache] = useState({});
@@ -4213,15 +4319,28 @@ function FinancialReportsSection({ page }) {
                         {report.fileType ? ` · ${report.fileType}` : ""}
                       </div>
                     </div>
-                    <a
-                      href={report.documentUrl || report.externalUrl || "#"}
-                      className="reportCardDownload"
-                      download
-                      aria-label={`Download ${report.title}${report.fileType ? `, ${report.fileType}` : ""}`}
-                    >
-                      <Download size={16} />
-                      <span>{report.fileSizeLabel ? `Download · ${report.fileSizeLabel}` : "Download"}</span>
-                    </a>
+                    {report.category === "annual-report" ? (
+                      <button
+                        type="button"
+                        className="reportCardDownload"
+                        onClick={() => onRequestDownload(report)}
+                        disabled={!report.documentUrl && !report.externalUrl}
+                        aria-label={`Download ${report.title}${report.fileType ? `, ${report.fileType}` : ""}`}
+                      >
+                        <Download size={16} />
+                        <span>{report.fileSizeLabel ? `Download · ${report.fileSizeLabel}` : "Download"}</span>
+                      </button>
+                    ) : (
+                      <a
+                        href={report.documentUrl || report.externalUrl || "#"}
+                        className="reportCardDownload"
+                        download
+                        aria-label={`Download ${report.title}${report.fileType ? `, ${report.fileType}` : ""}`}
+                      >
+                        <Download size={16} />
+                        <span>{report.fileSizeLabel ? `Download · ${report.fileSizeLabel}` : "Download"}</span>
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>
@@ -4474,6 +4593,7 @@ function InvestorRelationsNavSection({ showBorder = true }) {
 
 function InvestorCentre() {
   const [investorPage, setInvestorPage] = useState(null);
+  const { requestDownload, modal: downloadGateModal } = useDownloadGate();
 
   useEffect(() => {
     getInvestorCentrePage()
@@ -4584,7 +4704,7 @@ function InvestorCentre() {
 
 
         {/* Section 5: Financial Reports */}
-        <FinancialReportsSection page={investorPage} />
+        <FinancialReportsSection page={investorPage} onRequestDownload={requestDownload} />
 
         {/* Section 6: News and Events */}
         <NewsAndEventsSection page={investorPage} />
@@ -4605,6 +4725,7 @@ function InvestorCentre() {
           </div>
         </section>
       </main>
+      {downloadGateModal}
     </Frame>
   );
 }
@@ -4706,7 +4827,7 @@ function FinCategoryNav({ categories, activeKey, onSelect }) {
   );
 }
 
-function FinExpandedRow({ doc }) {
+function FinExpandedRow({ doc, onRequestDownload }) {
   return (
     <article className="finExpandedRow">
       <div className="finRowCover">
@@ -4728,15 +4849,28 @@ function FinExpandedRow({ doc }) {
           {doc.fileSizeLabel && <span>{doc.fileSizeLabel}</span>}
         </div>
       </div>
-      <a
-        href={doc.documentUrl || doc.externalUrl || "#"}
-        className="finRowAction"
-        download
-        aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
-      >
-        <Download size={16} />
-        <span>{doc.fileSizeLabel ? `Download · ${doc.fileSizeLabel}` : "Download"}</span>
-      </a>
+      {doc.category === "annual-report" ? (
+        <button
+          type="button"
+          className="finRowAction"
+          onClick={() => onRequestDownload(doc)}
+          disabled={!doc.documentUrl && !doc.externalUrl}
+          aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
+        >
+          <Download size={16} />
+          <span>{doc.fileSizeLabel ? `Download · ${doc.fileSizeLabel}` : "Download"}</span>
+        </button>
+      ) : (
+        <a
+          href={doc.documentUrl || doc.externalUrl || "#"}
+          className="finRowAction"
+          download
+          aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
+        >
+          <Download size={16} />
+          <span>{doc.fileSizeLabel ? `Download · ${doc.fileSizeLabel}` : "Download"}</span>
+        </a>
+      )}
     </article>
   );
 }
@@ -4773,27 +4907,40 @@ function groupDocsByYear(docs, groupByQuarter) {
   });
 }
 
-function FinCompactRow({ doc }) {
+function FinCompactRow({ doc, onRequestDownload }) {
   return (
     <div className="finCompactRow">
       <span className="finCompactTitle">{doc.title}</span>
       <span className="finCompactMeta">{doc.reportingPeriod || ""}</span>
       <span className="finCompactMeta">{doc.fileType || ""}</span>
       <span className="finCompactMeta">{doc.fileSizeLabel || ""}</span>
-      <a
-        href={doc.documentUrl || doc.externalUrl || "#"}
-        className="finCompactDownload"
-        download
-        aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
-      >
-        <Download size={14} />
-        <span>Download</span>
-      </a>
+      {doc.category === "annual-report" ? (
+        <button
+          type="button"
+          className="finCompactDownload"
+          onClick={() => onRequestDownload(doc)}
+          disabled={!doc.documentUrl && !doc.externalUrl}
+          aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
+        >
+          <Download size={14} />
+          <span>Download</span>
+        </button>
+      ) : (
+        <a
+          href={doc.documentUrl || doc.externalUrl || "#"}
+          className="finCompactDownload"
+          download
+          aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
+        >
+          <Download size={14} />
+          <span>Download</span>
+        </a>
+      )}
     </div>
   );
 }
 
-function FinDocumentArchive({ category }) {
+function FinDocumentArchive({ category, onRequestDownload }) {
   const [status, setStatus] = useState("loading");
   const [documents, setDocuments] = useState([]);
   const [search, setSearch] = useState("");
@@ -4801,6 +4948,8 @@ function FinDocumentArchive({ category }) {
   const [reportingPeriod, setReportingPeriod] = useState("all");
   const [sortOrder, setSortOrder] = useState("newest");
   const [visibleCount, setVisibleCount] = useState(8);
+  const autoYearAppliedRef = useRef(false);
+  const isYearBrowsable = category.key === "quarterly-result";
 
   const load = () => {
     setStatus("loading");
@@ -4815,11 +4964,23 @@ function FinDocumentArchive({ category }) {
     setReportingPeriod("all");
     setSortOrder("newest");
     setVisibleCount(8);
+    autoYearAppliedRef.current = false;
     load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category.key]);
 
   const financialYears = Array.from(new Set(documents.map((d) => d.financialYear).filter(Boolean))).sort().reverse();
+
+  // Default the quarterly-reports archive to the most recent year on first
+  // load, so the reader sees one year's quarters instead of everything at
+  // once. Runs once per category load; a later manual switch back to "All
+  // years" is left alone.
+  useEffect(() => {
+    if (!isYearBrowsable || autoYearAppliedRef.current || financialYears.length === 0) return;
+    autoYearAppliedRef.current = true;
+    setFinancialYear(financialYears[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isYearBrowsable, financialYears.join(",")]);
   const reportingPeriods = Array.from(new Set(documents.map((d) => d.reportingPeriod).filter(Boolean))).sort();
 
   const filtered = documents
@@ -4872,13 +5033,35 @@ function FinDocumentArchive({ category }) {
             </div>
           )}
           {category.filters.includes("financialYear") && financialYears.length > 1 && (
-            <div className="finFilterField">
-              <select value={financialYear} onChange={(e) => setFinancialYear(e.target.value)} aria-label="Filter by financial year">
-                <option value="all">All financial years</option>
-                {financialYears.map((y) => <option key={y} value={y}>FY {y}</option>)}
-              </select>
-              <ChevronDown size={14} aria-hidden="true" />
-            </div>
+            isYearBrowsable ? (
+              <div className="finYearPills" role="group" aria-label="Filter by financial year">
+                <button
+                  type="button"
+                  className={`finYearPill ${financialYear === "all" ? "active" : ""}`}
+                  onClick={() => setFinancialYear("all")}
+                >
+                  All years
+                </button>
+                {financialYears.map((y) => (
+                  <button
+                    key={y}
+                    type="button"
+                    className={`finYearPill ${financialYear === y ? "active" : ""}`}
+                    onClick={() => setFinancialYear(y)}
+                  >
+                    FY {y}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="finFilterField">
+                <select value={financialYear} onChange={(e) => setFinancialYear(e.target.value)} aria-label="Filter by financial year">
+                  <option value="all">All financial years</option>
+                  {financialYears.map((y) => <option key={y} value={y}>FY {y}</option>)}
+                </select>
+                <ChevronDown size={14} aria-hidden="true" />
+              </div>
+            )
           )}
           {category.filters.includes("reportingPeriod") && reportingPeriods.length > 1 && (
             <div className="finFilterField">
@@ -4933,7 +5116,7 @@ function FinDocumentArchive({ category }) {
       {status === "loaded" && filtered.length > 0 && (
         <>
           <div className="finExpandedRows">
-            {expandedItems.map((doc) => <FinExpandedRow key={doc.id} doc={doc} />)}
+            {expandedItems.map((doc) => <FinExpandedRow key={doc.id} doc={doc} onRequestDownload={onRequestDownload} />)}
           </div>
           {compactGroups.map((group, groupIndex) => (
             <div className="finYearGroup" key={group.year || `no-year-${groupIndex}`}>
@@ -4943,13 +5126,13 @@ function FinDocumentArchive({ category }) {
                   <div className="finQuarterGroup" key={quarter.period || `no-quarter-${quarterIndex}`}>
                     {quarter.period && <h4 className="finQuarterHeading">{quarter.period}</h4>}
                     <div className="finCompactRows">
-                      {quarter.docs.map((doc) => <FinCompactRow key={doc.id} doc={doc} />)}
+                      {quarter.docs.map((doc) => <FinCompactRow key={doc.id} doc={doc} onRequestDownload={onRequestDownload} />)}
                     </div>
                   </div>
                 ))
               ) : (
                 <div className="finCompactRows">
-                  {group.docs.map((doc) => <FinCompactRow key={doc.id} doc={doc} />)}
+                  {group.docs.map((doc) => <FinCompactRow key={doc.id} doc={doc} onRequestDownload={onRequestDownload} />)}
                 </div>
               )}
             </div>
@@ -4969,6 +5152,7 @@ function FinancialInformation() {
   const [searchParams, setSearchParams] = useSearchParams();
   const requestedKey = searchParams.get("category");
   const activeCategory = FINANCIAL_INFO_CATEGORIES.find((c) => c.key === requestedKey) || FINANCIAL_INFO_CATEGORIES[0];
+  const { requestDownload, modal: downloadGateModal } = useDownloadGate();
 
   const selectCategory = (key) => {
     setSearchParams(key === FINANCIAL_INFO_CATEGORIES[0].key ? {} : { category: key });
@@ -4997,11 +5181,12 @@ function FinancialInformation() {
         <section className="innerBody finInfoSection">
           <div className="finInfoLayout">
             <FinCategoryNav categories={FINANCIAL_INFO_CATEGORIES} activeKey={activeCategory.key} onSelect={selectCategory} />
-            <FinDocumentArchive key={activeCategory.key} category={activeCategory} />
+            <FinDocumentArchive key={activeCategory.key} category={activeCategory} onRequestDownload={requestDownload} />
           </div>
         </section>
         <InvestorRelationsNavSection />
       </main>
+      {downloadGateModal}
     </Frame>
   );
 }
