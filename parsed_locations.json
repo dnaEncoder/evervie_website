@@ -1,0 +1,737 @@
+{
+  "7Med India": [
+    {
+      "name": "JJIMS",
+      "city": "Bahadurgarh",
+      "state": "Haryana",
+      "coordinates": [
+        28.689252,
+        76.947634
+      ]
+    },
+    {
+      "name": "Krishna Hospital",
+      "city": "Kashipur",
+      "state": "Uttarakhand",
+      "coordinates": [
+        29.222413,
+        78.970881
+      ]
+    },
+    {
+      "name": "AIIMS",
+      "city": "Rishikesh",
+      "state": "Uttarakhand",
+      "coordinates": [
+        30.078879,
+        78.286009
+      ]
+    },
+    {
+      "name": "Amrit Hospital",
+      "city": "Rudrapur",
+      "state": "Uttarakhand",
+      "coordinates": [
+        28.971822,
+        79.394465
+      ]
+    },
+    {
+      "name": "Apex Hospital",
+      "city": "Bikaner",
+      "state": "Rajasthan",
+      "coordinates": [
+        28.009523,
+        73.318896
+      ]
+    },
+    {
+      "name": "Apex Hospital",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "coordinates": [
+        26.854769,
+        75.825263
+      ]
+    },
+    {
+      "name": "Suraj Prakash Arogya Kendra",
+      "city": "Faridabad",
+      "state": "Haryana",
+      "coordinates": [
+        28.368274,
+        77.335404
+      ]
+    },
+    {
+      "name": "CKS Hospital",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "coordinates": [
+        26.981923,
+        75.774849
+      ]
+    },
+    {
+      "name": "7MED Hospital",
+      "city": "Moradabad",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        28.880642,
+        78.744292
+      ]
+    },
+    {
+      "name": "7MED Hospital",
+      "city": "Mau",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        25.932517,
+        83.572181
+      ]
+    },
+    {
+      "name": "7MED Hospital",
+      "city": "Varanasi",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        25.320984,
+        82.992272
+      ]
+    },
+    {
+      "name": "Deepsiya Hospital",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "coordinates": [
+        26.88943,
+        75.884753
+      ]
+    },
+    {
+      "name": "Mercy Hospital",
+      "city": "Jamshedpur",
+      "state": "Jharkhand",
+      "coordinates": [
+        22.799413,
+        86.247984
+      ]
+    },
+    {
+      "name": "Katyal Hospital",
+      "city": "Rewari",
+      "state": "Haryana",
+      "coordinates": [
+        28.190298,
+        76.617898
+      ]
+    },
+    {
+      "name": "Keshlata Hospital",
+      "city": "Bareilly",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        28.385459,
+        79.4361
+      ]
+    },
+    {
+      "name": "Model Eye Hospital",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "coordinates": [
+        28.572486,
+        77.241511
+      ]
+    },
+    {
+      "name": "Primus Hospital",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "coordinates": [
+        28.592945,
+        77.181216
+      ]
+    },
+    {
+      "name": "Rohilkhand medical College",
+      "city": "Bareilly",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        28.380642,
+        79.462238
+      ]
+    },
+    {
+      "name": "Solanki Hospital",
+      "city": "Alwar",
+      "state": "Rajasthan",
+      "coordinates": [
+        27.559231,
+        76.611163
+      ]
+    },
+    {
+      "name": "Trome Hospital",
+      "city": "Muzaffarpur",
+      "state": "Bihar",
+      "coordinates": [
+        26.121416,
+        85.364664
+      ]
+    },
+    {
+      "name": "Varun Arjun Medical College",
+      "city": "Shahjahanpur",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        27.929248,
+        79.808123
+      ]
+    },
+    {
+      "name": "Vivekanand Arogya Kendra",
+      "city": "Gurugram",
+      "state": "Haryana",
+      "coordinates": [
+        28.471062,
+        77.02908
+      ]
+    },
+    {
+      "name": "Hill Candy Hospital",
+      "city": "Bokaro",
+      "state": "Jharkhand",
+      "coordinates": [
+        23.435103,
+        86.186996
+      ]
+    },
+    {
+      "name": "Rama Singhal Hospital",
+      "city": "Rampur",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        28.786106,
+        79.020557
+      ]
+    },
+    {
+      "name": "Navjyoti Hospital",
+      "city": "Basti",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        26.818298,
+        82.727826
+      ]
+    },
+    {
+      "name": "Krishna Hospital",
+      "city": "Kushinagar",
+      "state": "Uttar Pradesh",
+      "coordinates": [
+        26.752583,
+        83.926714
+      ]
+    }
+  ],
+  "Medilabs": [
+    {
+      "name": "A4 Hospital",
+      "city": "Selaiyur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.912512,
+        80.143019
+      ]
+    },
+    {
+      "name": "Yogana Hospital",
+      "city": "Urapakkam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.87625,
+        80.079681
+      ]
+    },
+    {
+      "name": "Adambakkam",
+      "city": "Ponmaligai",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.992244,
+        80.205881
+      ]
+    },
+    {
+      "name": "Akshara Hospital",
+      "city": "Sembakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.922573,
+        80.164223
+      ]
+    },
+    {
+      "name": "Bewell Hospitals",
+      "city": "Anna Nagar",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.079393,
+        80.19825
+      ]
+    },
+    {
+      "name": "Ambujam Scans",
+      "city": "Tambaram",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.924898,
+        80.112479
+      ]
+    },
+    {
+      "name": "Anugraha Hospital",
+      "city": "Pammal",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.978362,
+        80.13838
+      ]
+    },
+    {
+      "name": "Aram Scans",
+      "city": "Tambaram",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.936971,
+        80.128166
+      ]
+    },
+    {
+      "name": "Babu Maternity Hospitals",
+      "city": "Tambaram",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.929512,
+        80.119479
+      ]
+    },
+    {
+      "name": "Bewell Hospitals",
+      "city": "Selaiyur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.921864,
+        80.14173
+      ]
+    },
+    {
+      "name": "Bharathi Fertility",
+      "city": "Madaveli",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.026549,
+        80.262
+      ]
+    },
+    {
+      "name": "MM Hospitals",
+      "city": "Guduvanchery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.84224,
+        80.06114
+      ]
+    },
+    {
+      "name": "Prashanth Hospital",
+      "city": "Gummidipoondi",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.39944,
+        80.134028
+      ]
+    },
+    {
+      "name": "Uma Rani Multispecality Hospital",
+      "city": "Krishnagiri",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.50926,
+        78.221574
+      ]
+    },
+    {
+      "name": "Madhu Hospitals",
+      "city": "Tambaram",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.92528,
+        80.127097
+      ]
+    },
+    {
+      "name": "Murugan Hospital",
+      "city": "Kilpak",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.083388,
+        80.234254
+      ]
+    },
+    {
+      "name": "Pranav Clininc",
+      "city": "Urapakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.864442,
+        80.079094
+      ]
+    },
+    {
+      "name": "Bewell Hospitals",
+      "city": "Ambatur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.12614,
+        80.140812
+      ]
+    },
+    {
+      "name": "SM Hospital",
+      "city": "kk nagar",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.040176,
+        80.204457
+      ]
+    },
+    {
+      "name": "Sudha Fertility",
+      "city": "Purasaiwakkam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.079118,
+        80.254134
+      ]
+    },
+    {
+      "name": "Padma Nursing Home",
+      "city": "Vepery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.077069,
+        80.235129
+      ]
+    },
+    {
+      "name": "Bewell Hospitals",
+      "city": "T Nagar",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.043078,
+        80.245321
+      ]
+    },
+    {
+      "name": "Bharathi Fertility",
+      "city": "Urapakkam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.863598,
+        80.073738
+      ]
+    },
+    {
+      "name": "Bharathi Fertility",
+      "city": "Ambatur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.123332,
+        80.150181
+      ]
+    },
+    {
+      "name": "KKR ENT Hospital and Research Centre",
+      "city": "Vepery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.078209,
+        80.245149
+      ]
+    },
+    {
+      "name": "A4  Banu Hospital",
+      "city": "Pammal",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.975137,
+        80.132429
+      ]
+    },
+    {
+      "name": "A4 Hospital",
+      "city": "Chengalpet",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.692988,
+        79.979397
+      ]
+    },
+    {
+      "name": "Aradhana Clinic",
+      "city": "Urapakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.858955,
+        80.07591
+      ]
+    },
+    {
+      "name": "Aval Clinics+2",
+      "city": "Perumbakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.905364,
+        80.199601
+      ]
+    },
+    {
+      "name": "KMR Lungs Clinic",
+      "city": "Porur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.039137,
+        80.150987
+      ]
+    },
+    {
+      "name": "Mother & Child Clinic",
+      "city": "Manapakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.019622,
+        80.181176
+      ]
+    },
+    {
+      "name": "Sairaksha Fertility Centre",
+      "city": "Medavakam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.914505,
+        80.19481
+      ]
+    },
+    {
+      "name": "SK Clinic",
+      "city": "Gudvanchery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.84605,
+        80.061493
+      ]
+    },
+    {
+      "name": "Sonomed Scans Centre",
+      "city": "Avadi",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.115136,
+        80.102862
+      ]
+    },
+    {
+      "name": "SS Clinic",
+      "city": "Marai malai nagar",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.796789,
+        80.02936
+      ]
+    },
+    {
+      "name": "Supriya Medical Centre",
+      "city": "Vellore",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.906472,
+        79.134077
+      ]
+    },
+    {
+      "name": "Bharathi Fertility",
+      "city": "Avadi",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.112281,
+        80.102939
+      ]
+    },
+    {
+      "name": "A4 Hospital",
+      "city": "Paddur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.807122,
+        80.226345
+      ]
+    },
+    {
+      "name": "A4  Hospital",
+      "city": "Washermanpet",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.116723,
+        80.28375
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Guduvanchery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.847577,
+        80.063329
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Selaiyur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.922241,
+        80.141169
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Vepery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.081134,
+        80.261968
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Vellore",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.934087,
+        79.138963
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Anna Nagar",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.090437,
+        80.211824
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Velachery",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.975461,
+        80.220705
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Urapakkam",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.863071,
+        80.072479
+      ]
+    },
+    {
+      "name": "Medilabs",
+      "city": "Krishnagiri",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.524785,
+        78.216004
+      ]
+    },
+    {
+      "name": "FRANCHISEE - Camp Road",
+      "city": "Camp Road",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.906818,
+        80.142587
+      ]
+    },
+    {
+      "name": "FRANCHISEE - Sholinghur",
+      "city": "Sholinghur",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        13.111585,
+        79.431005
+      ]
+    },
+    {
+      "name": "Yoganna Hospital",
+      "city": "Krishnagiri",
+      "state": "Tamil Nadu",
+      "coordinates": [
+        12.948649,
+        80.193026
+      ]
+    }
+  ],
+  "Optimus Oncology": [
+    {
+      "name": "Solapur Cancer Centre",
+      "city": "Solapur",
+      "state": "Maharashtra",
+      "coordinates": [
+        17.656764,
+        75.896614
+      ]
+    },
+    {
+      "name": "Lifepoint Multispeciality Hospital",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "coordinates": [
+        18.59773,
+        73.755635
+      ]
+    },
+    {
+      "name": "Khandesh Cancer Centre",
+      "city": "Dhule",
+      "state": "Maharashtra",
+      "coordinates": [
+        20.873641,
+        74.762007
+      ]
+    },
+    {
+      "name": "Vivekanand Cancer Hospital",
+      "city": "Latur",
+      "state": "Maharashtra",
+      "coordinates": [
+        18.414554,
+        76.538606
+      ]
+    },
+    {
+      "name": "Belgaum Cancer Hospital",
+      "city": "Belagavi",
+      "state": "Karnataka",
+      "coordinates": [
+        15.872094,
+        74.527796
+      ]
+    }
+  ]
+}

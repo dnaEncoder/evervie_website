@@ -2691,9 +2691,44 @@ blockquote {
 }
 
 .editorialBrand .search {
-    width: 34px;
-    height: 34px;
-    font-size: 15px
+    position: relative;
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+    border: 1px solid var(--evervie-orange);
+    border-radius: 9px;
+    color: var(--evervie-orange);
+    background: transparent;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.4s ease, border-color 0.4s ease;
+}
+
+.editorialBrand .search::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(135deg, var(--evervie-orange), var(--prime-pink));
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.editorialBrand .search:hover {
+    color: #fff;
+    border-color: transparent;
+}
+
+.editorialBrand .search:hover::before {
+    transform: scaleX(1);
 }
 
 .editorialBrand header .brand img {
@@ -4286,7 +4321,10 @@ blockquote {
 }
 
 .editorialBrand .wwaNavFeatureImg {
+    width: 100%;
     height: 170px;
+    object-fit: cover;
+    object-position: center;
     border-radius: 0 !important;
     border: 0 !important;
     border-top: 1px solid var(--line-soft) !important
@@ -4908,12 +4946,12 @@ blockquote {
     transform: scale(1.34) translateY(-6%);
 }
 
-.editorialBrand .wwaBoardCardImg[src="/PVP_0474.jpg"] {
-    transform: scale(1.15) translateY(2%);
+.editorialBrand .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
+    transform: scale(1.3) translateY(-8%);
 }
 
-.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/PVP_0474.jpg"] {
-    transform: scale(1.19) translateY(2%);
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
+    transform: scale(1.34) translateY(-8%);
 }
 
 .editorialBrand .wwaBoardCardContent {
@@ -7032,6 +7070,10 @@ blockquote {
    ========================================================================== */
 .editorialBrand .diagnosticsPage {
     background: #ffffff;
+}
+
+.editorialBrand .diagnosticsPage .platformLeft::before {
+    display: none;
 }
 
 .editorialBrand .diagnosticsExpertiseSection {

@@ -36,7 +36,7 @@ function Linkedin({ size = 16, style, className }) {
 }
 
 const menu = [
-  ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision", "Our Governance · Coming Soon"]],
+  ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision"]],
   ["Platforms", ["Renal Care", "Oncology", "Diagnostics"]],
   ["Investor Relations", ["Investor Centre", "Financial Information", "Announcements", "Investor Presentations"]]
 ];
@@ -53,8 +53,7 @@ const megaMenuConfigs = [
     items: [
       { title: "Who we are", description: "Get to know Evervie—our story, values, and the purpose that drives us forward.", route: "/about/who-we-are", icon: User },
       { title: "Our leadership", description: "Meet the leaders guiding Evervie with expertise, experience, and heart.", route: "/about/leadership", icon: Users },
-      { title: "Mission & vision", description: "Why we exist, where we are going, and the future we are working to create.", route: "/about/mission-vision", icon: Target },
-      { title: "Our governance", description: "The principles, practices, and oversight that ensure integrity, accountability, and trust.", route: "#", icon: ShieldCheck, badge: "Coming soon" }
+      { title: "Mission & vision", description: "Why we exist, where we are going, and the future we are working to create.", route: "/about/mission-vision", icon: Target }
     ]
   },
   {
@@ -876,7 +875,7 @@ function Pillars() {
 
 function Signposts() {
   return (
-    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build, and how we're funded." />
+    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build and how we are doing it" />
       <div className="exploreGrid">
         {signposts.map(([title, copy, cta, img], i) => (
           <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
@@ -1255,7 +1254,7 @@ function AboutWhoWeAre() {
                   <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
                   <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
                 </div>
-                <Placeholder text="Leadership visual" className="wwaNavFeatureImg" />
+                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
@@ -1318,7 +1317,7 @@ function AboutLeadership() {
     {
       name: "Prasad V. Potluri",
       designation: "Chairman & Managing Director",
-      photo: "/PVP_0474.jpg",
+      photo: "/pvp-leadership-sitting.jpg",
       shortBio: "Serial entrepreneur with 30+ years of experience and $800M+ transaction track record; founder with a vision to scale healthcare globally.",
       expandedBio: "Prasad V. Potluri is a serial entrepreneur with an approximately $800M+ transaction track record across healthcare and related sectors. He led Evervie's listing on the BSE and NSE, bringing disciplined capital strategy and long-term platform thinking to every stage of the company's growth. As Chairman & Managing Director, he sets the strategic direction for the group and its healthcare platforms.",
       expertise: ["Corporate Strategy", "Capital Markets", "Healthcare Platforms"],
@@ -1481,7 +1480,7 @@ function AboutLeadership() {
         <section className="section wwaChairman">
           <div className="wwaChairmanLayout">
             <div className="wwaChairmanVisual">
-              <img src="/PVP_0425.jpg" alt="Prasad V. Potluri, Chairman & Managing Director" className="wwaChairmanImg" />
+              <img src="/pvp-leadership-standing.jpg" alt="Prasad V. Potluri, Chairman & Managing Director" className="wwaChairmanImg" />
               <div className="wwaChairmanBadge">
                 <h4>Prasad V. Potluri</h4>
                 <p>Chairman & Managing Director</p>
@@ -1593,7 +1592,7 @@ function AboutLeadership() {
                   <p>Why we exist, where we are going, and the future we are working to create.</p>
                   <span className="wwaNavCta">Explore our mission <ArrowRight size={13} /></span>
                 </div>
-                <Placeholder text="Mission & Vision visual" className="wwaNavFeatureImg" />
+                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
@@ -1792,7 +1791,7 @@ function AboutMissionVision() {
                   <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
                   <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
                 </div>
-                <Placeholder text="Leadership visual" className="wwaNavFeatureImg" />
+                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
@@ -1829,7 +1828,7 @@ const portfolioList = [
     title: "Renal Care Platform",
     desc: "Accessible, continuous, and specialised kidney care services.",
     num: "01",
-    img: "/renal_care_hero.png"
+    img: "/7Med/7med-ct-scan-diagnostic-imaging.jpg"
   },
   {
     name: "Oncology",
@@ -1845,7 +1844,7 @@ const portfolioList = [
     title: "Diagnostics Platform",
     desc: "Reliable pathology, radiology, and home care collection models.",
     num: "03",
-    img: "/diagnostics_hero_lab.png"
+    img: "/medilabs-diagnostics-image-02.png"
   }
 ];
 
@@ -2081,6 +2080,22 @@ function PortfolioVertical({
     popupAnchor: [0, -8]
   }) : null;
 
+  // Smaller dot marker for individual centres, distinct from the hospital marker above
+  const centerMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+    html: `<div style="
+      background-color: var(--evervie-solar, #FABE00);
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 5px rgba(250, 190, 0, 0.6);
+    "></div>`,
+    className: "custom-leaflet-marker",
+    iconSize: [10, 10],
+    iconAnchor: [5, 5],
+    popupAnchor: [0, -5]
+  }) : null;
+
   return (
     <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
       <main>
@@ -2267,6 +2282,24 @@ function PortfolioVertical({
                         </Popup>
                       </Marker>
                     ))}
+                    {footprint.centersList && footprint.centersList.map((c, i) => (
+                      <Marker
+                        key={`center-${i}`}
+                        position={c.coordinates}
+                        icon={centerMarkerIcon}
+                      >
+                        <Tooltip direction="right" offset={[8, 0]} className="custom-map-label">
+                          {c.name}, {c.city}
+                        </Tooltip>
+                        <Popup>
+                          <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                            <strong style={{ color: 'var(--evervie-solar, #FABE00)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Dialysis Centre</strong>
+                            <span style={{ fontWeight: 700 }}>{c.name}</span><br />
+                            <span style={{ color: '#666' }}>{c.city}, {c.state}</span>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
                   </MapContainer>
                 )}
 
@@ -2280,6 +2313,15 @@ function PortfolioVertical({
                       <p>States with dialysis centre presence</p>
                     </div>
                   </div>
+                  {footprint.centersList && (
+                    <div className="legendItem">
+                      <span className="legendMarkerDot" style={{ background: 'var(--evervie-solar, #FABE00)', width: 7, height: 7 }}></span>
+                      <div>
+                        <strong>Dialysis Centres</strong>
+                        <p>Individual centre locations</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="legendItem">
                     <span className="legendMarkerDot"></span>
                     <div>
@@ -2464,7 +2506,7 @@ function PortfolioVertical({
                     {title === "Elder Care" ? (
                       "Connected ambulance and hospital networks to guarantee immediate response and care coordination."
                     ) : (
-                      "Skilled nurses and dialysis technicians delivering professional and compassionate daily care."
+                      "Skilled nurses and dialysis technicians delivering professional and High quality daily care."
                     )}
                   </p>
                 </div>
@@ -2584,6 +2626,31 @@ function RenalCare() {
       { city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.880642, 78.744292] },
       { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.320984, 82.992272] },
       { city: "Mau", state: "Uttar Pradesh", coordinates: [25.932517, 83.572181] }
+    ],
+    centersList: [
+      { name: "JJIMS", city: "Bahadurgarh", state: "Haryana", coordinates: [28.689252, 76.947634] },
+      { name: "Krishna Hospital", city: "Kashipur", state: "Uttarakhand", coordinates: [29.222413, 78.970881] },
+      { name: "AIIMS", city: "Rishikesh", state: "Uttarakhand", coordinates: [30.078879, 78.286009] },
+      { name: "Amrit Hospital", city: "Rudrapur", state: "Uttarakhand", coordinates: [28.971822, 79.394465] },
+      { name: "Apex Hospital", city: "Bikaner", state: "Rajasthan", coordinates: [28.009523, 73.318896] },
+      { name: "Apex Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.854769, 75.825263] },
+      { name: "Suraj Prakash Arogya Kendra", city: "Faridabad", state: "Haryana", coordinates: [28.368274, 77.335404] },
+      { name: "CKS Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.981923, 75.774849] },
+      { name: "Deepsiya Hospital", city: "Jaipur", state: "Rajasthan", coordinates: [26.88943, 75.884753] },
+      { name: "Mercy Hospital", city: "Jamshedpur", state: "Jharkhand", coordinates: [22.799413, 86.247984] },
+      { name: "Katyal Hospital", city: "Rewari", state: "Haryana", coordinates: [28.190298, 76.617898] },
+      { name: "Keshlata Hospital", city: "Bareilly", state: "Uttar Pradesh", coordinates: [28.385459, 79.4361] },
+      { name: "Model Eye Hospital", city: "New Delhi", state: "Delhi", coordinates: [28.572486, 77.241511] },
+      { name: "Primus Hospital", city: "New Delhi", state: "Delhi", coordinates: [28.592945, 77.181216] },
+      { name: "Rohilkhand Medical College", city: "Bareilly", state: "Uttar Pradesh", coordinates: [28.380642, 79.462238] },
+      { name: "Solanki Hospital", city: "Alwar", state: "Rajasthan", coordinates: [27.559231, 76.611163] },
+      { name: "Trome Hospital", city: "Muzaffarpur", state: "Bihar", coordinates: [26.121416, 85.364664] },
+      { name: "Varun Arjun Medical College", city: "Shahjahanpur", state: "Uttar Pradesh", coordinates: [27.929248, 79.808123] },
+      { name: "Vivekanand Arogya Kendra", city: "Gurugram", state: "Haryana", coordinates: [28.471062, 77.02908] },
+      { name: "Hill Candy Hospital", city: "Bokaro", state: "Jharkhand", coordinates: [23.435103, 86.186996] },
+      { name: "Rama Singhal Hospital", city: "Rampur", state: "Uttar Pradesh", coordinates: [28.786106, 79.020557] },
+      { name: "Navjyoti Hospital", city: "Basti", state: "Uttar Pradesh", coordinates: [26.818298, 82.727826] },
+      { name: "Krishna Hospital", city: "Kushinagar", state: "Uttar Pradesh", coordinates: [26.752583, 83.926714] }
     ]
   };
 
@@ -2707,11 +2774,11 @@ function Oncology() {
   }) : null;
 
   const facilities = [
-    { city: "Latur", coordinates: [18.4088, 76.5604] },
-    { city: "Akola", coordinates: [20.7002, 77.0082] },
-    { city: "Solapur", coordinates: [17.6599, 75.9064] },
-    { city: "Dhule", coordinates: [20.9020, 74.7749] },
-    { city: "Pimpri-Chinchwad (Pune)", coordinates: [18.6298, 73.7997] }
+    { name: "Solapur Cancer Centre", city: "Solapur", state: "Maharashtra", coordinates: [17.656764, 75.896614] },
+    { name: "Lifepoint Multispeciality Hospital", city: "Pune", state: "Maharashtra", coordinates: [18.59773, 73.755635] },
+    { name: "Khandesh Cancer Centre", city: "Dhule", state: "Maharashtra", coordinates: [20.873641, 74.762007] },
+    { name: "Vivekanand Cancer Hospital", city: "Latur", state: "Maharashtra", coordinates: [18.414554, 76.538606] },
+    { name: "Belgaum Cancer Hospital", city: "Belagavi", state: "Karnataka", coordinates: [15.872094, 74.527796] }
   ];
 
   const expertisePathway = [
@@ -2904,13 +2971,13 @@ function Oncology() {
                       icon={customMarkerIcon}
                     >
                       <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
-                        {f.city.split(" (")[0]}
+                        {f.city}
                       </Tooltip>
                       <Popup>
                         <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
                           <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Radiation Oncology Facility</strong>
-                          <span style={{ fontWeight: 700 }}>{f.city}</span><br />
-                          <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Optimus Oncology's care network.</span>
+                          <span style={{ fontWeight: 700 }}>{f.name}</span><br />
+                          <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>{f.city}, {f.state}</span>
                         </div>
                       </Popup>
                     </Marker>
@@ -2921,121 +2988,104 @@ function Oncology() {
           </div>
         </section>
 
-        {/* Clinical Network & Expansion Section */}
-        <section id="clinical-network" className="oncologyNetworkExpansionSection">
-          <div className="oncologyNetworkExpansionLayout">
-            {/* 6A. Clinical Network */}
-            <div className="oncologyNetworkBlock">
+        {/* Clinical Network Section */}
+        <section id="clinical-network" className="clinicalNetworkSection">
+          <div className="clinicalNetworkLayout">
+            {/* Left Column */}
+            <div className="clinicalNetworkIntro">
               <div className="eyebrow">OUR CLINICAL NETWORK</div>
-              <h2 className="oncologyBlockHeading">Expertise that makes a difference.</h2>
-              <div className="oncologyNetworkList">
-                <div className="oncologyNetworkItem">
-                  <div className="oncologyNetworkDot" />
-                  <p>Founded and led by five renowned oncologists from Tata Memorial Centre.</p>
-                </div>
-                <div className="oncologyNetworkItem">
-                  <div className="oncologyNetworkDot" />
-                  <p>Team of 15+ experienced oncologists and cancer specialists.</p>
-                </div>
-              </div>
-              <div className="oncologyNetworkImageWrapper">
-                <img src="/oncology_clinical_team.png" alt="Optimus Oncology team of doctors" />
+              <h2 className="clinicalNetworkHeading">
+                A strong network<br />
+                behind better<br />
+                cancer care.
+              </h2>
+              <p className="clinicalNetworkDesc">
+                Our oncology platform is supported by expert oncologists, specialized clinical boards, and advanced chemotherapy suites.
+              </p>
+
+              {/* Custom crafted editorial connected network visual */}
+              <div className="clinicalNetworkVisual" style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg viewBox="0 0 500 300" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <radialGradient id="network-glow-orange-onc" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Translucent circular or cellular forms */}
+                  <circle cx="250" cy="150" r="110" fill="url(#network-glow-orange-onc)" />
+                  <circle cx="250" cy="150" r="90" fill="none" stroke="rgba(255, 60, 0, 0.04)" strokeWidth="1" />
+                  
+                  {/* Outer cellular shapes */}
+                  <circle cx="160" cy="110" r="65" fill="rgba(255, 255, 255, 0.3)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+                  <circle cx="340" cy="180" r="75" fill="rgba(255, 255, 255, 0.25)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+                  <circle cx="210" cy="200" r="55" fill="rgba(255, 255, 255, 0.3)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+
+                  {/* Fine network connections */}
+                  <g stroke="rgba(60, 59, 57, 0.08)" strokeWidth="1">
+                    <line x1="160" y1="110" x2="250" y2="150" />
+                    <line x1="340" y1="180" x2="250" y2="150" />
+                    <line x1="210" y1="200" x2="250" y2="150" />
+                    <line x1="160" y1="110" x2="210" y2="200" />
+                    <line x1="340" y1="180" x2="210" y2="200" />
+                    <line x1="160" y1="110" x2="300" y2="80" />
+                    <line x1="250" y1="150" x2="300" y2="80" />
+                    <line x1="340" y1="180" x2="300" y2="80" />
+                    <line x1="160" y1="110" x2="100" y2="170" />
+                    <line x1="210" y1="200" x2="100" y2="170" />
+                  </g>
+
+                  {/* Primary Orange connection lines */}
+                  <g stroke="rgba(255, 60, 0, 0.2)" strokeWidth="1.5">
+                    <line x1="250" y1="150" x2="160" y2="110" strokeDasharray="3 3" />
+                    <line x1="250" y1="150" x2="340" y2="180" strokeDasharray="3 3" />
+                    <line x1="210" y1="200" x2="160" y2="110" />
+                  </g>
+
+                  {/* Connection Node Circles */}
+                  <circle cx="250" cy="150" r="18" fill="#FFFDFB" stroke="rgba(255, 60, 0, 0.15)" strokeWidth="1" />
+                  <circle cx="250" cy="150" r="6" fill="var(--evervie-orange)" />
+
+                  <circle cx="160" cy="110" r="12" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="160" cy="110" r="4.5" fill="var(--evervie-orange)" />
+
+                  <circle cx="340" cy="180" r="14" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="340" cy="180" r="4.5" fill="var(--evervie-orange)" />
+
+                  <circle cx="210" cy="200" r="10" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="210" cy="200" r="4" fill="var(--evervie-orange)" />
+
+                  {/* Secondary/Ambient connection points */}
+                  <circle cx="300" cy="80" r="3" fill="var(--evervie-orange)" opacity="0.6" />
+                  <circle cx="100" cy="170" r="3.5" fill="var(--evervie-orange)" opacity="0.5" />
+                  <circle cx="390" cy="120" r="2.5" fill="var(--evervie-orange)" opacity="0.4" />
+                </svg>
               </div>
             </div>
 
-            {/* 6B. Expansion Plan */}
-            <div className="oncologyExpansionBlock">
-              <div className="eyebrow">OUR EXPANSION PLAN</div>
-              <h2 className="oncologyBlockHeading">Building the future of cancer care.</h2>
-              <p className="oncologyExpansionText">
-                Expansion target of 50 cancer centres across India within the next five years.
-              </p>
+            {/* Right Column */}
+            <div className="clinicalNetworkMetrics">
+              {/* Metric Block 01 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">5</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>Founding Oncologists</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Renowned oncologists from Tata Memorial Centre guiding clinical standards and treatment pathways.</p>
+                </div>
+              </div>
 
-              {/* Symbolic growth map / India expansion visual */}
-              <div className="oncologyExpansionVisual">
-                <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="expansion-grid" width="25" height="25" patternUnits="userSpaceOnUse">
-                      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0,0,0,0.03)" strokeWidth="1" />
-                    </pattern>
-                    <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient id="line-gradient" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="var(--evervie-orange)" />
-                    </linearGradient>
-                    <filter id="glow-filter" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="5" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  {/* Grid Background */}
-                  <rect width="100%" height="100%" fill="url(#expansion-grid)" rx="10" />
-
-                  {/* Horizontal Guideline */}
-                  <line x1="50" y1="280" x2="450" y2="280" stroke="var(--line-soft)" strokeWidth="1.5" />
-                  <line x1="50" y1="180" x2="450" y2="180" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
-                  <line x1="50" y1="80" x2="450" y2="80" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
-
-                  {/* Area Under Curve */}
-                  <path
-                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60 L 430 280 Z"
-                    fill="url(#area-gradient)"
-                  />
-
-                  {/* Glowing line overlay */}
-                  <path
-                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60"
-                    stroke="var(--evervie-orange)"
-                    strokeWidth="8"
-                    strokeOpacity="0.25"
-                    filter="url(#glow-filter)"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Main Curve */}
-                  <path
-                    d="M 50 280 C 120 255, 200 190, 270 145 C 330 110, 390 75, 430 60"
-                    stroke="url(#line-gradient)"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Year 1 Hub */}
-                  <circle cx="120" cy="255" r="14" fill="var(--evervie-orange)" opacity="0.12" />
-                  <circle cx="120" cy="255" r="7" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
-                  <circle cx="120" cy="255" r="3.5" fill="var(--evervie-orange)" />
-                  <g transform="translate(90, 205)">
-                    <rect x="0" y="0" width="60" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
-                    <text x="30" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">10 Centres</text>
-                  </g>
-
-                  {/* Year 3 Hub */}
-                  <circle cx="270" cy="145" r="18" fill="var(--evervie-orange)" opacity="0.12" />
-                  <circle cx="270" cy="145" r="9" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
-                  <circle cx="270" cy="145" r="4.5" fill="var(--evervie-orange)" />
-                  <g transform="translate(240, 95)">
-                    <rect x="0" y="0" width="60" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
-                    <text x="30" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">25 Centres</text>
-                  </g>
-
-                  {/* Year 5 Hub */}
-                  <circle cx="430" cy="60" r="24" fill="var(--evervie-orange)" opacity="0.15" />
-                  <circle cx="430" cy="60" r="12" fill="none" stroke="var(--evervie-orange)" strokeWidth="2" />
-                  <circle cx="430" cy="60" r="6" fill="var(--evervie-orange)" />
-                  <g transform="translate(370, 10)">
-                    <rect x="0" y="0" width="90" height="28" rx="6" fill="var(--graphite)" />
-                    <text x="45" y="17" fill="#ffffff" fontSize="10" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">50 CENTRES</text>
-                  </g>
-
-                  {/* Grid X Axis Labels */}
-                  <text x="120" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 1</text>
-                  <text x="270" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 3</text>
-                  <text x="430" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 5</text>
-                </svg>
+              {/* Metric Block 02 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">15+</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>Cancer Specialists</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Active team of super-specialists, oncologists, and oncology care nurses across our network.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -3160,28 +3210,83 @@ function Diagnostics() {
     });
   };
 
-  const customMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+  const centersList = [
+      { name: "A4 Hospital", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.912512, 80.143019] },
+      { name: "Yogana Hospital", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.87625, 80.079681] },
+      { name: "Adambakkam", city: "Ponmaligai", state: "Tamil Nadu", coordinates: [12.992244, 80.205881] },
+      { name: "Akshara Hospital", city: "Sembakam", state: "Tamil Nadu", coordinates: [12.922573, 80.164223] },
+      { name: "Bewell Hospitals", city: "Anna Nagar", state: "Tamil Nadu", coordinates: [13.079393, 80.19825] },
+      { name: "Ambujam Scans", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.924898, 80.112479] },
+      { name: "Anugraha Hospital", city: "Pammal", state: "Tamil Nadu", coordinates: [12.978362, 80.13838] },
+      { name: "Aram Scans", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.936971, 80.128166] },
+      { name: "Babu Maternity Hospitals", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.929512, 80.119479] },
+      { name: "Bewell Hospitals", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.921864, 80.14173] },
+      { name: "Bharathi Fertility", city: "Madaveli", state: "Tamil Nadu", coordinates: [13.026549, 80.262] },
+      { name: "MM Hospitals", city: "Guduvanchery", state: "Tamil Nadu", coordinates: [12.84224, 80.06114] },
+      { name: "Prashanth Hospital", city: "Gummidipoondi", state: "Tamil Nadu", coordinates: [13.39944, 80.134028] },
+      { name: "Uma Rani Multispecality Hospital", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.50926, 78.221574] },
+      { name: "Madhu Hospitals", city: "Tambaram", state: "Tamil Nadu", coordinates: [12.92528, 80.127097] },
+      { name: "Murugan Hospital", city: "Kilpak", state: "Tamil Nadu", coordinates: [13.083388, 80.234254] },
+      { name: "Pranav Clininc", city: "Urapakam", state: "Tamil Nadu", coordinates: [12.864442, 80.079094] },
+      { name: "Bewell Hospitals", city: "Ambatur", state: "Tamil Nadu", coordinates: [13.12614, 80.140812] },
+      { name: "SM Hospital", city: "kk nagar", state: "Tamil Nadu", coordinates: [13.040176, 80.204457] },
+      { name: "Sudha Fertility", city: "Purasaiwakkam", state: "Tamil Nadu", coordinates: [13.079118, 80.254134] },
+      { name: "Padma Nursing Home", city: "Vepery", state: "Tamil Nadu", coordinates: [13.077069, 80.235129] },
+      { name: "Bewell Hospitals", city: "T Nagar", state: "Tamil Nadu", coordinates: [13.043078, 80.245321] },
+      { name: "Bharathi Fertility", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.863598, 80.073738] },
+      { name: "Bharathi Fertility", city: "Ambatur", state: "Tamil Nadu", coordinates: [13.123332, 80.150181] },
+      { name: "KKR ENT Hospital and Research Centre", city: "Vepery", state: "Tamil Nadu", coordinates: [13.078209, 80.245149] },
+      { name: "A4 Banu Hospital", city: "Pammal", state: "Tamil Nadu", coordinates: [12.975137, 80.132429] },
+      { name: "A4 Hospital", city: "Chengalpet", state: "Tamil Nadu", coordinates: [12.692988, 79.979397] },
+      { name: "Aradhana Clinic", city: "Urapakam", state: "Tamil Nadu", coordinates: [12.858955, 80.07591] },
+      { name: "Aval Clinics+2", city: "Perumbakam", state: "Tamil Nadu", coordinates: [12.905364, 80.199601] },
+      { name: "KMR Lungs Clinic", city: "Porur", state: "Tamil Nadu", coordinates: [13.039137, 80.150987] },
+      { name: "Mother & Child Clinic", city: "Manapakam", state: "Tamil Nadu", coordinates: [13.019622, 80.181176] },
+      { name: "Sairaksha Fertility Centre", city: "Medavakam", state: "Tamil Nadu", coordinates: [12.914505, 80.19481] },
+      { name: "SK Clinic", city: "Gudvanchery", state: "Tamil Nadu", coordinates: [12.84605, 80.061493] },
+      { name: "Sonomed Scans Centre", city: "Avadi", state: "Tamil Nadu", coordinates: [13.115136, 80.102862] },
+      { name: "SS Clinic", city: "Marai malai nagar", state: "Tamil Nadu", coordinates: [12.796789, 80.02936] },
+      { name: "Supriya Medical Centre", city: "Vellore", state: "Tamil Nadu", coordinates: [12.906472, 79.134077] },
+      { name: "Bharathi Fertility", city: "Avadi", state: "Tamil Nadu", coordinates: [13.112281, 80.102939] },
+      { name: "A4 Hospital", city: "Paddur", state: "Tamil Nadu", coordinates: [12.807122, 80.226345] },
+      { name: "A4 Hospital", city: "Washermanpet", state: "Tamil Nadu", coordinates: [13.116723, 80.28375] },
+      { name: "Medilabs", city: "Guduvanchery", state: "Tamil Nadu", coordinates: [12.847577, 80.063329] },
+      { name: "Medilabs", city: "Selaiyur", state: "Tamil Nadu", coordinates: [12.922241, 80.141169] },
+      { name: "Medilabs", city: "Vepery", state: "Tamil Nadu", coordinates: [13.081134, 80.261968] },
+      { name: "Medilabs", city: "Vellore", state: "Tamil Nadu", coordinates: [12.934087, 79.138963] },
+      { name: "Medilabs", city: "Anna Nagar", state: "Tamil Nadu", coordinates: [13.090437, 80.211824] },
+      { name: "Medilabs", city: "Velachery", state: "Tamil Nadu", coordinates: [12.975461, 80.220705] },
+      { name: "Medilabs", city: "Urapakkam", state: "Tamil Nadu", coordinates: [12.863071, 80.072479] },
+      { name: "Medilabs", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.524785, 78.216004] },
+      { name: "FRANCHISEE - Camp Road", city: "Camp Road", state: "Tamil Nadu", coordinates: [12.906818, 80.142587] },
+      { name: "FRANCHISEE - Sholinghur", city: "Sholinghur", state: "Tamil Nadu", coordinates: [13.111585, 79.431005] },
+      { name: "Yoganna Hospital", city: "Krishnagiri", state: "Tamil Nadu", coordinates: [12.948649, 80.193026] }
+  ];
+
+  const cityDensity = Object.entries(
+    centersList.reduce((acc, c) => {
+      acc[c.city] = (acc[c.city] || 0) + 1;
+      return acc;
+    }, {})
+  ).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+  const topDenseCities = cityDensity.slice(0, 5);
+  const totalCityCount = cityDensity.length;
+
+  // Smaller dot marker for individual centres, distinct from the large hub marker
+  const centerMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
     html: `<div style="
-      background-color: var(--evervie-orange);
-      width: 12px;
-      height: 12px;
+      background-color: var(--evervie-solar, #FABE00);
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
-      border: 2px solid #ffffff;
-      box-shadow: 0 0 8px rgba(255, 60, 0, 0.6);
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 0 5px rgba(250, 190, 0, 0.6);
     "></div>`,
     className: "custom-leaflet-marker",
-    iconSize: [16, 16],
-    iconAnchor: [8, 8],
-    popupAnchor: [0, -8]
+    iconSize: [10, 10],
+    iconAnchor: [5, 5],
+    popupAnchor: [0, -5]
   }) : null;
-
-  const facilities = [
-    { city: "Chennai", coordinates: [13.0827, 80.2707] },
-    { city: "Coimbatore", coordinates: [11.0168, 76.9558] },
-    { city: "Madurai", coordinates: [9.9252, 78.1198] },
-    { city: "Trichy", coordinates: [10.7905, 78.7047] },
-    { city: "Salem", coordinates: [11.6643, 78.1460] }
-  ];
 
   const servicesPathway = [
     { icon: Microscope, title: "Clinical Pathology & Biochemistry", desc: "Advanced hematology, pathology, biochemistry, and specialized test menu exceeding 1,500 tests." },
@@ -3336,12 +3441,15 @@ function Diagnostics() {
               </p>
 
               <div className="footprintMetricBlock" style={{ marginTop: '12px', width: '100%' }}>
-                <div className="oncologyLocationHeader">Active cities in Tamil Nadu:</div>
+                <div className="oncologyLocationHeader">
+                  Present across {totalCityCount} cities in Tamil Nadu
+                  <span style={{ fontWeight: 400, color: 'var(--muted)' }}> — including our leading hubs</span>
+                </div>
                 <div className="oncologyLocationList">
-                  {facilities.map((f, i) => (
+                  {topDenseCities.map(([city, count], i) => (
                     <div className="cityChip" key={i}>
                       <MapPin size={13} />
-                      {f.city}
+                      {city} ({count})
                     </div>
                   ))}
                 </div>
@@ -3388,20 +3496,20 @@ function Diagnostics() {
                     style={getStateStyle}
                     onEachFeature={onEachFeature}
                   />
-                  {facilities.map((f, i) => (
+                  {centersList.map((c, i) => (
                     <Marker
                       key={i}
-                      position={f.coordinates}
-                      icon={customMarkerIcon}
+                      position={c.coordinates}
+                      icon={centerMarkerIcon}
                     >
-                      <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
-                        {f.city}
+                      <Tooltip direction="right" offset={[8, 0]} className="custom-map-label">
+                        {c.name}, {c.city}
                       </Tooltip>
                       <Popup>
                         <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
-                          <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Medilabs Hub</strong>
-                          <span style={{ fontWeight: 700 }}>{f.city} Center</span><br />
-                          <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Providing pathology, home sample collection, and radiology.</span>
+                          <strong style={{ color: 'var(--evervie-solar, #FABE00)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Medilabs Centre</strong>
+                          <span style={{ fontWeight: 700 }}>{c.name}</span><br />
+                          <span style={{ color: '#666' }}>{c.city}, {c.state}</span>
                         </div>
                       </Popup>
                     </Marker>
@@ -3413,114 +3521,103 @@ function Diagnostics() {
         </section>
 
         {/* Clinical Network Section */}
-        <section id="clinical-network" className="diagnosticsNetworkExpansionSection">
-          <div className="oncologyNetworkExpansionLayout">
-            {/* Clinical Network */}
-            <div className="oncologyNetworkBlock">
+        <section id="clinical-network" className="clinicalNetworkSection">
+          <div className="clinicalNetworkLayout">
+            {/* Left Column */}
+            <div className="clinicalNetworkIntro">
               <div className="eyebrow">OUR CLINICAL NETWORK</div>
-              <h2 className="oncologyBlockHeading">Precision guided by diagnostic experts.</h2>
-              <div className="oncologyNetworkList">
-                <div className="oncologyNetworkItem">
-                  <div className="oncologyNetworkDot" />
-                  <p>Certified clinical pathologists, laboratory technicians, and biochemists.</p>
-                </div>
-                <div className="oncologyNetworkItem">
-                  <div className="oncologyNetworkDot" />
-                  <p>400+ logistics partners managing cold-chain integrity and rapid turnaround times.</p>
-                </div>
-              </div>
-              <div className="oncologyNetworkImageWrapper">
-                <img src="/diagnostics_clinical_team.png" alt="Medilabs team of pathologists and lab technicians" />
+              <h2 className="clinicalNetworkHeading">
+                A strong network<br />
+                behind better<br />
+                diagnostics.
+              </h2>
+              <p className="clinicalNetworkDesc">
+                Our diagnostics platform is supported by pathology experts, automated testing systems, and high clinical standards.
+              </p>
+
+              {/* Custom crafted editorial connected network visual */}
+              <div className="clinicalNetworkVisual" style={{ padding: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg viewBox="0 0 500 300" width="100%" height="100%" style={{ overflow: 'visible' }}>
+                  <defs>
+                    <radialGradient id="network-glow-orange-diag" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
+                    </radialGradient>
+                  </defs>
+
+                  {/* Translucent circular or cellular forms */}
+                  <circle cx="250" cy="150" r="110" fill="url(#network-glow-orange-diag)" />
+                  <circle cx="250" cy="150" r="90" fill="none" stroke="rgba(255, 60, 0, 0.04)" strokeWidth="1" />
+                  
+                  {/* Outer cellular shapes */}
+                  <circle cx="160" cy="110" r="65" fill="rgba(255, 255, 255, 0.3)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+                  <circle cx="340" cy="180" r="75" fill="rgba(255, 255, 255, 0.25)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+                  <circle cx="210" cy="200" r="55" fill="rgba(255, 255, 255, 0.3)" stroke="rgba(230, 226, 220, 0.5)" strokeWidth="1.5" />
+
+                  {/* Fine network connections */}
+                  <g stroke="rgba(60, 59, 57, 0.08)" strokeWidth="1">
+                    <line x1="160" y1="110" x2="250" y2="150" />
+                    <line x1="340" y1="180" x2="250" y2="150" />
+                    <line x1="210" y1="200" x2="250" y2="150" />
+                    <line x1="160" y1="110" x2="210" y2="200" />
+                    <line x1="340" y1="180" x2="210" y2="200" />
+                    <line x1="160" y1="110" x2="300" y2="80" />
+                    <line x1="250" y1="150" x2="300" y2="80" />
+                    <line x1="340" y1="180" x2="300" y2="80" />
+                    <line x1="160" y1="110" x2="100" y2="170" />
+                    <line x1="210" y1="200" x2="100" y2="170" />
+                  </g>
+
+                  {/* Primary Orange connection lines */}
+                  <g stroke="rgba(255, 60, 0, 0.2)" strokeWidth="1.5">
+                    <line x1="250" y1="150" x2="160" y2="110" strokeDasharray="3 3" />
+                    <line x1="250" y1="150" x2="340" y2="180" strokeDasharray="3 3" />
+                    <line x1="210" y1="200" x2="160" y2="110" />
+                  </g>
+
+                  {/* Connection Node Circles */}
+                  <circle cx="250" cy="150" r="18" fill="#FFFDFB" stroke="rgba(255, 60, 0, 0.15)" strokeWidth="1" />
+                  <circle cx="250" cy="150" r="6" fill="var(--evervie-orange)" />
+
+                  <circle cx="160" cy="110" r="12" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="160" cy="110" r="4.5" fill="var(--evervie-orange)" />
+
+                  <circle cx="340" cy="180" r="14" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="340" cy="180" r="4.5" fill="var(--evervie-orange)" />
+
+                  <circle cx="210" cy="200" r="10" fill="#FFFDFB" stroke="rgba(230, 226, 220, 0.8)" strokeWidth="1.5" />
+                  <circle cx="210" cy="200" r="4" fill="var(--evervie-orange)" />
+
+                  {/* Secondary/Ambient connection points */}
+                  <circle cx="300" cy="80" r="3" fill="var(--evervie-orange)" opacity="0.6" />
+                  <circle cx="100" cy="170" r="3.5" fill="var(--evervie-orange)" opacity="0.5" />
+                  <circle cx="390" cy="120" r="2.5" fill="var(--evervie-orange)" opacity="0.4" />
+                </svg>
               </div>
             </div>
 
-            {/* Expansion Plan */}
-            <div className="oncologyExpansionBlock">
-              <div className="eyebrow">OUR EXPANSION TARGET</div>
-              <h2 className="oncologyBlockHeading">Deeper diagnostic penetration.</h2>
-              <p className="oncologyExpansionText">
-                Medilabs is consistently expanding its footprint across secondary and tertiary towns of Tamil Nadu to bring NABL-standard quality reporting.
-              </p>
+            {/* Right Column */}
+            <div className="clinicalNetworkMetrics">
+              {/* Metric Block 01 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">100+</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>Clinical Experts</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Certified clinical pathologists, laboratory technicians, and biochemists ensuring high reporting standards.</p>
+                </div>
+              </div>
 
-              {/* Symbolic growth map / Tamil Nadu expansion visual */}
-              <div className="oncologyExpansionVisual">
-                <svg viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <pattern id="diagnostics-grid" width="25" height="25" patternUnits="userSpaceOnUse">
-                      <path d="M 25 0 L 0 0 0 25" fill="none" stroke="rgba(0,0,0,0.03)" strokeWidth="1" />
-                    </pattern>
-                    <linearGradient id="diag-area-gradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.18" />
-                      <stop offset="100%" stopColor="var(--evervie-orange)" stopOpacity="0" />
-                    </linearGradient>
-                    <linearGradient id="diag-line-gradient" x1="0" y1="0" x2="1" y2="0">
-                      <stop offset="0%" stopColor="var(--evervie-orange)" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="var(--evervie-orange)" />
-                    </linearGradient>
-                    <filter id="diag-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="5" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  <rect width="100%" height="100%" fill="url(#diagnostics-grid)" rx="10" />
-
-                  <line x1="50" y1="280" x2="450" y2="280" stroke="var(--line-soft)" strokeWidth="1.5" />
-                  <line x1="50" y1="180" x2="450" y2="180" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
-                  <line x1="50" y1="80" x2="450" y2="80" stroke="var(--line-soft)" strokeWidth="1" strokeDasharray="4 4" opacity="0.6" />
-
-                  <path
-                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70 L 430 280 Z"
-                    fill="url(#diag-area-gradient)"
-                  />
-
-                  <path
-                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70"
-                    stroke="var(--evervie-orange)"
-                    strokeWidth="8"
-                    strokeOpacity="0.25"
-                    filter="url(#diag-glow-filter)"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M 50 280 C 120 255, 200 200, 270 160 C 330 120, 390 85, 430 70"
-                    stroke="url(#diag-line-gradient)"
-                    strokeWidth="3.5"
-                    strokeLinecap="round"
-                  />
-
-                  {/* Year 1 Hub */}
-                  <circle cx="120" cy="255" r="14" fill="var(--evervie-orange)" opacity="0.12" />
-                  <circle cx="120" cy="255" r="7" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
-                  <circle cx="120" cy="255" r="3.5" fill="var(--evervie-orange)" />
-                  <g transform="translate(90, 205)">
-                    <rect x="0" y="0" width="65" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
-                    <text x="32.5" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">15 Centres</text>
-                  </g>
-
-                  {/* Year 3 Hub */}
-                  <circle cx="270" cy="160" r="18" fill="var(--evervie-orange)" opacity="0.12" />
-                  <circle cx="270" cy="160" r="9" fill="none" stroke="var(--evervie-orange)" strokeWidth="1.5" />
-                  <circle cx="270" cy="160" r="4.5" fill="var(--evervie-orange)" />
-                  <g transform="translate(240, 110)">
-                    <rect x="0" y="0" width="65" height="24" rx="5" fill="#ffffff" stroke="var(--line-soft)" strokeWidth="1" />
-                    <text x="32.5" y="15" fill="var(--graphite)" fontSize="9" fontWeight="700" textAnchor="middle">35 Centres</text>
-                  </g>
-
-                  {/* Year 5 Hub */}
-                  <circle cx="430" cy="70" r="24" fill="var(--evervie-orange)" opacity="0.15" />
-                  <circle cx="430" cy="70" r="12" fill="none" stroke="var(--evervie-orange)" strokeWidth="2" />
-                  <circle cx="430" cy="70" r="6" fill="var(--evervie-orange)" />
-                  <g transform="translate(370, 20)">
-                    <rect x="0" y="0" width="90" height="28" rx="6" fill="var(--graphite)" />
-                    <text x="45" y="17" fill="#ffffff" fontSize="10" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">50 CENTRES</text>
-                  </g>
-
-                  <text x="120" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 1</text>
-                  <text x="270" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 3</text>
-                  <text x="430" y="305" fill="var(--muted)" fontSize="9.5" fontWeight="700" textAnchor="middle" letterSpacing="0.05em">YEAR 5</text>
-                </svg>
+              {/* Metric Block 02 */}
+              <div className="clinicalMetricBlock">
+                <div className="clinicalMetricNumber">400+</div>
+                <div className="clinicalMetricDivider" />
+                <div className="clinicalMetricContent">
+                  <h3>Logistics Partners</h3>
+                  <div className="clinicalMetricAccent" />
+                  <p>Dedicated logistics partners managing strict cold-chain integrity and rapid sample turnaround times.</p>
+                </div>
               </div>
             </div>
           </div>
