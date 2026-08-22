@@ -1397,6 +1397,37 @@ function AboutLeadership() {
     }
   ];
 
+  const boardOfDirectors = [
+    {
+      name: "Mr. Srivatsan Kalyanasundaram",
+      designation: "Additional Director, Non-Executive Independent",
+      din: "11719208",
+      photo: null,
+      qualifications: "MBA from HEC Paris / Ross School of Business and an M.Sc. in Economics, with a Bachelor of Engineering from BITS Pilani. Nearly three decades of experience across Vodafone and McKinsey, with expertise in strategy, technology, governance, cybersecurity, and digital transformation."
+    },
+    {
+      name: "Dr. Ellen Feehan",
+      designation: "Additional Director, Non-Executive Independent",
+      din: "11716152",
+      photo: null,
+      qualifications: "Qualified medical doctor and management professional. MB, BCh, BAO from Trinity College Dublin, an MBA from University College Dublin, and professional qualifications in Surgery and Plastic Surgery from the Royal College of Surgeons in Ireland, including FRCSI and FRCS (Plast)."
+    },
+    {
+      name: "Ms. Saloni Khandelwal",
+      designation: "Additional Director, Non-Executive Independent",
+      din: "00014590",
+      photo: null,
+      qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. Specific academic or professional degree qualifications are not stated in the source document."
+    },
+    {
+      name: "Dr. Neeraja Nagarajan",
+      designation: "Additional Director and Chief Operating Officer",
+      din: null,
+      photo: null,
+      qualifications: "Medical doctor and public health scientist, and a strategic healthcare consultant with McKinsey experience. Specific degrees and institutions are not stated in the source document."
+    }
+  ];
+
   const principles = [
     {
       title: "Patient needs guide decisions",
@@ -1540,6 +1571,35 @@ function AboutLeadership() {
                   >
                     LinkedIn Profile <ArrowRight size={13} />
                   </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Board of Directors */}
+        <section className="section wwaDirectors">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Governance</div>
+              <h2>Board of Directors</h2>
+            </div>
+            <p>Independent and executive directors providing governance oversight, strategic counsel, and accountability across Evervie's platforms.</p>
+          </div>
+
+          <div className="wwaBoardGrid">
+            {boardOfDirectors.map((director) => (
+              <article key={director.name} className="wwaBoardCard">
+                <div className="wwaBoardCardVisual">
+                  {director.photo
+                    ? <img src={director.photo} alt={director.name} className="wwaBoardCardImg" />
+                    : <Placeholder text={director.name} className="wwaBoardCardImg" />}
+                </div>
+                <div className="wwaBoardCardContent">
+                  <h3>{director.name}</h3>
+                  <span className="wwaBoardCardTitle">{director.designation}</span>
+                  {director.din && <span className="wwaDirectorDin">DIN {director.din}</span>}
+                  <p className="wwaBoardCardShortBio">{director.qualifications}</p>
                 </div>
               </article>
             ))}
