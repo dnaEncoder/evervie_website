@@ -1402,7 +1402,7 @@ function AboutLeadership() {
       name: "Mr. Srivatsan Kalyanasundaram",
       designation: "Additional Director, Non-Executive Independent",
       din: "11719208",
-      photo: null,
+      photo: "/leadership_srivatsan.png",
       qualifications: "MBA from HEC Paris / Ross School of Business and an M.Sc. in Economics, with a Bachelor of Engineering from BITS Pilani. Nearly three decades of experience across Vodafone and McKinsey, with expertise in strategy, technology, governance, cybersecurity, and digital transformation."
     },
     {
@@ -1416,7 +1416,7 @@ function AboutLeadership() {
       name: "Ms. Saloni Khandelwal",
       designation: "Additional Director, Non-Executive Independent",
       din: "00014590",
-      photo: null,
+      photo: "/leadership_saloni.png",
       qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. Specific academic or professional degree qualifications are not stated in the source document."
     },
     {
