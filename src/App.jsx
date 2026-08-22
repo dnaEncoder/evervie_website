@@ -386,7 +386,7 @@ function EditorialNav() {
               onOpen={() => openMega(config.id)} onClose={scheduleClose}
               triggerRef={(el) => (triggerRefs.current[i] = el)} />
           ))}
-          <Link to="/news-insights">News & Insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
+          <Link to="/news-insights">News & insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
         </div>
         <div className="actions">
           <a className="btnOutline">Enter Investor Centre</a>
@@ -423,7 +423,7 @@ function JourneyNav() {
         </div>
       </div>
       <div className="journeyLinks">
-        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Platforms</a><a>Investor Relations</a><Link to="/news-insights">News & Insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
+        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Platforms</a><a>Investor Relations</a><Link to="/news-insights">News & insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
       </div>
       {open && (
         <div className="journeyMega">
@@ -1047,7 +1047,7 @@ function HomeNav() {
       <div className="navLinks">
         <NavLink to="/">Home</NavLink>
         {menu.map(([title, items]) => <Drop key={title} title={title} items={items} styleName="editorialDrop" />)}
-        <Link to="/news-insights">News & Insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
+        <Link to="/news-insights">News & insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
       </div>
       <div className="actions"><a className="btnOutline">Enter Investor Centre</a></div>
     </header>
@@ -1279,7 +1279,7 @@ function AboutWhoWeAre() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
+              ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
               ["Platforms", "Renal care, oncology, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", null],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
@@ -1617,7 +1617,7 @@ function AboutLeadership() {
           <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
-              ["News & Insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
+              ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
               ["Platforms", "Renal care, oncology, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", null],
               ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", null]
             ].map(([title, copy, cta, img, to], i) => (
@@ -5968,10 +5968,10 @@ function NewsInsights() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb" style={{ marginBottom: '24px' }}>
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">News & Insights</span>
+              <span className="wwaBreadActive">News & insights</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Newsroom</div>
-            <h1>News & Insights</h1>
+            <h1>News & insights</h1>
             <p className="wwaHeroBody" style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
               Perspectives, market context, and updates from across Evervie's care platforms.
             </p>
@@ -6064,7 +6064,7 @@ function ArticleDetail() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb" style={{ marginBottom: '24px' }}>
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/news-insights">News & Insights</Link>
+              <Link to="/news-insights">News & insights</Link>
               <ChevronRight size={13} />
               <span className="wwaBreadActive">{post.title}</span>
             </nav>
@@ -6428,10 +6428,10 @@ function RecruitmentCTA() {
     <section className="careersCTA">
       <div className="careersCTAContent">
         <div>
-          <h3>Ready to make an impact?</h3>
+          <h3>Connect with Evervie Health</h3>
           <p>We are always looking for passionate people who want to help shape a healthier tomorrow.</p>
         </div>
-        <a href="#open-positions" className="btn">Join our team <ArrowRight size={16} /></a>
+        <a href="mailto:recruiting.team@everviehealth.com" className="btn">Contact us <ArrowRight size={16} /></a>
       </div>
     </section>
   );
