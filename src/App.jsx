@@ -1409,7 +1409,7 @@ function AboutLeadership() {
       name: "Dr. Ellen Feehan",
       designation: "Additional Director, Non-Executive Independent",
       din: "11716152",
-      photo: null,
+      photo: "/leadership_ellen.jpg",
       qualifications: "Qualified medical doctor and management professional. MB, BCh, BAO from Trinity College Dublin, an MBA from University College Dublin, and professional qualifications in Surgery and Plastic Surgery from the Royal College of Surgeons in Ireland, including FRCSI and FRCS (Plast)."
     },
     {
@@ -1423,7 +1423,7 @@ function AboutLeadership() {
       name: "Dr. Neeraja Nagarajan",
       designation: "Additional Director and Chief Operating Officer",
       din: null,
-      photo: null,
+      photo: "/leadership_neeraja.jpg",
       qualifications: "Medical doctor and public health scientist, and a strategic healthcare consultant with McKinsey experience. Specific degrees and institutions are not stated in the source document."
     }
   ];
