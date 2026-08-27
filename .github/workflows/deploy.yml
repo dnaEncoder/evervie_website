@@ -36,6 +36,7 @@ jobs:
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" dist/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/evervie/dist/
           rsync -az -e "ssh -i ~/.ssh/deploy_key" server.js package.json package-lock.json ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/evervie/
           rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" api/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/evervie/api/
+          rsync -az --delete -e "ssh -i ~/.ssh/deploy_key" seo/ ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}:/var/www/evervie/seo/
 
       - name: Restart app
         run: ssh -i ~/.ssh/deploy_key ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} /var/www/evervie/deploy/ci-deploy.sh
