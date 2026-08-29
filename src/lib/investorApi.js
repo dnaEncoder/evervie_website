@@ -187,3 +187,44 @@ export async function getPastInvestorEvents({ page = 1, pageSize = 8, eventType,
   const { data, meta } = await strapiFetchWithMeta(`/api/investor-events?${query}`);
   return { items: (data ?? []).map(mapEvent), pagination: meta?.pagination };
 }
+
+export async function searchFinancialDocuments(query, limit = 5) {
+  const params = [
+    `filters[showOnInvestorCentre][$eq]=true`,
+    `filters[title][$containsi]=${encodeURIComponent(query)}`,
+    `sort[0]=publicationDate:desc`,
+    `pagination[pageSize]=${limit}`,
+    `populate[documentFile]=true`,
+    `status=published`,
+  ].join("&");
+  const data = await strapiFetch(`/api/financial-documents?${params}`);
+  return (data ?? []).map(mapReport);
+}
+
+export async function searchInvestorNews(query, limit = 5) {
+  const params = [
+    `filters[showOnInvestorCentre][$eq]=true`,
+    `filters[$or][0][title][$containsi]=${encodeURIComponent(query)}`,
+    `filters[$or][1][excerpt][$containsi]=${encodeURIComponent(query)}`,
+    `sort[0]=publicationDate:desc`,
+    `pagination[pageSize]=${limit}`,
+    `populate[featuredImage]=true`,
+    `status=published`,
+  ].join("&");
+  const data = await strapiFetch(`/api/news-articles?${params}`);
+  return (data ?? []).map(mapNews);
+}
+
+export async function searchInvestorEvents(query, limit = 4) {
+  const params = [
+    `filters[showOnInvestorCentre][$eq]=true`,
+    `filters[$or][0][title][$containsi]=${encodeURIComponent(query)}`,
+    `filters[$or][1][summary][$containsi]=${encodeURIComponent(query)}`,
+    `sort[0]=startAt:desc`,
+    `pagination[pageSize]=${limit}`,
+    `populate[relatedDocument][populate][documentFile]=true`,
+    `status=published`,
+  ].join("&");
+  const data = await strapiFetch(`/api/investor-events?${params}`);
+  return (data ?? []).map(mapEvent);
+}

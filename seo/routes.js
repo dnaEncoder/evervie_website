@@ -46,22 +46,32 @@ export const STATIC_ROUTES = {
     description:
       "Our ambition to transform healthcare and improve lives at meaningful scale across the communities Evervie serves.",
   },
-  "/about/governance": {
+  "/governance": {
     title: "Our Governance | Evervie",
     description:
       "The principles, practices, and oversight that ensure integrity, accountability, and trust across Evervie's healthcare platforms.",
   },
-  "/portfolio/renal-care": {
+  "/governance/board": {
+    title: "Our Board | Evervie",
+    description:
+      "Meet the board members guiding Evervie's strategy, oversight, and long-term commitments.",
+  },
+  "/governance/policies": {
+    title: "Policies & Standards | Evervie",
+    description:
+      "The policies, standards, and compliance frameworks that guide how Evervie operates.",
+  },
+  "/platform/renal-care": {
     title: "Renal Care | 7Med — Evervie",
     description:
       "7Med delivers accessible, continuous, and specialty kidney care across India. Explore Evervie's renal care platform.",
   },
-  "/portfolio/oncology": {
+  "/platform/oncology": {
     title: "Oncology | Optimus Oncology — Evervie",
     description:
       "Optimus Oncology delivers coordinated, expert cancer care closer to home. Explore Evervie's oncology platform and radiation oncology network.",
   },
-  "/portfolio/diagnostics": {
+  "/platform/diagnostics": {
     title: "Diagnostics | Medilabs — Evervie",
     description:
       "Medilabs delivers precise pathology, radiology, and home-collection diagnostics. Explore Evervie's diagnostics platform.",

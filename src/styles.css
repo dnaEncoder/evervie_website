@@ -2077,7 +2077,7 @@ blockquote {
 }
 
 .editorialBrand .editorialAboutMessage {
-    border-left: 3px solid var(--evervie-orange);
+    border-left: 1.5px solid var(--evervie-orange);
     padding-left: 20px;
     margin: 0 0 32px;
 }
@@ -2086,6 +2086,7 @@ blockquote {
     font-family: var(--font-display);
     font-size: clamp(16px, 1.3vw, 20px);
     font-style: italic;
+    font-weight: 300;
     line-height: 1.6;
     letter-spacing: 0.02em;
     word-spacing: 0.08em;
@@ -2363,6 +2364,10 @@ blockquote {
     gap: 0
 }
 
+.editorialBrand .companySnapshotMap .mapContainerWrapper {
+    height: 900px;
+}
+
 /* Compact metric cards inside the presence map section only */
 .editorialBrand .companySnapshotMap .metricCard {
     padding: 14px 10px 16px 12px;
@@ -2402,7 +2407,7 @@ blockquote {
         padding: 60px 40px;
     }
     .editorialBrand .companySnapshotMap .mapContainerWrapper {
-        height: 600px;
+        height: 520px;
     }
 }
 
@@ -2412,7 +2417,27 @@ blockquote {
         gap: 32px;
     }
     .editorialBrand .companySnapshotMap .mapContainerWrapper {
-        height: 450px;
+        height: 440px;
+    }
+}
+
+@media (max-width: 640px) {
+    .editorialBrand .companySnapshotMap {
+        padding: 40px 24px;
+        gap: 24px;
+    }
+    .editorialBrand .companySnapshotMap .mapContainerWrapper {
+        height: 400px;
+    }
+    .editorialBrand .csmLeft {
+        gap: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+    .editorialBrand .ssMetricRow {
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 }
 
@@ -2664,7 +2689,7 @@ blockquote {
     letter-spacing: .1em;
     text-transform: uppercase;
     color: #55565a;
-    white-space: nowrap
+    white-space: normal
 }
 
 .editorialBrand .metricValue {
@@ -2694,7 +2719,7 @@ blockquote {
     position: relative;
     width: 44px;
     height: 44px;
-    font-size: 18px;
+    font-size: 23px;
     border: 1px solid var(--evervie-orange);
     border-radius: 9px;
     color: var(--evervie-orange);
@@ -2729,6 +2754,179 @@ blockquote {
 
 .editorialBrand .search:hover::before {
     transform: scaleX(1);
+}
+
+.editorialBrand .siteSearchOverlay {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(40, 40, 40, .55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12vh 24px 24px;
+    animation: fadeInModal 0.2s ease forwards;
+}
+
+.editorialBrand .siteSearchModal {
+    background: #fff;
+    width: min(720px, 100%);
+    max-height: 72vh;
+    border-radius: 20px;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--line-soft);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: scaleInModal 0.25s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.editorialBrand .siteSearchInputRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 20px 22px;
+    border-bottom: 1px solid var(--line-soft);
+    flex-shrink: 0;
+}
+
+.editorialBrand .siteSearchInputIcon {
+    color: var(--evervie-orange);
+    flex-shrink: 0;
+}
+
+.editorialBrand .siteSearchInput {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-family: var(--font-body);
+    color: var(--graphite);
+    background: transparent;
+}
+
+.editorialBrand .siteSearchInput::placeholder {
+    color: var(--muted);
+}
+
+.editorialBrand .siteSearchCloseBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.editorialBrand .siteSearchCloseBtn:hover {
+    background: var(--canvas);
+    color: var(--graphite);
+}
+
+.editorialBrand .siteSearchBody {
+    overflow-y: auto;
+    padding: 8px 0 16px;
+}
+
+.editorialBrand .siteSearchHint {
+    margin: 0;
+    padding: 32px 22px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.editorialBrand .siteSearchGroups {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.editorialBrand .siteSearchGroup {
+    padding: 12px 22px 4px;
+}
+
+.editorialBrand .siteSearchGroupLabel {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+}
+
+.editorialBrand .siteSearchGroupItems {
+    display: flex;
+    flex-direction: column;
+}
+
+.editorialBrand .searchResultRow {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+    margin: 0 -12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: background 0.15s ease;
+}
+
+.editorialBrand .searchResultRow:hover {
+    background: var(--canvas);
+}
+
+.editorialBrand .searchResultRow:hover .searchResultTitle {
+    background-image: linear-gradient(135deg, var(--evervie-orange), var(--prime-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.editorialBrand .searchResultTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--graphite);
+}
+
+.editorialBrand .searchResultMeta {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.editorialBrand .searchResultDate {
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.editorialBrand .searchResultSnippet {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.editorialBrand .searchResultExternalIcon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: var(--muted);
 }
 
 .editorialBrand header .brand img {
@@ -6199,9 +6397,7 @@ blockquote {
     box-shadow: none;
     perspective: 1200px;
 }
-.editorialBrand .companySnapshotMap .mapContainerWrapper {
-    height: 900px;
-}
+
 .editorialBrand .mapContainerWrapper .leaflet-container {
     width: 100%;
     height: 100%;
@@ -6414,12 +6610,40 @@ blockquote {
         height: 420px;
     }
     .editorialBrand .mapLegendBox {
-        position: relative;
-        bottom: 0;
-        right: 0;
-        margin-top: 16px;
-        max-width: 100%;
-        box-shadow: none;
+        position: absolute;
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        max-width: calc(100% - 24px);
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--line-soft);
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(40, 40, 40, 0.08);
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 12px;
+        z-index: 1000;
+    }
+    .editorialBrand .mapLegendBox h4 {
+        width: 100%;
+        margin-bottom: 2px;
+        font-size: 10px;
+    }
+    .editorialBrand .legendItem {
+        gap: 8px;
+        align-items: center;
+    }
+    .editorialBrand .legendColorBox {
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        margin-top: 0;
+    }
+    .editorialBrand .legendLabel {
+        font-size: 11px;
     }
 }
 
@@ -11875,6 +12099,7 @@ blockquote {
 }
 
 .editorialBrand .connectDetailsItem h4 {
+    font-family: var(--font-body), sans-serif;
     font-size: 14px;
     font-weight: 700;
     text-transform: uppercase;
