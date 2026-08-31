@@ -68,13 +68,33 @@ async function searchNewsAndEvents(query) {
   return [...articles, ...eventResults];
 }
 
+// Categories relocated to Our Governance > Policies & Standards — mirrors
+// GOVERNANCE_STATUTORY_CATEGORIES in src/App.jsx, duplicated here to avoid a
+// circular import (App.jsx imports this hook).
+const GOVERNANCE_CATEGORY_KEYS = new Set([
+  "shareholding-pattern",
+  "other-statutory-info",
+  "subsidiary-companies",
+  "shareholder-communication",
+  "mgt9-annual-return",
+  "credit-rating",
+  "postal-ballot",
+  "esop",
+]);
+
+function reportHref(category) {
+  if (category === "notice-announcement") return "/investor-centre/announcements";
+  if (GOVERNANCE_CATEGORY_KEYS.has(category)) return `/governance/policies?category=${encodeURIComponent(category)}`;
+  return `/investor-centre/financial-information?category=${encodeURIComponent(category)}`;
+}
+
 async function searchReports(query) {
   const docs = await searchFinancialDocuments(query, 5).catch(() => []);
   return docs.map((doc) => ({
     id: `report-${doc.id}`,
     title: doc.title,
     snippet: [doc.financialYear, doc.reportingPeriod].filter(Boolean).join(" · "),
-    href: `/investor-centre/financial-information?category=${encodeURIComponent(doc.category)}`,
+    href: reportHref(doc.category),
     external: false,
   }));
 }

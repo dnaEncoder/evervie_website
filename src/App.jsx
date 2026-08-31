@@ -82,9 +82,7 @@ function TwitterX({ size = 16, style, className }) {
 }
 
 const socialLinks = [
-  { name: "LinkedIn", href: "#", icon: Linkedin },
-  { name: "Instagram", href: "#", icon: Instagram },
-  { name: "Twitter / X", href: "#", icon: TwitterX }
+  { name: "LinkedIn", href: "#", icon: Linkedin }
 ];
 
 const menu = [
@@ -2153,7 +2151,78 @@ function AboutGovernanceBoard() {
   );
 }
 
+function GovernancePoliciesList() {
+  return (
+    <div className="governancePoliciesList">
+      {GOVERNANCE_POLICY_DOCS.map((doc) => (
+        <div key={doc.title} className="governancePolicyRow">
+          <span className="governancePolicyTitle">{doc.title}</span>
+          {doc.fileUrl ? (
+            <a href={doc.fileUrl} download className="governancePolicyDownload">
+              <Download size={14} aria-hidden="true" />
+              Download
+            </a>
+          ) : (
+            <span className="governancePolicyComingSoon">
+              <Clock size={13} aria-hidden="true" />
+              Coming soon
+            </span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function GovernanceStatutoryAccordion({ onRequestDownload }) {
+  const [searchParams] = useSearchParams();
+  const requestedKey = searchParams.get("category");
+  const isGovernanceKey = requestedKey && GOVERNANCE_STATUTORY_CATEGORIES.some((c) => c.key === requestedKey);
+  const [expandedKeys, setExpandedKeys] = useState(() => (isGovernanceKey ? new Set([requestedKey]) : new Set()));
+
+  useEffect(() => {
+    if (!isGovernanceKey) return;
+    document.getElementById(`gov-statutory-${requestedKey}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const toggle = (key) => {
+    setExpandedKeys((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
+  };
+
+  return (
+    <div className="governanceStatutoryAccordion">
+      {GOVERNANCE_STATUTORY_CATEGORIES.map((cat) => {
+        const isOpen = expandedKeys.has(cat.key);
+        const Icon = cat.icon;
+        return (
+          <div key={cat.key} id={`gov-statutory-${cat.key}`} className={`governanceAccordionItem ${isOpen ? "open" : ""}`}>
+            <button type="button" className="governanceAccordionHeader" onClick={() => toggle(cat.key)} aria-expanded={isOpen}>
+              <span className="governanceAccordionHeaderLeft">
+                <Icon size={18} aria-hidden="true" />
+                <span className="governanceAccordionLabel">{cat.label}</span>
+              </span>
+              <ChevronDown size={16} className="governanceAccordionChevron" aria-hidden="true" />
+            </button>
+            {isOpen && (
+              <div className="governanceAccordionBody">
+                <FinDocumentArchive category={cat} onRequestDownload={onRequestDownload} />
+              </div>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function AboutGovernancePolicies() {
+  const { requestDownload, modal: downloadGateModal } = useDownloadGate();
   return (
     <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
       <main>
@@ -2173,10 +2242,26 @@ function AboutGovernancePolicies() {
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" style={{ opacity: 0.85 }} />
         </section>
-        <section className="section innerBody">
-          <Placeholder text="Governance policies coming soon" style={{ minHeight: 480 }} />
+        <section className="section innerBody governancePoliciesSection">
+          <div className="governancePoliciesSubsection">
+            <div className="eyebrow"><EyebrowSymbol />Policies</div>
+            <h2>Policies</h2>
+            <p className="wwaHeroBody" style={{ margin: "0 0 24px" }}>
+              Core corporate governance and compliance policies. Documents will appear here as they are published on Evervie letterhead.
+            </p>
+            <GovernancePoliciesList />
+          </div>
+          <div className="governancePoliciesSubsection">
+            <div className="eyebrow"><EyebrowSymbol />Other Statutory Information</div>
+            <h2>Other statutory information</h2>
+            <p className="wwaHeroBody" style={{ margin: "0 0 24px" }}>
+              Shareholding filings, statutory disclosures, and shareholder communications.
+            </p>
+            <GovernanceStatutoryAccordion onRequestDownload={requestDownload} />
+          </div>
         </section>
       </main>
+      {downloadGateModal}
     </Frame>
   );
 }
@@ -2965,7 +3050,7 @@ function RenalCare() {
   const platform = {
     label: "Our Renal Care Platform",
     name: "7Med India",
-    desc: "7Med India is Evervie’s dedicated renal care platform, delivering accessible and high-quality dialysis services across India. Partnering with leading nephrologists and hospitals, 7Med provides patient-first kidney care that combines clinical discipline with compassionate treatment.",
+    desc: "7Med India is Evervie’s dedicated renal care platform, delivering accessible and high-quality dialysis services across India. Partnering with leading nephrologists and hospitals, 7Med provides patient-first kidney care that combines clinical discipline with compassionate treatment. The leadership founding team for 7Med includes Vikas Verma, Dr. Rakesh Thakur, Mayank Sharma, Dr. Vijay Kher and Dr. Ajay Kher.",
     ctaText: "Explore 7Med India",
     ctaLink: "https://www.7medindia.com/",
     logo: (
@@ -3230,7 +3315,7 @@ function Oncology() {
               <div className="eyebrow">OUR ONCOLOGY PLATFORM</div>
               <h2 style={{ fontSize: 'clamp(28px, 3.2vw, 42px)', fontWeight: 600, margin: '8px 0 20px 0', color: 'var(--graphite)' }}>Optimus Oncology</h2>
               <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--muted)', marginBottom: 32 }}>
-                Optimus Oncology is Evervie’s dedicated oncology platform, focused on making advanced and comprehensive cancer care accessible across India. Founded and led by renowned oncologists from Tata Memorial Centre, the platform integrates diagnostics, medical oncology, radiation oncology, and supportive care to bring patient-first clinical standards closer to home, especially in under-served regions.
+                Optimus Oncology is Evervie’s dedicated oncology platform, focused on making advanced and comprehensive cancer care accessible across India. Founded and led by renowned oncologists from Tata Memorial Centre: Dr. Bhushan Nemade, Dr. Chilukuri Srinivas, Dr. Pramod Tike, Dr. Manish Siddha, Dr. Nikhil Ghadyalpatil, the platform integrates diagnostics, medical oncology, radiation oncology, and supportive care to bring patient-first clinical standards closer to home, especially in under-served regions.
               </p>
               <a href="#clinical-network" className="btn">
                 Explore Clinical Network
@@ -3760,7 +3845,7 @@ function Diagnostics() {
                 A Unit of Biohygea Global Private Limited
               </p>
               <p style={{ fontSize: 16, lineHeight: 1.65, color: 'var(--muted)', marginBottom: 32 }}>
-                Medilabs is a premier diagnostics provider specializing in pathology, radiology, preventive health screening, home sample collection, hospital laboratory management, and corporate wellness programs. By operating a robust diagnostic network equipped with state-of-the-art automated testing and imaging capabilities, Medilabs delivers precise clinical insights for hospitals, clinics, corporate clients, and individual patients across Tamil Nadu.
+                Medilabs is a premier diagnostics provider specializing in pathology, radiology, preventive health screening, home sample collection, hospital laboratory management, and corporate wellness programs. By operating a robust diagnostic network equipped with state-of-the-art automated testing and imaging capabilities, Medilabs delivers precise clinical insights for hospitals, clinics, corporate clients, and individual patients across Tamil Nadu. The leadership founding team includes: Dr. Prakash and Dilli Babu.
               </p>
               <a href="#clinical-network" className="btn">
                 Explore Clinical Network
@@ -4271,6 +4356,17 @@ const FINANCIAL_INFO_CATEGORIES = [
     filters: ["search", "financialYear", "reportingPeriod", "sort"],
   },
   {
+    key: "others",
+    label: "Others",
+    description: "Other investor documents that do not fall under a specific category above.",
+    icon: Folder,
+    filters: ["search", "sort"],
+  },
+];
+
+// Statutory categories relocated to Our Governance > Policies & Standards.
+const GOVERNANCE_STATUTORY_CATEGORIES = [
+  {
     key: "shareholding-pattern",
     label: "Shareholding Pattern",
     description: "Review Evervie's shareholding pattern filings by financial year and reporting quarter.",
@@ -4320,26 +4416,37 @@ const FINANCIAL_INFO_CATEGORIES = [
     filters: ["search", "financialYear", "sort"],
   },
   {
-    key: "notice-announcement",
-    label: "Notices & Announcements",
-    description: "Board meeting outcomes and other stock exchange notices and announcements.",
-    icon: Megaphone,
-    filters: ["search", "financialYear", "sort"],
-  },
-  {
     key: "esop",
     label: "Employee Stock Option Plan",
     description: "Disclosures relating to Evervie's Employee Stock Option Plan (ESOP).",
     icon: Users,
     filters: ["search", "financialYear", "sort"],
   },
-  {
-    key: "others",
-    label: "Others",
-    description: "Other investor documents that do not fall under a specific category above.",
-    icon: Folder,
-    filters: ["search", "sort"],
-  },
+];
+
+// Notices & Announcements — relocated to the Announcements page.
+const NOTICE_ANNOUNCEMENT_CATEGORY = {
+  key: "notice-announcement",
+  label: "Notices & Announcements",
+  description: "Board meeting outcomes and other stock exchange notices and announcements.",
+  icon: Megaphone,
+  filters: ["search", "financialYear", "sort"],
+};
+
+// Static list of named governance/compliance policies — pending PDFs on
+// Evervie letterhead; fileUrl fills in once supplied, until then rows show
+// a "Coming soon" badge instead of a download link.
+const GOVERNANCE_POLICY_DOCS = [
+  { title: "Code of Fair Disclosure", fileUrl: null },
+  { title: "PVP Succession Policy", fileUrl: null },
+  { title: "Policy on Preservation and Archival of Documents", fileUrl: null },
+  { title: "Familiarisation Programme", fileUrl: null },
+  { title: "Policy on Disclosure of Material Events", fileUrl: null },
+  { title: "Terms of Appointment of Independent Directors", fileUrl: null },
+  { title: "Whistle Blower Policy", fileUrl: null },
+  { title: "Policy on Material Subsidiaries", fileUrl: null },
+  { title: "Related Party Transaction Policy", fileUrl: null },
+  { title: "CSR Policy", fileUrl: null },
 ];
 
 // News & Insights page — one entry per blog-post category enum value.
@@ -4925,7 +5032,7 @@ function InvestorRelationsNavSection({ showBorder = true }) {
       num: "01",
       title: "Financial Information",
       path: "/investor-centre/financial-information",
-      desc: "Access financial results, annual reports, shareholding information, statutory filings, and shareholder communications.",
+      desc: "Access annual and quarterly financial results and reports.",
       cta: "Explore financial information"
     },
     {
@@ -4939,7 +5046,7 @@ function InvestorRelationsNavSection({ showBorder = true }) {
       num: "03",
       title: "Our Governance",
       path: "/governance",
-      desc: "Review our corporate governance framework, board committees, guidelines, and compliance standards.",
+      desc: "Review our corporate governance framework, board committees, policies, statutory disclosures, and compliance standards.",
       cta: "Read about governance"
     }
   ];
@@ -5962,8 +6069,17 @@ function StayInformedBand({ page }) {
   );
 }
 
+function NoticesAnnouncementsSection({ onRequestDownload }) {
+  return (
+    <section className="noticesAnnouncementsSection">
+      <FinDocumentArchive category={NOTICE_ANNOUNCEMENT_CATEGORY} onRequestDownload={onRequestDownload} />
+    </section>
+  );
+}
+
 function NewsAndEvents() {
   const [investorPage, setInvestorPage] = useState(null);
+  const { requestDownload, modal: downloadGateModal } = useDownloadGate();
 
   useEffect(() => {
     getInvestorCentrePage()
@@ -5995,10 +6111,12 @@ function NewsAndEvents() {
           <FeaturedHero />
           <UpcomingEventsSection />
           <PastEventsLibrary />
+          <NoticesAnnouncementsSection onRequestDownload={requestDownload} />
           <StayInformedBand page={investorPage} />
         </section>
         <InvestorRelationsNavSection />
       </main>
+      {downloadGateModal}
     </Frame>
   );
 }
@@ -7080,7 +7198,7 @@ function ConnectPage() {
             {/* Right: Contact Details (Addresses, Emails, Phones) */}
             <div className="connectDetailsContainer">
               <div className="connectDetailsBlock">
-                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Emails</div>
+                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Email</div>
                 <div className="connectDetailsList">
                   <div className="connectDetailsItem">
                     <div className="connectDetailIcon">
@@ -7088,25 +7206,7 @@ function ConnectPage() {
                     </div>
                     <div>
                       <h4>General Enquiries</h4>
-                      <p><a href="mailto:info@everviehealth.in">info@everviehealth.in</a></p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem">
-                    <div className="connectDetailIcon">
-                      <Handshake size={18} />
-                    </div>
-                    <div>
-                      <h4>Partnerships & Growth</h4>
-                      <p><a href="mailto:partnerships@everviehealth.in">partnerships@everviehealth.in</a></p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem">
-                    <div className="connectDetailIcon">
-                      <TrendingUp size={18} />
-                    </div>
-                    <div>
-                      <h4>Investor Contact</h4>
-                      <p><a href="mailto:investors@everviehealth.in">investors@everviehealth.in</a></p>
+                      <p><a href="mailto:info@everviehealth.com">info@everviehealth.com</a></p>
                     </div>
                   </div>
                 </div>
@@ -7116,32 +7216,6 @@ function ConnectPage() {
                 <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Office Addresses</div>
                 <div className="connectDetailsList">
                   <div className="connectDetailsItem">
-                    <div className="connectDetailIcon">
-                      <MapPin size={18} />
-                    </div>
-                    <div>
-                      <h4>Corporate Headquarters</h4>
-                      <p>
-                        Evervie Health Pte. Ltd.<br />
-                        10 Collyer Quay, #10-01 Ocean Financial Centre<br />
-                        Singapore 049315
-                      </p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem" style={{ marginTop: '20px' }}>
-                    <div className="connectDetailIcon">
-                      <Building2 size={18} />
-                    </div>
-                    <div>
-                      <h4>Operational Headquarters</h4>
-                      <p>
-                        Evervie Health Private Limited<br />
-                        Prestige Trade Tower, 14th Floor, Palace Road<br />
-                        Bengaluru, Karnataka 560001, India
-                      </p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem" style={{ marginTop: '20px' }}>
                     <div className="connectDetailIcon">
                       <Building2 size={18} />
                     </div>
@@ -7171,24 +7245,15 @@ function ConnectPage() {
               </div>
 
               <div className="connectDetailsBlock" style={{ marginTop: '40px' }}>
-                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Phone Numbers</div>
+                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Phone</div>
                 <div className="connectDetailsList">
                   <div className="connectDetailsItem">
                     <div className="connectDetailIcon">
                       <Phone size={18} />
                     </div>
                     <div>
-                      <h4>Singapore Headquarters</h4>
-                      <p><a href="tel:+6567890123">+65 6789 0123</a></p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem" style={{ marginTop: '16px' }}>
-                    <div className="connectDetailIcon">
-                      <Phone size={18} />
-                    </div>
-                    <div>
-                      <h4>India Operations</h4>
-                      <p><a href="tel:+918045678901">+91 80 4567 8901</a></p>
+                      <h4>General Enquiries</h4>
+                      <p><a href="tel:+919600537888">+91 96005 37888</a></p>
                     </div>
                   </div>
                 </div>
