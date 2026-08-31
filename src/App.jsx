@@ -2576,11 +2576,11 @@ function PortfolioVertical({
                     </div>
                     <div>
                       <strong className="footprintMetricNumber">{network.hospitalCount || 4}</strong>
-                      <span className="footprintMetricLabel">Hospitals</span>
+                      <span className="footprintMetricLabel">{network.label || "Hospitals"}</span>
                     </div>
                   </div>
                   <div className="footprintMetricBody">
-                    <strong>Located in:</strong>
+                    <strong>{network.bodyLabel || "Located in:"}</strong>
                     <div className="chipGrid">
                       {(network.citiesList || "Delhi, Moradabad, Varanasi, Mau").split(",").map((c, i) => (
                         <div className="cityChip" key={i}><MapPin size={13} />{c.trim()}</div>
@@ -2958,8 +2958,8 @@ function RenalCare() {
     { icon: Building2, label: "Dialysis Centres", number: "26", desc: "Dialysis centres across 7 states", tone: "orange" },
     { icon: Users, label: "Hospitals & Transplant Centers", number: "3", desc: "2 Hospitals + 1 Kidney Transplant Center", tone: "solar" },
     { icon: Activity, label: "Dialysis Sessions", number: "10 Lakh+", desc: "High-quality dialysis sessions delivered since 2013", tone: "pink" },
-    { icon: UsersRound, label: "Patients Served", number: "15,000+", desc: "Patients served across hospitals", tone: "orange" },
-    { icon: Globe2, label: "Outreach Patients", number: "2,500+", desc: "Patients reached through community outreach and OPD camps", tone: "solar" }
+    { icon: UsersRound, label: "Patients Served", number: "50,000+", desc: "Patients served across hospitals", tone: "orange" },
+    { icon: Globe2, label: "Outreach Patients", number: "5000+", desc: "Patients reached through community outreach and OPD camps", tone: "solar" }
   ];
 
   const platform = {
@@ -2997,7 +2997,7 @@ function RenalCare() {
       ]
     },
     hospitalsList: [
-      { city: "Moradabad", state: "Uttar Pradesh", coordinates: [28.880642, 78.744292] },
+      { city: "New Delhi", state: "Delhi", coordinates: [28.6139, 77.2090] },
       { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.320984, 82.992272] },
       { city: "Mau", state: "Uttar Pradesh", coordinates: [25.932517, 83.572181] }
     ],
@@ -3031,7 +3031,9 @@ function RenalCare() {
   const network = {
     title: "Clinical Network",
     hospitalCount: 3,
-    citiesList: "Moradabad, Varanasi, and Mau"
+    label: "Hospitals & Transplant Centers",
+    bodyLabel: "2 Hospitals and 1 transplant center:",
+    citiesList: "New Delhi, Varanasi, and Mau"
   };
 
   const careExperience = [
@@ -7139,6 +7141,32 @@ function ConnectPage() {
                       </p>
                     </div>
                   </div>
+                  <div className="connectDetailsItem" style={{ marginTop: '20px' }}>
+                    <div className="connectDetailIcon">
+                      <Building2 size={18} />
+                    </div>
+                    <div>
+                      <h4>Chennai Office</h4>
+                      <p>
+                        9th Floor, KRM Center<br />
+                        Harrington Road<br />
+                        Chetpet, Chennai 600031
+                      </p>
+                    </div>
+                  </div>
+                  <div className="connectDetailsItem" style={{ marginTop: '20px' }}>
+                    <div className="connectDetailIcon">
+                      <Building2 size={18} />
+                    </div>
+                    <div>
+                      <h4>Hyderabad Office</h4>
+                      <p>
+                        4th Floor, Punnaiah Plaza<br />
+                        Jubilee Hills Check Post<br />
+                        Hyderabad
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -7164,6 +7192,26 @@ function ConnectPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Careers Section */}
+        <section className="connectCareersSection">
+          <div className="connectCareersLayout">
+            <div>
+              <JoinTeamForm />
+            </div>
+            <div className="connectCareersSidebar">
+              <div className="connectDetailsBlock">
+                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Careers & Talent</div>
+                <p style={{ fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', marginBottom: '24px' }}>
+                  We are always looking for clinical leaders, healthcare operators, and operational stewards. If you don't see an open role that fits, send us an introduction.
+                </p>
+                <Link to="/careers" className="btnOutline" style={{ display: 'inline-flex', alignItems: 'center' }}>
+                  Explore Open Positions <ArrowRight size={13} style={{ marginLeft: '8px' }} />
+                </Link>
               </div>
             </div>
           </div>
