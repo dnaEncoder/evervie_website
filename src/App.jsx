@@ -226,10 +226,12 @@ const presenceLocations = [
     logo: "/OPTIMUS LOGO.JPG",
     colorHex: "#FF91B4",
     cities: [
-      { name: "Solapur Cancer Centre", city: "Solapur", state: "Maharashtra", coordinates: [17.656764, 75.896614] },
+      { name: "Akola Cancer Centre", city: "Akola", state: "Maharashtra", coordinates: [20.7002, 77.0082] },
       { name: "Lifepoint Multispeciality Hospital", city: "Pune", state: "Maharashtra", coordinates: [18.59773, 73.755635] },
+      { name: "Surat Cancer Centre", city: "Surat", state: "Gujarat", coordinates: [21.1702, 72.8311] },
       { name: "Khandesh Cancer Centre", city: "Dhule", state: "Maharashtra", coordinates: [20.873641, 74.762007] },
       { name: "Vivekanand Cancer Hospital", city: "Latur", state: "Maharashtra", coordinates: [18.414554, 76.538606] },
+      { name: "Solapur Cancer Centre", city: "Solapur", state: "Maharashtra", coordinates: [17.656764, 75.896614] },
     ]
   },
   {
@@ -1518,18 +1520,11 @@ const boardOfDirectors = [
     qualifications: "Serial entrepreneur with 30+ years of experience and who has successfully built and exited 3 companies. His experience spans India, UK and the US with over $800M in transactions."
   },
   {
-    name: "Subbu",
+    name: "Subbu Parameswaran",
     designation: "Non-executive Independent Director",
     din: null,
     photo: "/leadership_subbu.jpg",
     qualifications: "Corporate consultant, social entrepreneur and advisor with 25+ years of experience across sectors such as pharmaceuticals & healthcare, business consulting and education, in the UK and India. He is currently the co-founder of Learning Curve, a social impact organization committed to building better mental health and adulthood outcomes for children from underserved backgrounds."
-  },
-  {
-    name: "Mr. Srivatsan Kalyanasundaram",
-    designation: "Non-executive Independent Director",
-    din: null,
-    photo: "/leadership_srivatsan.png",
-    qualifications: "Technologist and C-suite leader with three decades of experience across Vodafone and McKinsey, with expertise in strategy, technology, governance, cybersecurity, and digital transformation. MBA from HEC Paris / Ross School of Business and an M.Sc. in Economics, with a Bachelor of Engineering from BITS Pilani."
   },
   {
     name: "Ms. Saloni Khandelwal",
@@ -1537,6 +1532,13 @@ const boardOfDirectors = [
     din: null,
     photo: "/leadership_saloni.jpg",
     qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. A qualified Chartered Accountant with over 25 years of experience advising promoters, business families, corporates and investors on complex strategic and financial decisions."
+  },
+  {
+    name: "Mr. Srivatsan Kalyanasundaram",
+    designation: "Non-executive Independent Director",
+    din: null,
+    photo: "/leadership_srivatsan.png",
+    qualifications: "Technologist and C-suite leader with three decades of experience across Vodafone and McKinsey, with expertise in strategy, technology, governance, cybersecurity, and digital transformation. MBA from HEC Paris / Ross School of Business and an M.Sc. in Economics, with a Bachelor of Engineering from BITS Pilani."
   },
   {
     name: "Dr. Ellen Feehan",
