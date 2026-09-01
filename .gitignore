@@ -33,6 +33,7 @@ out/
 
 # Design reference materials (large, not used by the build)
 *.pdf
+!public/policies/*.pdf
 *.pptx
 /3D Assets for Website Team/
 /commercial-type-2605-CJNNHF-web (1)/

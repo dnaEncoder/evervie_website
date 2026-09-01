@@ -1520,18 +1520,18 @@ const boardOfDirectors = [
     qualifications: "Serial entrepreneur with 30+ years of experience and who has successfully built and exited 3 companies. His experience spans India, UK and the US with over $800M in transactions."
   },
   {
+    name: "Saloni Khandelwal",
+    designation: "Non-executive Independent Director",
+    din: null,
+    photo: "/leadership_saloni.jpg",
+    qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. A qualified Chartered Accountant with over 25 years of experience advising promoters, business families, corporates and investors on complex strategic and financial decisions."
+  },
+  {
     name: "Subbu Parameswaran",
     designation: "Non-executive Independent Director",
     din: null,
     photo: "/leadership_subbu.jpg",
     qualifications: "Corporate consultant, social entrepreneur and advisor with 25+ years of experience across sectors such as pharmaceuticals & healthcare, business consulting and education, in the UK and India. He is currently the co-founder of Learning Curve, a social impact organization committed to building better mental health and adulthood outcomes for children from underserved backgrounds."
-  },
-  {
-    name: "Ms. Saloni Khandelwal",
-    designation: "Non-executive Independent Director",
-    din: null,
-    photo: "/leadership_saloni.jpg",
-    qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. A qualified Chartered Accountant with over 25 years of experience advising promoters, business families, corporates and investors on complex strategic and financial decisions."
   },
   {
     name: "Mr. Srivatsan Kalyanasundaram",
@@ -4439,16 +4439,16 @@ const NOTICE_ANNOUNCEMENT_CATEGORY = {
 // Evervie letterhead; fileUrl fills in once supplied, until then rows show
 // a "Coming soon" badge instead of a download link.
 const GOVERNANCE_POLICY_DOCS = [
-  { title: "Code of Fair Disclosure", fileUrl: null },
-  { title: "PVP Succession Policy", fileUrl: null },
-  { title: "Policy on Preservation and Archival of Documents", fileUrl: null },
-  { title: "Familiarisation Programme", fileUrl: null },
-  { title: "Policy on Disclosure of Material Events", fileUrl: null },
-  { title: "Terms of Appointment of Independent Directors", fileUrl: null },
-  { title: "Whistle Blower Policy", fileUrl: null },
-  { title: "Policy on Material Subsidiaries", fileUrl: null },
-  { title: "Related Party Transaction Policy", fileUrl: null },
-  { title: "CSR Policy", fileUrl: null },
+  { title: "Code of Fair Disclosure", fileUrl: "/policies/code-of-fair-disclosure.pdf" },
+  { title: "Succession Planning Policy", fileUrl: "/policies/succession-planning-policy.pdf" },
+  { title: "Policy on Preservation and Archival of Documents", fileUrl: "/policies/policy-on-preservation-and-archival-of-documents.pdf" },
+  { title: "Familiarisation Programme", fileUrl: "/policies/familiarisation-programme.pdf" },
+  { title: "Policy on Materiality of Events", fileUrl: "/policies/policy-on-materiality-of-events.pdf" },
+  { title: "Terms of Appointment of Independent Directors", fileUrl: "/policies/terms-of-appointment-of-independent-directors.pdf" },
+  { title: "Whistle Blower Policy", fileUrl: "/policies/whistle-blower-policy.pdf" },
+  { title: "Policy on Material Subsidiaries", fileUrl: "/policies/policy-on-material-subsidiaries.pdf" },
+  { title: "Related Party Transaction Policy", fileUrl: "/policies/related-party-transaction-policy.pdf" },
+  { title: "CSR Policy", fileUrl: "/policies/csr-policy.pdf" },
 ];
 
 // News & Insights page — one entry per blog-post category enum value.
