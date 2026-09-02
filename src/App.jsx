@@ -82,7 +82,7 @@ function TwitterX({ size = 16, style, className }) {
 }
 
 const socialLinks = [
-  { name: "LinkedIn", href: "#", icon: Linkedin }
+  { name: "LinkedIn", href: "https://www.linkedin.com/company/evervie-health", icon: Linkedin }
 ];
 
 const menu = [
@@ -734,7 +734,7 @@ function EditorialFooter() {
       <div className="footerBottom">
         <div className="footerLegal">
           <span className="copyright">© 2026 Evervie Health. All rights reserved.</span>
-          <div className="footerLegalLinks"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a><a href="#">Sitemap</a></div>
+          <div className="footerLegalLinks"><Link to="/privacy-policy">Privacy Policy</Link><Link to="/terms-of-use">Terms of Use</Link><Link to="/sitemap">Sitemap</Link></div>
           <button className="backToTop" onClick={scrollTop}>Back to top <span className="backToTopCircle"><ArrowUp size={16} /></span></button>
         </div>
       </div>
@@ -7288,6 +7288,260 @@ function ConnectPage() {
   );
 }
 
+const PRIVACY_POLICY_LAST_UPDATED = "September 2026";
+
+const PRIVACY_POLICY_BODY = `
+## Introduction
+
+Evervie Health ("Evervie," "we," "us," or "our") respects your privacy and is committed to protecting the information you share with us through this website. This Privacy Policy explains what information we collect, how we use it, and the choices you have.
+
+This policy applies to everviehealth.in and its subdomains. It does not apply to the clinical or patient-facing systems operated by our platforms — 7Med, Optimus Oncology, and Medilabs — which are governed by their own privacy notices.
+
+## Information We Collect
+
+**Information you provide directly.** When you use our contact form, apply for a role, submit feedback, or otherwise reach out to us, we may collect your name, email address, phone number, company or organisation, and the contents of your message.
+
+**Information collected automatically.** Like most websites, we automatically collect certain information when you visit, including your IP address, browser and device type, pages viewed, referring pages, and general usage patterns, typically through cookies and similar analytics technologies.
+
+**Investor-related information.** If you sign up for investor updates or announcements, we collect the contact details needed to send you that correspondence.
+
+## How We Use Your Information
+
+We use the information we collect to:
+
+- Respond to enquiries, applications, and feedback submitted through the site
+- Operate, maintain, and improve the website and its content
+- Send investor communications and announcements to those who request them
+- Understand how visitors use the site so we can improve navigation and content
+- Meet legal, regulatory, and compliance obligations
+
+We do not sell your personal information.
+
+## Cookies and Tracking Technologies
+
+We use cookies and similar technologies to remember your preferences and to understand aggregate site usage. You can control cookies through your browser settings; disabling them may affect some site functionality.
+
+## How We Share Your Information
+
+We may share information with:
+
+- Service providers who help us operate the website (e.g., hosting, analytics, and email delivery)
+- Group companies and platforms within Evervie Health, where relevant to your enquiry
+- Regulators, auditors, and legal advisors where required by law or to protect our legal rights
+
+We do not share your information with third parties for their own independent marketing purposes.
+
+## Data Retention
+
+We retain personal information only for as long as necessary to fulfil the purposes described in this policy, or as required by applicable law or regulatory obligations relevant to a listed company.
+
+## Your Rights and Choices
+
+Depending on where you are located, you may have the right to access, correct, or request deletion of the personal information we hold about you, or to object to certain processing. To exercise these rights, contact us using the details below.
+
+## Data Security
+
+We take reasonable technical and organisational measures designed to protect information submitted through this website against unauthorised access, loss, or misuse. No method of transmission or storage is completely secure, and we cannot guarantee absolute security.
+
+## Third-Party Links
+
+This website may link to third-party sites, including career application portals and social media platforms. We are not responsible for the privacy practices of those third parties, and we encourage you to review their policies separately.
+
+## Children's Privacy
+
+This website is not directed at children, and we do not knowingly collect personal information from children.
+
+## Changes to This Policy
+
+We may update this Privacy Policy from time to time. The "last updated" date below reflects the most recent revision. Material changes will be reflected on this page.
+
+## Contact Us
+
+Questions about this Privacy Policy or how we handle your information can be directed to us through the [Connect](/connect) page.
+`.trim();
+
+const TERMS_OF_USE_LAST_UPDATED = "September 2026";
+
+const TERMS_OF_USE_BODY = `
+## Acceptance of Terms
+
+By accessing or using everviehealth.in (the "Site"), you agree to be bound by these Terms of Use. If you do not agree with these terms, please do not use the Site.
+
+## Use of This Site
+
+This Site is provided for general information about Evervie Health and its platforms — 7Med, Optimus Oncology, and Medilabs — including our leadership, governance, investor relations, and career opportunities. You agree to use the Site only for lawful purposes and not to interfere with its operation, attempt unauthorised access to any systems, or misuse any content.
+
+## No Medical Advice
+
+Content on this Site, including descriptions of our platforms and care models, is provided for general informational purposes only and does not constitute medical advice. Nothing on this Site should be used to diagnose, treat, or make decisions about a medical condition. Always consult a qualified healthcare provider for medical guidance, and contact the relevant platform directly for clinical services.
+
+## Investor Information and Forward-Looking Statements
+
+Information published in our Investor Centre — including announcements, presentations, and financial disclosures — is provided for informational purposes and does not constitute investment advice or an offer or solicitation to buy or sell any securities. Statements on this Site that are not statements of historical fact, including statements about future plans, strategy, or performance, are forward-looking statements that involve risks and uncertainties, and actual results may differ materially. We undertake no obligation to update forward-looking statements except as required by applicable law or stock exchange regulation.
+
+## Intellectual Property
+
+All content on this Site — including text, graphics, logos, images, and the Evervie name and brand marks — is owned by or licensed to Evervie Health and is protected by applicable intellectual property laws. You may view and download content for personal, non-commercial use only, and may not reproduce, distribute, or create derivative works from it without our prior written consent.
+
+## Third-Party Links
+
+This Site may contain links to third-party websites, including external career application systems and social media platforms. These links are provided for convenience only. We do not endorse and are not responsible for the content, accuracy, or practices of any linked third-party site.
+
+## Careers and Applications
+
+Where the Site links to an external application system or invites applications by email, any information you submit is subject to the terms and privacy practices of that system, in addition to our own [Privacy Policy](/privacy-policy).
+
+## Limitation of Liability
+
+The Site and its content are provided "as is" without warranties of any kind, express or implied. To the fullest extent permitted by law, Evervie Health shall not be liable for any indirect, incidental, or consequential damages arising from your use of, or inability to use, this Site.
+
+## Indemnification
+
+You agree to indemnify and hold Evervie Health harmless from any claims, losses, or damages arising from your misuse of the Site or violation of these Terms.
+
+## Governing Law and Jurisdiction
+
+These Terms are governed by the laws of India, and any disputes arising from your use of the Site shall be subject to the exclusive jurisdiction of the courts of India.
+
+## Changes to These Terms
+
+We may revise these Terms from time to time. Continued use of the Site after changes are posted constitutes acceptance of the revised Terms. The "last updated" date below reflects the most recent revision.
+
+## Contact Us
+
+Questions about these Terms of Use can be directed to us through the [Connect](/connect) page.
+`.trim();
+
+function LegalPage({ eyebrow, title, lastUpdated, body }) {
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/">Home</Link>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">{title}</span>
+            </nav>
+            <div className="eyebrow"><EyebrowSymbol />{eyebrow}</div>
+            <h1>{title}</h1>
+            <p className="wwaHeroBody" style={{ margin: 0 }}>Last updated: {lastUpdated}</p>
+          </div>
+          <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" style={{ opacity: 0.85 }} />
+        </section>
+        <section className="innerBody newsArticleDetail legalPage">
+          <article className="newsArticleBody">
+            <ReactMarkdown>{body}</ReactMarkdown>
+          </article>
+        </section>
+      </main>
+    </Frame>
+  );
+}
+
+function PrivacyPolicyPage() {
+  return <LegalPage eyebrow="Privacy Policy" title="Privacy Policy" lastUpdated={PRIVACY_POLICY_LAST_UPDATED} body={PRIVACY_POLICY_BODY} />;
+}
+
+function TermsOfUsePage() {
+  return <LegalPage eyebrow="Terms of Use" title="Terms of Use" lastUpdated={TERMS_OF_USE_LAST_UPDATED} body={TERMS_OF_USE_BODY} />;
+}
+
+const SITEMAP_GROUPS = [
+  {
+    title: "About Evervie",
+    links: [
+      { label: "Who we are", to: "/about/who-we-are" },
+      { label: "Our leadership", to: "/about/leadership" },
+      { label: "Mission & vision", to: "/about/mission-vision" },
+      { label: "Our aspiration", to: "/about/aspiration" },
+    ],
+  },
+  {
+    title: "Our Governance",
+    links: [
+      { label: "Governance overview", to: "/governance" },
+      { label: "Our board", to: "/governance/board" },
+      { label: "Policies & standards", to: "/governance/policies" },
+    ],
+  },
+  {
+    title: "Platforms",
+    links: [
+      { label: "Renal care — 7Med", to: "/platform/renal-care" },
+      { label: "Oncology — Optimus Oncology", to: "/platform/oncology" },
+      { label: "Diagnostics — Medilabs", to: "/platform/diagnostics" },
+    ],
+  },
+  {
+    title: "Investor Relations",
+    links: [
+      { label: "Investor centre", to: "/investor-centre" },
+      { label: "Investment overview", to: "/investor-centre/investment-overview" },
+      { label: "Financial information", to: "/investor-centre/financial-information" },
+      { label: "Announcements", to: "/investor-centre/announcements" },
+      { label: "Investor presentations", to: "/investor-centre/presentations" },
+    ],
+  },
+  {
+    title: "News & Careers",
+    links: [
+      { label: "News & insights", to: "/news-insights" },
+      { label: "Careers", to: "/careers" },
+    ],
+  },
+  {
+    title: "Connect",
+    links: [
+      { label: "Contact Evervie", to: "/connect" },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      { label: "Privacy Policy", to: "/privacy-policy" },
+      { label: "Terms of Use", to: "/terms-of-use" },
+      { label: "Sitemap", to: "/sitemap" },
+    ],
+  },
+];
+
+function SitemapPage() {
+  return (
+    <Frame nav={<EditorialNav />} brand footer={<EditorialFooter />}>
+      <main>
+        <section className="wwaHero">
+          <div className="wwaHeroLeft">
+            <nav className="wwaBreadcrumb" aria-label="breadcrumb">
+              <Link to="/">Home</Link>
+              <ChevronRight size={13} />
+              <span className="wwaBreadActive">Sitemap</span>
+            </nav>
+            <div className="eyebrow"><EyebrowSymbol />Sitemap</div>
+            <h1>Sitemap</h1>
+            <p className="wwaHeroBody" style={{ margin: 0 }}>A full directory of pages across the Evervie Health website.</p>
+          </div>
+          <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" style={{ opacity: 0.85 }} />
+        </section>
+        <section className="section innerBody">
+          <div className="sitemapGrid">
+            <div className="sitemapCol">
+              <h3>Home</h3>
+              <Link to="/">Homepage</Link>
+            </div>
+            {SITEMAP_GROUPS.map((group) => (
+              <div className="sitemapCol" key={group.title}>
+                <h3>{group.title}</h3>
+                {group.links.map((link) => <Link to={link.to} key={link.to + link.label}>{link.label}</Link>)}
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+    </Frame>
+  );
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -7318,6 +7572,9 @@ export const FEEDBACK_TRACKED_PAGES = [
   { path: "/news-insights", label: "News & Insights", Component: NewsInsights },
   { path: "/careers", label: "Careers", Component: CareersPage },
   { path: "/connect", label: "Connect", Component: ConnectPage },
+  { path: "/privacy-policy", label: "Privacy Policy", Component: PrivacyPolicyPage },
+  { path: "/terms-of-use", label: "Terms of Use", Component: TermsOfUsePage },
+  { path: "/sitemap", label: "Sitemap", Component: SitemapPage },
 ];
 
 export default function App() {
@@ -7348,6 +7605,9 @@ export default function App() {
     <Route path="/news-insights/:slug" element={<ArticleDetail />} />
     <Route path="/careers" element={<CareersPage />} />
     <Route path="/connect" element={<ConnectPage />} />
+    <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+    <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+    <Route path="/sitemap" element={<SitemapPage />} />
     <Route path="/careers/:slug" element={<CareerDetail />} />
     <Route path="/feedback" element={<FeedbackLoginPage />} />
     <Route path="/feedback/verify" element={<FeedbackVerifyPage />} />

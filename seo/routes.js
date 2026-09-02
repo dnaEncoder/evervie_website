@@ -122,6 +122,21 @@ export const STATIC_ROUTES = {
     description:
       "Get in touch with Evervie. Find our office addresses, email contacts, and phone numbers.",
   },
+  "/privacy-policy": {
+    title: "Privacy Policy | Evervie",
+    description:
+      "How Evervie Health collects, uses, and protects information gathered through this website.",
+  },
+  "/terms-of-use": {
+    title: "Terms of Use | Evervie",
+    description:
+      "The terms and conditions that govern your use of the Evervie Health website.",
+  },
+  "/sitemap": {
+    title: "Sitemap | Evervie",
+    description:
+      "A full directory of pages across the Evervie Health website.",
+  },
   "/feedback": {
     title: "Evervie",
     description: "Evervie",
