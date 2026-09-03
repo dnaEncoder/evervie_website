@@ -155,7 +155,7 @@ header .brand img {
 .navEditorial {
     min-height: 86px;
     display: grid;
-    grid-template-columns: 280px 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
     gap: 28px;
     align-items: center;
     padding: 0 34px
@@ -2712,7 +2712,12 @@ blockquote {
 }
 
 .editorialBrand .navLinks {
-    justify-content: center
+    justify-content: center;
+    justify-self: center;
+}
+
+.editorialBrand .actions {
+    justify-self: end;
 }
 
 .editorialBrand .search {
@@ -3021,6 +3026,20 @@ blockquote {
 .editorialBrand .megaNavCol {
     display: flex;
     flex-direction: column
+}
+
+.editorialBrand .megaSectionHeader {
+    padding: 16px 0 8px 0;
+    margin-top: 8px;
+    border-bottom: 1.5px solid var(--evervie-orange, #FF3C00);
+}
+
+.editorialBrand .megaSectionHeaderTitle {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--evervie-orange, #FF3C00);
 }
 
 .editorialBrand .megaRow {
@@ -5021,6 +5040,23 @@ blockquote {
     border-left: 3px solid var(--evervie-orange);
 }
 
+.editorialBrand .wwaChairmanQuotesList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.editorialBrand .wwaChairmanQuoteItem {
+    font-family: var(--font-display);
+    font-size: clamp(19px, 1.8vw, 23px);
+    line-height: 1.55;
+    font-weight: 500;
+    color: var(--graphite);
+    margin: 0;
+    padding-left: 22px;
+    border-left: 3px solid var(--evervie-orange);
+}
+
 .editorialBrand .wwaChairmanText {
     font-size: 16px;
     line-height: 1.65;
@@ -5166,6 +5202,65 @@ blockquote {
     color: var(--muted);
     margin: 0 0 20px 0;
     flex-grow: 1;
+}
+
+.editorialBrand .wwaSecretaryCard {
+    background: linear-gradient(135deg, #FAF8F6 0%, #F5F0EC 100%);
+    border: 1px solid rgba(255, 60, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 32px 28px;
+}
+
+.editorialBrand .wwaSecretaryCardInner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.editorialBrand .wwaSecretaryIconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(255, 60, 0, 0.08);
+    color: var(--evervie-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+
+.editorialBrand .wwaSecretaryCard h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--graphite);
+    margin: 4px 0 0 0;
+}
+
+.editorialBrand .wwaSecretaryContactDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.editorialBrand .wwaSecretaryContactLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--evervie-orange);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+.editorialBrand .wwaSecretaryContactLink:hover {
+    opacity: 0.8;
+    text-decoration: underline;
 }
 
 .editorialBrand .wwaBoardCardExpertise {
@@ -10992,9 +11087,56 @@ blockquote {
     display: block;
 }
 
+.editorialBrand .newsArticleLayout {
+    display: grid;
+    grid-template-columns: minmax(0, 760px) 320px;
+    justify-content: center;
+    align-items: start;
+    gap: 64px;
+}
+
 .editorialBrand .newsArticleBody {
     max-width: 760px;
     margin: 0 auto;
+}
+
+.editorialBrand .newsArticleLayout .newsArticleBody {
+    max-width: none;
+    margin: 0;
+}
+
+.editorialBrand .newsArticleSidebar {
+    position: sticky;
+    top: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editorialBrand .newsArticleSidebar h2 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--graphite);
+    margin: 0;
+}
+
+.editorialBrand .newsArticleSidebarList {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.editorialBrand .newsArticleSidebarList .newsFeaturedCardMedia {
+    height: 150px;
+}
+
+.editorialBrand .newsArticleSidebarList .newsFeaturedCardBody {
+    padding: 16px 18px 20px;
+}
+
+.editorialBrand .newsArticleSidebarList .newsFeaturedCardBody h3 {
+    font-size: 16px;
 }
 
 .editorialBrand .newsArticleBody h2 {
@@ -11161,6 +11303,19 @@ blockquote {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
+}
+
+@media (max-width: 1100px) {
+    .editorialBrand .newsArticleLayout {
+        grid-template-columns: 1fr;
+    }
+    .editorialBrand .newsArticleSidebar {
+        position: static;
+    }
+    .editorialBrand .newsArticleSidebarList {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
 }
 
 /* Responsive */
