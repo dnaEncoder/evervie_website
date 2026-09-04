@@ -496,6 +496,7 @@ function SiteSearchOverlay({ onClose }) {
 function EditorialNav() {
   const [openMenu, setOpenMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const triggerRefs = useRef([]);
   const closeTimer = useRef(null);
   const openMega = (id) => { clearTimeout(closeTimer.current); setOpenMenu(id); };
@@ -505,6 +506,7 @@ function EditorialNav() {
   useEffect(() => {
     setMobileOpen(false);
     setOpenMenu(null);
+    setSearchOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -556,7 +558,11 @@ function EditorialNav() {
           ))}
           <Link to="/news-insights">News & insights</Link>
         </div>
+        <div className="actions">
+          <button type="button" className="search" onClick={() => setSearchOpen(true)} aria-label="Search Evervie">⌕</button>
+        </div>
       </div>
+      {searchOpen && <SiteSearchOverlay onClose={() => setSearchOpen(false)} />}
     </header>
   );
 }
