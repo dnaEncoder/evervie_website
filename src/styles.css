@@ -2761,6 +2761,10 @@ blockquote {
     transform: scaleX(1);
 }
 
+.editorialBrand .search .searchLabel {
+    display: none;
+}
+
 .editorialBrand .siteSearchOverlay {
     position: fixed;
     inset: 0;
@@ -5950,7 +5954,19 @@ blockquote {
     }
 
     .editorialBrand .actions .search {
-        display: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        border-radius: 9px;
+        font-size: 13px;
+    }
+
+    .editorialBrand .actions .search .searchLabel {
+        display: inline;
     }
 
     /* Accordion mobile styling for MegaMenu inside the drawer */
@@ -6148,6 +6164,30 @@ blockquote {
     color: var(--muted);
     margin: 0;
     max-width: 480px
+}
+
+@media (max-width: 780px) {
+    .editorialBrand .mvStatement {
+        padding: 64px 24px
+    }
+
+    .editorialBrand .mvStatGrid {
+        grid-template-columns: 1fr
+    }
+
+    .editorialBrand .mvStatDivider {
+        width: auto;
+        height: 1px;
+        margin: 0
+    }
+
+    .editorialBrand .mvBlock {
+        padding: 32px 0
+    }
+
+    .editorialBrand .mvBlockCopy {
+        max-width: 100%
+    }
 }
 
 /* ── Our Purpose overrides (dark bg inherited from wwaPurpose) ─────── */

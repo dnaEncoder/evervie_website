@@ -559,7 +559,10 @@ function EditorialNav() {
           <Link to="/news-insights">News & insights</Link>
         </div>
         <div className="actions">
-          <button type="button" className="search" onClick={() => setSearchOpen(true)} aria-label="Search Evervie">⌕</button>
+          <button type="button" className="search" onClick={() => setSearchOpen(true)} aria-label="Search Evervie">
+            <Search size={18} aria-hidden="true" />
+            <span className="searchLabel">Search</span>
+          </button>
         </div>
       </div>
       {searchOpen && <SiteSearchOverlay onClose={() => setSearchOpen(false)} />}
