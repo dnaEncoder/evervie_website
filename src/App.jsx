@@ -1449,7 +1449,7 @@ const boardOfDirectors = [
     qualifications: "Seasoned transaction advisory professional and founder of Transaction Square, with prior experience at PwC and KPMG. A qualified Chartered Accountant with over 25 years of experience advising promoters, business families, corporates and investors on complex strategic and financial decisions."
   },
   {
-    name: "Subramanian Parameshwaran",
+    name: 'Subramanian "Subbu" Parameshwaran',
     designation: "Non-executive Independent Director",
     din: null,
     photo: "/leadership_subbu.jpg",
