@@ -1136,12 +1136,6 @@ function Editorial() {
     </section>
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
-        <div className="editorialAboutVisual">
-          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
-          <div className="editorialAboutImageOverlay">
-            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
-          </div>
-        </div>
         <div className="editorialAboutContent">
           <div className="eyebrow"><EyebrowSymbol />About Evervie</div>
           <h2 className="editorialAboutHeadline">Led by vision. Built for lasting care.</h2>
@@ -1174,6 +1168,12 @@ function Editorial() {
           <div className="editorialAboutActions">
             <Link to="/about/leadership" className="btn">Meet our leadership</Link>
             <Link to="/governance/board" className="btnOutline">Our board</Link>
+          </div>
+        </div>
+        <div className="editorialAboutVisual">
+          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
+          <div className="editorialAboutImageOverlay">
+            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
           </div>
         </div>
       </div>
