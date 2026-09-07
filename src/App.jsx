@@ -86,9 +86,9 @@ const socialLinks = [
 ];
 
 const menu = [
-  ["About Evervie", ["Who We Are", "Our Leadership", "Mission & Vision"]],
-  ["Platforms", ["Renal Care", "Cancer Care", "Diagnostics"]],
-  ["Investor Relations", ["Investor Centre", "Financial Information", "Announcements", "Investor Presentations"]]
+  ["About Evervie", ["Who we are", "Our leadership", "Mission & vision"]],
+  ["Platforms", ["Renal care", "Cancer care", "Diagnostics"]],
+  ["Investor relations", ["Investor centre", "Financial information", "Announcements", "Investor presentations"]]
 ];
 
 const megaMenuConfigs = [
@@ -112,11 +112,10 @@ const megaMenuConfigs = [
     image: "/EvervieGuidelines_SlidePartition1_v1.png",
     eyebrow: "OUR PLATFORMS",
     headline: "Delivering specialty care across critical platforms.",
-    supportingCopy: "Evervie builds dedicated operating platforms in renal care, cancer care, and diagnostics.",
     contextStrip: "Explore our specialty brands. 7Med India · Optimus Oncology · Medilabs",
     items: [
       { title: "Renal care", description: "Learn about 7Med India—our dedicated renal care platform across India.", route: "/platform/renal-care", icon: Droplet },
-      { title: "Cancer Care", description: "Explore Optimus Oncology—coordinated, expert cancer care closer to home.", route: "/platform/oncology", icon: HeartPulse },
+      { title: "Cancer care", description: "Explore Optimus Oncology—coordinated, expert cancer care closer to home.", route: "/platform/oncology", icon: HeartPulse },
       { title: "Diagnostics", description: "Discover Medilabs—precise pathology, radiology, and home care collection models.", route: "/platform/diagnostics", icon: Microscope }
     ]
   },
@@ -128,11 +127,11 @@ const megaMenuConfigs = [
     headline: "Information, performance, oversight, and perspective for investors.",
     supportingCopy: "Access Evervie's financial results, announcements, and governance frameworks.",
     items: [
-      { title: "Financial results", description: "Access financial results, reports, filings, and other performance information.", route: "/investor-centre/financial-information", icon: BarChart3 },
+      { title: "Financial information", description: "Access financial results, reports, filings, and other performance information.", route: "/investor-centre/financial-information", icon: BarChart3 },
       { title: "Announcements", description: "View official company announcements, disclosures, and material updates.", route: "/investor-centre/announcements", icon: Megaphone },
-      { isHeader: true, title: "Our Governance" },
+      { isHeader: true, title: "Corporate governance" },
       { title: "Our board", description: "Meet the board members guiding Evervie's strategy, oversight, and long-term commitments.", route: "/governance/board", icon: UsersRound },
-      { title: "Policies and standards", description: "The policies, standards, and compliance frameworks that guide how Evervie operates.", route: "/governance/policies", icon: ClipboardList }
+      { title: "Policies & standards", description: "The policies, standards, and compliance frameworks that guide how Evervie operates.", route: "/governance/policies", icon: ClipboardList }
     ]
   }
 ];
@@ -286,7 +285,7 @@ const presenceLocations = [
 const signposts = [
   ["About Evervie", "Who we are, our leadership, and the mission behind our group.", "Learn about Evervie", "/EvervieGuidelines_SlidePartition1_v1.png", "/about/who-we-are"],
   ["Platforms", "Renal care, cancer care, and diagnostics under one group.", "EXPLORE OUR PLATFORMS", "/3d-image-evervie.png", "/platform/renal-care"],
-  ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", "/investor-centre"]
+  ["Investor Center", "Financial information, announcements, and investor presentations.", "Enter Investor Center", "/Evervie_PPT_Curcle_v1.png", "/investor-centre"]
 ];
 
 const insights = [
@@ -355,7 +354,7 @@ function MegaMenu({ config, isOpen, onOpen, onClose, triggerRef }) {
         <div className="megaIntro">
           <div className="eyebrow">{config.eyebrow}</div>
           <h2>{config.headline}</h2>
-          <p>{config.supportingCopy}</p>
+          {config.supportingCopy && <p>{config.supportingCopy}</p>}
           {config.image ? (
             <img src={config.image} alt="" className="megaVisual" style={{ objectFit: "cover", borderRadius: "12px", marginTop: "16px" }} />
           ) : (
@@ -556,6 +555,7 @@ function EditorialNav() {
               onOpen={() => openMega(config.id)} onClose={scheduleClose}
               triggerRef={(el) => (triggerRefs.current[i] = el)} />
           ))}
+          <NavLink to="/careers">Careers</NavLink>
           <Link to="/news-insights">News & insights</Link>
         </div>
         <div className="actions">
@@ -577,7 +577,7 @@ function BentoNav() {
       <div className="navLinks">
         <NavLink to="/bento">Home</NavLink>
         {menu.map(([title, items]) => <Drop key={title} title={title} items={items} styleName="bentoDrop" />)}
-        <Link to="/news-insights">News</Link><Link to="/careers">Careers</Link><Link to="/connect">Connect</Link>
+        <Link to="/careers">Careers</Link><Link to="/news-insights">News</Link><Link to="/connect">Connect</Link>
       </div>
       <div className="actions"><a className="btn">Partner With Us</a></div>
     </header>
@@ -596,7 +596,7 @@ function JourneyNav() {
         </div>
       </div>
       <div className="journeyLinks">
-        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Platforms</a><a>Investor Relations</a><Link to="/news-insights">News & insights</Link><Link to="/careers">Careers</Link><Link to="/connect">Connect</Link>
+        <NavLink to="/journey">Home</NavLink><a>About Evervie</a><a>Platforms</a><a>Investor Relations</a><Link to="/careers">Careers</Link><Link to="/news-insights">News & insights</Link><Link to="/connect">Connect</Link>
       </div>
       {open && (
         <div className="journeyMega">
@@ -627,7 +627,7 @@ function Footer() {
       </div>
       <div>
         <h4>Platforms</h4>
-        <Link to="/platform/renal-care">Renal care</Link>
+        <Link to="/platform/renal-care">Renal Care</Link>
         <Link to="/platform/oncology">Cancer Care</Link>
         <Link to="/platform/diagnostics">Diagnostics</Link>
       </div>
@@ -642,30 +642,39 @@ function Footer() {
 const footerNavColumns = [
   {
     title: "About Evervie",
-    links: megaMenuConfigs[0].items.filter(i => !i.isHeader).map((i) => ({ title: i.title, to: i.route || "#", badge: i.badge }))
-  },
-  {
-    title: "Platforms",
-    links: megaMenuConfigs[1].items.filter(i => !i.isHeader).map((i) => ({ title: i.title, to: i.route || "#", badge: i.badge }))
-  },
-  {
-    title: "Investor Relations & Governance",
-    links: megaMenuConfigs[2].items.filter(i => !i.isHeader).map((i) => ({ title: i.title, to: i.route || "#", badge: i.badge }))
-  },
-  {
-    title: "News & Careers",
     links: [
-      { title: "Featured Insights", to: "/news-insights" },
-      { title: "Media Updates", to: "#" },
-      { title: "Careers", to: "/careers" }
+      { title: "Who we are", to: "/about/who-we-are" },
+      { title: "Our leadership", to: "/about/leadership" },
+      { title: "Connect", to: "/connect" }
     ]
   },
   {
-    title: "Connect",
+    title: "Platforms",
     links: [
-      { title: "Contact Evervie", to: "/connect" },
-      { title: "Partnership Enquiries", to: "/connect" },
-      { title: "Investor Contact", to: "/connect" }
+      { title: "Renal care", to: "/platform/renal-care" },
+      { title: "Cancer care", to: "/platform/oncology" },
+      { title: "Diagnostics", to: "/platform/diagnostics" }
+    ]
+  },
+  {
+    title: "Investor relations",
+    links: [
+      { title: "Financial information", to: "/investor-centre/financial-information" },
+      { title: "Announcements", to: "/investor-centre/announcements" }
+    ]
+  },
+  {
+    title: "Corporate governance",
+    links: [
+      { title: "Our board", to: "/governance/board" },
+      { title: "Policies & standards", to: "/governance/policies" }
+    ]
+  },
+  {
+    title: "News & careers",
+    links: [
+      { title: "News & insights", to: "/news-insights" },
+      { title: "Careers", to: "/careers" }
     ]
   }
 ];
@@ -682,7 +691,6 @@ function EditorialFooter() {
         <div className="footerBrand">
           <Logo />
           <p className="footerStatement">Specialty care. Scaled with purpose.</p>
-          <p>Evervie Health is building future-focused healthcare platforms across critical areas of care.</p>
         </div>
         <div className="socialsPanel">
           <div className="socialsHead">
@@ -711,19 +719,30 @@ function EditorialFooter() {
         {footerNavColumns.map((col, i) => (
           <div className={`footerCol ${openCol === i ? "open" : ""}`} key={col.title}>
             <button className="footerColHead" aria-expanded={openCol === i} onClick={() => setOpenCol(openCol === i ? null : i)}>
-              <h4>{col.title}</h4>
-              <span className="footerColIndicator">{openCol === i ? "−" : "+"}</span>
+              <h4>{col.to ? <Link to={col.to}>{col.title}</Link> : col.title}</h4>
+              {col.links && col.links.length > 0 && <span className="footerColIndicator">{openCol === i ? "−" : "+"}</span>}
             </button>
-            <div className="footerColLinks">
-              <div>
-                {col.links.map((l) => (
-                  <Link to={l.to} key={l.title} style={l.badge ? { opacity: 0.7, cursor: 'default' } : {}} onClick={l.badge ? e => e.preventDefault() : undefined}>
-                    {l.title}
-                    {l.badge && <span className="badge" style={{ marginLeft: 6, opacity: 0.8, fontSize: 10, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', padding: '2px 6px', borderRadius: 4, fontWeight: 500, color: 'rgba(255,255,255,0.7)' }}>{l.badge}</span>}
-                  </Link>
-                ))}
+            {col.links && col.links.length > 0 && (
+              <div className="footerColLinks">
+                <div>
+                  {col.links.map((l, j) => {
+                    if (l.isHeader) {
+                      return (
+                        <div key={l.title || j} className="footerSubHeader">
+                          {l.title}
+                        </div>
+                      );
+                    }
+                    return (
+                      <Link to={l.to} key={l.title} style={l.badge ? { opacity: 0.7, cursor: 'default' } : {}} onClick={l.badge ? e => e.preventDefault() : undefined}>
+                        {l.title}
+                        {l.badge && <span className="badge" style={{ marginLeft: 6, opacity: 0.8, fontSize: 10, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', padding: '2px 6px', borderRadius: 4, fontWeight: 500, color: 'rgba(255,255,255,0.7)' }}>{l.badge}</span>}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         ))}
       </div>
@@ -1112,6 +1131,9 @@ function Editorial() {
         <div className="editorialHeroGrid"><div><div className="eyebrow"><EyebrowSymbol />Better Care Ahead</div><h1>Providing high-quality specialty care across the globe</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><div className="buttonRow"><Link to="/platform/renal-care" className="btn">Explore Our Care Platforms</Link></div></div></div>
       </div>
     </section>
+    <section className="section">
+      <CompanySnapshotWithMap />
+    </section>
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
         <div className="editorialAboutVisual">
@@ -1156,9 +1178,6 @@ function Editorial() {
         </div>
       </div>
     </section>
-    <section className="section">
-      <CompanySnapshotWithMap />
-    </section>
     <Signposts />
   </main></Frame>;
 }
@@ -1202,7 +1221,7 @@ function HomeNav() {
       <div className="navLinks">
         <NavLink to="/">Home</NavLink>
         {menu.map(([title, items]) => <Drop key={title} title={title} items={items} styleName="editorialDrop" />)}
-        <Link to="/news-insights">News & insights</Link><Link to="/careers">Careers</Link><a>Connect</a>
+        <Link to="/careers">Careers</Link><Link to="/news-insights">News & insights</Link><a>Connect</a>
       </div>
       <div className="actions"><a className="btnOutline">Enter Investor Centre</a></div>
     </header>
@@ -1283,7 +1302,7 @@ function AboutWhoWeAre() {
               <ChevronRight size={13} />
               <span>About Evervie</span>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Who We Are</span>
+              <span className="wwaBreadActive">Who we are</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />About Evervie</div>
             <h1>Building healthcare platforms to meet the needs that matter.</h1>
@@ -1395,7 +1414,7 @@ function AboutWhoWeAre() {
             {[
               ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
               ["Platforms", "Renal care, cancer care, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", "/platform/renal-care"],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", "/investor-centre/financial-information"]
+              ["Investor Center", "Financial information, announcements, and investor presentations.", "Enter Investor Center", "/Evervie_PPT_Curcle_v1.png", "/investor-centre/financial-information"]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1600,7 +1619,7 @@ function AboutLeadership() {
               <ChevronRight size={13} />
               <span>About Evervie</span>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Our Leadership</span>
+              <span className="wwaBreadActive">Our leadership</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Our Leadership</div>
             <h1>Leadership grounded in experience, responsibility, <br />and care.</h1>
@@ -1633,20 +1652,9 @@ function AboutLeadership() {
             </div>
             <div className="wwaChairmanContent">
               <span className="eyebrow">Message from the Chairman</span>
-              <div className="wwaChairmanQuotesList">
-                <blockquote className="wwaChairmanQuoteItem">
-                  “I founded Evervie Health, with a vision to build a global institution that is committed to excellence.”
-                </blockquote>
-                <blockquote className="wwaChairmanQuoteItem">
-                  “We are an organization that embodies innovation and integrity, centered around patient care.”
-                </blockquote>
-                <blockquote className="wwaChairmanQuoteItem">
-                  “Evervie is home to the finest minds and dynamic leaders.”
-                </blockquote>
-                <blockquote className="wwaChairmanQuoteItem">
-                  “We are an institution with limitless ambition to build, deliver, and scale global specialty care.”
-                </blockquote>
-              </div>
+              <p className="wwaChairmanText" style={{ fontSize: '18px', lineHeight: '1.65', color: 'var(--graphite)' }}>
+                "I founded Evervie Health with a vision to build a global institution that is committed to excellence. We are an organization that embodies innovation and integrity, centered around patient care. Evervie is home to the finest minds and dynamic leaders. We are an institution with limitless ambition to build, deliver, and scale global specialty care."
+              </p>
               <div className="wwaChairmanExp">
                 <h3>PV’s experience</h3>
                 <p className="wwaChairmanExpSubtitle">Serial entrepreneur with experience building and exiting 4 enterprises in the US and UK.</p>
@@ -1763,7 +1771,7 @@ function AboutLeadership() {
             {[
               ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
               ["Platforms", "Renal care, cancer care, and diagnostics under one platform.", "Explore our platforms", "/Evervie_PPT_Diamond_v1.png", "/platform/renal-care"],
-              ["Investor Centre", "Financial information, announcements, and investor presentations.", "Enter Investor Centre", "/Evervie_PPT_Curcle_v1.png", "/investor-centre/financial-information"]
+              ["Investor Center", "Financial information, announcements, and investor presentations.", "Enter Investor Center", "/Evervie_PPT_Curcle_v1.png", "/investor-centre/financial-information"]
             ].map(([title, copy, cta, img, to], i) => (
               <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
                 <div className="exploreCardText">
@@ -1844,7 +1852,7 @@ function AboutMissionVision() {
               <ChevronRight size={13} />
               <span>About Evervie</span>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Mission & Vision</span>
+              <span className="wwaBreadActive">Mission & vision</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Mission & Vision</div>
             <h1>Better health ahead.</h1>
@@ -1943,7 +1951,7 @@ function AboutGovernance() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb">
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Our Governance</span>
+              <span className="wwaBreadActive">Our governance</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />OUR GOVERNANCE</div>
             <h1>Our governance</h1>
@@ -1986,10 +1994,10 @@ function AboutGovernance() {
                 <h3>Mr. Vinay Paruchuru</h3>
                 <div className="wwaSecretaryContactDetails">
                   <a href="mailto:CS@everviehealth.com" className="wwaSecretaryContactLink">
-                    <Mail size={14} /> CS@everviehealth.com
+                    <Mail size={14} /> cs@everviehealth.com
                   </a>
-                  <a href="tel:+919600537885" className="wwaSecretaryContactLink">
-                    <Phone size={14} /> +91 9600537885
+                  <a href="tel:+919600537888" className="wwaSecretaryContactLink">
+                    <Phone size={14} /> +91 9600537888
                   </a>
                 </div>
               </div>
@@ -2025,9 +2033,9 @@ function AboutGovernanceBoard() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb">
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/governance">Our Governance</Link>
+              <Link to="/governance">Our governance</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Our Board</span>
+              <span className="wwaBreadActive">Our board</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />OUR BOARD</div>
             <h1>Our board</h1>
@@ -2069,11 +2077,11 @@ function AboutGovernanceBoard() {
                 <span className="wwaBoardCardTitle">Company Secretary & Compliance Officer</span>
                 <h3>Mr. Vinay Paruchuru</h3>
                 <div className="wwaSecretaryContactDetails">
-                  <a href="mailto:CS@everviehealth.com" className="wwaSecretaryContactLink">
-                    <Mail size={14} /> CS@everviehealth.com
+                  <a href="mailto:cs@everviehealth.com" className="wwaSecretaryContactLink">
+                    <Mail size={14} /> cs@everviehealth.com
                   </a>
-                  <a href="tel:+919600537885" className="wwaSecretaryContactLink">
-                    <Phone size={14} /> +91 9600537885
+                  <a href="tel:+919600537888" className="wwaSecretaryContactLink">
+                    <Phone size={14} /> +91 9600537888
                   </a>
                 </div>
               </div>
@@ -2166,9 +2174,9 @@ function AboutGovernancePolicies() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb">
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/governance">Our Governance</Link>
+              <Link to="/governance">Our governance</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Policies & Standards</span>
+              <span className="wwaBreadActive">Policies & standards</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Policies & Standards</div>
             <h1>Policies & standards</h1>
@@ -2180,9 +2188,6 @@ function AboutGovernancePolicies() {
           <div className="governancePoliciesSubsection">
             <div className="eyebrow"><EyebrowSymbol />Policies</div>
             <h2>Policies</h2>
-            <p className="wwaHeroBody" style={{ margin: "0 0 24px" }}>
-              Core corporate governance and compliance policies. Documents will appear here as they are published on Evervie letterhead.
-            </p>
             <GovernancePoliciesList />
           </div>
           <div className="governancePoliciesSubsection">
@@ -4957,7 +4962,7 @@ function InvestorRelationsNavSection({ showBorder = true }) {
   const routes = [
     {
       num: "01",
-      title: "Financial Information",
+      title: "Financial information",
       path: "/investor-centre/financial-information",
       desc: "Access annual and quarterly financial results and reports.",
       cta: "Explore financial information"
@@ -4971,7 +4976,7 @@ function InvestorRelationsNavSection({ showBorder = true }) {
     },
     {
       num: "03",
-      title: "Our Governance",
+      title: "Our governance",
       path: "/governance",
       desc: "Review our corporate governance framework, board committees, policies, statutory disclosures, and compliance standards.",
       cta: "Read about governance"
@@ -5030,7 +5035,7 @@ function InvestorCentre() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb">
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Investor Centre</span>
+              <span className="wwaBreadActive">Investor centre</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Investor Centre</div>
             <h1>
@@ -5160,7 +5165,7 @@ function InvestorSubPage({ title, lead }) {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb" style={{ marginBottom: '24px' }}>
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/investor-centre">Investor Centre</Link>
+              <Link to="/investor-centre">Investor centre</Link>
               <ChevronRight size={13} />
               <span className="wwaBreadActive">{title}</span>
             </nav>
@@ -5181,7 +5186,7 @@ function InvestorSubPage({ title, lead }) {
 
 // Subpage instances
 function InvestmentOverview() {
-  return <InvestorSubPage title="Investment Overview" lead="Explore Evervie’s healthcare platform growth, strategy, and business progress." />;
+  return <InvestorSubPage title="Investment overview" lead="Explore Evervie’s healthcare platform growth, strategy, and business progress." />;
 }
 
 // --------------------------------------------------------------------------
@@ -5586,9 +5591,9 @@ function FinancialInformation() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb" style={{ marginBottom: '24px' }}>
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/investor-centre">Investor Centre</Link>
+              <Link to="/investor-centre">Investor centre</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Financial Information</span>
+              <span className="wwaBreadActive">Financial information</span>
             </nav>
             <div className="eyebrow">Investor Relations</div>
             <h1>Financial information</h1>
@@ -6022,9 +6027,9 @@ function NewsAndEvents() {
             <nav className="wwaBreadcrumb" aria-label="breadcrumb" style={{ marginBottom: '24px' }}>
               <Link to="/">Home</Link>
               <ChevronRight size={13} />
-              <Link to="/investor-centre">Investor Centre</Link>
+              <Link to="/investor-centre">Investor centre</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">News & Events</span>
+              <span className="wwaBreadActive">News & events</span>
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Investor Relations</div>
             <h1>News & events</h1>
@@ -6049,7 +6054,7 @@ function NewsAndEvents() {
 }
 
 function InvestorPresentations() {
-  return <InvestorSubPage title="Investor Presentations" lead="Browse business presentations, financial performance overview decks, and strategy documents." />;
+  return <InvestorSubPage title="Investor presentations" lead="Browse business presentations, financial performance overview decks, and strategy documents." />;
 }
 
 // --------------------------------------------------------------------------
@@ -6583,14 +6588,6 @@ const CAREER_OPPORTUNITY_MODULES = [
 ];
 
 function CareersHero() {
-  const scrollToPositions = () => {
-    const el = document.getElementById("open-positions");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      el.focus({ preventScroll: true });
-    }
-  };
-
   return (
     <section className="wwaHero careersHero">
       <div className="wwaHeroLeft">
@@ -6604,9 +6601,6 @@ function CareersHero() {
         <p className="wwaHeroBody" style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
           At Evervie, we are creating lasting impact across healthcare. Join a team committed to innovation, collaboration, and better outcomes for the communities we serve.
         </p>
-        <button type="button" className="btn" onClick={scrollToPositions} style={{ marginTop: '28px' }}>
-          Get in touch <ArrowRight size={16} />
-        </button>
       </div>
       <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
     </section>
@@ -6618,7 +6612,6 @@ function CareerOpportunities() {
     <section className="careerOppSection">
       <div className="neSectionHeader">
         <h2>Opportunities to make a difference</h2>
-        <p>A few reasons our team chooses to build their careers at Evervie.</p>
       </div>
       <div className="careerOppGrid">
         {CAREER_OPPORTUNITY_MODULES.map(({ icon: Icon, title, copy }) => (
@@ -6775,7 +6768,7 @@ function OpenPositionsSection() {
         <div className="finStateMessage finEmptyState">
           <Inbox size={28} strokeWidth={1.25} />
           <p>There are currently no open positions.<br />You are welcome to share your profile with our talent team for future opportunities.</p>
-          <a className="btnOutline" href="mailto:careers@evervie.com?subject=Profile%20Submission">Submit Your Profile</a>
+          <a className="btnOutline" href="mailto:talent@everviehealth.com?subject=Profile%20Submission">Submit Your Profile</a>
         </div>
       )}
 
@@ -6817,7 +6810,7 @@ function JoinTeamForm() {
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nRole of interest: ${form.role || "—"}\n\n${form.message}`
     );
-    window.location.href = `mailto:careers@evervie.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:talent@everviehealth.com?subject=${subject}&body=${body}`;
     setSent(true);
   };
 
@@ -6860,7 +6853,7 @@ function RecruitmentCTA() {
           <h3>Connect with Evervie Health</h3>
           <p>We are always looking for passionate people who want to help shape a healthier tomorrow.</p>
         </div>
-        <a href="mailto:recruiting.team@everviehealth.com" className="btn">Contact us <ArrowRight size={16} /></a>
+        <a href="mailto:talent@everviehealth.com" className="btn">Contact us <ArrowRight size={16} /></a>
       </div>
     </section>
   );
@@ -6875,7 +6868,6 @@ function CareersPage() {
           <CareerOpportunities />
           <JoinTeamForm />
         </section>
-        <RecruitmentCTA />
       </main>
     </Frame>
   );
@@ -6945,7 +6937,7 @@ function CareerDetail() {
   const employmentLabel = EMPLOYMENT_TYPE_LABELS[job.employmentType] || job.employmentType;
   const workArrangementLabel = job.workArrangement ? WORK_ARRANGEMENT_LABELS[job.workArrangement] : null;
   const experienceLabel = job.experienceLevel ? EXPERIENCE_LEVEL_LABELS[job.experienceLevel] : null;
-  const applyHref = job.applyUrl || `mailto:careers@evervie.com?subject=${encodeURIComponent(`Application: ${job.title}`)}`;
+  const applyHref = job.applyUrl || `mailto:talent@everviehealth.com?subject=${encodeURIComponent(`Application: ${job.title}`)}`;
   const applyIsExternal = !!job.applyUrl && !job.applyUrl.startsWith("mailto:");
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
 
@@ -7009,8 +7001,6 @@ function CareerDetail() {
             </div>
           )}
         </section>
-
-        <RecruitmentCTA />
       </main>
     </Frame>
   );
@@ -7140,11 +7130,12 @@ function ConnectPage() {
                       <Building2 size={18} />
                     </div>
                     <div>
-                      <h4>Chennai Office</h4>
+                      <h4>Registered Office</h4>
                       <p>
-                        9th Floor, KRM Center<br />
-                        Harrington Road<br />
-                        Chetpet, Chennai 600031
+                        <strong>Evervie Health Limited</strong><br />
+                        9th Floor, KRM Center,<br />
+                        Harrington Road, Chetpet,<br />
+                        Chennai, Tamil Nadu – 600031
                       </p>
                     </div>
                   </div>
@@ -7153,11 +7144,12 @@ function ConnectPage() {
                       <Building2 size={18} />
                     </div>
                     <div>
-                      <h4>Hyderabad Office</h4>
+                      <h4>Corporate Office</h4>
                       <p>
-                        4th Floor, Punnaiah Plaza<br />
-                        Jubilee Hills Check Post<br />
-                        Hyderabad
+                        4th Floor, Punnaiah Plaza,<br />
+                        Plot No. 83 &amp; 84, Road No. 2,<br />
+                        Banjara Hills, Hyderabad,<br />
+                        Telangana – 500034
                       </p>
                     </div>
                   </div>
@@ -7172,31 +7164,20 @@ function ConnectPage() {
                       <Phone size={18} />
                     </div>
                     <div>
-                      <h4>General Enquiries</h4>
-                      <p><a href="tel:+919600537888">+91 96005 37888</a></p>
+                      <h4>Registered Office (Chennai)</h4>
+                      <p><a href="tel:04448596999">044 48596999</a></p>
+                    </div>
+                  </div>
+                  <div className="connectDetailsItem" style={{ marginTop: '16px' }}>
+                    <div className="connectDetailIcon">
+                      <Phone size={18} />
+                    </div>
+                    <div>
+                      <h4>Corporate Office (Hyderabad)</h4>
+                      <p><a href="tel:+914067309999">+91 (0) 40 67309999</a></p>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Careers Section */}
-        <section className="connectCareersSection">
-          <div className="connectCareersLayout">
-            <div>
-              <JoinTeamForm />
-            </div>
-            <div className="connectCareersSidebar">
-              <div className="connectDetailsBlock">
-                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Careers & Talent</div>
-                <p style={{ fontSize: '15px', lineHeight: '1.6', color: 'var(--muted)', marginBottom: '24px' }}>
-                  We are always looking for clinical leaders, healthcare operators, and operational stewards. If you don't see an open role that fits, send us an introduction.
-                </p>
-                <Link to="/careers" className="btnOutline" style={{ display: 'inline-flex', alignItems: 'center' }}>
-                  Explore Open Positions <ArrowRight size={13} style={{ marginLeft: '8px' }} />
-                </Link>
               </div>
             </div>
           </div>
@@ -7369,24 +7350,17 @@ const SITEMAP_GROUPS = [
   {
     title: "About Evervie",
     links: [
-      { label: "Who we are", to: "/about/who-we-are" },
-      { label: "Our leadership", to: "/about/leadership" },
-      { label: "Mission & vision", to: "/about/mission-vision" },
-      { label: "Our aspiration", to: "/about/aspiration" },
-    ],
-  },
-  {
-    title: "Our Governance",
-    links: [
-      { label: "Governance overview", to: "/governance" },
-      { label: "Our board", to: "/governance/board" },
-      { label: "Policies & standards", to: "/governance/policies" },
+      { label: "Who We Are", to: "/about/who-we-are" },
+      { label: "Our Leadership", to: "/about/leadership" },
+      { label: "Mission & Vision", to: "/about/mission-vision" },
+      { label: "Our Aspiration", to: "/about/aspiration" },
+      { label: "Connect", to: "/connect" },
     ],
   },
   {
     title: "Platforms",
     links: [
-      { label: "Renal care — 7Med", to: "/platform/renal-care" },
+      { label: "Renal Care — 7Med", to: "/platform/renal-care" },
       { label: "Cancer Care — Optimus Oncology", to: "/platform/oncology" },
       { label: "Diagnostics — Medilabs", to: "/platform/diagnostics" },
     ],
@@ -7394,17 +7368,23 @@ const SITEMAP_GROUPS = [
   {
     title: "Investor Relations",
     links: [
-      { label: "Investor centre", to: "/investor-centre" },
-      { label: "Investment overview", to: "/investor-centre/investment-overview" },
-      { label: "Financial information", to: "/investor-centre/financial-information" },
+      { label: "Investor Centre", to: "/investor-centre" },
+      { label: "Financial Information", to: "/investor-centre/financial-information" },
       { label: "Announcements", to: "/investor-centre/announcements" },
-      { label: "Investor presentations", to: "/investor-centre/presentations" },
+      { label: "Investor Presentations", to: "/investor-centre/presentations" },
+    ],
+  },
+  {
+    title: "Corporate Governance",
+    links: [
+      { label: "Our Board", to: "/governance/board" },
+      { label: "Policies & Standards", to: "/governance/policies" },
     ],
   },
   {
     title: "News & Careers",
     links: [
-      { label: "News & insights", to: "/news-insights" },
+      { label: "News & Insights", to: "/news-insights" },
       { label: "Careers", to: "/careers" },
     ],
   },
