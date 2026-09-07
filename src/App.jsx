@@ -1125,15 +1125,15 @@ function Signposts() {
 
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
+    {/* 1. Hero section */}
     <section className="editorialHero hero3dAsset">
       <img className="hero3dBg" src="/hero-section-image-background.png" alt="" />
       <div className="heroStage">
         <div className="editorialHeroGrid"><div><div className="eyebrow"><EyebrowSymbol />Better Care Ahead</div><h1>Providing high-quality specialty care across the globe</h1><p className="lead">Evervie is building healthcare platforms that expand access, strengthen quality, and scale care with purpose.</p><div className="buttonRow"><Link to="/platform/renal-care" className="btn">Explore Our Care Platforms</Link></div></div></div>
       </div>
     </section>
-    <section className="section">
-      <CompanySnapshotWithMap />
-    </section>
+
+    {/* 2. About Evervie content section (without image) */}
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
         <div className="editorialAboutContent">
@@ -1170,6 +1170,17 @@ function Editorial() {
             <Link to="/governance/board" className="btnOutline">Our board</Link>
           </div>
         </div>
+      </div>
+    </section>
+
+    {/* 3. Map section */}
+    <section className="section">
+      <CompanySnapshotWithMap />
+    </section>
+
+    {/* 4. Leadership image section by itself */}
+    <section className="editorialLeadershipImageSection">
+      <div className="editorialLeadershipImageContainer">
         <div className="editorialAboutVisual">
           <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
           <div className="editorialAboutImageOverlay">
@@ -1178,6 +1189,8 @@ function Editorial() {
         </div>
       </div>
     </section>
+
+    {/* 5. Signposts */}
     <Signposts />
   </main></Frame>;
 }

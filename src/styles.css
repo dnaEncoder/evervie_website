@@ -1960,6 +1960,16 @@ blockquote {
     padding: 100px 64px;
 }
 
+.editorialBrand .editorialLeadershipImageSection {
+    background: #FAF9F8;
+    padding: 40px 64px 100px;
+}
+
+.editorialBrand .editorialLeadershipImageContainer {
+    max-width: 1312px;
+    margin: 0 auto;
+}
+
 .editorialBrand .editorialAboutContainer {
     display: flex;
     flex-direction: column;
