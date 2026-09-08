@@ -6,6 +6,13 @@ export function mediaUrl(media) {
   return url.startsWith("http") ? url : `${STRAPI_URL}${url}`;
 }
 
+// CMS entries are sometimes created with externalUrl defaulted to "#" as a
+// placeholder before the real file/link is added. Treat that the same as no
+// link at all, so the UI shows "coming soon" instead of a dead download.
+function realExternalUrl(url) {
+  return url && url !== "#" ? url : undefined;
+}
+
 async function strapiFetch(path) {
   const json = await strapiFetchJson(path);
   return json.data;
@@ -40,7 +47,7 @@ function mapReport(doc) {
     coverImageUrl: mediaUrl(doc.coverImage),
     coverImageAlt: doc.title,
     documentUrl: mediaUrl(doc.documentFile),
-    externalUrl: doc.externalUrl,
+    externalUrl: realExternalUrl(doc.externalUrl),
     fileType: doc.fileType,
     fileSizeLabel: doc.fileSizeLabel,
   };
@@ -81,7 +88,7 @@ function mapEvent(event) {
       ? {
           title: relatedDoc.title,
           documentUrl: mediaUrl(relatedDoc.documentFile),
-          externalUrl: relatedDoc.externalUrl,
+          externalUrl: realExternalUrl(relatedDoc.externalUrl),
           fileType: relatedDoc.fileType,
         }
       : null,

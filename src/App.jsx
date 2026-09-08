@@ -1133,7 +1133,7 @@ function Editorial() {
       </div>
     </section>
 
-    {/* 2. About Evervie content section (without image) */}
+    {/* 2. About Evervie Section (with image at bottom) */}
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
         <div className="editorialAboutContent">
@@ -1170,17 +1170,7 @@ function Editorial() {
             <Link to="/governance/board" className="btnOutline">Our board</Link>
           </div>
         </div>
-      </div>
-    </section>
 
-    {/* 3. Map section */}
-    <section className="section">
-      <CompanySnapshotWithMap />
-    </section>
-
-    {/* 4. Leadership image section by itself */}
-    <section className="editorialLeadershipImageSection">
-      <div className="editorialLeadershipImageContainer">
         <div className="editorialAboutVisual">
           <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
           <div className="editorialAboutImageOverlay">
@@ -1188,6 +1178,11 @@ function Editorial() {
           </div>
         </div>
       </div>
+    </section>
+
+    {/* 3. Map Section */}
+    <section className="section">
+      <CompanySnapshotWithMap />
     </section>
 
     {/* 5. Signposts */}
@@ -5298,9 +5293,9 @@ function FinExpandedRow({ doc, onRequestDownload }) {
           <Download size={16} />
           <span>{doc.fileSizeLabel ? `Download · ${doc.fileSizeLabel}` : "Download"}</span>
         </button>
-      ) : (
+      ) : doc.documentUrl || doc.externalUrl ? (
         <a
-          href={doc.documentUrl || doc.externalUrl || "#"}
+          href={doc.documentUrl || doc.externalUrl}
           className="finRowAction"
           download
           aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
@@ -5308,6 +5303,11 @@ function FinExpandedRow({ doc, onRequestDownload }) {
           <Download size={16} />
           <span>{doc.fileSizeLabel ? `Download · ${doc.fileSizeLabel}` : "Download"}</span>
         </a>
+      ) : (
+        <span className="finRowAction finRowComingSoon">
+          <Clock size={14} aria-hidden="true" />
+          <span>Coming soon</span>
+        </span>
       )}
     </article>
   );
@@ -5363,9 +5363,9 @@ function FinCompactRow({ doc, onRequestDownload }) {
           <Download size={14} />
           <span>Download</span>
         </button>
-      ) : (
+      ) : doc.documentUrl || doc.externalUrl ? (
         <a
-          href={doc.documentUrl || doc.externalUrl || "#"}
+          href={doc.documentUrl || doc.externalUrl}
           className="finCompactDownload"
           download
           aria-label={`Download ${doc.title}${doc.fileType ? `, ${doc.fileType}` : ""}`}
@@ -5373,6 +5373,11 @@ function FinCompactRow({ doc, onRequestDownload }) {
           <Download size={14} />
           <span>Download</span>
         </a>
+      ) : (
+        <span className="finCompactDownload finCompactComingSoon">
+          <Clock size={13} aria-hidden="true" />
+          <span>Coming soon</span>
+        </span>
       )}
     </div>
   );

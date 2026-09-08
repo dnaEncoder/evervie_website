@@ -9732,6 +9732,16 @@ blockquote {
     border-color: var(--evervie-orange);
 }
 
+.editorialBrand span.finRowAction.finRowComingSoon,
+.editorialBrand span.finCompactDownload.finCompactComingSoon {
+    color: #999;
+    background: transparent;
+    border-color: #d8d5d2;
+    cursor: default;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
 /* Governance — Policies & Standards page */
 
 .editorialBrand .governancePoliciesSection {
