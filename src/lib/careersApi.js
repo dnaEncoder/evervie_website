@@ -1,4 +1,4 @@
-const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "http://localhost:1337";
+const STRAPI_URL = import.meta.env.VITE_STRAPI_URL || "/cms";
 
 async function strapiFetch(path) {
   const json = await strapiFetchJson(path);
