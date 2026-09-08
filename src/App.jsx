@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMap } from
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getInvestorCentrePage, getFinancialDocuments, getLatestInvestorNews, getUpcomingInvestorEvents, getFeaturedNews, getFeaturedPastEvents, getPastInvestorEvents } from "./lib/investorApi.js";
-import { getHeroArticle, getFeaturedInsights, getBlogPosts, getBlogPostBySlug, getRelatedArticles, getBlogFacets } from "./lib/newsApi.js";
+import { getHeroArticle, getFeaturedInsights, getResearchSpotlight, getBlogPosts, getBlogPostBySlug, getRelatedArticles, getBlogFacets } from "./lib/newsApi.js";
 import { getCareerOpenings, getCareerOpeningBySlug, getRelatedOpenings, getCareerFacets, submitCareerApplication } from "./lib/careersApi.js";
 import { submitDownloadLead } from "./lib/leadsApi.js";
 import FeedbackLoginPage from "./feedback/FeedbackLoginPage.jsx";
@@ -6101,6 +6101,87 @@ function FeaturedInsights() {
   );
 }
 
+function ResearchSpotlightCard({ post }) {
+  const categoryLabel = NEWS_INSIGHTS_CATEGORY_LABELS[post.category] || post.category;
+  return (
+    <Link to={`/news-insights/${post.slug}`} className="researchCard">
+      <div className="researchCardCover">
+        {post.imageUrl ? (
+          <img src={post.imageUrl} alt={post.imageAlt || post.title} />
+        ) : (
+          <div className="researchCardCoverPlaceholder"><FileText size={28} strokeWidth={1.25} /></div>
+        )}
+      </div>
+      <div className="researchCardBody">
+        {categoryLabel && <span className="researchCardEyebrow">{categoryLabel}</span>}
+        <h3 className="researchCardTitle">{post.title}</h3>
+        {post.subtitle && <p className="researchCardSummary">{post.subtitle}</p>}
+        <div className="researchCardMeta">
+          {post.author && <span>{post.author}</span>}
+          <span>{formatDisplayDate(post.publicationDate)}</span>
+          {post.readingTimeLabel && <span>{post.readingTimeLabel}</span>}
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function ResearchSpotlight() {
+  const [status, setStatus] = useState("loading");
+  const [items, setItems] = useState([]);
+  const trackRef = useRef(null);
+
+  useEffect(() => {
+    getResearchSpotlight(8)
+      .then((posts) => {
+        setItems(posts);
+        setStatus(posts.length ? "loaded" : "empty");
+      })
+      .catch(() => setStatus("error"));
+  }, []);
+
+  if (status === "error" || status === "empty") return null;
+
+  const scrollByCard = (dir) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const card = track.querySelector(".researchCard");
+    const cardWidth = card ? card.getBoundingClientRect().width + 20 : 300;
+    track.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
+  };
+
+  return (
+    <section className="innerBody researchSpotlightSection">
+      <div className="researchSpotlightHeaderRow">
+        <h2>Evervie spotlight</h2>
+      </div>
+      <div className="researchCarouselContainer">
+        {status === "loading" && (
+          <div className="researchCarouselTrack">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="researchCard researchCardSkeleton" aria-hidden="true" />
+            ))}
+          </div>
+        )}
+
+        {status === "loaded" && (
+          <>
+            <button className="carouselControlBtn prev" onClick={() => scrollByCard(-1)} aria-label="Previous spotlight articles">
+              <ChevronLeft size={20} />
+            </button>
+            <div className="researchCarouselTrack" ref={trackRef}>
+              {items.map((post) => <ResearchSpotlightCard post={post} key={post.id} />)}
+            </div>
+            <button className="carouselControlBtn next" onClick={() => scrollByCard(1)} aria-label="Next spotlight articles">
+              <ChevronRight size={20} />
+            </button>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function ArticleRow({ post }) {
   const categoryLabel = NEWS_INSIGHTS_CATEGORY_LABELS[post.category] || post.category;
   return (
@@ -6323,6 +6404,7 @@ function NewsInsights() {
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
+        <ResearchSpotlight />
         <section className="innerBody newsInsightsSection">
           <div className="newsLatestLayout">
             <ArticleArchive

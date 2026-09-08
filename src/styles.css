@@ -8891,6 +8891,174 @@ blockquote {
     }
 }
 
+/* ── Research Spotlight Carousel (News & Insights) ── */
+
+.editorialBrand .researchSpotlightSection {
+    padding-bottom: 24px;
+}
+
+.editorialBrand .researchSpotlightHeaderRow {
+    margin-bottom: 32px;
+}
+
+.editorialBrand .researchSpotlightHeaderRow h2 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--graphite);
+    margin: 0;
+}
+
+.editorialBrand .researchCarouselContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.editorialBrand .researchCarouselContainer .carouselControlBtn {
+    flex-shrink: 0;
+}
+
+.editorialBrand .researchCarouselTrack {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    padding: 4px 4px 12px;
+    flex: 1;
+    scrollbar-width: none;
+}
+
+.editorialBrand .researchCarouselTrack::-webkit-scrollbar {
+    display: none;
+}
+
+.editorialBrand .researchCard {
+    scroll-snap-align: start;
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid #e4e2e0;
+    border-radius: 16px;
+    overflow: hidden;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.editorialBrand .researchCard:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 60, 0, 0.2);
+    box-shadow: 0 8px 24px rgba(60, 59, 57, 0.05);
+}
+
+.editorialBrand .researchCardCover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #FAF8F5;
+    border-bottom: 1px solid #e4e2e0;
+    overflow: hidden;
+}
+
+.editorialBrand .researchCardCover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.editorialBrand .researchCardCoverPlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--evervie-orange);
+    background: rgba(255, 60, 0, 0.06);
+}
+
+.editorialBrand .researchCardBody {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px 20px 24px;
+    flex: 1;
+}
+
+.editorialBrand .researchCardEyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--evervie-orange);
+}
+
+.editorialBrand .researchCardTitle {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--graphite);
+    margin: 0;
+    line-height: 1.35;
+}
+
+.editorialBrand .researchCardSummary {
+    font-size: 13.5px;
+    color: #666;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.editorialBrand .researchCardMeta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    font-size: 12.5px;
+    color: #888;
+    margin-top: auto;
+    padding-top: 8px;
+}
+
+.editorialBrand .researchCardMeta span:not(:last-child)::after {
+    content: "\00b7";
+    margin-left: 10px;
+    color: #ccc;
+}
+
+.editorialBrand .researchCard.researchCardSkeleton {
+    flex: 0 0 300px;
+    height: 320px;
+    background: linear-gradient(100deg, #f2f0ec 30%, #fbfaf8 50%, #f2f0ec 70%);
+    background-size: 200% 100%;
+    animation: reportSkeletonShimmer 1.4s ease-in-out infinite;
+    border-color: #efece8;
+}
+
+@media (max-width: 1024px) {
+    .editorialBrand .researchCard,
+    .editorialBrand .researchCard.researchCardSkeleton {
+        flex-basis: 260px;
+    }
+}
+
+@media (max-width: 768px) {
+    .editorialBrand .researchCarouselContainer .carouselControlBtn {
+        display: none;
+    }
+    .editorialBrand .researchCard,
+    .editorialBrand .researchCard.researchCardSkeleton {
+        flex-basis: 82vw;
+    }
+}
+
 /* ── News and Events Section ── */
 
 .editorialBrand .newsEventsLayout {

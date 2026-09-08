@@ -29,6 +29,8 @@ async function strapiFetchWithMeta(path) {
   return { data: json.data, meta: json.meta };
 }
 
+const SPOTLIGHT_TOPIC_TAG = "Original Research";
+
 function splitTopics(topics) {
   return (topics || "")
     .split(",")
@@ -109,6 +111,18 @@ export async function getFeaturedInsights(limit = 3) {
   return (data ?? []).map(mapBlogPost);
 }
 
+export async function getResearchSpotlight(limit = 8) {
+  const query = [
+    `filters[topics][$containsi]=${encodeURIComponent(SPOTLIGHT_TOPIC_TAG)}`,
+    `sort[0]=publicationDate:desc`,
+    `pagination[pageSize]=${limit}`,
+    `populate[heroImage]=true`,
+    `status=published`,
+  ].join("&");
+  const data = await strapiFetch(`/api/blog-posts?${query}`);
+  return (data ?? []).map(mapBlogPost);
+}
+
 export async function getBlogPosts({ page = 1, pageSize = 8, category, search } = {}) {
   const filters = [];
   if (category) filters.push(`filters[category][$eq]=${encodeURIComponent(category)}`);
@@ -167,6 +181,7 @@ export async function getBlogFacets() {
   items.forEach((item) => {
     if (item.category) activeCategories.add(item.category);
     splitTopics(item.topics).forEach((topic) => {
+      if (topic === SPOTLIGHT_TOPIC_TAG) return;
       topicCounts.set(topic, (topicCounts.get(topic) || 0) + 1);
     });
   });
