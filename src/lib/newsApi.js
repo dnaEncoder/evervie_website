@@ -120,7 +120,8 @@ export async function getBlogPosts({ page = 1, pageSize = 8, category, search } 
   }
   const query = [
     ...filters,
-    `sort[0]=publicationDate:desc`,
+    `sort[0]=sortPriority:asc`,
+    `sort[1]=publicationDate:desc`,
     `pagination[page]=${page}`,
     `pagination[pageSize]=${pageSize}`,
     `populate[heroImage]=true`,

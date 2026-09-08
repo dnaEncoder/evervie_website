@@ -7,7 +7,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getInvestorCentrePage, getFinancialDocuments, getLatestInvestorNews, getUpcomingInvestorEvents, getFeaturedNews, getFeaturedPastEvents, getPastInvestorEvents } from "./lib/investorApi.js";
 import { getHeroArticle, getFeaturedInsights, getBlogPosts, getBlogPostBySlug, getRelatedArticles, getBlogFacets } from "./lib/newsApi.js";
-import { getCareerOpenings, getCareerOpeningBySlug, getRelatedOpenings, getCareerFacets } from "./lib/careersApi.js";
+import { getCareerOpenings, getCareerOpeningBySlug, getRelatedOpenings, getCareerFacets, submitCareerApplication } from "./lib/careersApi.js";
 import { submitDownloadLead } from "./lib/leadsApi.js";
 import FeedbackLoginPage from "./feedback/FeedbackLoginPage.jsx";
 import FeedbackVerifyPage from "./feedback/FeedbackVerifyPage.jsx";
@@ -1105,7 +1105,7 @@ function Pillars() {
 
 function Signposts() {
   return (
-    <section className="section"><SectionHead eyebrow="Explore Evervie" title="Explore more about us" copy="A closer look at who we are, what we build and how we are doing it" />
+    <section className="section"><SectionHead eyebrow="Learn more" title="Explore Evervie" copy="A closer look at who we are, what we build and how we are doing it" />
       <div className="exploreGrid">
         {signposts.map(([title, copy, cta, img, to], i) => (
           <article className={`exploreCard ${i === 0 ? "exploreCardLarge" : ""}`} key={title}>
@@ -1401,7 +1401,8 @@ function AboutWhoWeAre() {
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
-                  { to: "/governance/board", num: "02", title: "Our board", desc: "Independent and executive board of directors." }
+                  { to: "/governance/board", num: "02", title: "Our board", desc: "Independent and executive board of directors." },
+                  { to: "/connect", num: "03", title: "Connect", desc: "Reach our corporate, registered office, and enquiry teams." }
                 ].map(({ to, num, title, desc, badge }) => (
                   <Link to={to} className="wwaNavMinor" key={title} onClick={badge ? e => e.preventDefault() : undefined} style={badge ? { opacity: 0.7, cursor: 'default' } : {}}>
                     <span className="wwaNavNum">{num}</span>
@@ -1417,7 +1418,7 @@ function AboutWhoWeAre() {
 
         {/* Signposts — News first since we're already on About */}
         <section className="section">
-          <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
+          <SectionHead eyebrow="Learn more" title="Explore Evervie" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
               ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
@@ -1472,14 +1473,14 @@ const boardOfDirectors = [
   },
   {
     name: "Dr. Ellen Feehan",
-    designation: "Executive Director",
+    designation: "Executive Director & CEO",
     din: null,
     photo: "/leadership_ellen.jpg",
     qualifications: "Qualified medical doctor and ex-McKinsey partner with over 20 years of global experience."
   },
   {
     name: "Dr. Neeraja Nagarajan",
-    designation: "Executive Director",
+    designation: "Executive Director & COO",
     din: null,
     photo: "/leadership_neeraja.jpg",
     qualifications: "Medical doctor, public health scientist and ex-McKinsey Associate Partner with 15+ years of experience in India and the US."
@@ -1661,7 +1662,7 @@ function AboutLeadership() {
             <div className="wwaChairmanContent">
               <span className="eyebrow">Message from the Chairman</span>
               <p className="wwaChairmanText" style={{ fontSize: '18px', lineHeight: '1.65', color: 'var(--graphite)' }}>
-                "I founded Evervie Health with a vision to build a global institution that is committed to excellence. We are an organization that embodies innovation and integrity, centered around patient care. Evervie is home to the finest minds and dynamic leaders. We are an institution with limitless ambition to build, deliver, and scale global specialty care."
+                "I founded Evervie Health with a vision to build a global healthcare institution that is committed to excellence. We are an organization anchored on integrity, striving to innovate, while always keeping the patients at the heart of everything we do. We will do this by nurturing and empowering dynamic and world class leaders across the organization. We are an institution with a bold and pragmatic ambition to build, deliver, and scale high quality care, from India, for the world."
               </p>
               <div className="wwaChairmanExp">
                 <h3>PV’s experience</h3>
@@ -1747,7 +1748,7 @@ function AboutLeadership() {
               <Link to="/governance/board" className="wwaNavFeature">
                 <div className="wwaNavFeatureInner">
                   <div className="wwaNavMeta">
-                    <span className="wwaNavNum">03</span>
+                    <span className="wwaNavNum">02</span>
                     <span className="wwaNavNextTag">Next</span>
                   </div>
                   <h3>Our board</h3>
@@ -1758,7 +1759,8 @@ function AboutLeadership() {
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
-                  { to: "/about/who-we-are", num: "01", title: "Who we are", desc: "Get to know Evervie—our story and values." }
+                  { to: "/about/who-we-are", num: "01", title: "Who we are", desc: "Get to know Evervie—our story and values." },
+                  { to: "/connect", num: "03", title: "Connect", desc: "Reach our corporate, registered office, and enquiry teams." }
                 ].map(({ to, num, title, desc, badge }) => (
                   <Link to={to} className="wwaNavMinor" key={title} onClick={badge ? e => e.preventDefault() : undefined} style={badge ? { opacity: 0.7, cursor: 'default' } : {}}>
                     <span className="wwaNavNum">{num}</span>
@@ -1774,7 +1776,7 @@ function AboutLeadership() {
 
         {/* Signposts */}
         <section className="section">
-          <SectionHead eyebrow="Explore Evervie" title="News and insights" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
+          <SectionHead eyebrow="Learn more" title="Explore Evervie" copy="The latest news, stories, and perspectives from Evervie and across the healthcare sector." />
           <div className="exploreGrid">
             {[
               ["News & insights", "Stay informed with the latest news, announcements, and thought leadership from Evervie.", "Read the latest", "/EvervieGuidelines_SlidePartition1_v1.png", "/news-insights"],
@@ -1928,7 +1930,8 @@ function AboutMissionVision() {
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
-                  { to: "/governance", num: "03", title: "Our governance", desc: "Integrity, accountability, and trust." }
+                  { to: "/about/who-we-are", num: "02", title: "Who we are", desc: "Get to know Evervie—our story and values." },
+                  { to: "/connect", num: "03", title: "Connect", desc: "Reach our corporate, registered office, and enquiry teams." }
                 ].map(({ to, num, title, desc, badge }) => (
                   <Link to={to} className="wwaNavMinor" key={title} onClick={badge ? e => e.preventDefault() : undefined} style={badge ? { opacity: 0.7, cursor: 'default' } : {}}>
                     <span className="wwaNavNum">{num}</span>
@@ -1993,23 +1996,6 @@ function AboutGovernance() {
               </article>
             ))}
 
-            <article className="wwaBoardCard wwaSecretaryCard">
-              <div className="wwaSecretaryCardInner">
-                <div className="wwaSecretaryIconWrap">
-                  <Mail size={22} />
-                </div>
-                <span className="wwaBoardCardTitle">Company Secretary & Compliance Officer</span>
-                <h3>Mr. Vinay Paruchuru</h3>
-                <div className="wwaSecretaryContactDetails">
-                  <a href="mailto:CS@everviehealth.com" className="wwaSecretaryContactLink">
-                    <Mail size={14} /> cs@everviehealth.com
-                  </a>
-                  <a href="tel:+919600537888" className="wwaSecretaryContactLink">
-                    <Phone size={14} /> +91 9600537888
-                  </a>
-                </div>
-              </div>
-            </article>
           </div>
         </section>
 
@@ -2077,23 +2063,6 @@ function AboutGovernanceBoard() {
               </article>
             ))}
 
-            <article className="wwaBoardCard wwaSecretaryCard">
-              <div className="wwaSecretaryCardInner">
-                <div className="wwaSecretaryIconWrap">
-                  <Mail size={22} />
-                </div>
-                <span className="wwaBoardCardTitle">Company Secretary & Compliance Officer</span>
-                <h3>Mr. Vinay Paruchuru</h3>
-                <div className="wwaSecretaryContactDetails">
-                  <a href="mailto:cs@everviehealth.com" className="wwaSecretaryContactLink">
-                    <Mail size={14} /> cs@everviehealth.com
-                  </a>
-                  <a href="tel:+919600537888" className="wwaSecretaryContactLink">
-                    <Phone size={14} /> +91 9600537888
-                  </a>
-                </div>
-              </div>
-            </article>
           </div>
         </section>
       </main>
@@ -2273,7 +2242,7 @@ function PortfolioNavSection({ currentVertical }) {
             {[
               { to: "/about/who-we-are", num: "01", title: "Who we are", desc: "Get to know Evervie—our story, values, and the purpose that drives us forward." },
               { to: "/investor-centre", num: "02", title: "Investor centre", desc: "Access information about Evervie's platform, financial performance, and disclosures." },
-              { to: "/news-insights", num: "03", title: "Insights & news", desc: "Access our latest announcements, news, and healthcare reports." }
+              { to: "/connect", num: "03", title: "Connect", desc: "Reach our corporate, registered office, and enquiry teams." }
             ].map(({ to, num, title, desc }) => (
               <Link to={to} className="wwaNavMinor" key={title}>
                 <span className="wwaNavNum">{num}</span>
@@ -4503,107 +4472,17 @@ function attendanceLabel(event) {
 
 const LEAD_STORAGE_KEY = "evervie_lead_captured";
 
-// Gates annual-report downloads behind a short lead-capture form. Returns
+// Direct annual-report and document download helper. Returns
 // `requestDownload(doc)` to call from a download control, and `modal` JSX
 // to render once per page.
 function useDownloadGate() {
-  const [pendingDoc, setPendingDoc] = useState(null);
-  const [form, setForm] = useState({ name: "", email: "", company: "" });
-  const [state, setState] = useState("idle"); // idle | sending | error
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!pendingDoc) return;
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") closeModal();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pendingDoc]);
-
-  const closeModal = () => {
-    setPendingDoc(null);
-    setState("idle");
-    setError("");
-  };
-
-  const triggerDownload = (doc) => {
+  const requestDownload = (doc) => {
+    if (!doc) return;
     const url = doc.documentUrl || doc.externalUrl;
     if (url) window.open(url, "_blank");
   };
 
-  const requestDownload = (doc) => {
-    const url = doc.documentUrl || doc.externalUrl;
-    if (!url) return;
-    if (window.localStorage.getItem(LEAD_STORAGE_KEY)) {
-      triggerDownload(doc);
-      return;
-    }
-    setForm({ name: "", email: "", company: "" });
-    setState("idle");
-    setError("");
-    setPendingDoc(doc);
-  };
-
-  const updateField = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!form.name.trim() || !form.email.trim() || state === "sending") return;
-    setState("sending");
-    setError("");
-    try {
-      await submitDownloadLead({
-        name: form.name.trim(),
-        email: form.email.trim(),
-        company: form.company.trim() || null,
-        documentSlug: pendingDoc.id,
-        documentTitle: pendingDoc.title,
-        documentCategory: pendingDoc.category,
-      });
-      window.localStorage.setItem(LEAD_STORAGE_KEY, "1");
-      triggerDownload(pendingDoc);
-      closeModal();
-    } catch (err) {
-      setError(err.message || "Something went wrong. Please try again.");
-      setState("error");
-    }
-  };
-
-  const modal = pendingDoc && (
-    <div className="wwaModalOverlay leadGateOverlay" onClick={closeModal} role="dialog" aria-modal="true" aria-labelledby="lead-gate-title">
-      <div className="wwaModal leadGateModal" onClick={(e) => e.stopPropagation()}>
-        <button className="wwaModalCloseBtn" onClick={closeModal} aria-label="Close">×</button>
-        <div className="leadGateContent">
-          <h2 id="lead-gate-title">Download {pendingDoc.title}</h2>
-          <p>Share a few details and we&rsquo;ll take you straight to the download.</p>
-          <form className="leadGateForm" onSubmit={handleSubmit}>
-            <label className="leadGateField">
-              <span>Full name</span>
-              <input type="text" required value={form.name} onChange={updateField("name")} placeholder="Your name" />
-            </label>
-            <label className="leadGateField">
-              <span>Work email</span>
-              <input type="email" required value={form.email} onChange={updateField("email")} placeholder="you@company.com" />
-            </label>
-            <label className="leadGateField">
-              <span>Organization (optional)</span>
-              <input type="text" value={form.company} onChange={updateField("company")} placeholder="Company or fund" />
-            </label>
-            <div className="leadGateActions">
-              <button type="submit" className="btn" disabled={state === "sending"}>
-                {state === "sending" ? "Submitting…" : "Continue to download"}
-              </button>
-            </div>
-            {state === "error" && <p className="leadGateError">{error}</p>}
-          </form>
-        </div>
-      </div>
-    </div>
-  );
-
-  return { requestDownload, modal };
+  return { requestDownload, modal: null };
 }
 
 function FinancialReportsSection({ page, onRequestDownload }) {
@@ -4970,10 +4849,10 @@ function InvestorRelationsNavSection({ showBorder = true }) {
   const routes = [
     {
       num: "01",
-      title: "Financial information",
-      path: "/investor-centre/financial-information",
-      desc: "Access annual and quarterly financial results and reports.",
-      cta: "Explore financial information"
+      title: "Connect",
+      path: "/connect",
+      desc: "Get in touch with our investor relations, corporate office, and registered office teams.",
+      cta: "Connect with us"
     },
     {
       num: "02",
@@ -5255,6 +5134,26 @@ function FinCategoryNav({ categories, activeKey, onSelect }) {
             </button>
           );
         })}
+      </div>
+
+      <div className="finSecretarySection" style={{ marginTop: '32px' }}>
+        <article className="wwaBoardCard wwaSecretaryCard" style={{ borderRadius: '16px', padding: '24px 20px' }}>
+          <div className="wwaSecretaryCardInner">
+            <div className="wwaSecretaryIconWrap">
+              <Mail size={22} />
+            </div>
+            <span className="wwaBoardCardTitle">Company Secretary &amp; Compliance Officer</span>
+            <h3>Mr. Vinay Paruchuru</h3>
+            <div className="wwaSecretaryContactDetails">
+              <a href="mailto:cs@everviehealth.com" className="wwaSecretaryContactLink">
+                <Mail size={14} /> cs@everviehealth.com
+              </a>
+              <a href="tel:+919600537888" className="wwaSecretaryContactLink">
+                <Phone size={14} /> +91 9600537888
+              </a>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
   );
@@ -6818,18 +6717,34 @@ function OpenPositionsSection() {
 
 function JoinTeamForm() {
   const [form, setForm] = useState({ name: "", email: "", role: "", message: "" });
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | submitting | success | error
+  const [error, setError] = useState("");
 
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Careers inquiry: ${form.name || "New applicant"}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nRole of interest: ${form.role || "—"}\n\n${form.message}`
-    );
-    window.location.href = `mailto:talent@everviehealth.com?subject=${subject}&body=${body}`;
-    setSent(true);
+    if (!form.name.trim() || !form.email.trim() || status === "submitting") return;
+    setStatus("submitting");
+    setError("");
+    try {
+      await submitCareerApplication({
+        name: form.name.trim(),
+        email: form.email.trim(),
+        role: form.role.trim(),
+        message: form.message.trim(),
+      });
+      setStatus("success");
+    } catch (err) {
+      console.error("Failed to submit career form:", err);
+      // Fallback: trigger mailto if backend server route is unreachable
+      const subject = encodeURIComponent(`Careers inquiry: ${form.name || "New applicant"}`);
+      const body = encodeURIComponent(
+        `Name: ${form.name}\nEmail: ${form.email}\nRole of interest: ${form.role || "—"}\n\n${form.message}`
+      );
+      window.location.href = `mailto:talent@everviehealth.com?subject=${subject}&body=${body}`;
+      setStatus("success");
+    }
   };
 
   return (
@@ -6837,28 +6752,76 @@ function JoinTeamForm() {
       <div className="neSectionHeader">
         <h2>Join our team</h2>
       </div>
-      <form className="careersJoinForm" onSubmit={handleSubmit}>
-        <div className="careersJoinFormRow">
-          <label>
-            <span>Full name</span>
-            <input type="text" required value={form.name} onChange={update("name")} placeholder="Your name" />
-          </label>
-          <label>
-            <span>Email</span>
-            <input type="email" required value={form.email} onChange={update("email")} placeholder="you@example.com" />
-          </label>
+
+      {status === "success" ? (
+        <div className="careersJoinSuccess" style={{
+          background: "#faf9f6",
+          border: "1px solid rgba(255, 60, 0, 0.2)",
+          borderRadius: "16px",
+          padding: "36px 32px",
+          maxWidth: "720px",
+          margin: "0 auto",
+          textAlign: "center"
+        }}>
+          <div style={{
+            width: "56px",
+            height: "56px",
+            borderRadius: "50%",
+            background: "rgba(255, 60, 0, 0.1)",
+            color: "var(--evervie-orange)",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginBottom: "20px"
+          }}>
+            <CheckCircle size={28} />
+          </div>
+          <h3 style={{ fontSize: "24px", fontWeight: "700", color: "var(--graphite)", marginBottom: "12px" }}>
+            Application Received
+          </h3>
+          <p style={{ fontSize: "16px", lineHeight: "1.6", color: "var(--graphite)", marginBottom: "12px" }}>
+            Thank you, <strong>{form.name}</strong>! Your application has been sent to <strong>talent@everviehealth.com</strong>.
+          </p>
+          <p style={{ fontSize: "14px", lineHeight: "1.6", color: "#666", marginBottom: "24px" }}>
+            We have sent a confirmation email to <strong>{form.email}</strong>. Our talent acquisition team will review your application and contact you back directly once there is an update.
+          </p>
+          <button
+            type="button"
+            className="btnOutline"
+            onClick={() => {
+              setForm({ name: "", email: "", role: "", message: "" });
+              setStatus("idle");
+            }}
+          >
+            Submit Another Inquiry
+          </button>
         </div>
-        <label>
-          <span>Role or area of interest</span>
-          <input type="text" value={form.role} onChange={update("role")} placeholder="e.g. Oncology Operations, Finance" />
-        </label>
-        <label>
-          <span>Message</span>
-          <textarea rows={5} value={form.message} onChange={update("message")} placeholder="Tell us a bit about yourself and what you're looking for" />
-        </label>
-        <button type="submit" className="btn">Send introduction <ArrowRight size={16} /></button>
-        {sent && <p className="careersJoinFormNote">Thanks — your email client should have opened with your message ready to send.</p>}
-      </form>
+      ) : (
+        <form className="careersJoinForm" onSubmit={handleSubmit}>
+          <div className="careersJoinFormRow">
+            <label>
+              <span>Full name</span>
+              <input type="text" required value={form.name} onChange={update("name")} placeholder="Your name" />
+            </label>
+            <label>
+              <span>Email</span>
+              <input type="email" required value={form.email} onChange={update("email")} placeholder="you@example.com" />
+            </label>
+          </div>
+          <label>
+            <span>Role or area of interest</span>
+            <input type="text" value={form.role} onChange={update("role")} placeholder="e.g. Oncology Operations, Finance" />
+          </label>
+          <label>
+            <span>Message</span>
+            <textarea rows={5} value={form.message} onChange={update("message")} placeholder="Tell us a bit about yourself and what you're looking for" />
+          </label>
+          <button type="submit" className="btn" disabled={status === "submitting"}>
+            {status === "submitting" ? "Submitting application…" : <>Send introduction <ArrowRight size={16} /></>}
+          </button>
+          {error && <p className="careersJoinFormNote" style={{ color: "#d9381e" }}>{error}</p>}
+        </form>
+      )}
     </section>
   );
 }
@@ -7153,7 +7116,8 @@ function ConnectPage() {
                         <strong>Evervie Health Limited</strong><br />
                         9th Floor, KRM Center,<br />
                         Harrington Road, Chetpet,<br />
-                        Chennai, Tamil Nadu – 600031
+                        Chennai, Tamil Nadu – 600031<br />
+                        Tel: <a href="tel:+914448596999">+91 (0) 44 48596999</a>
                       </p>
                     </div>
                   </div>
@@ -7167,32 +7131,9 @@ function ConnectPage() {
                         4th Floor, Punnaiah Plaza,<br />
                         Plot No. 83 &amp; 84, Road No. 2,<br />
                         Banjara Hills, Hyderabad,<br />
-                        Telangana – 500034
+                        Telangana – 500034<br />
+                        Tel: <a href="tel:+914067309999">+91 (0) 40 67309999</a>
                       </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="connectDetailsBlock" style={{ marginTop: '40px' }}>
-                <div className="eyebrow" style={{ color: 'var(--evervie-orange)', marginBottom: '16px' }}>Phone</div>
-                <div className="connectDetailsList">
-                  <div className="connectDetailsItem">
-                    <div className="connectDetailIcon">
-                      <Phone size={18} />
-                    </div>
-                    <div>
-                      <h4>Registered Office (Chennai)</h4>
-                      <p><a href="tel:04448596999">044 48596999</a></p>
-                    </div>
-                  </div>
-                  <div className="connectDetailsItem" style={{ marginTop: '16px' }}>
-                    <div className="connectDetailIcon">
-                      <Phone size={18} />
-                    </div>
-                    <div>
-                      <h4>Corporate Office (Hyderabad)</h4>
-                      <p><a href="tel:+914067309999">+91 (0) 40 67309999</a></p>
                     </div>
                   </div>
                 </div>

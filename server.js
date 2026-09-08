@@ -9,6 +9,7 @@ import me from "./api/feedback/me.js";
 import requestLogin from "./api/feedback/request-login.js";
 import verifyLogin from "./api/feedback/verify-login.js";
 import captureLead from "./api/leads/capture.js";
+import submitCareerApplication from "./api/careers/submit.js";
 import { resolveMeta, injectMeta } from "./seo/render.js";
 import { generateSitemap } from "./seo/sitemap.js";
 
@@ -24,6 +25,7 @@ app.all("/api/feedback/me", me);
 app.all("/api/feedback/request-login", requestLogin);
 app.all("/api/feedback/verify-login", verifyLogin);
 app.all("/api/leads/capture", captureLead);
+app.all("/api/careers/submit", submitCareerApplication);
 
 app.get("/sitemap.xml", async (req, res) => {
   const xml = await generateSitemap();

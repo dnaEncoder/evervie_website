@@ -106,3 +106,23 @@ export async function getCareerFacets() {
 
   return { activeDepartments, activeLocations };
 }
+
+export async function submitCareerApplication({ name, email, role, message }) {
+  let response;
+  try {
+    response = await fetch("/api/careers/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, role, message }),
+    });
+  } catch (err) {
+    throw new Error(`Could not reach server: ${err.message}`);
+  }
+
+  const json = await response.json().catch(() => null);
+  if (!response.ok) {
+    const errorMsg = json?.error?.message || `Server returned ${response.status}`;
+    throw new Error(errorMsg);
+  }
+  return json;
+}
