@@ -5282,6 +5282,12 @@ function FinCompactRow({ doc, onRequestDownload }) {
   );
 }
 
+// Categories with only a handful of documents (e.g. ESOP, MGT-9, Code of
+// Fair Disclosure) render every doc as a single expanded row with no
+// search/filter chrome or year grouping — that machinery only earns its
+// keep once there's enough documents to actually browse.
+const SIMPLE_LIST_THRESHOLD = 4;
+
 function FinDocumentArchive({ category, onRequestDownload }) {
   const [status, setStatus] = useState("loading");
   const [documents, setDocuments] = useState([]);
@@ -5345,12 +5351,13 @@ function FinDocumentArchive({ category, onRequestDownload }) {
     setReportingPeriod("all");
   };
 
-  const expandedCount = Math.min(2, filtered.length);
+  const isSimpleList = documents.length > 0 && documents.length <= SIMPLE_LIST_THRESHOLD;
+  const expandedCount = isSimpleList ? filtered.length : Math.min(2, filtered.length);
   const expandedItems = filtered.slice(0, expandedCount);
   const compactItemsAll = filtered.slice(expandedCount);
   const compactItems = compactItemsAll.slice(0, visibleCount);
   const hasMore = compactItemsAll.length > compactItems.length;
-  const filtersVisible = status === "loaded" && documents.length > 0 && category.filters.length > 0;
+  const filtersVisible = !isSimpleList && status === "loaded" && documents.length > 0 && category.filters.length > 0;
   const compactGroups = groupDocsByYear(compactItems, category.key === "quarterly-result");
 
   return (
