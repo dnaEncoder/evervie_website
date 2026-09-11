@@ -131,7 +131,7 @@ const megaMenuConfigs = [
       { title: "Announcements", description: "View official company announcements, disclosures, and material updates.", route: "/investor-centre/announcements", icon: Megaphone },
       { isHeader: true, title: "Corporate governance" },
       { title: "Our board", description: "Meet the board members guiding Evervie's strategy, oversight, and long-term commitments.", route: "/governance/board", icon: UsersRound },
-      { title: "Policies & standards", description: "The policies, standards, and compliance frameworks that guide how Evervie operates.", route: "/governance/policies", icon: ClipboardList }
+      { title: "Policies & Other Statutory Information", description: "The policies, standards, and statutory disclosures that guide how Evervie operates.", route: "/governance/policies", icon: ClipboardList }
     ]
   }
 ];
@@ -667,7 +667,7 @@ const footerNavColumns = [
     title: "Corporate governance",
     links: [
       { title: "Our board", to: "/governance/board" },
-      { title: "Policies & standards", to: "/governance/policies" }
+      { title: "Policies & Other Statutory Information", to: "/governance/policies" }
     ]
   },
   {
@@ -836,7 +836,7 @@ function CompanySnapshotWithMap() {
   }, []);
 
   const sevenMedStates = ["Delhi", "Haryana", "Rajasthan", "Uttar Pradesh", "Uttarakhand", "Bihar", "Jharkhand"];
-  const optimusStates = ["Maharashtra"];
+  const optimusStates = ["Maharashtra", "Gujarat"];
   const medilabsStates = ["Tamil Nadu"];
 
   const getStateStyle = (feature) => {
@@ -1161,7 +1161,7 @@ function Editorial() {
             </div>
             <div className="editorialAboutPillar">
               <h4>Strategic partnerships</h4>
-              <p>Driving global innovation through advanced technologies, patient-focused specialist care, and trusted collaborations.</p>
+              <p>Driving global innovation through advanced technologies, patient-focused speciality care, and trusted collaborations.</p>
             </div>
           </div>
 
@@ -1584,10 +1584,27 @@ function AboutLeadership() {
     }
   ];
 
+  const advisors = [
+    {
+      name: "Laird MacKay",
+      designation: "Advisor",
+      photo: "/leadership_laird.jpeg",
+      shortBio: "Former Managing Director of Caring Homes with over two decades in senior operating roles, fifteen of them in UK social care, and prior board and trustee roles with Care England. Brings deep knowledge of the senior care sector's market dynamics and regulatory frameworks.",
+      linkedin: "https://www.linkedin.com/in/laird-mackay-412a232/"
+    },
+    {
+      name: "Felicity Morrogh",
+      designation: "Advisor",
+      photo: "/leadership_felicity.jpeg",
+      shortBio: "Multidisciplinary operator blending blue-chip design, hospitality standards and business development to drive investment and growth in UK healthcare.",
+      linkedin: "https://www.linkedin.com/in/felicity-morrogh-96928a103/"
+    }
+  ];
+
   const principles = [
     {
       title: "Human-centered lens",
-      copy: "Every decision, protocol and strategic investment starts with a single question: how does this improve the health and well-being of the person being served?",
+      copy: "Every decision, standard and strategic investment starts with a single question: how does this improve the health and well-being of the person being served.",
       icon: HeartPulse
     },
     {
@@ -1607,7 +1624,7 @@ function AboutLeadership() {
     },
     {
       title: "Transparency builds trust",
-      copy: "We share our quality metrics, clinical outcomes, and operating performance openly with patients, families, and stakeholders.",
+      copy: "We share our quality metrics, clinical outcomes, and operating performance openly across the group",
       icon: Sparkles
     },
     {
@@ -1662,7 +1679,7 @@ function AboutLeadership() {
             <div className="wwaChairmanContent">
               <span className="eyebrow">Message from the Chairman</span>
               <p className="wwaChairmanText" style={{ fontSize: '18px', lineHeight: '1.65', color: 'var(--graphite)' }}>
-                "I founded Evervie Health with a vision to build a global healthcare institution that is committed to excellence. We are an organization anchored on integrity, striving to innovate, while always keeping the patients at the heart of everything we do. We will do this by nurturing and empowering dynamic and world class leaders across the organization. We are an institution with a bold and pragmatic ambition to build, deliver, and scale high quality care, from India, for the world."
+                "I founded Evervie Health with a vision to build a global healthcare institution that is committed to excellence. We are an organization anchored on integrity, striving to innovate, while always keeping the patients at the heart of everything we do. We will do this by empowering dynamic and world class leaders across the organization. We are an institution with a bold and pragmatic ambition to build, deliver, and scale high quality care, from India, for the world."
               </p>
               <div className="wwaChairmanExp">
                 <h3>PV’s experience</h3>
@@ -1683,6 +1700,41 @@ function AboutLeadership() {
 
           <div className="wwaBoardGrid">
             {boardMembers.map((member) => (
+              <article key={member.name} className="wwaBoardCard">
+                <div className="wwaBoardCardVisual">
+                  {member.photo
+                    ? <img src={member.photo} alt={member.name} className="wwaBoardCardImg" />
+                    : <Placeholder text={member.name} className="wwaBoardCardImg" />}
+                </div>
+                <div className="wwaBoardCardContent">
+                  <h3>{member.name}</h3>
+                  <span className="wwaBoardCardTitle">{member.designation}</span>
+                  <p className="wwaBoardCardShortBio">{member.shortBio}</p>
+                  <a
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="wwaBoardCardBtn"
+                  >
+                    LinkedIn Profile <ArrowRight size={13} />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Advisors */}
+        <section className="section wwaBoard">
+          <div className="sectionHead">
+            <div>
+              <div className="eyebrow">Leadership</div>
+              <h2>Advisors</h2>
+            </div>
+          </div>
+
+          <div className="wwaBoardGrid">
+            {advisors.map((member) => (
               <article key={member.name} className="wwaBoardCard">
                 <div className="wwaBoardCardVisual">
                   {member.photo
@@ -2169,7 +2221,7 @@ function AboutGovernancePolicies() {
           </div>
           <div className="governancePoliciesSubsection">
             <div className="eyebrow"><EyebrowSymbol />Other Statutory Information</div>
-            <h2>Other statutory information</h2>
+            <h2>Corp Governance Reports</h2>
             <p className="wwaHeroBody" style={{ margin: "0 0 24px" }}>
               Shareholding filings, statutory disclosures, and shareholder communications.
             </p>
@@ -2627,24 +2679,6 @@ function PortfolioVertical({
                       style={getStateStyle}
                       onEachFeature={onEachFeature}
                     />
-                    {footprint.hospitalsList && footprint.hospitalsList.map((h, i) => (
-                      <Marker
-                        key={i}
-                        position={h.coordinates}
-                        icon={customMarkerIcon}
-                      >
-                        <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
-                          {h.city}
-                        </Tooltip>
-                        <Popup>
-                          <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
-                            <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Hospital Location</strong>
-                            <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
-                            <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Evervie’s renal care hospital network.</span>
-                          </div>
-                        </Popup>
-                      </Marker>
-                    ))}
                     {footprint.centersList && footprint.centersList.map((c, i) => (
                       <Marker
                         key={`center-${i}`}
@@ -2659,6 +2693,24 @@ function PortfolioVertical({
                             <strong style={{ color: 'var(--evervie-solar, #FABE00)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Dialysis Centre</strong>
                             <span style={{ fontWeight: 700 }}>{c.name}</span><br />
                             <span style={{ color: '#666' }}>{c.city}, {c.state}</span>
+                          </div>
+                        </Popup>
+                      </Marker>
+                    ))}
+                    {footprint.hospitalsList && footprint.hospitalsList.map((h, i) => (
+                      <Marker
+                        key={i}
+                        position={h.coordinates}
+                        icon={customMarkerIcon}
+                      >
+                        <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
+                          {h.city}
+                        </Tooltip>
+                        <Popup>
+                          <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                            <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Hospital Location</strong>
+                            <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
+                            <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Evervie’s renal care hospital network.</span>
                           </div>
                         </Popup>
                       </Marker>
@@ -2994,7 +3046,7 @@ function RenalCare() {
     hospitalsList: [
       { city: "New Delhi", state: "Delhi", coordinates: [28.6139, 77.2090] },
       { city: "Varanasi", state: "Uttar Pradesh", coordinates: [25.320984, 82.992272] },
-      { city: "Mau", state: "Uttar Pradesh", coordinates: [25.932517, 83.572181] }
+      { city: "Mau", state: "Uttar Pradesh", coordinates: [25.80, 82.35] }
     ],
     centersList: [
       { name: "JJIMS", city: "Bahadurgarh", state: "Haryana", coordinates: [28.689252, 76.947634] },
@@ -3074,8 +3126,8 @@ function Oncology() {
       .catch((err) => console.error("Error loading GeoJSON data:", err));
   }, []);
 
-  const mapCenter = [19.6, 75.8];
-  const mapZoom = 6.4;
+  const mapCenter = [21.2, 74.8];
+  const mapZoom = 5.6;
   const highlightedStates = ["Maharashtra", "Gujarat"];
 
   const getStateStyle = (feature) => {
@@ -4264,13 +4316,6 @@ const FINANCIAL_INFO_CATEGORIES = [
     icon: BarChart3,
     filters: ["search", "financialYear", "reportingPeriod", "sort"],
   },
-  {
-    key: "others",
-    label: "Others",
-    description: "Other investor documents that do not fall under a specific category above.",
-    icon: Folder,
-    filters: ["search", "sort"],
-  },
 ];
 
 // Statutory categories relocated to Our Governance > Policies & Standards.
@@ -4362,8 +4407,8 @@ const GOVERNANCE_POLICY_DOCS = [
 const NEWS_INSIGHTS_CATEGORIES = [
   { key: "evervie-perspectives", label: "Evervie Perspectives" },
   { key: "market-trends", label: "Market Trends" },
-  { key: "healthcare-insights", label: "Healthcare Insights" },
   { key: "sector-insights", label: "Sector Insights" },
+  { key: "healthcare-insights", label: "Healthcare Insights" },
   { key: "economy", label: "Economy" },
   { key: "policy-regulation", label: "Policy & Regulation" },
   { key: "sustainability", label: "Sustainability" },
@@ -6589,7 +6634,7 @@ function ArticleDetail() {
 const CAREER_OPPORTUNITY_MODULES = [
   { icon: Sparkles, title: "Innovative environment", copy: "Work on healthcare challenges that matter, with the freedom to bring new ideas forward." },
   { icon: UsersRound, title: "Collaborative culture", copy: "Join a team that values open thinking, mutual respect, and shared ownership of outcomes." },
-  { icon: TrendingUp, title: "Career growth", copy: "Build your career alongside a platform that is scaling across multiple healthcare platforms." },
+  { icon: TrendingUp, title: "Career growth", copy: "Build your career alongside a group that is scaling across multiple healthcare platforms." },
   { icon: Globe2, title: "Global impact", copy: "Contribute to work that is shaping access to care for communities across India and beyond." },
 ];
 

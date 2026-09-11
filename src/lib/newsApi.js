@@ -38,14 +38,40 @@ function splitTopics(topics) {
     .filter(Boolean);
 }
 
+const SECTOR_ORDER = ["dialysis", "oncology", "diagnostics", "woman", "longevity"];
+const HEALTHCARE_ORDER = ["vision loss", "how vision loss reshapes", "screening", "africa", "disability", "food assistance"];
+
+function getCustomOrderRank(title, categoryKey) {
+  const t = (title || "").toLowerCase();
+  if (categoryKey === "sector-insights") {
+    for (let i = 0; i < SECTOR_ORDER.length; i++) {
+      if (t.includes(SECTOR_ORDER[i])) return i;
+    }
+    return 99;
+  }
+  if (categoryKey === "healthcare-insights") {
+    for (let i = 0; i < HEALTHCARE_ORDER.length; i++) {
+      if (t.includes(HEALTHCARE_ORDER[i])) return i;
+    }
+    return 99;
+  }
+  return 99;
+}
+
 function mapBlogPost(post) {
+  let category = post.category;
+  const titleLower = (post.title || "").toLowerCase();
+  if (titleLower.includes("longevity") || titleLower.includes("woman")) {
+    category = "sector-insights";
+  }
+
   return {
     id: post.documentId,
     title: post.title,
     slug: post.slug,
     subtitle: post.subtitle,
     body: post.body,
-    category: post.category,
+    category,
     publicationDate: post.publicationDate,
     author: post.author,
     authorDesignation: post.authorDesignation,
@@ -124,6 +150,46 @@ export async function getResearchSpotlight(limit = 8) {
 }
 
 export async function getBlogPosts({ page = 1, pageSize = 8, category, search } = {}) {
+  // If specific category is requested, fetch all published posts to apply client-side re-tagging & sorting
+  if (category === "sector-insights" || category === "healthcare-insights") {
+    const query = [
+      `pagination[pageSize]=100`,
+      `populate[heroImage]=true`,
+      `status=published`,
+    ].join("&");
+    const { data, meta } = await strapiFetchWithMeta(`/api/blog-posts?${query}`);
+    let allMapped = (data ?? []).map(mapBlogPost);
+    let filtered = allMapped.filter((item) => item.category === category);
+
+    if (search) {
+      const s = search.toLowerCase();
+      filtered = filtered.filter((item) =>
+        (item.title && item.title.toLowerCase().includes(s)) ||
+        (item.subtitle && item.subtitle.toLowerCase().includes(s)) ||
+        (item.author && item.author.toLowerCase().includes(s))
+      );
+    }
+
+    filtered.sort((a, b) => {
+      const rankA = getCustomOrderRank(a.title, category);
+      const rankB = getCustomOrderRank(b.title, category);
+      if (rankA !== rankB) return rankA - rankB;
+      return new Date(b.publicationDate || 0) - new Date(a.publicationDate || 0);
+    });
+
+    const start = (page - 1) * pageSize;
+    const paginated = filtered.slice(start, start + pageSize);
+    return {
+      items: paginated,
+      pagination: {
+        page,
+        pageSize,
+        pageCount: Math.ceil(filtered.length / pageSize) || 1,
+        total: filtered.length,
+      },
+    };
+  }
+
   const filters = [];
   if (category) filters.push(`filters[category][$eq]=${encodeURIComponent(category)}`);
   if (search) {

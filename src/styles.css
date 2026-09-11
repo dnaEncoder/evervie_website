@@ -5182,27 +5182,44 @@ blockquote {
     height: 100%;
     object-fit: cover;
     object-position: center top;
+    transform: scale(1.2);
     transition: transform 0.5s ease;
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg {
-    transform: scale(1.04);
+    transform: scale(1.25);
 }
 
 .editorialBrand .wwaBoardCardImg[src="/leadership_ellen.jpg"] {
-    transform: scale(1.3) translateY(-6%);
+    transform: scale(1.35) translateY(-6%);
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/leadership_ellen.jpg"] {
-    transform: scale(1.34) translateY(-6%);
+    transform: scale(1.4) translateY(-6%);
 }
 
 .editorialBrand .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
-    transform: scale(1.3) translateY(-8%);
+    transform: scale(1.35) translateY(-8%);
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
-    transform: scale(1.34) translateY(-8%);
+    transform: scale(1.4) translateY(-8%);
+}
+
+.editorialBrand .wwaBoardCardImg[src="/leadership_laird.jpeg"] {
+    transform: scale(1.35) translateY(-4%);
+}
+
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/leadership_laird.jpeg"] {
+    transform: scale(1.4) translateY(-4%);
+}
+
+.editorialBrand .wwaBoardCardImg[src="/leadership_felicity.jpeg"] {
+    transform: scale(1.35) translateY(-4%);
+}
+
+.editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/leadership_felicity.jpeg"] {
+    transform: scale(1.4) translateY(-4%);
 }
 
 .editorialBrand .wwaBoardCardContent {
@@ -6663,18 +6680,19 @@ blockquote {
 /* Legend styling overlay */
 .editorialBrand .mapLegendBox {
     position: absolute;
-    bottom: 180px;
-    right: 24px;
-    background: #ffffff;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
     border: 1px solid var(--line-soft);
     border-radius: 12px;
-    padding: 20px;
+    padding: 14px 18px;
     z-index: 1000;
-    box-shadow: 0 8px 24px rgba(40,40,40,0.06);
-    max-width: 280px;
+    box-shadow: 0 8px 24px rgba(40,40,40,0.08);
+    max-width: 260px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
 }
 .editorialBrand .mapLegendBox h4 {
     font-size: 11px;
