@@ -113,8 +113,92 @@ export async function getFinancialDocuments(category, limit = 5) {
     `populate[documentFile]=true`,
     `status=published`,
   ].join("&");
-  const data = await strapiFetch(`/api/financial-documents?${query}`);
-  return (data ?? []).map(mapReport);
+
+  const defaultNoticeAnnouncements = [
+    {
+      id: "notice-scrutinizer-report-35th",
+      title: "Scrutinizer Report - 35th Annual General Meeting",
+      category: "notice-announcement",
+      financialYear: "2026",
+      publicationDate: "2026-09-08T00:00:00.000Z",
+      documentUrl: "/Scrutinizer_Report.pdf",
+      fileType: "PDF",
+      fileSizeLabel: "24 MB",
+    },
+    {
+      id: "notice-agm-35th",
+      title: "Notice of the 35th Annual General Meeting",
+      category: "notice-announcement",
+      financialYear: "2026",
+      publicationDate: "2026-09-07T00:00:00.000Z",
+      documentUrl: "/Notice_of_the_35th_Annual_General_Meeting.pdf",
+      fileType: "PDF",
+      fileSizeLabel: "505 KB",
+    },
+    {
+      id: "notice-34th-agm",
+      title: "Notice for 34th Annual General Meeting",
+      category: "notice-announcement",
+      financialYear: "2024",
+      publicationDate: "2024-08-12T00:00:00.000Z",
+      documentUrl: "https://www.pvpglobal.com/wp-content/uploads/2025/09/Intimationnoticepvpfinalsigned.pdf",
+      fileType: "PDF",
+      fileSizeLabel: "PDF",
+    },
+    {
+      id: "notice-board-meeting-aug6",
+      title: "Outcome of Board Meeting held on August 6, 2024",
+      category: "notice-announcement",
+      financialYear: "2024",
+      publicationDate: "2024-08-06T00:00:00.000Z",
+      documentUrl: "https://www.pvpglobal.com/wp-content/uploads/2024/12/PVPVL_BoardMeetingIntimation_August112021-1.pdf",
+      fileType: "PDF",
+      fileSizeLabel: "PDF",
+    },
+  ];
+
+  try {
+    const data = await strapiFetch(`/api/financial-documents?${query}`);
+    let docs = (data ?? []).map(mapReport);
+    if (category === "notice-announcement") {
+      if (docs.length === 0) {
+        return defaultNoticeAnnouncements;
+      }
+      let foundScrutinizer = false;
+      let foundAgm = false;
+      docs = docs.map((doc) => {
+        if (doc.title && doc.title.toLowerCase().includes("scrutinizer")) {
+          foundScrutinizer = true;
+          return {
+            ...doc,
+            publicationDate: "2026-09-08T00:00:00.000Z",
+            documentUrl: "/Scrutinizer_Report.pdf",
+          };
+        }
+        if (doc.title && (doc.title.toLowerCase().includes("35th") || doc.title.toLowerCase().includes("annual general meeting"))) {
+          foundAgm = true;
+          return {
+            ...doc,
+            publicationDate: "2026-09-07T00:00:00.000Z",
+            documentUrl: "/Notice_of_the_35th_Annual_General_Meeting.pdf",
+          };
+        }
+        return doc;
+      });
+      if (!foundAgm) {
+        docs.unshift(defaultNoticeAnnouncements[1]);
+      }
+      if (!foundScrutinizer) {
+        docs.unshift(defaultNoticeAnnouncements[0]);
+      }
+    }
+    return docs;
+  } catch (err) {
+    if (category === "notice-announcement") {
+      return defaultNoticeAnnouncements;
+    }
+    throw err;
+  }
 }
 
 export async function getLatestInvestorNews(limit = 3) {

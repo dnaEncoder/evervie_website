@@ -5182,28 +5182,27 @@ blockquote {
     height: 100%;
     object-fit: cover;
     object-position: center top;
-    transform: scale(1.2);
     transition: transform 0.5s ease;
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg {
-    transform: scale(1.25);
+    transform: scale(1.04);
 }
 
 .editorialBrand .wwaBoardCardImg[src="/leadership_ellen.jpg"] {
-    transform: scale(1.35) translateY(-6%);
+    transform: scale(1.3) translateY(-6%);
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/leadership_ellen.jpg"] {
-    transform: scale(1.4) translateY(-6%);
+    transform: scale(1.34) translateY(-6%);
 }
 
 .editorialBrand .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
-    transform: scale(1.35) translateY(-8%);
+    transform: scale(1.3) translateY(-8%);
 }
 
 .editorialBrand .wwaBoardCard:hover .wwaBoardCardImg[src="/pvp-leadership-sitting.jpg"] {
-    transform: scale(1.4) translateY(-8%);
+    transform: scale(1.34) translateY(-8%);
 }
 
 .editorialBrand .wwaBoardCardImg[src="/leadership_laird.jpeg"] {

@@ -1624,7 +1624,7 @@ function AboutLeadership() {
     },
     {
       title: "Transparency builds trust",
-      copy: "We share our quality metrics, clinical outcomes, and operating performance openly across the group",
+      copy: "We share our quality metrics, clinical outcomes, and operating performance openly across the group.",
       icon: Sparkles
     },
     {
@@ -2221,7 +2221,7 @@ function AboutGovernancePolicies() {
           </div>
           <div className="governancePoliciesSubsection">
             <div className="eyebrow"><EyebrowSymbol />Other Statutory Information</div>
-            <h2>Corp Governance Reports</h2>
+            <h2>Other Statutory information</h2>
             <p className="wwaHeroBody" style={{ margin: "0 0 24px" }}>
               Shareholding filings, statutory disclosures, and shareholder communications.
             </p>
@@ -2476,16 +2476,39 @@ function PortfolioVertical({
   const customMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
     html: `<div style="
       background-color: var(--evervie-orange);
-      width: 12px;
-      height: 12px;
+      width: 13px;
+      height: 13px;
       border-radius: 50%;
       border: 2px solid #ffffff;
       box-shadow: 0 0 8px rgba(255, 60, 0, 0.6);
     "></div>`,
     className: "custom-leaflet-marker",
-    iconSize: [16, 16],
-    iconAnchor: [8, 8],
-    popupAnchor: [0, -8]
+    iconSize: [17, 17],
+    iconAnchor: [8.5, 8.5],
+    popupAnchor: [0, -8.5]
+  }) : null;
+
+  // Larger prominent marker for Delhi (housing 3 hospitals)
+  const delhiMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
+    html: `<div style="
+      background-color: var(--evervie-orange);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2.5px solid #ffffff;
+      box-shadow: 0 0 14px rgba(255, 60, 0, 0.85), 0 0 0 4px rgba(255, 60, 0, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+    ">3</div>`,
+    className: "custom-leaflet-marker custom-leaflet-marker-delhi",
+    iconSize: [28, 28],
+    iconAnchor: [14, 14],
+    popupAnchor: [0, -14]
   }) : null;
 
   // Smaller dot marker for individual centres, distinct from the hospital marker above
@@ -2697,24 +2720,32 @@ function PortfolioVertical({
                         </Popup>
                       </Marker>
                     ))}
-                    {footprint.hospitalsList && footprint.hospitalsList.map((h, i) => (
-                      <Marker
-                        key={i}
-                        position={h.coordinates}
-                        icon={customMarkerIcon}
-                      >
-                        <Tooltip permanent direction="right" offset={[10, 0]} className="custom-map-label">
-                          {h.city}
-                        </Tooltip>
-                        <Popup>
-                          <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
-                            <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>Hospital Location</strong>
-                            <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
-                            <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>Part of Evervie’s renal care hospital network.</span>
-                          </div>
-                        </Popup>
-                      </Marker>
-                    ))}
+                    {footprint.hospitalsList && footprint.hospitalsList.map((h, i) => {
+                      const isDelhi = h.city === "New Delhi" || h.city === "Delhi";
+                      const icon = isDelhi ? (delhiMarkerIcon || customMarkerIcon) : customMarkerIcon;
+                      return (
+                        <Marker
+                          key={i}
+                          position={h.coordinates}
+                          icon={icon}
+                        >
+                          <Tooltip permanent direction="right" offset={isDelhi ? [14, 0] : [10, 0]} className="custom-map-label">
+                            {h.city} {isDelhi ? "(3 Hospitals)" : ""}
+                          </Tooltip>
+                          <Popup>
+                            <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
+                              <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
+                                {isDelhi ? "3 Hospitals in New Delhi" : "Hospital Location"}
+                              </strong>
+                              <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
+                              <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>
+                                {isDelhi ? "Part of Evervie’s renal care hospital network in Delhi NCR." : "Part of Evervie’s renal care hospital network."}
+                              </span>
+                            </div>
+                          </Popup>
+                        </Marker>
+                      );
+                    })}
                   </MapContainer>
                 )}
 
@@ -4329,7 +4360,7 @@ const GOVERNANCE_STATUTORY_CATEGORIES = [
   },
   {
     key: "other-statutory-info",
-    label: "Other Statutory Information",
+    label: "Corporate Governance Reports",
     description: "Corporate governance reports and other statutory disclosures filed by Evervie.",
     icon: ShieldCheck,
     filters: ["search", "financialYear", "sort"],
@@ -4969,7 +5000,7 @@ function InvestorCentre() {
               <ChevronRight size={13} />
               <span className="wwaBreadActive">Investor centre</span>
             </nav>
-            <div className="eyebrow"><EyebrowSymbol />Investor Centre</div>
+            <div className="eyebrow"><EyebrowSymbol />Investor Relations</div>
             <h1>
               Clarity for today.<br />
               Perspective for the long term.
@@ -5633,19 +5664,47 @@ function FeaturedHero() {
   const [items, setItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const agmEventItem = {
+    kind: "event",
+    date: "2026-09-07T10:00:00.000Z",
+    data: {
+      id: "agm-sep-7-hero",
+      title: "Annual General Meeting (AGM)",
+      eventType: "meeting",
+      startAt: "2026-09-07T10:00:00.000Z",
+      timezone: "Asia/Kolkata",
+      summary: "Evervie Health Limited held its Annual General Meeting (AGM) on September 7, 2026, reviewing financial performance, operating milestones, and strategic initiatives.",
+      slug: "agm-2026"
+    }
+  };
+
   const load = () => {
     setStatus("loading");
     Promise.all([getFeaturedNews(6), getFeaturedPastEvents(6)])
       .then(([news, events]) => {
         const merged = [
+          agmEventItem,
           ...news.map((n) => ({ kind: "news", date: n.publicationDate, data: n })),
           ...events.map((e) => ({ kind: "event", date: e.startAt, data: e })),
-        ].sort((a, b) => new Date(b.date) - new Date(a.date));
-        setItems(merged);
+        ];
+        const unique = [];
+        const seenTitles = new Set();
+        merged.forEach((item) => {
+          const t = item.data.title || "";
+          if (!seenTitles.has(t)) {
+            seenTitles.add(t);
+            unique.push(item);
+          }
+        });
+        setItems(unique);
         setActiveIndex(0);
         setStatus("loaded");
       })
-      .catch(() => setStatus("error"));
+      .catch(() => {
+        setItems([agmEventItem]);
+        setActiveIndex(0);
+        setStatus("loaded");
+      });
   };
 
   useEffect(() => { load(); }, []);
@@ -5666,7 +5725,7 @@ function FeaturedHero() {
   const isNews = active.kind === "news";
   const item = active.data;
   const dateLabel = formatDisplayDate(isNews ? item.publicationDate : item.startAt);
-  const categoryLabel = isNews ? (item.category || "News") : (EVENT_TYPE_LABELS[item.eventType] || item.eventType);
+  const categoryLabel = isNews ? (item.category || "News") : (EVENT_TYPE_LABELS[item.eventType] || "AGM");
   const summary = isNews ? item.excerpt : item.summary;
   const actionUrl = isNews ? item.externalUrl : (item.webcastUrl || item.registrationUrl);
   const actionLabel = isNews ? "Read more" : (item.webcastUrl ? "Watch recording" : "View details");
@@ -5674,9 +5733,9 @@ function FeaturedHero() {
   return (
     <section className="neHero">
       <div className="neHeroLeft">
-        <h2 className="neHeroHeadline">Past events & webinars:<br />releases</h2>
+        <h2 className="neHeroHeadline">Past investor events:<br />announcements</h2>
         <p className="neHeroIntro">
-          From quarterly earnings calls to strategy deep-dives, our past events offer valuable perspectives into Evervie’s direction and performance. Relive the sessions through on-demand videos, presentation materials, and concise summaries.
+          Explore key investor announcements, AGM highlights, and corporate updates detailing Evervie’s direction, operations, and performance.
         </p>
         {items.length > 1 && (
           <div className="neCarouselControls">
@@ -5686,7 +5745,7 @@ function FeaturedHero() {
         )}
       </div>
       <div className="neHeroRight">
-        <p className="neHeroRightIntro">Catch up on recent investor events, keynote presentations, and live webinars. Explore highlights, watch recordings, and revisit key discussions.</p>
+        <p className="neHeroRightIntro">Catch up on recent investor announcements and corporate highlights.</p>
         <div className="neFeaturedPanel">
           {isNews && item.imageUrl ? (
             <img src={item.imageUrl} alt={item.imageAlt || item.title} />
@@ -5713,30 +5772,46 @@ function FeaturedHero() {
 }
 
 function UpcomingEventsSection() {
+  const agmEvent = {
+    id: "agm-2026-09-07",
+    title: "Annual General Meeting (AGM)",
+    eventType: "meeting",
+    startAt: "2026-09-07T10:00:00.000Z",
+    timezone: "Asia/Kolkata",
+    summary: "Annual General Meeting of Evervie Health Limited.",
+    slug: "annual-general-meeting-2026"
+  };
+
   const [status, setStatus] = useState("loading");
-  const [events, setEvents] = useState([]);
-  const [expanded, setExpanded] = useState(false);
+  const [events, setEvents] = useState([agmEvent]);
 
   const load = () => {
     setStatus("loading");
     getUpcomingInvestorEvents(50)
-      .then((items) => { setEvents(items); setStatus("loaded"); })
-      .catch(() => setStatus("error"));
+      .then((items) => {
+        const agmOnly = items.filter((item) => item.title && (item.title.toLowerCase().includes("agm") || item.title.toLowerCase().includes("annual general meeting")));
+        setEvents(agmOnly.length ? agmOnly : [agmEvent]);
+        setStatus("loaded");
+      })
+      .catch(() => {
+        setEvents([agmEvent]);
+        setStatus("loaded");
+      });
   };
 
   useEffect(() => { load(); }, []);
 
-  const visible = expanded ? events : events.slice(0, 3);
+  const visible = events;
 
   return (
     <section className="neUpcomingSection">
       <div className="neSectionHeader">
-        <h2>Upcoming events & webinars</h2>
+        <h2>Events & meetings</h2>
       </div>
 
       {status === "loading" && (
         <div className="neUpcomingRow" aria-hidden="true">
-          {[1, 2, 3].map((i) => <div key={i} className="neUpcomingCard neUpcomingCardSkeleton" />)}
+          <div className="neUpcomingCard neUpcomingCardSkeleton" />
         </div>
       )}
 
@@ -5791,14 +5866,6 @@ function UpcomingEventsSection() {
               );
             })}
           </div>
-
-          {events.length > 3 && (
-            <div className="neExploreCalendarWrap">
-              <button className="btnOutline neExploreCalendarBtn" onClick={() => setExpanded((v) => !v)}>
-                {expanded ? "Show fewer events" : "Explore Full Calendar"}
-              </button>
-            </div>
-          )}
         </>
       )}
     </section>
@@ -6003,17 +6070,14 @@ function NewsAndEvents() {
             <div className="eyebrow"><EyebrowSymbol />Investor Relations</div>
             <h1>News & events</h1>
             <p className="wwaHeroBody" style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
-              Stay current with Evervie's investor events, webinars, and official announcements.
+              Stay current with Evervie's investor events and official announcements.
             </p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
         <section className="innerBody neInfoSection">
           <FeaturedHero />
-          <UpcomingEventsSection />
-          <PastEventsLibrary />
           <NoticesAnnouncementsSection onRequestDownload={requestDownload} />
-          <StayInformedBand page={investorPage} />
         </section>
         <InvestorRelationsNavSection />
       </main>

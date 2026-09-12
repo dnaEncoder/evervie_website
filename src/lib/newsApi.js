@@ -137,16 +137,35 @@ export async function getFeaturedInsights(limit = 3) {
   return (data ?? []).map(mapBlogPost);
 }
 
+function getSpotlightOrderRank(title) {
+  const t = (title || "").toLowerCase();
+  if (t.includes("dialysis")) return 0;
+  if (t.includes("oncology") || t.includes("radiation")) return 1;
+  if (t.includes("diagnostics")) return 2;
+  if (t.includes("longevity")) return 3;
+  if (t.includes("woman") || t.includes("women")) return 4;
+  return 99;
+}
+
 export async function getResearchSpotlight(limit = 8) {
   const query = [
-    `filters[topics][$containsi]=${encodeURIComponent(SPOTLIGHT_TOPIC_TAG)}`,
-    `sort[0]=publicationDate:desc`,
-    `pagination[pageSize]=${limit}`,
+    `pagination[pageSize]=100`,
     `populate[heroImage]=true`,
     `status=published`,
   ].join("&");
   const data = await strapiFetch(`/api/blog-posts?${query}`);
-  return (data ?? []).map(mapBlogPost);
+  const mapped = (data ?? []).map(mapBlogPost);
+
+  const sectorArticles = mapped.filter((item) => item.category === "sector-insights");
+
+  sectorArticles.sort((a, b) => {
+    const rankA = getSpotlightOrderRank(a.title);
+    const rankB = getSpotlightOrderRank(b.title);
+    if (rankA !== rankB) return rankA - rankB;
+    return new Date(b.publicationDate || 0) - new Date(a.publicationDate || 0);
+  });
+
+  return sectorArticles.slice(0, limit);
 }
 
 export async function getBlogPosts({ page = 1, pageSize = 8, category, search } = {}) {
