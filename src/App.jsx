@@ -1445,7 +1445,7 @@ function AboutWhoWeAre() {
 const boardOfDirectors = [
   {
     name: "Prasad V. Potluri",
-    designation: "Chairman and Managing Director",
+    designation: "Chairman & Managing Director",
     din: null,
     photo: "/pvp-leadership-standing.jpg",
     qualifications: "Serial entrepreneur with 30+ years of experience and who has successfully built and exited 3 companies. His experience spans India, UK and the US with over $800M in transactions."
@@ -1476,14 +1476,14 @@ const boardOfDirectors = [
     designation: "Executive Director & CEO",
     din: null,
     photo: "/leadership_ellen.jpg",
-    qualifications: "Qualified medical doctor and ex-McKinsey partner with over 20 years of global experience."
+    qualifications: "Qualified medical doctor and ex-McKinsey partner with over 20 years of global experience. MB, BCh, BAO from Trinity College Dublin, an MBA from University College Dublin, and professional qualifications in Surgery and Plastic Surgery from the Royal College of Surgeons in Ireland, including FRCSI and FRCS (Plast)."
   },
   {
     name: "Dr. Neeraja Nagarajan",
     designation: "Executive Director & COO",
     din: null,
     photo: "/leadership_neeraja.jpg",
-    qualifications: "Medical doctor, public health scientist and ex-McKinsey Associate Partner with 15+ years of experience in India and the US."
+    qualifications: "Medical doctor, public health scientist and ex-McKinsey Associate Partner with 15+ years of experience in India and the US. MBBS from Sriramachandra University, Chennai, MPH from Johns Hopkins and surgical training at Brigham and Women's Hospital."
   }
 ];
 
@@ -1658,7 +1658,7 @@ function AboutLeadership() {
         <section className="wwaStatement">
           <div className="wwaStatementGrid wwaStatementGridSolo">
             <div className="wwaStatHead">
-              <h2>Guiding Evervie with <span className="highlight">long-term perspective</span>.</h2>
+              <h2>Leading Evervie with <span className="highlight">long-term perspective</span>.</h2>
               <p className="wwaStatCopy">
                 Our leaders combine deep clinical capability with corporate stewardship to build and scale platforms capable of serving patient communities for generations. We believe that operational accountability, clinical excellence, and robust governance must grow together to build healthcare platforms that stand the test of time.
               </p>
@@ -2205,10 +2205,10 @@ function AboutGovernancePolicies() {
               <ChevronRight size={13} />
               <Link to="/governance">Our governance</Link>
               <ChevronRight size={13} />
-              <span className="wwaBreadActive">Policies & standards</span>
+              <span className="wwaBreadActive">Policies & Other Statutory Information</span>
             </nav>
-            <div className="eyebrow"><EyebrowSymbol />Policies & Standards</div>
-            <h1>Policies & standards</h1>
+            <div className="eyebrow"><EyebrowSymbol />Policies & Other Statutory Information</div>
+            <h1>Policies & Other Statutory Information</h1>
             <p className="wwaHeroBody" style={{ margin: 0 }}>The policies, standards, and compliance frameworks that guide how Evervie operates.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" style={{ opacity: 0.85 }} />
@@ -2488,27 +2488,20 @@ function PortfolioVertical({
     popupAnchor: [0, -8.5]
   }) : null;
 
-  // Larger prominent marker for Delhi (housing 3 hospitals)
+  // Prominent marker for Delhi
   const delhiMarkerIcon = typeof window !== "undefined" ? new L.DivIcon({
     html: `<div style="
       background-color: var(--evervie-orange);
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       border: 2.5px solid #ffffff;
-      box-shadow: 0 0 14px rgba(255, 60, 0, 0.85), 0 0 0 4px rgba(255, 60, 0, 0.22);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 800;
-      line-height: 1;
-    ">3</div>`,
+      box-shadow: 0 0 12px rgba(255, 60, 0, 0.75), 0 0 0 3px rgba(255, 60, 0, 0.2);
+    "></div>`,
     className: "custom-leaflet-marker custom-leaflet-marker-delhi",
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-    popupAnchor: [0, -14]
+    iconSize: [24, 24],
+    iconAnchor: [12, 12],
+    popupAnchor: [0, -12]
   }) : null;
 
   // Smaller dot marker for individual centres, distinct from the hospital marker above
@@ -2730,16 +2723,16 @@ function PortfolioVertical({
                           icon={icon}
                         >
                           <Tooltip permanent direction="right" offset={isDelhi ? [14, 0] : [10, 0]} className="custom-map-label">
-                            {h.city} {isDelhi ? "(3 Hospitals)" : ""}
+                            {h.city}
                           </Tooltip>
                           <Popup>
                             <div style={{ fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.4', padding: '4px' }}>
                               <strong style={{ color: 'var(--evervie-orange)', fontSize: '14px', display: 'block', marginBottom: '4px' }}>
-                                {isDelhi ? "3 Hospitals in New Delhi" : "Hospital Location"}
+                                Hospital Location
                               </strong>
                               <span style={{ fontWeight: 700 }}>{h.city}, {h.state}</span><br />
                               <span style={{ color: '#666', marginTop: '4px', display: 'block' }}>
-                                {isDelhi ? "Part of Evervie’s renal care hospital network in Delhi NCR." : "Part of Evervie’s renal care hospital network."}
+                                Part of Evervie’s renal care hospital network.
                               </span>
                             </div>
                           </Popup>
@@ -6069,9 +6062,6 @@ function NewsAndEvents() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Investor Relations</div>
             <h1>News & events</h1>
-            <p className="wwaHeroBody" style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
-              Stay current with Evervie's investor events and official announcements.
-            </p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
