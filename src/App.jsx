@@ -1649,7 +1649,7 @@ function AboutLeadership() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Our Leadership</div>
             <h1>Leadership grounded in experience, responsibility, <br />and care.</h1>
-            <p className="wwaHeroBody">Evervie is guided by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
+            <p className="wwaHeroBody">Evervie is run by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
@@ -4425,6 +4425,8 @@ const GOVERNANCE_POLICY_DOCS = [
   { title: "Policy on Material Subsidiaries", fileUrl: "/policies/policy-on-material-subsidiaries.pdf" },
   { title: "Related Party Transaction Policy", fileUrl: "/policies/related-party-transaction-policy.pdf" },
   { title: "CSR Policy", fileUrl: "/policies/csr-policy.pdf" },
+  { title: "Nomination, Remuneration & Performance Evaluation Policy", fileUrl: "/policies/nomination-remuneration-performance-evaluation-policy.pdf" },
+  { title: "Code of Conduct for Prevention of Insider Trading", fileUrl: "/policies/code-of-conduct-for-prevention-of-insider-trading.pdf" },
 ];
 
 // News & Insights page — one entry per blog-post category enum value.
