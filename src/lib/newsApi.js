@@ -141,7 +141,7 @@ function getSpotlightOrderRank(title) {
   const t = (title || "").toLowerCase();
   if (t.includes("dialysis")) return 0;
   if (t.includes("oncology") || t.includes("radiation")) return 1;
-  if (t.includes("diagnostics")) return 2;
+  if (t.includes("diagnostic")) return 2;
   if (t.includes("longevity")) return 3;
   if (t.includes("woman") || t.includes("women")) return 4;
   return 99;
