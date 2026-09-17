@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useSearchParams, useParams, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronLeft, ChevronRight, Activity, Home as HomeIcon, MapPin, Download, FileText, Newspaper, Calendar, Clock, Video, Bell, Search, ChevronDown, SlidersHorizontal, Inbox, AlertCircle, CalendarPlus, ExternalLink, X, PieChart, ClipboardList, CheckSquare, Folder, Briefcase, Phone, Send, Handshake, CheckCircle } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronLeft, ChevronRight, Activity, Home as HomeIcon, MapPin, Download, FileText, Newspaper, Calendar, Clock, Video, Bell, Search, ChevronDown, SlidersHorizontal, Inbox, AlertCircle, CalendarPlus, ExternalLink, X, PieChart, ClipboardList, CheckSquare, Folder, Briefcase, Phone, Send, Handshake, CheckCircle, Infinity as InfinityIcon } from "lucide-react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -1180,6 +1180,9 @@ function Editorial() {
       </div>
     </section>
 
+    {/* 2b. Why Evervie Section */}
+    <WhyEvervieSection />
+
     {/* 3. Map Section */}
     <section className="section">
       <CompanySnapshotWithMap />
@@ -1188,6 +1191,100 @@ function Editorial() {
     {/* 5. Signposts */}
     <Signposts />
   </main></Frame>;
+}
+
+function WhyEvervieSection() {
+  const sectionRef = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return undefined;
+    if (typeof IntersectionObserver === "undefined") {
+      setInView(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.18 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className={`whySection${inView ? " whyInView" : ""}`} ref={sectionRef}>
+      <div className="whyInner">
+        <div className="whyLabelRow">
+          <EyebrowSymbol />
+          <span className="whyLabel">Why Evervie</span>
+        </div>
+
+        <div className="whyMainGrid">
+          <div className="whyHeadlineCol whyReveal">
+            <h2 className="whyHeadline">
+              Specialty care that<br />
+              reaches further—<br />
+              and stays with people.
+            </h2>
+            <p className="whySupportCopy">
+              We build and grow trusted healthcare platforms, bringing dependable care closer to the communities that need it.
+            </p>
+          </div>
+
+          <div className="whyMeaningCol">
+            <div className="whyMeaningRow whyReveal whyRevealDelay1">
+              <span className="whyMeaningWord">ever</span>
+              <span className="whyMeaningDef">Continuity &amp; attention</span>
+            </div>
+            <div className="whyMeaningDivider" aria-hidden="true" />
+            <div className="whyMeaningRow whyReveal whyRevealDelay2">
+              <span className="whyMeaningWord">vie</span>
+              <span className="whyMeaningDef">Life itself</span>
+            </div>
+            <p className="whyMeaningFooter whyReveal whyRevealDelay2">Ongoing care, centred on life.</p>
+          </div>
+        </div>
+
+        <div className="whySectionDivider" aria-hidden="true" />
+
+        <div className="whyBenefitRow">
+          <div className="whyBenefit whyReveal whyRevealDelay1">
+            <div className="whyBenefitIcon whyBenefitIconOrange">
+              <Users size={30} strokeWidth={1.25} />
+            </div>
+            <div className="whyBenefitText">
+              <h3>Closer to patients</h3>
+              <p>Quality care in underserved communities.</p>
+            </div>
+          </div>
+          <div className="whyBenefit whyReveal whyRevealDelay2">
+            <div className="whyBenefitIcon whyBenefitIconYellow">
+              <InfinityIcon size={30} strokeWidth={1.25} />
+            </div>
+            <div className="whyBenefitText">
+              <h3>Built for continuity</h3>
+              <p>Connected support from diagnosis onward.</p>
+            </div>
+          </div>
+          <div className="whyBenefit whyReveal whyRevealDelay3">
+            <div className="whyBenefitIcon whyBenefitIconPink">
+              <BarChart3 size={30} strokeWidth={1.25} />
+            </div>
+            <div className="whyBenefitText">
+              <h3>Better over time</h3>
+              <p>Stronger standards, teams and outcomes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 function Bento() {
@@ -1397,7 +1494,7 @@ function AboutWhoWeAre() {
                   <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
                   <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
                 </div>
-                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
+                <div className="wwaNavFeatureImg" style={{ width: '100%', display: 'block', background: 'var(--evervie-orange)' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
@@ -1448,7 +1545,7 @@ const boardOfDirectors = [
     designation: "Chairman & Managing Director",
     din: null,
     photo: "/pvp-leadership-standing.jpg",
-    qualifications: "Serial entrepreneur with 30+ years of experience and who has successfully built and exited 3 companies. His experience spans India, UK and the US with over $800M in transactions."
+    qualifications: "Serial entrepreneur with 30+ years of experience and who has successfully built and exited 4 companies. His experience spans India, UK and the US with over $800M in transactions."
   },
   {
     name: "Saloni Khandelwal",
@@ -1649,7 +1746,6 @@ function AboutLeadership() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Our Leadership</div>
             <h1>Leadership grounded in experience, responsibility, <br />and care.</h1>
-            <p className="wwaHeroBody">Evervie is run by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
@@ -1807,7 +1903,7 @@ function AboutLeadership() {
                   <p>Independent and executive board of directors guiding Evervie's strategy.</p>
                   <span className="wwaNavCta">Explore our board <ArrowRight size={13} /></span>
                 </div>
-                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
+                <div className="wwaNavFeatureImg" style={{ width: '100%', display: 'block', background: 'var(--evervie-orange)' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
@@ -1978,7 +2074,7 @@ function AboutMissionVision() {
                   <p>Meet the leaders guiding Evervie with expertise, experience, and heart.</p>
                   <span className="wwaNavCta">Meet the team <ArrowRight size={13} /></span>
                 </div>
-                <video src="/Evervie_BrandExtensions4-Cam1_v1.mp4" autoPlay loop muted playsInline className="wwaNavFeatureImg" style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
+                <div className="wwaNavFeatureImg" style={{ width: '100%', display: 'block', background: 'var(--evervie-orange)' }} />
               </Link>
               <div className="wwaNavMinorGrid">
                 {[
