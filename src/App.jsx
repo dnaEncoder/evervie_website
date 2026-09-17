@@ -1123,75 +1123,6 @@ function Signposts() {
   );
 }
 
-function WhyEvervieSection() {
-  return (
-    <section className="whyEvervieSection">
-      <div className="whyEvervieContainer">
-        {/* Header Block */}
-        <div className="whyEvervieHeader">
-          <div className="eyebrow">
-            <EyebrowSymbol />
-            <span>Why Evervie?</span>
-          </div>
-          <h2 className="whyEvervieTitle">The principle behind our name and our purpose.</h2>
-          <p className="whyEvervieIntro">
-            The name <strong>Evervie</strong> comes from two ideas we built the company around:
-          </p>
-
-          {/* Etymology Dual Highlight */}
-          <div className="whyEvervieNameGrid">
-            <div className="whyEvervieNameCard">
-              <div className="whyEvervieBadge">
-                <span className="whyEvervieWord">ever</span>
-                <span className="whyEvervieMeaning">Continuity & Attention</span>
-              </div>
-              <p>
-                Because health is never a finished project — it's a string of small decisions and steady attention, not a single fix.
-              </p>
-            </div>
-            <div className="whyEvervieNameCard">
-              <div className="whyEvervieBadge">
-                <span className="whyEvervieWord">vie</span>
-                <span className="whyEvervieMeaning">Life Itself</span>
-              </div>
-              <p>
-                Life itself — the reason any of it matters.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Story Grid */}
-        <div className="whyEvervieStoryGrid">
-          <div className="whyEvervieStoryCard">
-            <span className="whyEvervieTag">The Premise</span>
-            <h3>Built from India, for the World</h3>
-            <p>
-              Evervie started with a simple, ambitious premise: that a world-class healthcare institution could be built from India, for the world. We began by partnering with founder-led organizations delivering high-quality specialty care for chronic disease management in tier 2 and tier 3 India — markets where care for cancer, kidney disease, and other chronic conditions was hardest to reach, not because the need was smaller, but because the infrastructure had never caught up to it.
-            </p>
-          </div>
-
-          <div className="whyEvervieStoryCard">
-            <span className="whyEvervieTag">The Expansion</span>
-            <h3>Extending Specialty Care</h3>
-            <p>
-              That starting point has shaped how we plan to grow. From our base in diagnostics, oncology and renal care, we're now planning to extend into women's health and senior care — bringing specialty care to other underserved populations, in India and beyond.
-            </p>
-          </div>
-
-          <div className="whyEvervieStoryCard highlightCard">
-            <span className="whyEvervieTag highlightTag">Our Ongoing Commitment</span>
-            <h3>Compounding Impact Over Time</h3>
-            <p>
-              That's still what Evervie means to us: not one moment of care, but the compounding effect of better standards, deeper partnerships, and outcomes that hold up over time.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Editorial() {
   return <Frame nav={<EditorialNav />} label="Variation 01 · Editorial layered homepage" brand footer={<EditorialFooter />}><main>
     {/* 1. Hero section */}
@@ -1248,9 +1179,6 @@ function Editorial() {
         </div>
       </div>
     </section>
-
-    {/* 2b. Why Evervie Section */}
-    <WhyEvervieSection />
 
     {/* 3. Map Section */}
     <section className="section">
@@ -1721,6 +1649,7 @@ function AboutLeadership() {
             </nav>
             <div className="eyebrow"><EyebrowSymbol />Our Leadership</div>
             <h1>Leadership grounded in experience, responsibility, <br />and care.</h1>
+            <p className="wwaHeroBody">Evervie is run by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care.</p>
           </div>
           <img src="/Evervie_PPT_Diamond_v1.png" alt="" className="wwaHeroDiamond" aria-hidden="true" />
         </section>
@@ -1731,7 +1660,7 @@ function AboutLeadership() {
             <div className="wwaStatHead">
               <h2>Leading Evervie with <span className="highlight">long-term perspective</span>.</h2>
               <p className="wwaStatCopy">
-                Evervie is run by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care. We make decisions with the next generation of patients in mind.
+                Our leaders combine deep clinical capability with corporate stewardship to build and scale platforms capable of serving patient communities for generations. We believe that operational accountability, clinical excellence, and robust governance must grow together to build healthcare platforms that stand the test of time.
               </p>
             </div>
           </div>
