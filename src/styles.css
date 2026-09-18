@@ -2175,167 +2175,229 @@ blockquote {
 
 /* ── Why Evervie Section ────────────────────────────────────────────── */
 .editorialBrand .whySection {
-    background: #222323;
-    padding: 110px 6.5vw 90px;
+    --why-meaning-bg: #EAE5DA;
+    --why-narrative-bg: #F7F4EE;
+    --why-ink: #252525;
+    --why-ink-soft: #4F4F4B;
+    --why-body: #565651;
+    --why-label: #3A3A3A;
+    --why-orange: #F0522D;
+    --why-yellow: #E5AD00;
+    --why-yellow-deep: #D99E00;
+    --why-pink: #ED7798;
+    --why-pink-accent: #ED668D;
+    --why-rule: rgba(37, 37, 37, 0.35);
+    --why-rule-soft: rgba(37, 37, 37, 0.25);
+    --why-band-bg: #2A2A2A;
+    --why-band-ink: #F6F1E8;
+    --why-band-body: #BEBAB3;
+    display: grid;
+    grid-template-columns: minmax(430px, 31.5%) 1fr;
+    align-items: stretch;
 }
 
-.editorialBrand .whyInner {
-    max-width: 1600px;
-    margin: 0 auto;
+.editorialBrand .whyMeaningPanel {
+    background: var(--why-meaning-bg);
+    padding: 56px 78px 58px;
+    display: flex;
+    flex-direction: column;
 }
 
 .editorialBrand .whyLabelRow {
     display: flex;
     align-items: center;
-    gap: 11px;
-    margin-bottom: 60px;
+    gap: 22px;
 }
 
 .editorialBrand .whyLabel {
     font-family: var(--font-body);
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: #F5F2EC;
-}
-
-.editorialBrand .whyMainGrid {
-    display: grid;
-    grid-template-columns: 56fr 44fr;
-    column-gap: 7.5vw;
-    align-items: start;
-}
-
-.editorialBrand .whyHeadlineCol {
-    display: flex;
-    flex-direction: column;
+    color: var(--why-label);
 }
 
 .editorialBrand .whyHeadline {
-    margin: 0;
-    max-width: 760px;
+    margin: 32px 0 0;
     font-family: var(--font-display);
-    font-weight: 500;
-    font-size: clamp(38px, 4vw, 62px);
+    font-weight: 600;
+    font-size: clamp(32px, 3.2vw, 48px);
     line-height: 1.08;
     letter-spacing: -0.01em;
-    color: #F5F2EC;
+    color: var(--why-ink);
 }
 
-.editorialBrand .whySupportCopy {
-    margin: 36px 0 0;
-    max-width: 690px;
-    font-family: var(--font-body);
-    font-size: clamp(20px, 1.6vw, 23px);
-    line-height: 1.5;
-    color: #B8B8B8;
+.editorialBrand .whyHeadlineDivider {
+    height: 1px;
+    width: 100%;
+    background: var(--why-rule);
+    margin: 36px 0 46px;
 }
 
-.editorialBrand .whyMeaningCol {
+.editorialBrand .whyMeaningBlock {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: auto 0;
 }
 
-.editorialBrand .whyMeaningRow {
+.editorialBrand .whyMeaningWordRow {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 28px;
-    padding: 22px 0;
 }
 
 .editorialBrand .whyMeaningWord {
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(72px, 7vw, 104px);
-    line-height: 1;
+    font-size: clamp(48px, 4.6vw, 68px);
+    line-height: 0.9;
     letter-spacing: -0.01em;
-    color: #F5F2EC;
+    color: var(--why-ink);
 }
 
 .editorialBrand .whyMeaningDef {
+    margin-top: 10px;
     font-family: var(--font-body);
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #FFC400;
+    color: var(--why-yellow-deep);
 }
 
-.editorialBrand .whyMeaningDivider {
-    height: 1px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.18);
+.editorialBrand .whyMeaningConnector {
+    width: 1px;
+    height: 34px;
+    background: var(--why-rule);
+    margin: 24px 0;
 }
 
 .editorialBrand .whyMeaningFooter {
-    margin: 28px 0 0;
+    margin: 40px 0 0;
+    max-width: 320px;
+    align-self: flex-start;
     font-family: var(--font-body);
-    font-size: clamp(18px, 1.3vw, 20px);
-    color: #B8B8B8;
+    font-size: clamp(16px, 1.1vw, 18px);
+    line-height: 1.5;
+    color: var(--why-ink-soft);
 }
 
-.editorialBrand .whySectionDivider {
-    height: 1px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.18);
-    margin: 56px 0 52px;
-}
-
-.editorialBrand .whyBenefitRow {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-}
-
-.editorialBrand .whyBenefit {
+.editorialBrand .whyNarrativePanel {
+    background: var(--why-narrative-bg);
+    padding: 64px 105px 64px 65px;
     display: flex;
-    align-items: flex-start;
-    gap: 24px;
-    padding: 0 clamp(20px, 3vw, 48px);
+    flex-direction: column;
 }
 
-.editorialBrand .whyBenefit:first-child {
-    padding-left: 0;
+.editorialBrand .whyNarrativeEyebrow {
+    color: var(--why-orange);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    margin-bottom: 0;
 }
 
-.editorialBrand .whyBenefit:last-child {
-    padding-right: 0;
-}
-
-.editorialBrand .whyBenefit:not(:first-child) {
-    border-left: 1px solid rgba(255, 255, 255, 0.18);
-}
-
-.editorialBrand .whyBenefitIcon {
-    flex-shrink: 0;
-    width: 76px;
-    height: 76px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.editorialBrand .whyBenefitIconOrange svg { color: #FF6238; }
-.editorialBrand .whyBenefitIconYellow svg { color: #FFC400; }
-.editorialBrand .whyBenefitIconPink svg { color: #F28AAA; }
-
-.editorialBrand .whyBenefitText h3 {
-    margin: 0 0 10px;
+.editorialBrand .whyNarrativeStatement {
+    margin: 26px 0 0;
+    max-width: 860px;
     font-family: var(--font-display);
     font-weight: 500;
-    font-size: clamp(24px, 1.8vw, 27px);
-    letter-spacing: -0.01em;
-    color: #F5F2EC;
+    font-size: clamp(28px, 2.6vw, 40px);
+    line-height: 1.15;
+    color: var(--why-ink);
 }
 
-.editorialBrand .whyBenefitText p {
+.editorialBrand .whyNarrativeRows {
+    list-style: none;
+    margin: 44px 0 0;
+    padding: 0;
+}
+
+.editorialBrand .whyNarrativeRow {
+    display: grid;
+    grid-template-columns: 72px 1px minmax(200px, 0.85fr) minmax(300px, 1.35fr);
+    column-gap: 36px;
+    align-items: center;
+    padding: 26px 0;
+}
+
+.editorialBrand .whyNarrativeRow:not(:last-child) {
+    border-bottom: 1px solid var(--why-rule-soft);
+}
+
+.editorialBrand .whyRowNumber {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(40px, 3.2vw, 52px);
+    line-height: 0.9;
+}
+
+.editorialBrand .whyRowNumberorange { color: var(--why-orange); }
+.editorialBrand .whyRowNumberyellow { color: var(--why-yellow); }
+.editorialBrand .whyRowNumberpink { color: var(--why-pink); }
+
+.editorialBrand .whyRowDivider {
+    width: 1px;
+    height: 44px;
+    background: var(--why-rule);
+    justify-self: center;
+}
+
+.editorialBrand .whyRowContent {
+    display: contents;
+}
+
+.editorialBrand .whyRowHeading {
     margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(22px, 1.6vw, 27px);
+    line-height: 1.1;
+    color: var(--why-ink);
+}
+
+.editorialBrand .whyRowDescription {
+    margin: 0;
+    max-width: 38ch;
     font-family: var(--font-body);
-    font-size: clamp(17px, 1.2vw, 19px);
-    line-height: 1.45;
-    color: #B8B8B8;
+    font-size: clamp(15px, 1vw, 17px);
+    line-height: 1.5;
+    color: var(--why-body);
+}
+
+.editorialBrand .whyConclusionBand {
+    margin-top: 40px;
+    min-height: 108px;
+    background: var(--why-band-bg);
+    padding: 26px 36px;
+    display: flex;
+    align-items: center;
+}
+
+.editorialBrand .whyConclusionAccent {
+    flex-shrink: 0;
+    width: 4px;
+    height: 56px;
+    background: var(--why-pink-accent);
+    margin-right: 28px;
+}
+
+.editorialBrand .whyConclusionHeadline {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(22px, 1.7vw, 28px);
+    line-height: 1.15;
+    color: var(--why-band-ink);
+}
+
+.editorialBrand .whyConclusionSupport {
+    margin: 8px 0 0;
+    font-family: var(--font-body);
+    font-size: clamp(14px, 0.9vw, 16px);
+    color: var(--why-band-body);
 }
 
 /* Reveal-on-scroll: subtle fade + rise, staggered, no parallax/glow */
@@ -2362,73 +2424,64 @@ blockquote {
     }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1200px) {
     .editorialBrand .whySection {
-        padding: 96px 5vw 80px;
+        grid-template-columns: 1fr;
     }
-    .editorialBrand .whyMainGrid {
-        column-gap: 6vw;
+    .editorialBrand .whyMeaningPanel {
+        padding: 56px 6vw 58px;
     }
-    .editorialBrand .whyMeaningWord {
-        font-size: clamp(64px, 8vw, 92px);
+    .editorialBrand .whyNarrativePanel {
+        padding: 56px 6vw 64px;
+    }
+    .editorialBrand .whyNarrativeRow {
+        grid-template-columns: 56px 1px 1fr;
+    }
+    .editorialBrand .whyRowContent {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .editorialBrand .whyRowDescription {
+        max-width: none;
     }
 }
 
-@media (max-width: 900px) {
-    .editorialBrand .whyMainGrid {
-        grid-template-columns: 1fr;
-        row-gap: 56px;
+@media (max-width: 700px) {
+    .editorialBrand .whyMeaningPanel {
+        padding: 64px 24px;
     }
-    .editorialBrand .whyMeaningCol {
-        padding-top: 0;
-    }
-    .editorialBrand .whyBenefitRow {
-        grid-template-columns: 1fr;
-        row-gap: 32px;
-    }
-    .editorialBrand .whyBenefit {
-        padding: 0 !important;
-        border-left: none !important;
-    }
-    .editorialBrand .whyBenefit:not(:first-child) {
-        border-top: 1px solid rgba(255, 255, 255, 0.18);
-        padding-top: 32px !important;
-    }
-}
-
-@media (max-width: 640px) {
-    .editorialBrand .whySection {
-        padding: 64px 24px 56px;
-    }
-    .editorialBrand .whyLabelRow {
-        margin-bottom: 44px;
+    .editorialBrand .whyNarrativePanel {
+        padding: 56px 24px 64px;
     }
     .editorialBrand .whyHeadline {
-        font-size: clamp(44px, 11vw, 52px);
-        line-height: 1.05;
-    }
-    .editorialBrand .whySupportCopy {
-        margin-top: 24px;
-    }
-    .editorialBrand .whyMeaningRow {
-        gap: 18px;
-        padding: 16px 0;
+        font-size: clamp(30px, 8vw, 38px);
     }
     .editorialBrand .whyMeaningWord {
-        font-size: clamp(52px, 16vw, 64px);
+        font-size: clamp(42px, 13vw, 54px);
     }
-    .editorialBrand .whyMeaningDef {
-        font-size: 14px;
+    .editorialBrand .whyMeaningFooter {
+        align-self: stretch;
+        max-width: none;
     }
-    .editorialBrand .whySectionDivider {
-        margin: 44px 0 40px;
+    .editorialBrand .whyNarrativeRow {
+        grid-template-columns: 1fr;
+        row-gap: 12px;
     }
-    .editorialBrand .whyBenefit {
-        gap: 16px;
+    .editorialBrand .whyRowDivider {
+        display: none;
     }
-    .editorialBrand .whyBenefitIcon {
-        width: 60px;
-        height: 60px;
+    .editorialBrand .whyRowContent {
+        gap: 12px;
+    }
+    .editorialBrand .whyConclusionBand {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+    }
+    .editorialBrand .whyConclusionAccent {
+        margin-right: 0;
+        margin-bottom: 20px;
     }
 }
 
@@ -3739,7 +3792,8 @@ blockquote {
     background: #fff;
     border: 1px solid var(--line-soft);
     border-radius: 20px;
-    padding: 40px
+    padding: 40px;
+    overflow: hidden;
 }
 
 .editorialBrand .exploreCardLarge {
@@ -3749,26 +3803,29 @@ blockquote {
     align-items: stretch;
     gap: 0;
     padding: 0;
-    overflow: hidden
+    overflow: hidden;
 }
 
 .editorialBrand .exploreCardText {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px
+    gap: 10px;
+    position: relative;
+    z-index: 2;
+    min-width: 0;
 }
 
 .editorialBrand .exploreIndex {
     font-size: 13px;
     font-weight: 700;
     color: var(--evervie-orange);
-    letter-spacing: .08em
+    letter-spacing: .08em;
 }
 
 .editorialBrand .exploreCardText h3 {
     margin: 0;
-    font-size: clamp(22px, 2vw, 34px)
+    font-size: clamp(22px, 2vw, 34px);
 }
 
 .editorialBrand .exploreCardText p {
@@ -3776,58 +3833,88 @@ blockquote {
     color: var(--muted);
     font-size: 15px;
     line-height: 1.55;
-    max-width: 340px
+    max-width: 100%;
 }
 
 .editorialBrand .exploreCardText .btnOutline {
-    margin-top: 10px
+    margin-top: 10px;
+}
+
+.editorialBrand .exploreCardVisualWrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.editorialBrand .exploreCardLarge .exploreCardVisualWrap {
+    border-radius: 0;
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
 }
 
 .editorialBrand .exploreCardVisual {
     min-height: 180px;
+    height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 12px;
-    display: block
+    display: block;
 }
 
 .editorialBrand .exploreCardLarge .exploreCardVisual {
     height: 100%;
     min-height: 100%;
+    width: 100%;
     object-fit: cover;
-    object-position: right center;
-    transform: scale(1.2);
-    transform-origin: right center;
-    border-radius: 0
+    object-position: center;
+    transform: none;
+    border-radius: 0;
 }
 
 .editorialBrand .exploreCardLarge .exploreCardText {
     padding: 40px;
     align-self: center;
-    min-width: 0
+    min-width: 0;
+    position: relative;
+    z-index: 2;
 }
 
 @media(max-width:1180px) {
     .editorialBrand .exploreGrid {
         grid-template-columns: 1fr;
-        grid-template-rows: none
+        grid-template-rows: none;
     }
 
     .editorialBrand .exploreCardLarge {
-        grid-row: auto
+        grid-row: auto;
     }
 }
 
 @media(max-width:780px) {
     .editorialBrand .exploreCard,
     .editorialBrand .exploreCardLarge {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+    }
+
+    .editorialBrand .exploreCardVisualWrap,
+    .editorialBrand .exploreCardLarge .exploreCardVisualWrap {
+        min-height: 200px;
+        height: 200px;
+        width: 100%;
     }
 
     .editorialBrand .exploreCardVisual,
     .editorialBrand .exploreCardLarge .exploreCardVisual {
-        min-height: 160px;
-        height: auto
+        min-height: 200px;
+        height: 100%;
+        width: 100%;
+        transform: none;
+    }
+
+    .editorialBrand .exploreCardLarge .exploreCardText {
+        padding: 32px 24px;
     }
 }
 

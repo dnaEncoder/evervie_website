@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, Route, Routes, useLocation, useNavigate, useSearchParams, useParams, Navigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronLeft, ChevronRight, Activity, Home as HomeIcon, MapPin, Download, FileText, Newspaper, Calendar, Clock, Video, Bell, Search, ChevronDown, SlidersHorizontal, Inbox, AlertCircle, CalendarPlus, ExternalLink, X, PieChart, ClipboardList, CheckSquare, Folder, Briefcase, Phone, Send, Handshake, CheckCircle, Infinity as InfinityIcon } from "lucide-react";
+import { User, Users, Target, Sparkles, ShieldCheck, Droplet, HeartPulse, Microscope, HandHeart, Network, Presentation, BarChart3, Megaphone, PanelsTopLeft, ArrowRight, Globe2, UsersRound, Building2, Award, Heart, Mail, ArrowUp, TrendingUp, ChevronLeft, ChevronRight, Activity, Home as HomeIcon, MapPin, Download, FileText, Newspaper, Calendar, Clock, Video, Bell, Search, ChevronDown, SlidersHorizontal, Inbox, AlertCircle, CalendarPlus, ExternalLink, X, PieChart, ClipboardList, CheckSquare, Folder, Briefcase, Phone, Send, Handshake, CheckCircle } from "lucide-react";
 import { MapContainer, TileLayer, GeoJSON, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -1115,7 +1115,9 @@ function Signposts() {
               <p>{copy}</p>
               <Link to={to || "/"} className="btnOutline">{cta}</Link>
             </div>
-            <img src={img} alt="" className="exploreCardVisual" />
+            <div className="exploreCardVisualWrap">
+              <img src={img} alt="" className="exploreCardVisual" />
+            </div>
           </article>
         ))}
       </div>
@@ -1193,6 +1195,27 @@ function Editorial() {
   </main></Frame>;
 }
 
+const WHY_NARRATIVE_ROWS = [
+  {
+    number: "01",
+    accent: "orange",
+    heading: "Partner",
+    description: "Work with founder-led organizations delivering high-quality specialty care.",
+  },
+  {
+    number: "02",
+    accent: "yellow",
+    heading: "Expand access",
+    description: "Strengthen care for cancer, kidney disease and chronic conditions across tier 2 and tier 3 India.",
+  },
+  {
+    number: "03",
+    accent: "pink",
+    heading: "Grow the continuum",
+    description: "Extend from diagnostics, oncology and renal care into women's health, senior care and other underserved populations.",
+  },
+];
+
 function WhyEvervieSection() {
   const sectionRef = useRef(null);
   const [inView, setInView] = useState(false);
@@ -1219,67 +1242,66 @@ function WhyEvervieSection() {
 
   return (
     <section className={`whySection${inView ? " whyInView" : ""}`} ref={sectionRef}>
-      <div className="whyInner">
+      <div className="whyMeaningPanel">
         <div className="whyLabelRow">
           <EyebrowSymbol />
-          <span className="whyLabel">Why Evervie</span>
+          <span className="whyLabel">Why Evervie?</span>
         </div>
 
-        <div className="whyMainGrid">
-          <div className="whyHeadlineCol whyReveal">
-            <h2 className="whyHeadline">
-              Specialty care that<br />
-              reaches further—<br />
-              and stays with people.
-            </h2>
-            <p className="whySupportCopy">
-              We build and grow trusted healthcare platforms, bringing dependable care closer to the communities that need it.
-            </p>
-          </div>
+        <h2 className="whyHeadline whyReveal">
+          A healthcare<br />
+          institution built<br />
+          to grow with life.
+        </h2>
 
-          <div className="whyMeaningCol">
-            <div className="whyMeaningRow whyReveal whyRevealDelay1">
-              <span className="whyMeaningWord">ever</span>
-              <span className="whyMeaningDef">Continuity &amp; attention</span>
-            </div>
-            <div className="whyMeaningDivider" aria-hidden="true" />
-            <div className="whyMeaningRow whyReveal whyRevealDelay2">
-              <span className="whyMeaningWord">vie</span>
-              <span className="whyMeaningDef">Life itself</span>
-            </div>
-            <p className="whyMeaningFooter whyReveal whyRevealDelay2">Ongoing care, centred on life.</p>
+        <div className="whyHeadlineDivider" aria-hidden="true" />
+
+        <div className="whyMeaningBlock">
+          <div className="whyMeaningWordRow whyReveal whyRevealDelay1">
+            <span className="whyMeaningWord">ever</span>
+            <span className="whyMeaningDef">Continuity &amp; attention</span>
+          </div>
+          <div className="whyMeaningConnector" aria-hidden="true" />
+          <div className="whyMeaningWordRow whyReveal whyRevealDelay2">
+            <span className="whyMeaningWord">vie</span>
+            <span className="whyMeaningDef">Life itself</span>
           </div>
         </div>
 
-        <div className="whySectionDivider" aria-hidden="true" />
+        <p className="whyMeaningFooter whyReveal whyRevealDelay2">
+          Health is not a single fix. It is<br />
+          steady attention, over time.
+        </p>
+      </div>
 
-        <div className="whyBenefitRow">
-          <div className="whyBenefit whyReveal whyRevealDelay1">
-            <div className="whyBenefitIcon whyBenefitIconOrange">
-              <Users size={30} strokeWidth={1.25} />
-            </div>
-            <div className="whyBenefitText">
-              <h3>Closer to patients</h3>
-              <p>Quality care in underserved communities.</p>
-            </div>
-          </div>
-          <div className="whyBenefit whyReveal whyRevealDelay2">
-            <div className="whyBenefitIcon whyBenefitIconYellow">
-              <InfinityIcon size={30} strokeWidth={1.25} />
-            </div>
-            <div className="whyBenefitText">
-              <h3>Built for continuity</h3>
-              <p>Connected support from diagnosis onward.</p>
-            </div>
-          </div>
-          <div className="whyBenefit whyReveal whyRevealDelay3">
-            <div className="whyBenefitIcon whyBenefitIconPink">
-              <BarChart3 size={30} strokeWidth={1.25} />
-            </div>
-            <div className="whyBenefitText">
-              <h3>Better over time</h3>
-              <p>Stronger standards, teams and outcomes.</p>
-            </div>
+      <div className="whyNarrativePanel">
+        <header className="whyNarrativeHeader whyReveal">
+          <div className="eyebrow whyNarrativeEyebrow"><EyebrowSymbol />From India, for the world</div>
+          <h3 className="whyNarrativeStatement">
+            Evervie brings dependable specialty care closer<br />
+            to communities where the need has outgrown<br />
+            the infrastructure.
+          </h3>
+        </header>
+
+        <ol className="whyNarrativeRows">
+          {WHY_NARRATIVE_ROWS.map((row, i) => (
+            <li className={`whyNarrativeRow whyReveal whyRevealDelay${i + 1}`} key={row.number}>
+              <span className={`whyRowNumber whyRowNumber${row.accent}`}>{row.number}</span>
+              <span className="whyRowDivider" aria-hidden="true" />
+              <div className="whyRowContent">
+                <h3 className="whyRowHeading">{row.heading}</h3>
+                <p className="whyRowDescription">{row.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+
+        <div className="whyConclusionBand whyReveal">
+          <span className="whyConclusionAccent" aria-hidden="true" />
+          <div className="whyConclusionText">
+            <p className="whyConclusionHeadline">Care that compounds into better outcomes.</p>
+            <p className="whyConclusionSupport">Better standards. Deeper partnerships. Progress that holds up over time.</p>
           </div>
         </div>
       </div>
@@ -1529,7 +1551,9 @@ function AboutWhoWeAre() {
                   <p>{copy}</p>
                   <Link to={to || "/"} className="btnOutline">{cta}</Link>
                 </div>
-                <img src={img} alt="" className="exploreCardVisual" />
+                <div className="exploreCardVisualWrap">
+                  <img src={img} alt="" className="exploreCardVisual" />
+                </div>
               </article>
             ))}
           </div>
@@ -1938,7 +1962,9 @@ function AboutLeadership() {
                   <p>{copy}</p>
                   <Link to={to || "/"} className="btnOutline">{cta}</Link>
                 </div>
-                <img src={img} alt="" className="exploreCardVisual" />
+                <div className="exploreCardVisualWrap">
+                  <img src={img} alt="" className="exploreCardVisual" />
+                </div>
               </article>
             ))}
           </div>
