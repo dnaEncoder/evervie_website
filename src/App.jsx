@@ -1135,7 +1135,7 @@ function Editorial() {
       </div>
     </section>
 
-    {/* 2. About Evervie Section (with image at bottom) */}
+    {/* 2. About Evervie Section */}
     <section className="editorialAboutSection">
       <div className="editorialAboutContainer">
         <div className="editorialAboutContent">
@@ -1172,13 +1172,6 @@ function Editorial() {
             <Link to="/governance/board" className="btnOutline">Our board</Link>
           </div>
         </div>
-
-        <div className="editorialAboutVisual">
-          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
-          <div className="editorialAboutImageOverlay">
-            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1188,6 +1181,18 @@ function Editorial() {
     {/* 3. Map Section */}
     <section className="section">
       <CompanySnapshotWithMap />
+    </section>
+
+    {/* 4. About Evervie visual image */}
+    <section className="editorialLeadershipImageSection">
+      <div className="editorialLeadershipImageContainer">
+        <div className="editorialAboutVisual">
+          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
+          <div className="editorialAboutImageOverlay">
+            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
+          </div>
+        </div>
+      </div>
     </section>
 
     {/* 5. Signposts */}
@@ -1780,7 +1785,7 @@ function AboutLeadership() {
             <div className="wwaStatHead">
               <h2>Leading Evervie with <span className="highlight">long-term perspective</span>.</h2>
               <p className="wwaStatCopy">
-                Our leaders combine deep clinical capability with corporate stewardship to build and scale platforms capable of serving patient communities for generations. We believe that operational accountability, clinical excellence, and robust governance must grow together to build healthcare platforms that stand the test of time.
+                Evervie is run by leaders who bring together healthcare expertise, operating experience, governance discipline, and a shared commitment to building stronger systems of care. We make decisions with the next generation of patients in mind.
               </p>
             </div>
           </div>
