@@ -1183,18 +1183,6 @@ function Editorial() {
       <CompanySnapshotWithMap />
     </section>
 
-    {/* 4. About Evervie visual image */}
-    <section className="editorialLeadershipImageSection">
-      <div className="editorialLeadershipImageContainer">
-        <div className="editorialAboutVisual">
-          <img src="/Evervie_1583.jpg" alt="Evervie Leadership Group" className="editorialAboutImg" />
-          <div className="editorialAboutImageOverlay">
-            <span className="editorialAboutImageCaption">Evervie Leadership Team</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
     {/* 5. Signposts */}
     <Signposts />
   </main></Frame>;
@@ -1596,20 +1584,6 @@ const boardOfDirectors = [
     din: null,
     photo: "/leadership_srivatsan.png",
     qualifications: "Technologist and C-suite leader with three decades of experience across Vodafone and McKinsey, with expertise in strategy, technology, governance, cybersecurity, and digital transformation. MBA from HEC Paris / Ross School of Business and an M.Sc. in Economics, with a Bachelor of Engineering from BITS Pilani."
-  },
-  {
-    name: "Dr. Ellen Feehan",
-    designation: "Executive Director & CEO",
-    din: null,
-    photo: "/leadership_ellen.jpg",
-    qualifications: "Qualified medical doctor and ex-McKinsey partner with over 20 years of global experience. MB, BCh, BAO from Trinity College Dublin, an MBA from University College Dublin, and professional qualifications in Surgery and Plastic Surgery from the Royal College of Surgeons in Ireland, including FRCSI and FRCS (Plast)."
-  },
-  {
-    name: "Dr. Neeraja Nagarajan",
-    designation: "Executive Director & COO",
-    din: null,
-    photo: "/leadership_neeraja.jpg",
-    qualifications: "Medical doctor, public health scientist and ex-McKinsey Associate Partner with 15+ years of experience in India and the US. MBBS from Sriramachandra University, Chennai, MPH from Johns Hopkins and surgical training at Brigham and Women's Hospital."
   }
 ];
 
@@ -1639,64 +1613,76 @@ function AboutLeadership() {
       linkedin: "https://www.linkedin.com/in/prasad-v-potluri-8032699/"
     },
     {
-      name: "Dr. Ellen Feehan",
-      designation: "Chief Executive Officer",
-      photo: "/leadership_ellen.jpg",
-      shortBio: "Global healthcare leader, ex-McKinsey Partner and surgeon with operating experience across US, UK, EU, and APAC.",
-      expandedBio: "Dr. Ellen Feehan brings a rare combination of clinical expertise and global management consulting experience. A trained surgeon and former McKinsey Partner with cross-continental leadership, she founded the McKinsey Health Institute's Healthy Longevity initiative before joining Evervie as Chief Executive Officer.",
-      expertise: ["Healthcare Strategy", "Global Operations", "Longevity & Wellness"],
-      responsibilities: "Chief Executive Officer",
-      linkedin: "https://www.linkedin.com/in/ellen-feehan/"
+      name: "Dr. Bhushan Nemade",
+      designation: "Founder & Managing Director, Optimus Oncology",
+      photo: "/leadership_bhushan.jpeg",
+      shortBio: "Radiation oncologist trained at Tata Memorial Hospital with over 20 years in oncology and cancer care, who founded Optimus Oncology to build accessible cancer-care networks across Tier-2 and Tier-3 India.",
+      linkedin: "https://www.linkedin.com/in/dr-bhushan-nemade-76bbb13ba/"
     },
     {
-      name: "Dr. Neeraja Nagarajan",
-      designation: "Chief Operating Officer",
-      photo: "/leadership_neeraja.jpg",
-      shortBio: "US and India trained healthcare leader, ex-McKinsey Associate Partner with expertise in driving clinical quality and access.",
-      expandedBio: "Dr. Neeraja Nagarajan is a physician-scientist whose clinical and research experience spans Brigham and Women's Hospital, Harvard, and Johns Hopkins. A former McKinsey Associate Partner, her work has been published in The Lancet, BMJ and JAMA. She leads Evervie's operational delivery as Chief Operating Officer.",
-      expertise: ["Clinical Operations", "Health Systems", "Research & Evidence"],
-      responsibilities: "Chief Operating Officer",
-      linkedin: "https://www.linkedin.com/in/dr-neeraja-nagarajan-35696977/"
+      name: "Vikas Verma",
+      designation: "Co-Founder & Director, Epitome Hospitals & 7Med India",
+      photo: "/leadership_vikas.jpeg",
+      shortBio: "Results-driven healthcare leader with deep expertise in PPP, M&A, business strategy and operations, focused on building sustainable kidney care clinics, dialysis centres and hospital networks.",
+      linkedin: "https://www.linkedin.com/in/vikasverma83/"
     },
     {
-      name: "Dr. Sruthi Sivamurugan",
-      designation: "Director of Brand & Business Development",
-      photo: "/leadership_shruti.jpg",
-      shortBio: "Physician and hospital owner-operator with first-hand experience in healthcare P&L management, branding and business development.",
-      expandedBio: "Dr. Sruthi Sivamurugan is a physician and hospital owner-operator based in Chennai, bringing first-hand experience in hospital P&L management, marketing and business development to Evervie's growth strategy as Director of Brand & Business Development.",
-      expertise: ["Healthcare Marketing", "Hospital Operations", "Business Development"],
-      responsibilities: "Director of Brand & Business Development",
-      linkedin: "https://www.linkedin.com/in/dr-sruthi-sivamurugan-100a97125/"
+      name: "Dr. Srinivas Chilukuri",
+      designation: "Co-founder & Chairman, Optimus Oncology",
+      photo: "/leadership_srinivas.jpg",
+      shortBio: "Professor & Senior Consultant in Radiation Oncology at Apollo Proton Cancer Centre, Chennai, and co-founder of Optimus Oncology, now operating cancer centres across Latur, Solapur, Akola, Dhule, Pune and Surat.",
+      linkedin: "https://www.linkedin.com/in/chilukuri-srinivas-326909b/"
     },
     {
-      name: "Dr. Varshini Varadaraj",
-      designation: "Group Medical Director",
-      photo: "/leadership_varshini.jpg",
-      shortBio: "Physician-scientist, global thought leader on longevity with a focus on scaling evidence-based practice.",
-      expandedBio: "Dr. Varshini Varadaraj holds an MPH in epidemiology and biostatistics from Johns Hopkins, where she also serves as a faculty researcher. As Group Medical Director, she is responsible for clinical quality and outcomes measurement across all of Evervie's care platforms.",
-      expertise: ["Epidemiology", "Clinical Quality", "Outcomes Research"],
-      responsibilities: "Group Medical Director",
-      linkedin: "https://www.linkedin.com/in/varshini-varadaraj/"
+      name: "Ajay Kher",
+      designation: "Founder & Director, Vishwasth Healthcare & Integrated Kidney Solutions",
+      photo: "/leadership_ajay.png",
+      shortBio: "Nephrologist and transplant physician with a special interest in healthcare IT, drawing on over a decade of US healthcare experience to build EMR systems that improve care quality and patient outcomes.",
+      linkedin: "https://www.linkedin.com/in/ajay-kher-526511163/"
     },
     {
-      name: "Dr. Niranjani Nagarajan",
-      designation: "Director of Clinical Innovation",
-      photo: "/leadership_niranjani.jpg",
-      shortBio: "Specialty physician and US trained academic with experience implementing large scale public health innovations across India and Africa.",
-      expandedBio: "Dr. Niranjani Nagarajan is a physician-scientist with experience at the University of Michigan and Johns Hopkins. She has been involved in multi-country, NIH-funded research programmes spanning India, the US and Africa, and leads clinical innovation strategy at Evervie.",
-      expertise: ["Clinical Innovation", "Global Health", "NIH Research Programmes"],
-      responsibilities: "Director of Clinical Innovation",
-      linkedin: "https://www.linkedin.com/in/dr-niranjani-nagarajan-211668b6/"
+      name: "Mayank Sharma",
+      designation: "Co-Founder & Director, 7Med India & Epitome Hospitals",
+      photo: "/leadership_mayank.jpg",
+      shortBio: "Entrepreneur who co-founded 7Med India, a leading dialysis and renal care chain across Northern India, and Epitome Kidney Urology Institute, with a background spanning healthcare IT, insurance and medical devices.",
+      linkedin: "https://www.linkedin.com/in/mayanksharmaa/"
     },
     {
-      name: "Anjali Menon",
-      designation: "Lead of Innovation",
-      photo: "/leadership_anjali.jpg",
-      shortBio: "Healthcare investor and former McKinsey professional with experience building healthcare ventures from the ground up in India.",
-      expandedBio: "Anjali Menon is a former McKinsey professional who has built healthcare ventures from the ground up at Flagship Pioneering and W Health Ventures. As Lead of Innovation at Evervie, she drives the identification and development of new platform opportunities within the group.",
-      expertise: ["Healthcare Ventures", "Innovation Strategy", "New Platform Development"],
-      responsibilities: "Lead of Innovation",
-      linkedin: "https://www.linkedin.com/in/anjalimenon12/"
+      name: "Rakesh Thakur",
+      designation: "Co-Founder & Director, 7Med India",
+      photo: "/leadership_rakesh.jpg",
+      shortBio: "Business and market strategist with over five years leading business analytics, market research and nationwide expansion of dialysis and nephrology care centres across India.",
+      linkedin: "https://www.linkedin.com/in/rakesh-thakur-b018a418/"
+    },
+    {
+      name: "Dr. Nikhil S Ghadyalpatil",
+      designation: "Promoter Shareholder, Optimus Oncology",
+      photo: "/leadership_nikhil.jpeg",
+      shortBio: "Director of Medical Oncology at Apollo Cancer Centre, Hyderabad, and Director of Optimus Oncology, with over two decades of clinical experience in medical oncology.",
+      linkedin: "https://www.linkedin.com/in/drnikhilghadyalpatil/"
+    },
+    {
+      name: "Dr. Manish Siddha",
+      designation: "Promoter Shareholder & Centre In-Charge, Akola, Optimus Oncology",
+      photo: "/leadership_manish.jpeg",
+      shortBio: "Radiation oncologist trained at Tata Memorial Centre, Mumbai, with a deep understanding of cancer care delivery in rural and semi-urban India.",
+      linkedin: "https://www.linkedin.com/in/dr-manish-siddha-a33b603/"
+    },
+    {
+      name: "Dr. Pramod Tike",
+      designation: "Executive Director & Chief Operating Officer, Optimus Oncology",
+      photo: "/leadership_pramod.jpeg",
+      shortBio: "Radiation oncologist trained at Tata Memorial Centre, leading Optimus Oncology's operations and expansion of high-precision cancer care into Tier-2 and Tier-3 cities.",
+      linkedin: "https://www.linkedin.com/in/pramod-tike-79b02565/"
+    },
+    null,
+    null,
+    {
+      name: "Dr. Prakash",
+      designation: "Medilabs",
+      photo: "/leadership_prakash.jpg",
+      shortBio: "Part of the leadership team at Medilabs.",
+      linkedin: "https://www.linkedin.com/company/medilabs-unit-of-biohygea-global-private-limited/"
     },
     {
       name: "Raghu Chaitanya",
@@ -1707,7 +1693,15 @@ function AboutLeadership() {
       expertise: ["Corporate Finance", "Treasury", "Capital Planning"],
       responsibilities: "Chief Financial Officer",
       linkedin: "https://www.linkedin.com/in/raghu-chaitanya/"
-    }
+    },
+    {
+      name: "Vinay",
+      designation: "Company Secretary",
+      photo: null,
+      shortBio: "Leads company secretarial and compliance functions across the group.",
+      linkedin: null
+    },
+    null
   ];
 
   const advisors = [
@@ -1824,27 +1818,33 @@ function AboutLeadership() {
           </div>
 
           <div className="wwaBoardGrid">
-            {boardMembers.map((member) => (
-              <article key={member.name} className="wwaBoardCard">
-                <div className="wwaBoardCardVisual">
-                  {member.photo
-                    ? <img src={member.photo} alt={member.name} className="wwaBoardCardImg" />
-                    : <Placeholder text={member.name} className="wwaBoardCardImg" />}
-                </div>
-                <div className="wwaBoardCardContent">
-                  <h3>{member.name}</h3>
-                  <span className="wwaBoardCardTitle">{member.designation}</span>
-                  <p className="wwaBoardCardShortBio">{member.shortBio}</p>
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="wwaBoardCardBtn"
-                  >
-                    LinkedIn Profile <ArrowRight size={13} />
-                  </a>
-                </div>
-              </article>
+            {boardMembers.map((member, i) => (
+              member ? (
+                <article key={member.name} className="wwaBoardCard">
+                  <div className="wwaBoardCardVisual">
+                    {member.photo
+                      ? <img src={member.photo} alt={member.name} className="wwaBoardCardImg" />
+                      : <Placeholder text={member.name} className="wwaBoardCardImg" />}
+                  </div>
+                  <div className="wwaBoardCardContent">
+                    <h3>{member.name}</h3>
+                    <span className="wwaBoardCardTitle">{member.designation}</span>
+                    <p className="wwaBoardCardShortBio">{member.shortBio}</p>
+                    {member.linkedin && (
+                      <a
+                        href={member.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="wwaBoardCardBtn"
+                      >
+                        LinkedIn Profile <ArrowRight size={13} />
+                      </a>
+                    )}
+                  </div>
+                </article>
+              ) : (
+                <div key={`empty-${i}`} className="wwaBoardCardEmpty" aria-hidden="true" />
+              )
             ))}
           </div>
         </section>
@@ -5499,7 +5499,7 @@ function FinDocumentArchive({ category, onRequestDownload }) {
 
   const load = () => {
     setStatus("loading");
-    getFinancialDocuments(category.key, 50)
+    getFinancialDocuments(category.key, 500)
       .then((docs) => { setDocuments(docs); setStatus("loaded"); })
       .catch(() => setStatus("error"));
   };

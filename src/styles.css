@@ -1960,61 +1960,12 @@ blockquote {
     padding: 100px 64px;
 }
 
-.editorialBrand .editorialLeadershipImageSection {
-    background: #FAF9F8;
-    padding: 40px 64px 100px;
-}
-
-.editorialBrand .editorialLeadershipImageContainer {
-    max-width: 1312px;
-    margin: 0 auto;
-}
-
 .editorialBrand .editorialAboutContainer {
     display: flex;
     flex-direction: column;
     gap: 64px;
     max-width: 1312px;
     margin: 0 auto;
-}
-
-.editorialBrand .editorialAboutVisual {
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(40, 40, 40, 0.08), 0 1px 4px rgba(40, 40, 40, 0.04);
-    aspect-ratio: 21 / 9;
-    background: #eaeae8;
-    width: 100%;
-}
-
-.editorialBrand .editorialAboutImg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.editorialBrand .editorialAboutImageOverlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(40, 40, 40, 0.7) 0%, rgba(40, 40, 40, 0) 100%);
-    padding: 24px 32px;
-    display: flex;
-    align-items: flex-end;
-    z-index: 3;
-}
-
-.editorialBrand .editorialAboutImageCaption {
-    color: #fff;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
 }
 
 .editorialBrand .editorialAboutContent {
@@ -2141,10 +2092,6 @@ blockquote {
     .editorialBrand .editorialAboutSection {
         padding: 80px 40px;
     }
-
-    .editorialBrand .editorialAboutVisual {
-        aspect-ratio: 16 / 9;
-    }
 }
 
 @media (max-width: 768px) {
@@ -2161,10 +2108,6 @@ blockquote {
     .editorialBrand .editorialAboutActions .btnOutline {
         text-align: center;
         justify-content: center;
-    }
-
-    .editorialBrand .editorialAboutVisual {
-        aspect-ratio: 4 / 3;
     }
 
     .editorialBrand .editorialAboutPillars {
