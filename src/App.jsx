@@ -1614,7 +1614,7 @@ function AboutLeadership() {
     },
     {
       name: "Dr. Bhushan Nemade",
-      designation: "Founder & Managing Director, Optimus Oncology",
+      designation: "Managing Director & CEO",
       photo: "/leadership_bhushan.jpeg",
       shortBio: "Radiation oncologist trained at Tata Memorial Hospital with over 20 years in oncology and cancer care, who founded Optimus Oncology to build accessible cancer-care networks across Tier-2 and Tier-3 India.",
       linkedin: "https://www.linkedin.com/in/dr-bhushan-nemade-76bbb13ba/"
@@ -1628,7 +1628,7 @@ function AboutLeadership() {
     },
     {
       name: "Dr. Srinivas Chilukuri",
-      designation: "Co-founder & Chairman, Optimus Oncology",
+      designation: "Executive Director & Chairman",
       photo: "/leadership_srinivas.jpg",
       shortBio: "Professor & Senior Consultant in Radiation Oncology at Apollo Proton Cancer Centre, Chennai, and co-founder of Optimus Oncology, now operating cancer centres across Latur, Solapur, Akola, Dhule, Pune and Surat.",
       linkedin: "https://www.linkedin.com/in/chilukuri-srinivas-326909b/"
@@ -1656,27 +1656,25 @@ function AboutLeadership() {
     },
     {
       name: "Dr. Nikhil S Ghadyalpatil",
-      designation: "Promoter Shareholder, Optimus Oncology",
+      designation: "Promoter Shareholder",
       photo: "/leadership_nikhil.jpeg",
       shortBio: "Director of Medical Oncology at Apollo Cancer Centre, Hyderabad, and Director of Optimus Oncology, with over two decades of clinical experience in medical oncology.",
       linkedin: "https://www.linkedin.com/in/drnikhilghadyalpatil/"
     },
     {
       name: "Dr. Manish Siddha",
-      designation: "Promoter Shareholder & Centre In-Charge, Akola, Optimus Oncology",
+      designation: "Promoter Shareholder & Center In Charge for Akola",
       photo: "/leadership_manish.jpeg",
       shortBio: "Radiation oncologist trained at Tata Memorial Centre, Mumbai, with a deep understanding of cancer care delivery in rural and semi-urban India.",
       linkedin: "https://www.linkedin.com/in/dr-manish-siddha-a33b603/"
     },
     {
       name: "Dr. Pramod Tike",
-      designation: "Executive Director & Chief Operating Officer, Optimus Oncology",
+      designation: "Executive Director & COO",
       photo: "/leadership_pramod.jpeg",
       shortBio: "Radiation oncologist trained at Tata Memorial Centre, leading Optimus Oncology's operations and expansion of high-precision cancer care into Tier-2 and Tier-3 cities.",
       linkedin: "https://www.linkedin.com/in/pramod-tike-79b02565/"
     },
-    null,
-    null,
     {
       name: "Dr. Prakash",
       designation: "Medilabs",
@@ -1700,8 +1698,7 @@ function AboutLeadership() {
       photo: null,
       shortBio: "Leads company secretarial and compliance functions across the group.",
       linkedin: null
-    },
-    null
+    }
   ];
 
   const advisors = [

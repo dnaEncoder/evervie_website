@@ -5442,6 +5442,10 @@ blockquote {
     margin-top: 60px;
 }
 
+.editorialBrand .wwaBoard .wwaBoardGrid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
 .editorialBrand .wwaBoardCard {
     background: var(--canvas);
     border-radius: 20px;
