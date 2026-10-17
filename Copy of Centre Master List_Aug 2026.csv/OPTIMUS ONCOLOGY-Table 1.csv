@@ -1,0 +1,6 @@
+S.NO,Name of Center,City,State ,Coordinates,Verticals,Type of cente,Setup type,,,
+1,Solapur Cancer Centre,Solapur,Maharashtra,"17.656764, 75.896614",Oncology,Hospital,T2,,T1,"Single vault, RT+CHEMO"
+2,Lifepoint Multispeciality Hospital,Pune,Maharashtra,"18.597730, 73.755635",Oncology,Hospital,T3,,T2,"Single vault, RT only"
+3,Khandesh Cancer Centre,Dhule,Maharashtra,"20.873641, 74.762007",Oncology,Hospital,T2,,T3,"Dual Vault, RT only"
+4,Vivekanand Cancer Hospital,Latur,Maharashtra,"18.414554, 76.538606",Oncology,Hospital,T2,,,
+5,Belgaum Cancer Hospital,Belagavi,Karnataka,"15.872094, 74.527796",Oncology,Hospital,T2,,,
