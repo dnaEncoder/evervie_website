@@ -1614,72 +1614,75 @@ function AboutLeadership() {
     },
     {
       name: "Dr. Bhushan Nemade",
-      designation: "Managing Director & CEO",
+      designation: "Managing Director & CEO | Optimus Oncology",
       photo: "/leadership_bhushan.jpeg",
-      shortBio: "Radiation oncologist trained at Tata Memorial Hospital with over 20 years in oncology and cancer care, who founded Optimus Oncology to build accessible cancer-care networks across Tier-2 and Tier-3 India.",
+      shortBio: "A distinguished oncologist with over 20 years of experience, MD in Radiation Oncology from Tata Memorial Hospital, Mumbai, dedicated to advancing accessible cancer care. As Founder and Managing Director of Optimus Oncology Pvt. Ltd., the focus is on expanding advanced oncology services across Tier-2 and Tier-3 cities, bringing world-class cancer care closer to home.",
       linkedin: "https://www.linkedin.com/in/dr-bhushan-nemade-76bbb13ba/"
     },
     {
       name: "Vikas Verma",
-      designation: "Co-Founder & Director, Epitome Hospitals & 7Med India",
+      designation: "Co-Founder & Director | 7Med India & Epitome Hospitals",
       photo: "/leadership_vikas.jpeg",
-      shortBio: "Results-driven healthcare leader with deep expertise in PPP, M&A, business strategy and operations, focused on building sustainable kidney care clinics, dialysis centres and hospital networks.",
+      shortBio: "A visionary healthcare entrepreneur driving strategic growth, business transformation, and healthcare innovation. Committed to building scalable healthcare platforms that expand access to quality care, deliver sustainable growth, and create lasting value for patients, partners, and communities.",
       linkedin: "https://www.linkedin.com/in/vikasverma83/"
     },
+    null,
     {
       name: "Dr. Srinivas Chilukuri",
-      designation: "Executive Director & Chairman",
+      designation: "Executive Director & Chairman | Optimus Oncology",
       photo: "/leadership_srinivas.jpg",
-      shortBio: "Professor & Senior Consultant in Radiation Oncology at Apollo Proton Cancer Centre, Chennai, and co-founder of Optimus Oncology, now operating cancer centres across Latur, Solapur, Akola, Dhule, Pune and Surat.",
+      shortBio: "A visionary oncologist and healthcare leader, Dr. Srinivas Chilukuri drives Optimus Oncology's strategic growth, network expansion, and clinical innovation, advancing its mission to make high-quality cancer care accessible across India.",
       linkedin: "https://www.linkedin.com/in/chilukuri-srinivas-326909b/"
     },
     {
-      name: "Ajay Kher",
-      designation: "Founder & Director, Vishwasth Healthcare & Integrated Kidney Solutions",
+      name: "Dr. Ajay Kher",
+      designation: "Medical Director | Nephrologist | 7Med India & Epitome Hospitals",
       photo: "/leadership_ajay.png",
-      shortBio: "Nephrologist and transplant physician with a special interest in healthcare IT, drawing on over a decade of US healthcare experience to build EMR systems that improve care quality and patient outcomes.",
+      shortBio: "A distinguished nephrologist and healthcare leader, Dr. Ajay Kher brings over two decades of international experience in kidney care, transplantation, and clinical research. An AIIMS alumnus with advanced training at Harvard Medical School, he champions clinical excellence, medical innovation, and accessible, evidence-based healthcare, advancing patient-centered kidney care through his leadership at Epitome Hospitals and 7Med.",
       linkedin: "https://www.linkedin.com/in/ajay-kher-526511163/"
     },
     {
       name: "Mayank Sharma",
-      designation: "Co-Founder & Director, 7Med India & Epitome Hospitals",
+      designation: "Co-Founder & Director | 7Med India & Epitome Hospitals",
       photo: "/leadership_mayank.jpg",
-      shortBio: "Entrepreneur who co-founded 7Med India, a leading dialysis and renal care chain across Northern India, and Epitome Kidney Urology Institute, with a background spanning healthcare IT, insurance and medical devices.",
+      shortBio: "An entrepreneur at heart, with work experience ranging from innovative healthcare delivery models in industry segments spanning Healthcare IT, Mega Health Insurance Schemes, Telemedicine and the medical devices sector. Currently working to take renal care to the last mile patient in India.",
       linkedin: "https://www.linkedin.com/in/mayanksharmaa/"
     },
+    null,
     {
       name: "Rakesh Thakur",
-      designation: "Co-Founder & Director, 7Med India",
+      designation: "Co-Founder & Director | 7Med India",
       photo: "/leadership_rakesh.jpg",
-      shortBio: "Business and market strategist with over five years leading business analytics, market research and nationwide expansion of dialysis and nephrology care centres across India.",
+      shortBio: "A visionary healthcare leader with 18+ years of experience, Dr. Rakesh Thakur drives strategic growth, business transformation, and healthcare innovation. His vision is to build scalable, high-impact healthcare platforms that expand access, strengthen operational excellence, and deliver sustainable growth.",
       linkedin: "https://www.linkedin.com/in/rakesh-thakur-b018a418/"
     },
     {
-      name: "Dr. Nikhil S Ghadyalpatil",
-      designation: "Promoter Shareholder",
+      name: "Dr. Nikhil S. Ghadyalpatil",
+      designation: "Promoter & Shareholder | Optimus Oncology",
       photo: "/leadership_nikhil.jpeg",
-      shortBio: "Director of Medical Oncology at Apollo Cancer Centre, Hyderabad, and Director of Optimus Oncology, with over two decades of clinical experience in medical oncology.",
+      shortBio: "With extensive experience in medical oncology, clinical research, and cancer care, he is a distinguished oncologist and healthcare leader. As Director of Medical Oncology at Apollo Cancer Centre, Hyderabad, and Director at Optimus Oncology Pvt. Ltd., he brings clinical expertise and strategic vision to advancing accessible, high-quality cancer care.",
       linkedin: "https://www.linkedin.com/in/drnikhilghadyalpatil/"
     },
     {
       name: "Dr. Manish Siddha",
-      designation: "Promoter Shareholder & Center In Charge for Akola",
+      designation: "Promoter, Shareholder & Center In-Charge – Akola | Optimus Oncology",
       photo: "/leadership_manish.jpeg",
-      shortBio: "Radiation oncologist trained at Tata Memorial Centre, Mumbai, with a deep understanding of cancer care delivery in rural and semi-urban India.",
+      shortBio: "With a strong foundation in radiation oncology and an in-depth understanding of cancer care needs in rural communities, Dr. Manish Siddha combines clinical expertise with a commitment to expanding access to quality cancer treatment. He plays a key role in leading the Akola centre and advancing Optimus Oncology's mission to make advanced cancer care more accessible across underserved regions.",
       linkedin: "https://www.linkedin.com/in/dr-manish-siddha-a33b603/"
     },
+    null,
     {
       name: "Dr. Pramod Tike",
-      designation: "Executive Director & COO",
+      designation: "Executive Director & COO | Optimus Oncology",
       photo: "/leadership_pramod.jpeg",
-      shortBio: "Radiation oncologist trained at Tata Memorial Centre, leading Optimus Oncology's operations and expansion of high-precision cancer care into Tier-2 and Tier-3 cities.",
+      shortBio: "With expertise in radiation oncology and healthcare operations, Dr. Pramod Tike drives strategic planning, operational excellence, and organisational growth at Optimus Oncology. He is committed to expanding access to advanced, affordable cancer care and advancing radiotherapy innovation across India.",
       linkedin: "https://www.linkedin.com/in/pramod-tike-79b02565/"
     },
     {
-      name: "Dr. Prakash",
-      designation: "Medilabs",
+      name: "Dr. Prakash K. Cherukuri",
+      designation: "Radiologist | Healthcare Entrepreneur & CEO | Medilabs",
       photo: "/leadership_prakash.jpg",
-      shortBio: "Part of the leadership team at Medilabs.",
+      shortBio: "A visionary healthcare leader, Dr. Prakash aims to transform diagnostic healthcare through advanced imaging, precision medicine, and technology-driven innovation. As Founder and CEO of BioHygea Global Pvt. Ltd., associated with Medilabs, he focuses on expanding access to accurate, high-quality diagnostics and building scalable healthcare solutions that improve patient outcomes.",
       linkedin: "https://www.linkedin.com/company/medilabs-unit-of-biohygea-global-private-limited/"
     },
     {
@@ -1692,10 +1695,11 @@ function AboutLeadership() {
       responsibilities: "Chief Financial Officer",
       linkedin: "https://www.linkedin.com/in/raghu-chaitanya/"
     },
+    null,
     {
       name: "Vinay",
       designation: "Company Secretary",
-      photo: null,
+      photo: "/leadership_vinay.jpeg",
       shortBio: "Leads company secretarial and compliance functions across the group.",
       linkedin: null
     }
