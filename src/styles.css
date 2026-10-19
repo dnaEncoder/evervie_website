@@ -6175,10 +6175,28 @@ blockquote {
 }
 
 @media (max-width: 768px) {
+    .editorialBrand .wwaChairman,
+    .editorialBrand .wwaBoard,
+    .editorialBrand .wwaExec,
+    .editorialBrand .wwaDirectors,
+    .editorialBrand .wwaPhilosophy {
+        padding: 56px 20px;
+    }
+
     .editorialBrand .wwaBoardGrid {
         grid-template-columns: 1fr;
         gap: 24px;
         margin-top: 32px;
+    }
+
+    .editorialBrand .wwaBoardCardEmpty {
+        display: none;
+    }
+
+    .editorialBrand .wwaBoardCard {
+        max-width: 420px;
+        margin: 0 auto;
+        width: 100%;
     }
 }
 
@@ -6189,7 +6207,7 @@ blockquote {
     .editorialBrand .wwaExec,
     .editorialBrand .wwaDirectors,
     .editorialBrand .wwaPhilosophy {
-        padding: 60px 24px;
+        padding: 48px 16px;
     }
 
     .editorialBrand .wwaModal {
