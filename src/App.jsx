@@ -1697,8 +1697,8 @@ function AboutLeadership() {
     },
     null,
     {
-      name: "Vinay",
-      designation: "Company Secretary",
+      name: "Vinay Paruchuru",
+      designation: "Company Secretary & Compliance Officer",
       photo: "/leadership_vinay.jpeg",
       shortBio: "A seasoned Company Secretary with over 15 years of experience in corporate governance, SEBI regulations, and listed company compliance. Having held key roles at Pokarna Limited and Kapil Group, he brings expertise in board advisory, investor relations, corporate restructuring, and litigation management. At Evervie Health Limited, he leads secretarial and listing compliance, strengthening governance practices and supporting the Board in strategic decision-making.",
       linkedin: null
