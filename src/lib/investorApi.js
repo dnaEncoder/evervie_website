@@ -105,22 +105,38 @@ export async function getInvestorCentrePage() {
 }
 
 export async function getFinancialDocuments(category, limit = 5) {
-  const query = [
+  // Strapi caps pagination[pageSize] at 100 server-side regardless of what's
+  // requested here, so a category with more than 100 published entries would
+  // silently lose everything past page 1 unless we page through the rest.
+  const pageSize = Math.min(limit, 100);
+  const baseQuery = [
     `filters[category][$eq]=${encodeURIComponent(category)}`,
     `filters[showOnInvestorCentre][$eq]=true`,
     `sort[0]=sortPriority:asc`,
     `sort[1]=publicationDate:desc`,
-    `pagination[pageSize]=${limit}`,
     `populate[coverImage]=true`,
     `populate[documentFile]=true`,
     `status=published`,
-  ].join("&");
+  ];
 
   const defaultNoticeAnnouncements = ALL_ANNOUNCEMENTS;
 
   try {
-    const data = await strapiFetch(`/api/financial-documents?${query}`);
-    let docs = (data ?? []).map(mapReport);
+    let allEntries = [];
+    let page = 1;
+    for (;;) {
+      const query = [
+        ...baseQuery,
+        `pagination[page]=${page}`,
+        `pagination[pageSize]=${pageSize}`,
+      ].join("&");
+      const json = await strapiFetchJson(`/api/financial-documents?${query}`);
+      allEntries = allEntries.concat(json.data ?? []);
+      const pageCount = json.meta?.pagination?.pageCount ?? 1;
+      if (page >= pageCount || allEntries.length >= limit) break;
+      page += 1;
+    }
+    let docs = allEntries.slice(0, limit).map(mapReport);
     if (category === "notice-announcement") {
       if (docs.length === 0) {
         return defaultNoticeAnnouncements;
