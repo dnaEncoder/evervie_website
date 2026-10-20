@@ -4653,6 +4653,14 @@ function formatDisplayDate(iso) {
   return d.toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" });
 }
 
+// Announcements store a single-year financialYear (e.g. "2026"), but should
+// display as the Indian fiscal-year range it represents, e.g. "2026-2027".
+function formatFYRange(year) {
+  const y = parseInt(year, 10);
+  if (!year || Number.isNaN(y)) return year || "";
+  return `${y}-${y + 1}`;
+}
+
 function formatEventDateTime(startAt, timezone) {
   if (!startAt) return { date: "", time: "" };
   const d = new Date(startAt);
@@ -5369,7 +5377,7 @@ function FinExpandedRow({ doc, onRequestDownload }) {
       <div className="finRowBody">
         {(doc.financialYear || doc.reportingPeriod) && (
           <span className="finRowMeta">
-            {doc.financialYear ? `FY ${doc.financialYear}` : ""}
+            {doc.financialYear ? `FY ${doc.category === "notice-announcement" ? formatFYRange(doc.financialYear) : doc.financialYear}` : ""}
             {doc.reportingPeriod ? ` · ${doc.reportingPeriod}` : ""}
           </span>
         )}
@@ -5605,7 +5613,11 @@ function FinDocumentArchive({ category, onRequestDownload }) {
               <div className="finFilterField">
                 <select value={financialYear} onChange={(e) => setFinancialYear(e.target.value)} aria-label="Filter by financial year">
                   <option value="all">All financial years</option>
-                  {financialYears.map((y) => <option key={y} value={y}>FY {y}</option>)}
+                  {financialYears.map((y) => (
+                    <option key={y} value={y}>
+                      FY {category.key === "notice-announcement" ? formatFYRange(y) : y}
+                    </option>
+                  ))}
                 </select>
                 <ChevronDown size={14} aria-hidden="true" />
               </div>
@@ -5668,7 +5680,11 @@ function FinDocumentArchive({ category, onRequestDownload }) {
           </div>
           {compactGroups.map((group, groupIndex) => (
             <div className="finYearGroup" key={group.year || `no-year-${groupIndex}`}>
-              {group.year && <h3 className="finYearHeading">FY {group.year}</h3>}
+              {group.year && (
+                <h3 className="finYearHeading">
+                  FY {category.key === "notice-announcement" ? formatFYRange(group.year) : group.year}
+                </h3>
+              )}
               {group.quarters ? (
                 group.quarters.map((quarter, quarterIndex) => (
                   <div className="finQuarterGroup" key={quarter.period || `no-quarter-${quarterIndex}`}>
